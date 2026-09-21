@@ -5,20 +5,27 @@
 }
 
 :root {
-  --cream: #f6f1e8;
+  --cream: #f5f0e7;
+  --cream-light: #fbf8f2;
   --deep-green: #173b32;
+  --green-soft: #d8e0d4;
   --sage: #b8c7b5;
   --white: #ffffff;
   --text: #1d2924;
-  --muted: #718078;
-  --soft: #ebe5da;
+  --muted: #78837d;
+  --line: #e4ddd2;
+  --radius: 26px;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   font-family: Georgia, "Times New Roman", serif;
   background: var(--cream);
   color: var(--text);
-  padding-bottom: 90px;
+  padding-bottom: 105px;
 }
 
 /* HEADER */
@@ -31,65 +38,87 @@ body {
 }
 
 .logo {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   color: var(--deep-green);
 }
 
 .header-actions {
   display: flex;
-  gap: 10px;
+  gap: 9px;
 }
 
 .header-actions button {
-  width: 42px;
-  height: 42px;
-  border: none;
-  border-radius: 18px;
-  background: var(--white);
+  width: 43px;
+  height: 43px;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  background: var(--cream-light);
   color: var(--deep-green);
-  font-size: 18px;
+  font-size: 19px;
 }
 
-/* WELCOME BANNER */
+/* WELCOME */
 
 .welcome {
-  margin: 8px 16px 24px;
-  min-height: 210px;
-  padding: 26px;
-  border-radius: 30px;
+  position: relative;
+  overflow: hidden;
+  margin: 8px 16px 30px;
+  min-height: 285px;
+  padding: 28px;
+  border-radius: var(--radius);
   background:
     linear-gradient(
-      120deg,
-      rgba(23, 59, 50, 0.96),
-      rgba(67, 94, 80, 0.82)
+      135deg,
+      rgba(23, 59, 50, 0.98),
+      rgba(69, 91, 78, 0.92)
     );
   color: white;
   display: flex;
   align-items: flex-end;
-  box-shadow: 0 12px 30px rgba(23, 59, 50, 0.15);
+  box-shadow: 0 15px 35px rgba(23, 59, 50, 0.16);
+}
+
+.welcome::after {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  right: -55px;
+  top: -50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .welcome p {
+  position: relative;
+  z-index: 1;
   font-family: Arial, sans-serif;
-  font-size: 11px;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  margin-bottom: 9px;
 }
 
 .welcome h1 {
-  font-size: 31px;
+  position: relative;
+  z-index: 1;
+  font-size: 34px;
   line-height: 1.08;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
 .welcome button {
+  position: relative;
+  z-index: 1;
   border: none;
   background: white;
   color: var(--deep-green);
-  padding: 12px 18px;
-  border-radius: 18px;
+  padding: 13px 19px;
+  border-radius: 17px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
   font-weight: bold;
 }
 
@@ -97,18 +126,19 @@ body {
 
 .section {
   padding: 0 16px;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 .section-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
+  margin-bottom: 15px;
 }
 
 .section-title h2 {
   font-size: 22px;
+  font-weight: 600;
 }
 
 .section-title span {
@@ -122,17 +152,19 @@ body {
 .categories {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 9px;
 }
 
 .categories button {
-  min-height: 74px;
-  border: none;
-  border-radius: 22px;
+  min-height: 82px;
+  border: 1px solid rgba(23, 59, 50, 0.08);
+  border-radius: 23px;
   background: var(--sage);
   color: var(--deep-green);
   font-family: Georgia, serif;
+  font-size: 13px;
   font-weight: bold;
+  box-shadow: 0 7px 18px rgba(23, 59, 50, 0.06);
 }
 
 /* PRODUCTS */
@@ -140,87 +172,120 @@ body {
 .products {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  gap: 15px;
 }
 
 .product-card {
-  background: var(--white);
-  border-radius: 26px;
-  padding: 10px;
-  box-shadow: 0 8px 24px rgba(23, 59, 50, 0.08);
+  overflow: hidden;
+  background: var(--cream-light);
+  border: 1px solid rgba(23, 59, 50, 0.06);
+  border-radius: 25px;
+  padding: 9px;
+  box-shadow: 0 9px 25px rgba(23, 59, 50, 0.07);
 }
 
 .product-image {
   height: 190px;
-  border-radius: 21px;
-  background: var(--soft);
+  border-radius: 20px;
+  background:
+    linear-gradient(
+      145deg,
+      #e4dfd5,
+      #d4dcd3
+    );
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: var(--muted);
   font-family: Arial, sans-serif;
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .product-card h3 {
   font-size: 15px;
-  margin: 11px 5px 5px;
+  margin: 12px 5px 6px;
+  font-weight: 600;
 }
 
 .product-card p {
-  margin: 0 5px 5px;
+  margin: 0 5px 6px;
   font-family: Arial, sans-serif;
+  font-size: 14px;
   font-weight: bold;
+  color: var(--deep-green);
 }
 
 .product-card small {
-  margin: 0 5px;
+  display: block;
+  margin: 0 5px 4px;
   color: var(--muted);
   font-family: Arial, sans-serif;
-  font-size: 10px;
+  font-size: 9px;
 }
 
 /* BOTTOM NAVIGATION */
 
 .bottom-nav {
   position: fixed;
+  z-index: 20;
   bottom: 12px;
   left: 12px;
   right: 12px;
-  height: 64px;
+  height: 68px;
   background: var(--deep-green);
-  border-radius: 27px;
+  border-radius: 25px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   align-items: center;
   padding: 6px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18);
 }
 
 .bottom-nav button {
   border: none;
   background: transparent;
-  color: white;
+  color: rgba(255, 255, 255, 0.72);
   font-family: Arial, sans-serif;
-  font-size: 10px;
-  padding: 10px 2px;
+  font-size: 9px;
+  padding: 11px 2px;
   border-radius: 18px;
 }
 
 .bottom-nav button:first-child {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.14);
+  color: white;
 }
 
-/* MOBILE */
+/* BUTTON INTERACTION */
+
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* SMALL PHONES */
 
 @media (max-width: 380px) {
-  .categories {
-    grid-template-columns: repeat(2, 1fr);
+  .logo {
+    font-size: 26px;
+  }
+
+  .welcome {
+    min-height: 260px;
+    padding: 23px;
   }
 
   .welcome h1 {
-    font-size: 27px;
+    font-size: 29px;
+  }
+
+  .categories {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .product-image {
