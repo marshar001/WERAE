@@ -593,3 +593,27 @@ PRODUCT DETAILS PAGE
   font-weight: bold;
   color: #b18a22;
 }
+/* Photo Counter */
+
+.main-product-image {
+  position: relative;
+}
+
+.photo-counter {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+
+  padding: 3px 7px;
+
+  background: rgba(23, 59, 50, 0.9);
+  color: white;
+
+  border-radius: 7px;
+
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  font-weight: bold;
+
+  line-height: 1.2;
+}
