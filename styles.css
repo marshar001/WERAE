@@ -485,3 +485,95 @@ PRODUCT DETAILS PAGE
   border-color: var(--deep-green);
   transform: translateY(-2px);
 }
+/* Compact WERAE product page */
+
+.product-page {
+  max-width: 520px;
+  padding: 14px 14px 90px;
+}
+
+.main-product-image {
+  height: 340px;
+  border-radius: 22px;
+}
+
+.product-information {
+  margin-top: 16px;
+}
+
+.product-information h1 {
+  font-size: 22px;
+  margin: 7px 0;
+}
+
+.product-price {
+  font-size: 18px;
+}
+
+.product-condition,
+.product-description {
+  margin-top: 9px;
+  line-height: 1.45;
+  font-size: 13px;
+}
+
+.seller-card,
+.protection-card {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 18px;
+}
+
+.seller-card h2,
+.protection-card h2 {
+  font-size: 16px;
+}
+
+.seller-card p,
+.protection-card p {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.buy-button {
+  height: 50px;
+  margin-top: 16px;
+  border-radius: 18px;
+  font-size: 15px;
+}
+
+/* Small colour selector */
+
+.color-options {
+  display: flex;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.color-option {
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text);
+}
+
+.color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px #b8b8b8;
+}
+
+.color-swatch.black {
+  background: #111111;
+}
+
+.color-option.active .color-swatch {
+  box-shadow: 0 0 0 2px var(--deep-green);
+}
