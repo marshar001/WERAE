@@ -446,20 +446,7 @@ PRODUCT DETAILS PAGE
   box-shadow: 0 12px 30px rgba(23, 59, 50, .10);
 }
 
-.product-thumbnails {
-  margin-top: 12px;
-}
 
-.product-thumbnails button {
-  border: 2px solid transparent;
-  background: #eee9df;
-  transition: .2s ease;
-}
-
-.product-thumbnails button:hover {
-  border-color: var(--deep-green);
-  transform: translateY(-2px);
-}
 /* Compact WERAE product page */
 
 .product-page {
