@@ -129,7 +129,12 @@ let currentImage = 0;
 
 function showProductImage(index) {
   currentImage = (index + productImages.length) % productImages.length;
-  document.getElementById("mainProductImage").src = productImages[currentImage];
+
+  document.getElementById("mainProductImage").src =
+    productImages[currentImage];
+
+  document.getElementById("photoCounter").textContent =
+    (currentImage + 1) + " / " + productImages.length;
 }
 
 let startX = 0;
