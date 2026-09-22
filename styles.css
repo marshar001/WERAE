@@ -301,33 +301,36 @@ button:active {
 .welcome button {
   padding: 5px 9px !important;
   font-size: 7px !important;
-  border-radius: 9px !important;
-}
-.categories {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(2, 54px);
-  grid-auto-columns: 105px;
-  gap: 10px;
-  overflow-x: auto;
-  padding: 2px 2px 8px;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
+/* WERAE — TRUE G2 SQUIRCLE BOTTOM NAV */
+
+.bottom-nav {
+  height: 64px;
+  padding: 6px;
+  background: var(--deep-green);
+  border-radius: 22px;
+  overflow: hidden;
 }
 
-.categories::-webkit-scrollbar {
-  display: none;
-}
-
-.categories button {
-  width: 105px;
-  height: 54px;
-  border: 1px solid rgba(23, 59, 50, 0.08);
+.bottom-nav button {
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  padding: 10px 4px;
   border-radius: 18px;
-  background: var(--sage);
-  color: var(--deep-green);
-  font-family: Georgia, serif;
-  font-size: 13px;
-  font-weight: bold;
-  box-shadow: 0 6px 15px rgba(23, 59, 50, 0.05);
+}
+
+/* G2 SQUIRCLE ACTIVE BUBBLE */
+
+.bottom-nav button:first-child {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+
+  border-radius: 18px;
+
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.12),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.10),
+    0 2px 8px rgba(0, 0, 0, 0.12);
 }
