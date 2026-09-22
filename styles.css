@@ -577,3 +577,50 @@ PRODUCT DETAILS PAGE
 .color-option.active .color-swatch {
   box-shadow: 0 0 0 2px var(--deep-green);
 }
+/* Compact Product Info */
+
+.sales-rating {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.sales-rating span:last-child {
+  color: #b18a22;
+  font-weight: bold;
+}
+
+.product-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 9px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.seller-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.seller-top strong {
+  font-size: 14px;
+}
+
+.seller-top p {
+  margin: 4px 0 0;
+}
+
+.seller-rating {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  color: #b18a22;
+}
