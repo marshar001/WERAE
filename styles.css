@@ -303,3 +303,31 @@ button:active {
   font-size: 7px !important;
   border-radius: 9px !important;
 }
+.categories {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, 54px);
+  grid-auto-columns: 105px;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 2px 2px 8px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.categories::-webkit-scrollbar {
+  display: none;
+}
+
+.categories button {
+  width: 105px;
+  height: 54px;
+  border: 1px solid rgba(23, 59, 50, 0.08);
+  border-radius: 18px;
+  background: var(--sage);
+  color: var(--deep-green);
+  font-family: Georgia, serif;
+  font-size: 13px;
+  font-weight: bold;
+  box-shadow: 0 6px 15px rgba(23, 59, 50, 0.05);
+}
