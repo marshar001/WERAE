@@ -16,14 +16,35 @@
     <section class="product-gallery">
 
       <div class="main-product-image">
-        Product photo
+        <img
+          id="mainProductImage"
+          src="IMG_20260922_142902.jpg"
+          alt="Premium Handbag"
+        >
       </div>
 
       <div class="product-thumbnails">
-        <button>Photo 1</button>
-        <button>Photo 2</button>
-        <button>Photo 3</button>
-        <button>Photo 4</button>
+
+        <button type="button"
+          onclick="changeProductImage('IMG_20260922_142902.jpg')">
+          <img src="IMG_20260922_142902.jpg" alt="Photo 1">
+        </button>
+
+        <button type="button"
+          onclick="changeProductImage('IMG_20260922_142927.jpg')">
+          <img src="IMG_20260922_142927.jpg" alt="Photo 2">
+        </button>
+
+        <button type="button"
+          onclick="changeProductImage('IMG_20260922_142956.jpg')">
+          <img src="IMG_20260922_142956.jpg" alt="Photo 3">
+        </button>
+
+        <button type="button"
+          onclick="changeProductImage('Screenshot_20260922-142655~2.jpg')">
+          <img src="Screenshot_20260922-142655~2.jpg" alt="Photo 4">
+        </button>
+
       </div>
 
     </section>
@@ -90,11 +111,12 @@
     </section>
 
   </main>
-<script>
-function changeProductImage(image) {
-  document.getElementById("mainProductImage").src = image;
-}
-</script>
-  
+
+  <script>
+    function changeProductImage(image) {
+      document.getElementById("mainProductImage").src = image;
+    }
+  </script>
+
 </body>
 </html>
