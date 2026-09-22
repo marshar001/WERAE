@@ -255,3 +255,32 @@ button:active {
     height: 160px;
   }
 }
+/* FINAL WELCOME BANNER FIX */
+
+.welcome {
+  height: 90px !important;
+  min-height: 90px !important;
+  max-height: 90px !important;
+  margin: 8px 16px 14px !important;
+  padding: 12px 18px !important;
+  border-radius: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.welcome p {
+  font-size: 7px !important;
+  margin: 0 0 3px !important;
+}
+
+.welcome h1 {
+  font-size: 18px !important;
+  line-height: 1 !important;
+  margin: 0 0 6px !important;
+}
+
+.welcome button {
+  padding: 6px 10px !important;
+  font-size: 8px !important;
+  border-radius: 10px !important;
+}
