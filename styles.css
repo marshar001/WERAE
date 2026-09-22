@@ -370,3 +370,19 @@ button:active {
   background: rgba(255,255,255,0.18) !important;
   color: white !important;
 }
+/* WERAE — MATCHED SQUIRCLE SHAPE */
+
+.bottom-nav {
+  border-radius: 28px !important;
+}
+
+.bottom-nav button {
+  border-radius: 22px !important;
+}
+
+.bottom-nav button:first-child {
+  height: 52px !important;
+  min-height: 52px !important;
+  border-radius: 22px !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+}
