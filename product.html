@@ -14,40 +14,31 @@
     <a href="index.html" class="back-button">← Back</a>
 
     <section class="product-gallery">
+<section class="product-gallery">
 
-      <div class="main-product-image">
-        <img
-          id="mainProductImage"
-          src="IMG_20260922_142902.jpg"
-          alt="Premium Handbag"
-        >
-      </div>
+  <div class="main-product-image">
+    <img
+      id="mainProductImage"
+      src="IMG_20260922_142902.jpg"
+      alt="Premium Handbag"
+    >
+  </div>
 
-      <div class="product-thumbnails">
+  <div class="color-options">
 
-        <button type="button"
-          onclick="changeProductImage('IMG_20260922_142902.jpg')">
-          <img src="IMG_20260922_142902.jpg" alt="Photo 1">
-        </button>
+    <button
+      type="button"
+      class="color-option active"
+      onclick="selectColor('Black')"
+      aria-label="Black"
+    >
+      <span class="color-swatch black"></span>
+      <span>Black</span>
+    </button>
 
-        <button type="button"
-          onclick="changeProductImage('IMG_20260922_142927.jpg')">
-          <img src="IMG_20260922_142927.jpg" alt="Photo 2">
-        </button>
+  </div>
 
-        <button type="button"
-          onclick="changeProductImage('IMG_20260922_142956.jpg')">
-          <img src="IMG_20260922_142956.jpg" alt="Photo 3">
-        </button>
-
-        <button type="button"
-          onclick="changeProductImage('Screenshot_20260922-142655~2.jpg')">
-          <img src="Screenshot_20260922-142655~2.jpg" alt="Photo 4">
-        </button>
-
-      </div>
-
-    </section>
+</section>
 
     <section class="product-information">
 
@@ -113,10 +104,45 @@
   </main>
 
   <script>
-    function changeProductImage(image) {
-      document.getElementById("mainProductImage").src = image;
+const productImages = [
+  "IMG_20260922_142902.jpg",
+  "IMG_20260922_142927.jpg",
+  "IMG_20260922_142956.jpg",
+  "Screenshot_20260922-142655~2.jpg"
+];
+
+let currentImage = 0;
+
+function showProductImage(index) {
+  currentImage = (index + productImages.length) % productImages.length;
+  document.getElementById("mainProductImage").src = productImages[currentImage];
+}
+
+let startX = 0;
+
+const galleryImage = document.getElementById("mainProductImage");
+
+galleryImage.addEventListener("touchstart", function(event) {
+  startX = event.touches[0].clientX;
+});
+
+galleryImage.addEventListener("touchend", function(event) {
+  const endX = event.changedTouches[0].clientX;
+  const difference = startX - endX;
+
+  if (Math.abs(difference) > 50) {
+    if (difference > 0) {
+      showProductImage(currentImage + 1);
+    } else {
+      showProductImage(currentImage - 1);
     }
-  </script>
+  }
+});
+
+setInterval(function() {
+  showProductImage(currentImage + 1);
+}, 5000);
+</script>
 
 </body>
 </html>
