@@ -286,3 +286,159 @@ button:active {
     grid-template-rows: repeat(2, 54px);
   }
 }
+/* =================================
+PRODUCT DETAILS PAGE
+================================= */
+
+.product-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 22px 16px 110px;
+}
+
+.back-button {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: var(--deep-green);
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.main-product-image {
+  height: 420px;
+  border-radius: 28px;
+  background: linear-gradient(145deg, #e4dfd5, #d4dcd3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+}
+
+.product-thumbnails {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.product-thumbnails button {
+  height: 70px;
+  border: none;
+  border-radius: 18px;
+  background: var(--sage);
+  color: var(--deep-green);
+  font-size: 10px;
+}
+
+.product-information {
+  margin-top: 25px;
+}
+
+.verified-badge {
+  color: var(--deep-green);
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: .5px;
+}
+
+.product-information h1 {
+  font-size: 28px;
+  margin: 10px 0;
+}
+
+.product-price {
+  color: var(--deep-green);
+  font-family: Arial, sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.product-condition,
+.product-description {
+  margin-top: 14px;
+  line-height: 1.6;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.seller-card,
+.protection-card {
+  margin-top: 22px;
+  padding: 20px;
+  border-radius: 25px;
+  background: var(--cream-light);
+  box-shadow: 0 8px 22px rgba(23, 59, 50, .08);
+}
+
+.seller-card h2,
+.protection-card h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.seller-card p,
+.protection-card p {
+  margin-top: 7px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+
+.buy-button {
+  width: 100%;
+  height: 58px;
+  margin-top: 24px;
+  border: none;
+  border-radius: 22px;
+  background: var(--deep-green);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.recommended {
+  margin-top: 35px;
+}
+
+.recommended h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.recommended-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.recommended-card {
+  padding: 9px;
+  border-radius: 22px;
+  background: var(--cream-light);
+}
+
+.recommended-card > div {
+  height: 150px;
+  border-radius: 18px;
+  background: #e0e1d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.recommended-card h3 {
+  font-size: 14px;
+  margin: 10px 4px 5px;
+}
+
+.recommended-card p {
+  margin: 0 4px;
+  color: var(--deep-green);
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
