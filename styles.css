@@ -8,13 +8,10 @@
   --cream: #f5f0e7;
   --cream-light: #fbf8f2;
   --deep-green: #173b32;
-  --green-soft: #d8e0d4;
   --sage: #b8c7b5;
   --white: #ffffff;
   --text: #1d2924;
   --muted: #78837d;
-  --line: #e4ddd2;
-  --radius: 26px;
 }
 
 html {
@@ -31,48 +28,55 @@ body {
 /* WELCOME */
 
 .welcome {
-  position: relative;
+  margin: 8px 16px 14px;
+  height: 90px;
+  min-height: 90px;
+  max-height: 90px;
+  padding: 12px 18px;
+
   overflow: hidden;
-  margin: 8px 16px 16px;
-  height: 105px;
-  padding: 16px 20px;
-  border-radius: 22px;
+
+  border-radius: 20px;
+
   background:
     linear-gradient(
       135deg,
       rgba(23, 59, 50, 0.98),
       rgba(69, 91, 78, 0.92)
     );
+
   color: white;
+
   display: flex;
   align-items: center;
+
   box-shadow: 0 8px 20px rgba(23, 59, 50, 0.12);
 }
 
 .welcome p {
   font-family: Arial, sans-serif;
-  font-size: 8px;
-  letter-spacing: 1.5px;
-  margin: 0 0 4px;
+  font-size: 6px;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
 }
 
 .welcome h1 {
-  font-size: 20px;
+  font-size: 14px;
   line-height: 1;
-  margin: 0 0 9px;
-  font-weight: 600;
+  margin-bottom: 5px;
 }
 
 .welcome button {
   border: none;
   background: white;
   color: var(--deep-green);
-  padding: 7px 12px;
-  border-radius: 12px;
+  padding: 5px 9px;
+  border-radius: 10px;
   font-family: Arial, sans-serif;
-  font-size: 9px;
+  font-size: 7px;
   font-weight: bold;
 }
+
 
 /* SECTIONS */
 
@@ -81,23 +85,6 @@ body {
   margin-bottom: 32px;
 }
 
-.section-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 15px;
-}
-
-.section-title h2 {
-  font-size: 22px;
-  font-weight: 600;
-}
-
-.section-title span {
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  color: var(--muted);
-}
 
 /* CATEGORIES */
 
@@ -107,8 +94,11 @@ body {
   grid-template-rows: repeat(2, 54px);
   grid-auto-columns: 105px;
   gap: 10px;
+
   overflow-x: auto;
+
   padding: 2px 2px 8px;
+
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
@@ -120,15 +110,20 @@ body {
 .categories button {
   width: 105px;
   height: 54px;
+
   border: 1px solid rgba(23, 59, 50, 0.08);
   border-radius: 18px;
+
   background: var(--sage);
   color: var(--deep-green);
+
   font-family: Georgia, serif;
   font-size: 13px;
   font-weight: bold;
+
   box-shadow: 0 6px 15px rgba(23, 59, 50, 0.05);
 }
+
 
 /* PRODUCTS */
 
@@ -140,27 +135,36 @@ body {
 
 .product-card {
   overflow: hidden;
+
   background: var(--cream-light);
+
   border: 1px solid rgba(23, 59, 50, 0.06);
   border-radius: 25px;
+
   padding: 9px;
+
   box-shadow: 0 9px 25px rgba(23, 59, 50, 0.07);
 }
 
 .product-image {
   height: 190px;
+
   border-radius: 20px;
-  background:
-    linear-gradient(
-      145deg,
-      #e4dfd5,
-      #d4dcd3
-    );
+
+  background: linear-gradient(
+    145deg,
+    #e4dfd5,
+    #d4dcd3
+  );
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   text-align: center;
+
   color: var(--muted);
+
   font-family: Arial, sans-serif;
   font-size: 11px;
 }
@@ -168,27 +172,31 @@ body {
 .product-card h3 {
   font-size: 15px;
   margin: 12px 5px 6px;
-  font-weight: 600;
 }
 
 .product-card p {
   margin: 0 5px 6px;
+
   font-family: Arial, sans-serif;
   font-size: 14px;
   font-weight: bold;
+
   color: var(--deep-green);
 }
 
 .product-card small {
   display: block;
+
   margin: 0 5px 4px;
+
   color: var(--muted);
+
   font-family: Arial, sans-serif;
   font-size: 9px;
 }
 
 
-/* BUTTON INTERACTION */
+/* BUTTONS */
 
 button {
   cursor: pointer;
@@ -199,180 +207,27 @@ button:active {
   transform: scale(0.97);
 }
 
-/* SMALL PHONES */
 
-@media (max-width: 380px) {
-  .logo {
-    font-size: 26px;
-  }
-
-  .welcome {
-    min-height: 260px;
-    padding: 23px;
-  }
-
-  .welcome h1 {
-    font-size: 29px;
-  }
-
-  .categories {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .product-image {
-    height: 160px;
-  }
-}
-/* FINAL WELCOME BANNER FIX */
-
-.welcome {
-  height: 90px !important;
-  min-height: 90px !important;
-  max-height: 90px !important;
-  margin: 8px 16px 14px !important;
-  padding: 12px 18px !important;
-  border-radius: 20px !important;
-  display: flex !important;
-  align-items: center !important;
-}
-
-.welcome p {
-  font-size: 7px !important;
-  margin: 0 0 3px !important;
-}
-
-.welcome h1 {
-  font-size: 18px !important;
-  line-height: 1 !important;
-  margin: 0 0 6px !important;
-}
-
-.welcome button {
-  padding: 6px 10px !important;
-  font-size: 8px !important;
-  border-radius: 10px !important;
-}
-/* COMPACT BANNER TEXT */
-
-.welcome p {
-  font-size: 6px !important;
-  letter-spacing: 1px !important;
-  margin-bottom: 2px !important;
-}
-
-.welcome h1 {
-  font-size: 14px !important;
-  line-height: 1 !important;
-  margin-bottom: 5px !important;
-}
-
-.welcome button {
-  padding: 5px 9px !important;
-  font-size: 7px !important;
-/* WERAE — TRUE G2 SQUIRCLE BOTTOM NAV */
-/* WERAE — G2 SQUIRCLE NAVIGATION */
-
-.bottom-nav {
-  height: 64px;
-  padding: 6px;
-  background: var(--deep-green);
-  border-radius: 22px;
-  corner-shape: squircle;
-  overflow: hidden;
-}
-
-.bottom-nav button {
-  height: 50px;
-  border: none;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.65);
-  font-family: Arial, sans-serif;
-  font-size: 10px;
-  padding: 0 5px;
-  border-radius: 18px;
-  corner-shape: squircle;
-}
-
-/* ACTIVE HOME BUBBLE */
-
-.bottom-nav button:first-child {
-  background: rgba(255, 255, 255, 0.17);
-  color: #ffffff;
-  border-radius: 18px;
-  corner-shape: squircle;
-
-  box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.10),
-    0 2px 7px rgba(0, 0, 0, 0.10);
-}
-/* FINAL G2 SQUIRCLE BOTTOM NAV FIX */
-
-.bottom-nav {
-  height: 64px !important;
-  padding: 6px !important;
-  background: var(--deep-green) !important;
-  border-radius: 22px !important;
-  overflow: hidden !important;
-}
-
-.bottom-nav button {
-  height: 52px !important;
-  min-height: 52px !important;
-  padding: 0 6px !important;
-  border: none !important;
-  border-radius: 18px !important;
-  background: transparent !important;
-  color: rgba(255,255,255,0.65) !important;
-  font-size: 10px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-/* ACTIVE BUBBLE */
-
-.bottom-nav button:first-child {
-  height: 52px !important;
-  min-height: 52px !important;
-  border-radius: 18px !important;
-  background: rgba(255,255,255,0.18) !important;
-  color: white !important;
-}
-/* WERAE — MATCHED SQUIRCLE SHAPE */
-
-.bottom-nav {
-  border-radius: 28px !important;
-}
-
-.bottom-nav button {
-  border-radius: 22px !important;
-}
-
-.bottom-nav button:first-child {
-  height: 52px !important;
-  min-height: 52px !important;
-  border-radius: 22px !important;
-  background: rgba(255, 255, 255, 0.18) !important;
-}
 /* =================================
-   WERAE BOTTOM NAVIGATION
-   CLEAN SQUIRCLE DESIGN
+   BOTTOM NAVIGATION
    ================================= */
 
 .bottom-nav {
   position: fixed;
-  left: 23px;
-  right: 23px;
+
+  left: 12px;
+  right: 12px;
   bottom: 12px;
 
   height: 64px;
+
   padding: 6px;
+
+  background: var(--deep-green);
 
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   align-items: center;
-
-  background: var(--deep-green);
 
   border-radius: 26px;
 
@@ -383,15 +238,14 @@ button:active {
 }
 
 
-/* NAV ITEMS */
+/* NAV BUTTONS */
 
 .nav-item {
-  position: relative;
-
   height: 52px;
   width: 100%;
 
   border: none;
+
   background: transparent;
 
   color: rgba(255, 255, 255, 0.65);
@@ -405,48 +259,30 @@ button:active {
 
   padding: 0;
 
-  cursor: pointer;
-
-  z-index: 1;
+  border-radius: 22px;
 }
 
 
-/* ACTIVE SQUIRCLE */
-
-.nav-item.active::before {
-  content: "";
-
-  position: absolute;
-
-  width: 92%;
-  height: 52px;
-
-  left: 4%;
-  top: 0;
-
-  background: rgba(255, 255, 255, 0.17);
-
-  border-radius: 24px;
-
-  box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.10),
-    0 2px 8px rgba(0, 0, 0, 0.10);
-
-  z-index: -1;
-}
-
-
-/* ACTIVE TEXT */
+/* ACTIVE HOME */
 
 .nav-item.active {
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
+
+  color: white;
+
+  border-radius: 22px;
 }
 
 
-/* KEEP TEXT ABOVE THE BUBBLE */
+/* SMALL PHONES */
 
-.nav-item span {
-  position: relative;
-  z-index: 2;
+@media (max-width: 380px) {
+
+  .product-image {
+    height: 160px;
+  }
+
+  .categories {
+    grid-template-rows: repeat(2, 54px);
+  }
 }
-  
