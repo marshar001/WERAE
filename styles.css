@@ -337,3 +337,36 @@ button:active {
     inset 0 1px 2px rgba(255, 255, 255, 0.10),
     0 2px 7px rgba(0, 0, 0, 0.10);
 }
+/* FINAL G2 SQUIRCLE BOTTOM NAV FIX */
+
+.bottom-nav {
+  height: 64px !important;
+  padding: 6px !important;
+  background: var(--deep-green) !important;
+  border-radius: 22px !important;
+  overflow: hidden !important;
+}
+
+.bottom-nav button {
+  height: 52px !important;
+  min-height: 52px !important;
+  padding: 0 6px !important;
+  border: none !important;
+  border-radius: 18px !important;
+  background: transparent !important;
+  color: rgba(255,255,255,0.65) !important;
+  font-size: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ACTIVE BUBBLE */
+
+.bottom-nav button:first-child {
+  height: 52px !important;
+  min-height: 52px !important;
+  border-radius: 18px !important;
+  background: rgba(255,255,255,0.18) !important;
+  color: white !important;
+}
