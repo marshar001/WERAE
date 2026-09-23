@@ -74,10 +74,9 @@ body {
 /* SECTIONS */
 
 .section {
-  padding: 0 16px;
+  padding: 0 8px;
   margin-bottom: 32px;
 }
-
 /* CATEGORIES */
 
 .categories {
