@@ -170,15 +170,16 @@ body {
 }
 
 .product-card h3 {
-  font-size: 15px;
-  margin: 12px 5px 6px;
+  font-size: 13px;
+  line-height: 1.2;
+  margin: 8px 4px 4px;
 }
 
 .product-card p {
-  margin: 0 5px 6px;
+  margin: 0 4px 4px;
 
   font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
 
   color: var(--deep-green);
@@ -187,12 +188,18 @@ body {
 .product-card small {
   display: block;
 
-  margin: 0 5px 4px;
+  margin: 0 4px 3px;
 
   color: var(--muted);
 
   font-family: Arial, sans-serif;
-  font-size: 9px;
+  font-size: 8px;
+  line-height: 1.25;
+}
+
+.product-card small:first-of-type {
+  color: var(--text);
+  margin-bottom: 4px;
 }
 
 
