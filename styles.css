@@ -33,23 +33,17 @@ body {
   min-height: 90px;
   max-height: 90px;
   padding: 12px 18px;
-
   overflow: hidden;
-
   border-radius: 20px;
-
   background:
     linear-gradient(
       135deg,
       rgba(23, 59, 50, 0.98),
       rgba(69, 91, 78, 0.92)
     );
-
   color: white;
-
   display: flex;
   align-items: center;
-
   box-shadow: 0 8px 20px rgba(23, 59, 50, 0.12);
 }
 
@@ -77,14 +71,12 @@ body {
   font-weight: bold;
 }
 
-
 /* SECTIONS */
 
 .section {
   padding: 0 16px;
   margin-bottom: 32px;
 }
-
 
 /* CATEGORIES */
 
@@ -94,11 +86,8 @@ body {
   grid-template-rows: repeat(2, 54px);
   grid-auto-columns: 105px;
   gap: 10px;
-
   overflow-x: auto;
-
   padding: 2px 2px 8px;
-
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
@@ -110,69 +99,60 @@ body {
 .categories button {
   width: 105px;
   height: 54px;
-
   border: 1px solid rgba(23, 59, 50, 0.08);
   border-radius: 18px;
-
   background: var(--sage);
   color: var(--deep-green);
-
   font-family: Georgia, serif;
   font-size: 13px;
   font-weight: bold;
-
   box-shadow: 0 6px 15px rgba(23, 59, 50, 0.05);
 }
-
 
 /* PRODUCTS */
 
 .products {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+  gap: 12px;
+}
+
+.product-card {
+  overflow: hidden;
+  background: var(--cream-light);
+  border: 1px solid rgba(23, 59, 50, 0.06);
+  border-radius: 17px;
+  padding: 3px;
+  box-shadow: 0 5px 14px rgba(23, 59, 50, 0.06);
 }
 
 .product-image {
-  height: 175px;
+  height: 190px;
   border-radius: 15px;
-  background: linear-gradient(145deg, #e4dfd5, #d4dcd3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: var(--muted);
-  font-family: Arial, sans-serif;
-  font-size: 10px;
-}
-
-.product-image {
-  height: 185px;
-  border-radius: 20px;
-
   background: linear-gradient(
     145deg,
     #e4dfd5,
     #d4dcd3
   );
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   text-align: center;
-
   color: var(--muted);
-
   font-family: Arial, sans-serif;
-  font-size: 11px;
+  font-size: 9px;
 }
+
+/* Product name */
 
 .product-card h3 {
   font-size: 11px;
   line-height: 1.2;
-  margin: 6px 3px 3px;
+  font-weight: bold;
+  margin: 5px 3px 2px;
 }
+
+/* Price */
 
 .product-card p {
   margin: 0 3px 3px;
@@ -182,21 +162,22 @@ body {
   color: var(--deep-green);
 }
 
-.product-card small {
+/* Description and verification */
+
 .product-card small {
   display: block;
   margin: 0 3px 2px;
   color: var(--muted);
   font-family: Arial, sans-serif;
-  font-size: 7px;
+  font-size: 9px;
+  font-weight: normal;
   line-height: 1.15;
 }
 
 .product-card small:first-of-type {
   color: var(--text);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
-
 
 /* BUTTONS */
 
@@ -209,88 +190,66 @@ button:active {
   transform: scale(0.97);
 }
 
-
-/* =================================
-   BOTTOM NAVIGATION
-   ================================= */
+/* BOTTOM NAVIGATION */
 
 .bottom-nav {
   position: fixed;
-
   left: 12px;
   right: 12px;
   bottom: 12px;
-
   height: 64px;
-
   padding: 6px;
-
   background: var(--deep-green);
-
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   align-items: center;
-
   border-radius: 26px;
-
   box-shadow:
     0 12px 30px rgba(0, 0, 0, 0.18);
-
   z-index: 1000;
 }
-
 
 /* NAV BUTTONS */
 
 .nav-item {
   height: 52px;
   width: 100%;
-
   border: none;
-
   background: transparent;
-
   color: rgba(255, 255, 255, 0.65);
-
   font-family: Arial, sans-serif;
   font-size: 10px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 0;
-
   border-radius: 22px;
 }
-
 
 /* ACTIVE HOME */
 
 .nav-item.active {
   background: rgba(255, 255, 255, 0.18);
-
   color: white;
-
   border-radius: 22px;
 }
-
 
 /* SMALL PHONES */
 
 @media (max-width: 380px) {
 
   .product-image {
-    height: 160px;
+    height: 180px;
   }
 
   .categories {
     grid-template-rows: repeat(2, 54px);
   }
 }
+
 /* =================================
-PRODUCT DETAILS PAGE
-================================= */
+   PRODUCT DETAILS PAGE
+   ================================= */
 
 .product-page {
   max-width: 600px;
@@ -310,19 +269,28 @@ PRODUCT DETAILS PAGE
 
 .main-product-image {
   height: 300px;
-  border-radius: 28px;
-  background: linear-gradient(145deg, #e4dfd5, #d4dcd3);
+  border-radius: 22px;
+  background: #eee9df;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--muted);
   font-family: Arial, sans-serif;
+  box-shadow: 0 12px 30px rgba(23, 59, 50, .10);
+  position: relative;
 }
 
-
+.main-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 22px;
+  display: block;
+}
 
 .product-information {
-  margin-top: 25px;
+  margin-top: 12px;
 }
 
 .verified-badge {
@@ -334,58 +302,62 @@ PRODUCT DETAILS PAGE
 }
 
 .product-information h1 {
-  font-size: 28px;
-  margin: 10px 0;
+  font-size: 19px;
+  line-height: 1.25;
+  margin: 5px 0;
 }
 
 .product-price {
   color: var(--deep-green);
   font-family: Arial, sans-serif;
-  font-size: 22px;
+  font-size: 21px;
   font-weight: bold;
+  margin: 4px 0;
 }
 
 .product-condition,
 .product-description {
-  margin-top: 14px;
-  line-height: 1.6;
+  margin-top: 7px;
+  line-height: 1.4;
   font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .seller-card,
 .protection-card {
-  margin-top: 22px;
-  padding: 20px;
-  border-radius: 25px;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 16px;
   background: var(--cream-light);
   box-shadow: 0 8px 22px rgba(23, 59, 50, .08);
 }
 
 .seller-card h2,
 .protection-card h2 {
-  font-size: 18px;
+  font-size: 14px;
   margin-bottom: 10px;
 }
 
 .seller-card p,
 .protection-card p {
-  margin-top: 7px;
+  margin-top: 4px;
   font-family: Arial, sans-serif;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .buy-button {
   width: 100%;
-  height: 58px;
-  margin-top: 24px;
+  height: 48px;
+  margin-top: 14px;
   border: none;
-  border-radius: 22px;
+  border-radius: 16px;
   background: var(--deep-green);
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
 }
+
+/* RECOMMENDED */
 
 .recommended {
   margin-top: 35px;
@@ -431,84 +403,8 @@ PRODUCT DETAILS PAGE
   font-family: Arial, sans-serif;
   font-weight: bold;
 }
-.main-product-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 28px;
-  display: block;
-}
 
-
-/* Premium Product Gallery */
-
-.main-product-image {
-  overflow: hidden;
-  background: #eee9df;
-  box-shadow: 0 12px 30px rgba(23, 59, 50, .10);
-}
-
-
-/* Compact WERAE product page */
-
-.product-page {
-  max-width: 520px;
-  padding: 10px 12px 90px;
-}
-
-.main-product-image {
-  height: 300px;
-  border-radius: 22px;
-}
-
-.product-information {
-  margin-top: 12px;
-}
-
-.product-information h1 {
-  font-size: 19px;
-  line-height: 1.25;
-  margin: 5px 0;
-}
-
-.product-price {
-  font-size: 21px;
-  margin: 4px 0;
-}
-
-.product-condition,
-.product-description {
-  margin-top: 7px;
-  line-height: 1.4;
-  font-size: 12px;
-}
-
-.seller-card,
-.protection-card {
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 16px;
-}
-
-.seller-card h2,
-.protection-card h2 {
-  font-size: 14px;
-}
-
-.seller-card p,
-.protection-card p {
-  margin-top: 4px;
-  font-size: 11px;
-}
-
-.buy-button {
-  height: 48px;
-  margin-top: 14px;
-  border-radius: 16px;
-  font-size: 14px;
-}
-
-/* Compact Colour Selector */
+/* COMPACT COLOUR SELECTOR */
 
 .color-options {
   display: flex;
@@ -545,10 +441,7 @@ PRODUCT DETAILS PAGE
   box-shadow: 0 0 0 2px var(--deep-green);
 }
 
-.color-option.active .color-swatch {
-  box-shadow: 0 0 0 2px var(--deep-green);
-}
-/* Compact Product Info */
+/* COMPACT PRODUCT INFO */
 
 .sales-rating {
   display: flex;
@@ -595,27 +488,19 @@ PRODUCT DETAILS PAGE
   font-weight: bold;
   color: #b18a22;
 }
-/* Photo Counter */
 
-.main-product-image {
-  position: relative;
-}
+/* PHOTO COUNTER */
 
 .photo-counter {
   position: absolute;
   right: 8px;
   bottom: 8px;
-
   padding: 3px 7px;
-
   background: rgba(23, 59, 50, 0.9);
   color: white;
-
   border-radius: 7px;
-
   font-family: Arial, sans-serif;
   font-size: 9px;
   font-weight: bold;
-
   line-height: 1.2;
 }
