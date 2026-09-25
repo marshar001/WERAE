@@ -87,8 +87,8 @@ body {
   gap: 10px;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 0 2px 10px;
-  margin-bottom: 12px;
+  padding: 0 2px 6px;
+  margin-bottom: 4px;
 
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
