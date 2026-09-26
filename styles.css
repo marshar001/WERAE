@@ -30,9 +30,9 @@ body {
 
 .welcome {
   margin: 8px 16px 14px;
-  height: 90px;
-  min-height: 90px;
-  max-height: 90px;
+  height: 180px;
+  min-height: 180px;
+  max-height: 180px;
   padding: 12px 18px;
   overflow: hidden;
   border-radius: 20px;
