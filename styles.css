@@ -100,7 +100,7 @@ body {
   padding: 0 2px 2px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-x;
+  touch-action: auto;
   overscroll-behavior-x: contain;
 }
 
@@ -139,7 +139,7 @@ body {
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 
-  touch-action: pan-x;
+  touch-action: auto;
   overscroll-behavior-x: contain;
 }
 
