@@ -109,9 +109,9 @@ body {
 }
 
 .trending-card {
-  flex: 0 0 150px;
-  width: 150px;
-  height: 115px;
+  flex: 0 0 105px;
+  width: 105px;
+  height: 145px;
   padding: 0;
   border: none;
   border-radius: 22px;
