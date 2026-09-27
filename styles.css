@@ -152,20 +152,20 @@ body {
 }
 
 .category-item {
-  flex: 0 0 82px;
-  width: 82px;
+  flex: 0 0 58px;
+  width: 58px;
   text-align: center;
 }
 
 .category-item button {
-  width: 41px;
-  height: 35px;
+  width: 58px;
+  height: 58px;
   padding: 0;
   border: none;
-  border-radius: 10px;
+  border-radius: 18px;
   overflow: hidden;
   background: var(--sage);
-  box-shadow: 0 3px 8px rgba(23, 59, 50, 0.08);
+  box-shadow: 0 5px 12px rgba(23, 59, 50, 0.08);
 }
 
 .category-item button img {
