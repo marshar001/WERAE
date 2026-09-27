@@ -133,36 +133,107 @@ body {
 /* ARROWS */
 
 .carousel-arrow {
+/* WELCOME CAROUSEL */
+
+.welcome-carousel {
+  position: relative;
+  margin: 8px 16px 14px;
+  height: 180px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--deep-green);
+  box-shadow: 0 10px 25px rgba(23, 59, 50, 0.14);
+  touch-action: pan-y;
+}
+
+.welcome-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.welcome-slide {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-
-  width: 30px;
-  height: 30px;
-
-  border: none;
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.78);
-  color: var(--deep-green);
-
-  font-family: Arial, sans-serif;
-  font-size: 23px;
-  line-height: 1;
-
+  inset: 0;
+  padding: 28px 34px;
   display: flex;
   align-items: center;
-  justify-content: center;
 
-  z-index: 5;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(18px);
+
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease,
+    visibility 0.55s ease;
 }
 
-.carousel-prev {
-  left: 10px;
+.welcome-slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
 }
 
-.carousel-next {
-  right: 10px;
+/* SLIDE BACKGROUNDS */
+
+.welcome-slide:nth-child(1) {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(23, 59, 50, 0.98),
+      rgba(69, 91, 78, 0.92)
+    );
+}
+
+.welcome-slide:nth-child(2) {
+  background:
+    linear-gradient(
+      135deg,
+      #173b32,
+      #8fa593
+    );
+}
+
+.welcome-slide:nth-child(3) {
+  background:
+    linear-gradient(
+      135deg,
+      #244d42,
+      #b8c7b5
+    );
+}
+
+.welcome-content {
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+.welcome-content p {
+  margin-bottom: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+}
+
+.welcome-content h1 {
+  margin: 0 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  line-height: 1.05;
+}
+
+.welcome-content button {
+  border: none;
+  background: white;
+  color: var(--deep-green);
+  padding: 8px 13px;
+  border-radius: 13px;
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  font-weight: bold;
 }
 
 /* PAGINATION DOTS */
@@ -171,23 +242,18 @@ body {
   position: absolute;
   left: 50%;
   bottom: 12px;
-
   transform: translateX(-50%);
-
   display: flex;
   gap: 6px;
-
   z-index: 6;
 }
 
 .carousel-dot {
   width: 7px;
   height: 7px;
-
   padding: 0;
   border: none;
   border-radius: 50%;
-
   background: rgba(255, 255, 255, 0.45);
 }
 
@@ -200,7 +266,6 @@ body {
 /* MOBILE */
 
 @media (max-width: 600px) {
-
   .welcome-carousel {
     height: 180px;
     margin-left: 16px;
@@ -215,18 +280,11 @@ body {
   .welcome-content h1 {
     font-size: 23px;
   }
-
-  .carousel-arrow {
-    width: 27px;
-    height: 27px;
-    font-size: 21px;
-  }
 }
 
 /* SMALL PHONES */
 
 @media (max-width: 380px) {
-
   .welcome-carousel {
     height: 170px;
   }
