@@ -244,8 +244,6 @@
 <script>
 const welcomeSlides = document.querySelectorAll(".welcome-slide");
 const welcomeDots = document.querySelectorAll(".carousel-dot");
-const previousButton = document.querySelector(".carousel-prev");
-const nextButton = document.querySelector(".carousel-next");
 const welcomeCarousel = document.querySelector(".welcome-carousel");
 
 let currentSlide = 0;
@@ -254,9 +252,7 @@ let touchStartX = 0;
 let touchEndX = 0;
 
 function showSlide(index) {
-
-  currentSlide =
-    (index + welcomeSlides.length) % welcomeSlides.length;
+  currentSlide = (index + welcomeSlides.length) % welcomeSlides.length;
 
   welcomeSlides.forEach((slide, i) => {
     slide.classList.toggle("active", i === currentSlide);
@@ -277,7 +273,6 @@ function previousSlide() {
 
 function startAutoSlide() {
   stopAutoSlide();
-
   autoSlideTimer = setInterval(() => {
     nextSlide();
   }, 4500);
@@ -287,20 +282,7 @@ function stopAutoSlide() {
   clearInterval(autoSlideTimer);
 }
 
-/* NEXT / PREVIOUS */
-
-nextButton.addEventListener("click", () => {
-  nextSlide();
-  startAutoSlide();
-});
-
-previousButton.addEventListener("click", () => {
-  previousSlide();
-  startAutoSlide();
-});
-
 /* DOTS */
-
 welcomeDots.forEach((dot, index) => {
   dot.addEventListener("click", () => {
     showSlide(index);
@@ -309,40 +291,31 @@ welcomeDots.forEach((dot, index) => {
 });
 
 /* PAUSE ON DESKTOP HOVER */
-
 welcomeCarousel.addEventListener("mouseenter", stopAutoSlide);
-
 welcomeCarousel.addEventListener("mouseleave", startAutoSlide);
 
-/* MOBILE TOUCH */
-
+/* MOBILE TOUCH / SWIPE */
 welcomeCarousel.addEventListener("touchstart", (event) => {
   stopAutoSlide();
-
   touchStartX = event.touches[0].clientX;
 });
 
 welcomeCarousel.addEventListener("touchend", (event) => {
-
   touchEndX = event.changedTouches[0].clientX;
-
   const difference = touchStartX - touchEndX;
 
   if (Math.abs(difference) > 50) {
-
     if (difference > 0) {
       nextSlide();
     } else {
       previousSlide();
     }
-
   }
 
   startAutoSlide();
 });
 
 /* START */
-
 showSlide(0);
 startAutoSlide();
 </script>
