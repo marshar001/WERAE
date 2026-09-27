@@ -13,7 +13,111 @@
 
   <link rel="stylesheet" href="styles.css">
 </head>
+<script>
+const welcomeSlides = document.querySelectorAll(".welcome-slide");
+const welcomeDots = document.querySelectorAll(".carousel-dot");
+const previousButton = document.querySelector(".carousel-prev");
+const nextButton = document.querySelector(".carousel-next");
+const welcomeCarousel = document.querySelector(".welcome-carousel");
 
+let currentSlide = 0;
+let autoSlideTimer;
+let touchStartX = 0;
+let touchEndX = 0;
+
+function showSlide(index) {
+
+  currentSlide =
+    (index + welcomeSlides.length) % welcomeSlides.length;
+
+  welcomeSlides.forEach((slide, i) => {
+    slide.classList.toggle("active", i === currentSlide);
+  });
+
+  welcomeDots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === currentSlide);
+  });
+}
+
+function nextSlide() {
+  showSlide(currentSlide + 1);
+}
+
+function previousSlide() {
+  showSlide(currentSlide - 1);
+}
+
+function startAutoSlide() {
+  stopAutoSlide();
+
+  autoSlideTimer = setInterval(() => {
+    nextSlide();
+  }, 4500);
+}
+
+function stopAutoSlide() {
+  clearInterval(autoSlideTimer);
+}
+
+/* NEXT / PREVIOUS */
+
+nextButton.addEventListener("click", () => {
+  nextSlide();
+  startAutoSlide();
+});
+
+previousButton.addEventListener("click", () => {
+  previousSlide();
+  startAutoSlide();
+});
+
+/* DOTS */
+
+welcomeDots.forEach((dot, index) => {
+  dot.addEventListener("click", () => {
+    showSlide(index);
+    startAutoSlide();
+  });
+});
+
+/* PAUSE ON DESKTOP HOVER */
+
+welcomeCarousel.addEventListener("mouseenter", stopAutoSlide);
+
+welcomeCarousel.addEventListener("mouseleave", startAutoSlide);
+
+/* MOBILE TOUCH */
+
+welcomeCarousel.addEventListener("touchstart", (event) => {
+  stopAutoSlide();
+
+  touchStartX = event.touches[0].clientX;
+});
+
+welcomeCarousel.addEventListener("touchend", (event) => {
+
+  touchEndX = event.changedTouches[0].clientX;
+
+  const difference = touchStartX - touchEndX;
+
+  if (Math.abs(difference) > 50) {
+
+    if (difference > 0) {
+      nextSlide();
+    } else {
+      previousSlide();
+    }
+
+  }
+
+  startAutoSlide();
+});
+
+/* START */
+
+showSlide(0);
+startAutoSlide();
+  </script>
 <body>
 
   <!-- WELCOME CAROUSEL -->
