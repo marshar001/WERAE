@@ -16,19 +16,57 @@
 
 <body>
 
-  <!-- WELCOME BANNER -->
-  <section class="welcome">
-    <div>
-      <p>WELCOME TO WERAE</p>
+  <!-- WELCOME CAROUSEL -->
+<section class="welcome-carousel">
 
-      <h1>
-        Discover fashion<br>
-        you'll love.
-      </h1>
+  <div class="welcome-track">
 
-      <button>Explore now →</button>
+    <!-- SLIDE 1 -->
+    <div class="welcome-slide active">
+      <div class="welcome-content">
+        <p>WELCOME TO WERAE</p>
+        <h1>Discover fashion<br>you'll love.</h1>
+        <button type="button">Explore now →</button>
+      </div>
     </div>
-  </section>
+
+    <!-- SLIDE 2 -->
+    <div class="welcome-slide">
+      <div class="welcome-content">
+        <p>FRESH FINDS</p>
+        <h1>Find your next<br>favourite piece.</h1>
+        <button type="button">Shop now →</button>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="welcome-slide">
+      <div class="welcome-content">
+        <p>WERAE PICKS</p>
+        <h1>Pre-owned fashion,<br>reimagined.</h1>
+        <button type="button">Explore picks →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PREVIOUS / NEXT -->
+  <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous slide">
+    ‹
+  </button>
+
+  <button class="carousel-arrow carousel-next" type="button" aria-label="Next slide">
+    ›
+  </button>
+
+  <!-- DOTS -->
+  <div class="carousel-dots">
+    <button class="carousel-dot active" type="button" aria-label="Slide 1"></button>
+    <button class="carousel-dot" type="button" aria-label="Slide 2"></button>
+    <button class="carousel-dot" type="button" aria-label="Slide 3"></button>
+  </div>
+
+</section>
 <!-- TRENDING STORE -->
 <section class="trending-section">
 
