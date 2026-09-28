@@ -67,28 +67,30 @@
     }
 
     .explore-tabs {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding: 0 14px 12px;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  overflow-x: hidden;
+  padding: 0 14px 12px;
+}
 
     .explore-tabs::-webkit-scrollbar {
       display: none;
     }
 
     .explore-tab {
-      flex: 0 0 auto;
-      border: 1px solid rgba(23, 59, 50, 0.12);
-      background: #fff;
-      color: #173b32;
-      border-radius: 20px;
-      padding: 8px 14px;
-      font-size: 12px;
-      text-decoration: none;
-      white-space: nowrap;
+  width: 150px;
+  box-sizing: border-box;
+  border: 1px solid rgba(23, 59, 50, 0.12);
+  background: #fff;
+  color: #173b32;
+  border-radius: 22px;
+  padding: 10px 14px;
+  font-size: 12px;
+  text-decoration: none;
+  white-space: nowrap;
+  text-align: center;
     }
 
     .explore-tab.active {
@@ -121,9 +123,9 @@
 
     .explore-categories {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
-    }
+}
 
     .explore-category {
       display: block;
@@ -260,7 +262,7 @@
       }
 
       .explore-categories {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
       .trending-products {
