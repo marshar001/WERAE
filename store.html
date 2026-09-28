@@ -3,12 +3,341 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>WERAE Store</title>
+
+  <style>
+    :root {
+      --green: #173b32;
+      --cream: #f6f1e8;
+      --cream-light: #fffdf8;
+      --muted: #6b746e;
+      --sage: #dfe7df;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--cream);
+      color: var(--green);
+      font-family: Arial, sans-serif;
+    }
+
+    .store-page {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 18px 12px 40px;
+    }
+
+    /* HEADER */
+
+    .store-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .back-button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: var(--cream-light);
+      color: var(--green);
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(23, 59, 50, 0.08);
+    }
+
+    .store-title h1 {
+      margin: 0;
+      font-size: 25px;
+      line-height: 1.1;
+    }
+
+    .store-title p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* STORE PROFILE */
+
+    .store-profile {
+      background: var(--cream-light);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 25px;
+      box-shadow: 0 5px 16px rgba(23, 59, 50, 0.07);
+    }
+
+    .store-profile h2 {
+      margin: 0 0 6px;
+      font-size: 20px;
+    }
+
+    .store-profile p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .verified {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--green);
+    }
+
+    /* PRODUCTS */
+
+    .section-title {
+      margin: 0 4px 12px;
+      font-size: 18px;
+    }
+
+    .store-products {
+      column-count: 2;
+      column-gap: 8px;
+    }
+
+    .store-product {
+      break-inside: avoid;
+      margin-bottom: 8px;
+      overflow: hidden;
+      background: var(--cream-light);
+      border: 1px solid rgba(23, 59, 50, 0.06);
+      border-radius: 17px;
+      padding: 4px;
+      box-shadow: 0 5px 14px rgba(23, 59, 50, 0.06);
+    }
+
+    .store-product a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .store-product img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      border-radius: 14px;
+      background: var(--sage);
+    }
+
+    .product-info {
+      padding: 9px 7px 8px;
+    }
+
+    .product-info h3 {
+      margin: 0 0 5px;
+      font-size: 14px;
+    }
+
+    .price {
+      margin: 0 0 5px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .verified-product {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 480px) {
+      .store-page {
+        padding: 15px 8px 35px;
+      }
+
+      .store-products {
+        column-gap: 5px;
+      }
+
+      .store-product {
+        margin-bottom: 5px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <h1>WERAE Store</h1>
+  <div class="store-page">
+
+    <!-- STORE HEADER -->
+
+    <header class="store-header">
+
+      <button
+        class="back-button"
+        onclick="history.back()"
+        aria-label="Go back"
+      >
+        ‹
+      </button>
+
+      <div class="store-title">
+        <h1>WERAE</h1>
+        <p>Trending Store</p>
+      </div>
+
+    </header>
+
+
+    <!-- STORE PROFILE -->
+
+    <section class="store-profile">
+
+      <h2>Featured Store</h2>
+
+      <p>
+        Discover carefully selected pre-owned fashion pieces
+        available on WERAE.
+      </p>
+
+      <span class="verified">✓ WERAE verified</span>
+
+    </section>
+
+
+    <!-- PRODUCTS -->
+
+    <main>
+
+      <h2 class="section-title">Available Items</h2>
+
+      <div class="store-products">
+
+
+        <!-- PREMIUM HANDBAG -->
+
+        <article class="store-product">
+
+          <a href="product.html">
+
+            <img
+              src="product-premium-handbag.jpg"
+              alt="Premium Handbag"
+            >
+
+            <div class="product-info">
+
+              <h3>Premium Handbag</h3>
+
+              <p class="price">₦85,000</p>
+
+              <p class="verified-product">
+                ✓ WERAE verified
+              </p>
+
+            </div>
+
+          </a>
+
+        </article>
+
+
+        <!-- CLASSIC SNEAKERS -->
+
+        <article class="store-product">
+
+          <a href="product.html">
+
+            <img
+              src="product-classic-sneakers.jpg"
+              alt="Classic Sneakers"
+            >
+
+            <div class="product-info">
+
+              <h3>Classic Sneakers</h3>
+
+              <p class="price">₦65,000</p>
+
+              <p class="verified-product">
+                ✓ WERAE verified
+              </p>
+
+            </div>
+
+          </a>
+
+        </article>
+
+
+        <!-- DESIGNER JACKET -->
+
+        <article class="store-product">
+
+          <a href="product.html">
+
+            <img
+              src="product-designer-jacket-portrait-clean.jpg"
+              alt="Designer Jacket"
+            >
+
+            <div class="product-info">
+
+              <h3>Designer Jacket</h3>
+
+              <p class="price">₦120,000</p>
+
+              <p class="verified-product">
+                ✓ WERAE verified
+              </p>
+
+            </div>
+
+          </a>
+
+        </article>
+
+
+        <!-- LEATHER SHOES -->
+
+        <article class="store-product">
+
+          <a href="product.html">
+
+            <img
+              src="product-leather-shoes.jpg"
+              alt="Leather Shoes"
+            >
+
+            <div class="product-info">
+
+              <h3>Leather Shoes</h3>
+
+              <p class="price">₦55,000</p>
+
+              <p class="verified-product">
+                ✓ WERAE verified
+              </p>
+
+            </div>
+
+          </a>
+
+        </article>
+
+
+      </div>
+
+    </main>
+
+  </div>
 
 </body>
-</html>
+  </html>
