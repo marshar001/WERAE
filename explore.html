@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Explore — WERAE</title>
+
   <meta
     name="description"
-    content="Explore pre-owned fashion you'll love on WERAE."
+    content="Explore men's, women's and children's pre-owned fashion on WERAE."
   >
 
   <link rel="stylesheet" href="styles.css">
@@ -21,13 +22,17 @@
       padding-bottom: 90px;
     }
 
+    /* =========================
+       HEADER
+    ========================= */
+
     .explore-header {
-      padding: 18px 14px 10px;
+      padding: 18px 14px 8px;
     }
 
     .explore-header h1 {
-      margin: 0 0 5px;
-      font-size: 22px;
+      margin: 0 0 4px;
+      font-size: 23px;
       line-height: 1.1;
       color: var(--green, #173b32);
     }
@@ -35,64 +40,138 @@
     .explore-header p {
       margin: 0;
       font-size: 12px;
-      line-height: 1.5;
+      line-height: 1.4;
       color: var(--muted, #777);
     }
 
-    /* Search */
+
+    /* =========================
+       SEARCH
+    ========================= */
 
     .explore-search {
-      padding: 4px 12px 14px;
+      padding: 5px 12px 14px;
     }
 
     .explore-search-box {
       display: flex;
       align-items: center;
       gap: 8px;
+
       background: #fff;
+
       border: 1px solid rgba(23, 59, 50, 0.08);
-      border-radius: 14px;
-      padding: 10px 12px;
-      box-shadow: 0 4px 12px rgba(23, 59, 50, 0.05);
+      border-radius: 15px;
+
+      padding: 11px 13px;
+
+      box-shadow:
+        0 4px 12px rgba(23, 59, 50, 0.06);
     }
 
-    .explore-search-box span {
-      font-size: 15px;
+    .explore-search-icon {
+      font-size: 17px;
+      color: #555;
       line-height: 1;
     }
 
     .explore-search-box input {
       width: 100%;
+
       border: none;
       outline: none;
       background: transparent;
-      font-size: 13px;
-      color: var(--green, #173b32);
+
       font-family: Arial, sans-serif;
+      font-size: 13px;
+
+      color: var(--green, #173b32);
     }
 
     .explore-search-box input::placeholder {
       color: #999;
     }
 
-    /* Section headings */
+
+    /* =========================
+       QUICK SECTION NAV
+    ========================= */
+
+    .explore-tabs {
+      display: flex;
+      gap: 24px;
+
+      padding: 0 15px 11px;
+
+      overflow-x: auto;
+      scrollbar-width: none;
+
+      border-bottom: 1px solid rgba(23, 59, 50, 0.08);
+    }
+
+    .explore-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .explore-tab {
+      flex: 0 0 auto;
+
+      position: relative;
+
+      text-decoration: none;
+
+      color: #777;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      padding-bottom: 6px;
+    }
+
+    .explore-tab.active {
+      color: var(--green, #173b32);
+    }
+
+    .explore-tab.active::after {
+      content: "";
+
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      height: 3px;
+
+      border-radius: 3px;
+
+      background: var(--green, #173b32);
+    }
+
+
+    /* =========================
+       SECTION
+    ========================= */
 
     .explore-section {
       padding: 0 10px;
-      margin-bottom: 18px;
+      margin-bottom: 22px;
+      scroll-margin-top: 15px;
     }
 
     .explore-section-heading {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 0 4px 9px;
+
+      margin: 0 4px 10px;
     }
 
     .explore-section-heading h2 {
       margin: 0;
-      font-size: 14px;
+
+      font-size: 17px;
       line-height: 1.2;
+
       color: var(--green, #173b32);
     }
 
@@ -101,47 +180,75 @@
       color: var(--muted, #777);
     }
 
-    /* Categories */
+
+    /* =========================
+       CATEGORY GRID
+    ========================= */
 
     .explore-categories {
       display: grid;
+
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
+
+      gap: 9px 7px;
     }
 
     .explore-category {
       display: block;
+
       text-decoration: none;
+
       color: inherit;
+
+      min-width: 0;
     }
 
     .explore-category-image {
       width: 100%;
       aspect-ratio: 1 / 1;
+
       overflow: hidden;
-      border-radius: 14px;
+
+      border-radius: 15px;
+
       background: #e4dfd5;
-      box-shadow: 0 3px 8px rgba(23, 59, 50, 0.05);
+
+      box-shadow:
+        0 3px 8px rgba(23, 59, 50, 0.06);
     }
 
     .explore-category-image img {
       width: 100%;
       height: 100%;
+
       display: block;
+
       object-fit: cover;
     }
 
     .explore-category-name {
       display: block;
+
       margin-top: 5px;
+
       text-align: center;
+
       font-size: 9px;
       line-height: 1.2;
+
       color: var(--green, #173b32);
-      font-weight: 600;
+
+      font-weight: 700;
     }
 
-    /* Products */
+
+    /* =========================
+       ALL PRODUCTS
+    ========================= */
+
+    .products-section {
+      padding-top: 2px;
+    }
 
     .explore-products {
       column-count: 2;
@@ -150,13 +257,21 @@
 
     .explore-product {
       break-inside: avoid;
+
       margin-bottom: 6px;
+
       overflow: hidden;
+
       background: var(--cream-light, #faf8f2);
+
       border: 1px solid rgba(23, 59, 50, 0.06);
+
       border-radius: 17px;
+
       padding: 3px;
-      box-shadow: 0 5px 14px rgba(23, 59, 50, 0.06);
+
+      box-shadow:
+        0 5px 14px rgba(23, 59, 50, 0.06);
     }
 
     .explore-product a {
@@ -166,14 +281,23 @@
 
     .explore-product-image {
       overflow: hidden;
+
       border-radius: 15px;
-      background: linear-gradient(145deg, #e4dfd5, #d4dcd3);
+
+      background:
+        linear-gradient(
+          145deg,
+          #e4dfd5,
+          #d4dcd3
+        );
     }
 
     .explore-product-image img {
       width: 100%;
       height: auto;
+
       display: block;
+
       object-fit: contain;
     }
 
@@ -183,23 +307,31 @@
 
     .explore-product-name {
       margin: 0 0 3px;
+
       font-size: 12px;
       line-height: 1.25;
+
       font-weight: 700;
+
       color: var(--green, #173b32);
     }
 
     .explore-product-price {
       margin: 0 0 4px;
+
       font-size: 12px;
+
       font-weight: 700;
+
       color: var(--green, #173b32);
     }
 
     .explore-product-description {
       margin: 0 0 5px;
+
       font-size: 9px;
       line-height: 1.35;
+
       color: var(--muted, #777);
     }
 
@@ -207,72 +339,99 @@
       display: inline-flex;
       align-items: center;
       gap: 3px;
+
       font-size: 8px;
+
       color: #315d4f;
+
       font-weight: 700;
     }
 
-    /* Bottom navigation */
+
+    /* =========================
+       BOTTOM NAVIGATION
+    ========================= */
 
     .bottom-nav {
       position: fixed;
+
       left: 0;
       right: 0;
       bottom: 0;
+
       z-index: 1000;
 
       display: flex;
+
       justify-content: space-around;
       align-items: center;
 
       height: 66px;
-      padding: 6px 6px env(safe-area-inset-bottom);
 
-      background: rgba(250, 248, 242, 0.97);
-      border-top: 1px solid rgba(23, 59, 50, 0.08);
-      box-shadow: 0 -4px 15px rgba(23, 59, 50, 0.05);
+      padding:
+        6px 6px
+        env(safe-area-inset-bottom);
+
+      background:
+        rgba(250, 248, 242, 0.97);
+
+      border-top:
+        1px solid rgba(23, 59, 50, 0.08);
+
+      box-shadow:
+        0 -4px 15px rgba(23, 59, 50, 0.05);
 
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
 
-    .bottom-nav a {
+    .bottom-nav .nav-item {
       flex: 1;
+
       display: flex;
-      flex-direction: column;
+
       align-items: center;
       justify-content: center;
-      gap: 3px;
 
       min-height: 48px;
 
       text-decoration: none;
+
       color: #777;
 
       font-family: Arial, sans-serif;
-      font-size: 9px;
+
+      font-size: 10px;
+
       font-weight: 600;
+
+      background: transparent;
+
+      border: none;
     }
 
-    .bottom-nav a span:first-child {
-      font-size: 18px;
-      line-height: 1;
-    }
-
-    .bottom-nav a.active {
+    .bottom-nav .nav-item.active {
       color: var(--green, #173b32);
+
+      font-weight: 700;
     }
 
-    /* Desktop */
+
+    /* =========================
+       DESKTOP
+    ========================= */
 
     @media (min-width: 700px) {
+
       .explore-page {
         max-width: 900px;
+
         margin: 0 auto;
       }
 
       .explore-categories {
-        grid-template-columns: repeat(8, 1fr);
+        grid-template-columns:
+          repeat(8, 1fr);
       }
 
       .explore-products {
@@ -282,26 +441,38 @@
       .bottom-nav {
         left: 50%;
         right: auto;
+
         width: 100%;
         max-width: 900px;
-        transform: translateX(-50%);
-        border-radius: 18px 18px 0 0;
+
+        transform:
+          translateX(-50%);
+
+        border-radius:
+          18px 18px 0 0;
       }
     }
   </style>
 </head>
 
+
 <body>
 
   <main class="explore-page">
+
 
     <!-- =========================
          HEADER
     ========================== -->
 
     <header class="explore-header">
+
       <h1>Explore</h1>
-      <p>Discover pre-owned fashion you'll love.</p>
+
+      <p>
+        Discover fashion for everyone on WERAE.
+      </p>
+
     </header>
 
 
@@ -310,8 +481,12 @@
     ========================== -->
 
     <section class="explore-search">
+
       <div class="explore-search-box">
-        <span>⌕</span>
+
+        <span class="explore-search-icon">
+          ⌕
+        </span>
 
         <input
           type="search"
@@ -319,476 +494,646 @@
           placeholder="Search fashion, products or categories..."
           autocomplete="off"
         >
+
       </div>
+
     </section>
 
 
     <!-- =========================
-         CATEGORIES
+         SECTION NAVIGATION
     ========================== -->
 
-    <section class="explore-section">
+    <nav class="explore-tabs">
+
+      <a
+        href="#all"
+        class="explore-tab active"
+      >
+        All
+      </a>
+
+      <a
+        href="#women"
+        class="explore-tab"
+      >
+        Women
+      </a>
+
+      <a
+        href="#men"
+        class="explore-tab"
+      >
+        Men
+      </a>
+
+      <a
+        href="#children"
+        class="explore-tab"
+      >
+        Children
+      </a>
+
+    </nav>
+
+
+    <!-- =========================
+         ALL CATEGORIES
+    ========================== -->
+
+    <section
+      class="explore-section"
+      id="all"
+    >
 
       <div class="explore-section-heading">
-        <h2>Categories</h2>
+
+        <h2>All Categories</h2>
+
         <span>16 categories</span>
+
       </div>
 
-      <div class="explore-categories" id="categoriesGrid">
+
+      <div class="explore-categories">
+
 
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
           data-search="tops"
         >
+
           <div class="explore-category-image">
-            <img src="category-tops.jpg" alt="Tops">
+            <img
+              src="category-tops.jpg"
+              alt="Tops"
+            >
           </div>
-          <span class="explore-category-name">Tops</span>
+
+          <span class="explore-category-name">
+            Tops
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
           data-search="shirts"
         >
+
           <div class="explore-category-image">
-            <img src="category-shirts-new.jpg" alt="Shirts">
+            <img
+              src="category-shirts-new.jpg"
+              alt="Shirts"
+            >
           </div>
-          <span class="explore-category-name">Shirts</span>
+
+          <span class="explore-category-name">
+            Shirts
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
-          data-search="outerwear jackets"
+          data-search="outerwear"
         >
+
           <div class="explore-category-image">
-            <img src="category-outerwear.jpg" alt="Outerwear">
+            <img
+              src="category-outerwear.jpg"
+              alt="Outerwear"
+            >
           </div>
-          <span class="explore-category-name">Outerwear</span>
+
+          <span class="explore-category-name">
+            Outerwear
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
           data-search="denim"
         >
+
           <div class="explore-category-image">
-            <img src="category-denim.jpg" alt="Denim">
+            <img
+              src="category-denim.jpg"
+              alt="Denim"
+            >
           </div>
-          <span class="explore-category-name">Denim</span>
+
+          <span class="explore-category-name">
+            Denim
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
           data-search="native"
         >
+
           <div class="explore-category-image">
-            <img src="category-native.jpg" alt="Native">
+            <img
+              src="category-native.jpg"
+              alt="Native"
+            >
           </div>
-          <span class="explore-category-name">Native</span>
+
+          <span class="explore-category-name">
+            Native
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
           data-search="shorts"
         >
+
           <div class="explore-category-image">
-            <img src="category-shorts-1.jpg" alt="Shorts">
+            <img
+              src="category-shorts-1.jpg"
+              alt="Shorts"
+            >
           </div>
-          <span class="explore-category-name">Shorts</span>
+
+          <span class="explore-category-name">
+            Shorts
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
           data-search="knitwear"
         >
+
           <div class="explore-category-image">
-            <img src="category-knitwear.jpg" alt="Knitwear">
+            <img
+              src="category-knitwear.jpg"
+              alt="Knitwear"
+            >
           </div>
-          <span class="explore-category-name">Knitwear</span>
+
+          <span class="explore-category-name">
+            Knitwear
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
-          data-search="coords co ords"
+          data-search="co ords coords"
         >
+
           <div class="explore-category-image">
-            <img src="category-coords.jpg" alt="Co-ords">
+            <img
+              src="category-coords.jpg"
+              alt="Co-ords"
+            >
           </div>
-          <span class="explore-category-name">Co-ords</span>
+
+          <span class="explore-category-name">
+            Co-ords
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
           data-search="bags handbags"
         >
+
           <div class="explore-category-image">
-            <img src="category-bags.jpg" alt="Bags">
+            <img
+              src="category-bags.jpg"
+              alt="Bags"
+            >
           </div>
-          <span class="explore-category-name">Bags</span>
+
+          <span class="explore-category-name">
+            Bags
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
           data-search="shoes footwear"
         >
+
           <div class="explore-category-image">
-            <img src="category-shoes.jpg" alt="Shoes">
+            <img
+              src="category-shoes.jpg"
+              alt="Shoes"
+            >
           </div>
-          <span class="explore-category-name">Shoes</span>
+
+          <span class="explore-category-name">
+            Shoes
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
           data-search="watches"
         >
+
           <div class="explore-category-image">
-            <img src="category-watches.jpg" alt="Watches">
+            <img
+              src="category-watches.jpg"
+              alt="Watches"
+            >
           </div>
-          <span class="explore-category-name">Watches</span>
+
+          <span class="explore-category-name">
+            Watches
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
           data-search="jewelry jewellery"
         >
+
           <div class="explore-category-image">
-            <img src="category-jewelry.jpg" alt="Jewelry">
+            <img
+              src="category-jewelry.jpg"
+              alt="Jewelry"
+            >
           </div>
-          <span class="explore-category-name">Jewelry</span>
+
+          <span class="explore-category-name">
+            Jewelry
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
           data-search="accessories"
         >
+
           <div class="explore-category-image">
-            <img src="category-accessories.jpg" alt="Accessories">
+            <img
+              src="category-accessories.jpg"
+              alt="Accessories"
+            >
           </div>
-          <span class="explore-category-name">Accessories</span>
+
+          <span class="explore-category-name">
+            Accessories
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
-          data-search="polo shirts polo"
+          data-search="polo"
         >
+
           <div class="explore-category-image">
-            <img src="category-polo.jpg" alt="Polo Shirts">
+            <img
+              src="category-polo.jpg"
+              alt="Polo Shirts"
+            >
           </div>
-          <span class="explore-category-name">Polo Shirts</span>
+
+          <span class="explore-category-name">
+            Polo Shirts
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
           data-search="underwear"
         >
+
           <div class="explore-category-image">
-            <img src="category-underwear.jpg" alt="Underwear">
+            <img
+              src="category-underwear.jpg"
+              alt="Underwear"
+            >
           </div>
-          <span class="explore-category-name">Underwear</span>
+
+          <span class="explore-category-name">
+            Underwear
+          </span>
+
         </a>
 
+
         <a
-          href="index.html#products"
+          href="#products"
           class="explore-category"
           data-search="sports outdoor"
         >
+
           <div class="explore-category-image">
-            <img src="category-sports.jpg" alt="Sports and Outdoor">
+            <img
+              src="category-sports.jpg"
+              alt="Sports and Outdoor"
+            >
           </div>
-          <span class="explore-category-name">Sports & Outdoor</span>
+
+          <span class="explore-category-name">
+            Sports & Outdoor
+          </span>
+
         </a>
 
       </div>
+
     </section>
 
 
     <!-- =========================
-         PRODUCTS
+         WOMEN'S SECTION
     ========================== -->
 
-    <section class="explore-section">
+    <section
+      class="explore-section"
+      id="women"
+    >
 
       <div class="explore-section-heading">
-        <h2>All Products</h2>
-        <span>WERAE verified</span>
+
+        <h2>Women's</h2>
+
+        <span>Fashion for women</span>
+
       </div>
 
-      <div class="explore-products" id="productsGrid">
 
-        <!-- Premium Handbag -->
+      <div class="explore-categories">
 
-        <article
-          class="explore-product"
-          data-search="premium handbag bag black leather"
+
+        <a
+          href="#products"
+          class="explore-category"
+          data-search="women tops"
         >
 
-          <a href="product.html">
+          <div class="explore-category-image">
+            <img
+              src="category-tops.jpg"
+              alt="Women's Tops"
+            >
+          </div>
 
-            <div class="explore-product-image">
-              <img
-                src="product-premium-handbag.jpg"
-                alt="Premium Handbag"
-              >
-            </div>
+          <span class="explore-category-name">
+            Tops
+          </span>
 
-            <div class="explore-product-info">
-
-              <h3 class="explore-product-name">
-                Premium Handbag
-              </h3>
-
-              <p class="explore-product-price">
-                ₦85,000
-              </p>
-
-              <p class="explore-product-description">
-                Structured black leather handbag, excellent condition.
-              </p>
-
-              <span class="explore-verified">
-                ✓ WERAE verified
-              </span>
-
-            </div>
-
-          </a>
-
-        </article>
+        </a>
 
 
-        <!-- Classic Sneakers -->
-
-        <article
-          class="explore-product"
-          data-search="classic sneakers shoes footwear"
+        <a
+          href="#products"
+          class="explore-category"
+          data-search="women shirts"
         >
 
-          <a href="product.html">
+          <div class="explore-category-image">
+            <img
+              src="category-shirts-new.jpg"
+              alt="Women's Shirts"
+            >
+          </div>
 
-            <div class="explore-product-image">
-              <img
-                src="product-classic-sneakers.jpg"
-                alt="Classic Sneakers"
-              >
-            </div>
+          <span class="explore-category-name">
+            Shirts
+          </span>
 
-            <div class="explore-product-info">
-
-              <h3 class="explore-product-name">
-                Classic Sneakers
-              </h3>
-
-              <p class="explore-product-price">
-                ₦65,000
-              </p>
-
-              <p class="explore-product-description">
-                Classic everyday sneakers in good pre-owned condition.
-              </p>
-
-              <span class="explore-verified">
-                ✓ WERAE verified
-              </span>
-
-            </div>
-
-          </a>
-
-        </article>
+        </a>
 
 
-        <!-- Designer Jacket -->
-
-        <article
-          class="explore-product"
-          data-search="designer jacket outerwear jacket"
+        <a
+          href="#products"
+          class="explore-category"
+          data-search="women denim"
         >
 
-          <a href="product.html">
+          <div class="explore-category-image">
+            <img
+              src="category-denim.jpg"
+              alt="Women's Denim"
+            >
+          </div>
 
-            <div class="explore-product-image">
-              <img
-                src="product-designer-jacket-portrait-clean.jpg"
-                alt="Designer Jacket"
-              >
-            </div>
+          <span class="explore-category-name">
+            Denim
+          </span>
 
-            <div class="explore-product-info">
-
-              <h3 class="explore-product-name">
-                Designer Jacket
-              </h3>
-
-              <p class="explore-product-price">
-                ₦120,000
-              </p>
-
-              <p class="explore-product-description">
-                Stylish pre-owned jacket in excellent condition.
-              </p>
-
-              <span class="explore-verified">
-                ✓ WERAE verified
-              </span>
-
-            </div>
-
-          </a>
-
-        </article>
+        </a>
 
 
-        <!-- Leather Shoes -->
-
-        <article
-          class="explore-product"
-          data-search="leather shoes footwear"
+        <a
+          href="#products"
+          class="explore-category"
+          data-search="women knitwear"
         >
 
-          <a href="product.html">
+          <div class="explore-category-image">
+            <img
+              src="category-knitwear.jpg"
+              alt="Women's Knitwear"
+            >
+          </div>
 
-            <div class="explore-product-image">
-              <img
-                src="product-leather-shoes.jpg"
-                alt="Leather Shoes"
-              >
-            </div>
+          <span class="explore-category-name">
+            Knitwear
+          </span>
 
-            <div class="explore-product-info">
+        </a>
 
-              <h3 class="explore-product-name">
-                Leather Shoes
-              </h3>
 
-              <p class="explore-product-price">
-                ₦55,000
-              </p>
+        <a
+          href="#products"
+          class="explore-category"
+          data-search="women bags"
+        >
 
-              <p class="explore-product-description">
-                Classic leather shoes suitable for everyday and formal wear.
-              </p>
+          <div class="explore-category-image">
+            <img
+              src="category-bags.jpg"
+              alt="Women's Bags"
+            >
+          </div>
 
-              <span class="explore-verified">
-                ✓ WERAE verified
-              </span>
+          <span class="explore-category-name">
+            Bags
+          </span>
 
-            </div>
+        </a>
 
-          </a>
 
-        </article>
+        <a
+          href="#products"
+          class="explore-category"
+          data-search="women shoes"
+        >
+
+          <div class="explore-category-image">
+            <img
+              src="category-shoes.jpg"
+              alt="Women's Shoes"
+            >
+          </div>
+
+          <span class="explore-category-name">
+            Shoes
+          </span>
+
+        </a>
+
+
+        <a
+          href="#products"
+          class="explore-category"
+          data-search="women jewelry"
+        >
+
+          <div class="explore-category-image">
+            <img
+              src="category-jewelry.jpg"
+              alt="Women's Jewelry"
+            >
+          </div>
+
+          <span class="explore-category-name">
+            Jewelry
+          </span>
+
+        </a>
+
+
+        <a
+          href="#products"
+          class="explore-category"
+          data-search="women accessories"
+        >
+
+          <div class="explore-category-image">
+            <img
+              src="category-accessories.jpg"
+              alt="Women's Accessories"
+            >
+          </div>
+
+          <span class="explore-category-name">
+            Accessories
+          </span>
+
+        </a>
 
       </div>
 
     </section>
 
-  </main>
+
+    <!-- =========================
+         MEN'S SECTION
+    ========================== -->
+
+    <section
+      class="explore-section"
+      id="men"
+    >
+
+      <div class="explore-section-heading">
+
+        <h2>Men's</h2>
+
+        <span>Fashion for men</span>
+
+      </div>
 
 
-  <!-- =========================
-       BOTTOM NAVIGATION
-  ========================== -->
-
-  <nav class="bottom-nav">
-
-    <a href="index.html">
-      <span>⌂</span>
-      <span>Home</span>
-    </a>
-
-    <a href="explore.html" class="active">
-      <span>⌕</span>
-      <span>Explore</span>
-    </a>
-
-    <a href="orders.html">
-      <span>▣</span>
-      <span>Orders</span>
-    </a>
-
-    <a href="saved.html">
-      <span>♡</span>
-      <span>Saved</span>
-    </a>
-
-    <a href="profile.html">
-      <span>♙</span>
-      <span>Profile</span>
-    </a>
-
-  </nav>
+      <div class="explore-categories">
 
 
-  <!-- =========================
-       SEARCH FUNCTION
-  ========================== -->
+        <a
+          href="#products"
+          class="explore-category"
+          data-search="men tops"
+        >
 
-  <script>
-    const searchInput = document.getElementById("exploreSearch");
+          <div class="explore-category-image">
+            <img
+              src="category-tops.jpg"
+              alt="Men's Tops"
+            >
+          </div>
 
-    const categoryItems = document.querySelectorAll(
-      ".explore-category"
-    );
+          <span class="explore-category-name">
+            Tops
+          </span>
 
-    const productItems = document.querySelectorAll(
-      ".explore-product"
-    );
-
-    searchInput.addEventListener("input", function () {
-
-      const searchTerm = this.value
-        .toLowerCase()
-        .trim();
-
-      categoryItems.forEach(function (item) {
-
-        const searchableText =
-          item.dataset.search.toLowerCase();
-
-        if (
-          searchTerm === "" ||
-          searchableText.includes(searchTerm)
-        ) {
-          item.style.display = "";
-        } else {
-          item.style.display = "none";
-        }
-
-      });
+        </a>
 
 
-      productItems.forEach(function (item) {
+        <a
+          href="#products"
+          class="explore-category"
+          data-search="men shirts"
+        >
 
-        const searchableText =
-          item.dataset.search.toLowerCase();
+          <div class="explore-category-image">
+            <img
+              src="category-shirts-new.jpg"
+              alt="Men's Shirts"
+            >
+          </div>
 
-        if (
-          searchTerm === "" ||
-          searchableText.includes(searchTerm)
-        ) {
-          item.style.display = "";
-        } else {
-          item.style.display = "none";
-        }
+          <span class="explore-category-name">
+            Shirts
+          </span>
 
-      });
+        </a>
 
-    });
-  </script>
 
-</body>
-              </html>
+        <a
+          href="#products"
+          class="explore-category"
+          data-search="men outerwear jackets"
+        >
+
+          <div class="explore-category-image">
+            <img
+              src="category-outerwear.
