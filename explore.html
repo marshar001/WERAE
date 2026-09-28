@@ -14,117 +14,99 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
-
-    /* =====================================================
+    /* =========================
        EXPLORE PAGE
-    ===================================================== */
+    ========================== */
 
-    .explore-page {
-      padding-bottom: 95px;
-    }
-
-
-    /* =====================================================
-       HEADER
-    ===================================================== */
-
-    .explore-header {
-      padding: 18px 14px 5px;
-    }
-
-    .explore-header h1 {
-      margin: 0 0 4px;
-
-      font-size: 23px;
-      line-height: 1.1;
-
+    body {
+      margin: 0;
+      background: var(--cream-light, #f8f4eb);
       color: var(--green, #173b32);
     }
 
-    .explore-header p {
-      margin: 0;
-
-      font-size: 12px;
-      line-height: 1.4;
-
-      color: var(--muted, #777);
+    .explore-page {
+      padding-bottom: 100px;
     }
 
-
-    /* =====================================================
-       SEARCH BAR
-    ===================================================== */
+    /* =========================
+       SEARCH
+    ========================== */
 
     .explore-search {
-      padding: 7px 12px 15px;
+      padding: 16px 18px 10px;
     }
 
     .explore-search-box {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
 
       width: 100%;
       box-sizing: border-box;
 
-      background: #ffffff;
+      background: #fff;
+      border-radius: 18px;
+      padding: 13px 15px;
 
-      border: 1px solid rgba(23, 59, 50, 0.07);
-
-      border-radius: 17px;
-
-      padding: 12px 14px;
-
-      box-shadow:
-        0 4px 12px rgba(23, 59, 50, 0.06);
+      box-shadow: 0 4px 14px rgba(23, 59, 50, 0.07);
     }
 
     .explore-search-icon {
-      flex: 0 0 auto;
-
-      font-size: 18px;
-      line-height: 1;
-
+      font-size: 20px;
       color: #555;
     }
 
     .explore-search-box input {
       width: 100%;
-
-      border: none;
-      outline: none;
-
+      border: 0;
+      outline: 0;
       background: transparent;
 
       font-family: Arial, sans-serif;
-
-      font-size: 13px;
-
-      color: var(--green, #173b32);
+      font-size: 14px;
+      color: #173b32;
     }
 
     .explore-search-box input::placeholder {
       color: #999;
     }
 
+    /* =========================
+       PAGE INTRO
+    ========================== */
 
-    /* =====================================================
-       TOP CATEGORY NAVIGATION
-    ===================================================== */
+    .explore-intro {
+      padding: 8px 26px 5px;
+    }
+
+    .explore-intro h1 {
+      margin: 0;
+      font-family: Georgia, serif;
+      font-size: 27px;
+      line-height: 1.15;
+      color: #173b32;
+    }
+
+    .explore-intro p {
+      margin: 5px 0 0;
+      font-size: 13px;
+      color: #888;
+    }
+
+    /* =========================
+       SECTION TABS
+    ========================== */
 
     .explore-tabs {
       display: flex;
-
       gap: 27px;
 
-      padding: 0 15px 11px;
+      padding: 13px 26px 10px;
 
       overflow-x: auto;
-
       scrollbar-width: none;
 
-      border-bottom:
-        1px solid rgba(23, 59, 50, 0.08);
+      border-bottom: 1px solid rgba(23, 59, 50, 0.08);
     }
 
     .explore-tabs::-webkit-scrollbar {
@@ -132,30 +114,28 @@
     }
 
     .explore-tab {
-      position: relative;
-
       flex: 0 0 auto;
+
+      position: relative;
 
       text-decoration: none;
 
-      color: #777;
-
-      font-size: 12px;
-
+      font-size: 13px;
       font-weight: 700;
 
-      padding-bottom: 6px;
+      color: #888;
+
+      padding-bottom: 7px;
     }
 
     .explore-tab.active {
-      color: var(--green, #173b32);
+      color: #173b32;
     }
 
     .explore-tab.active::after {
       content: "";
 
       position: absolute;
-
       left: 0;
       right: 0;
       bottom: 0;
@@ -164,58 +144,45 @@
 
       border-radius: 3px;
 
-      background:
-        var(--green, #173b32);
+      background: #173b32;
     }
 
-
-    /* =====================================================
-       SECTION
-    ===================================================== */
+    /* =========================
+       SECTIONS
+    ========================== */
 
     .explore-section {
-      padding: 0 10px;
-
-      margin-top: 20px;
-
-      margin-bottom: 25px;
-
-      scroll-margin-top: 15px;
+      padding: 0 19px;
+      margin-top: 25px;
+      scroll-margin-top: 10px;
     }
 
     .explore-section-heading {
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
 
-      margin: 0 5px 10px;
+      margin: 0 8px 12px;
     }
 
     .explore-section-heading h2 {
       margin: 0;
 
-      font-size: 18px;
+      font-family: Georgia, serif;
+      font-size: 24px;
+      line-height: 1.15;
 
-      line-height: 1.2;
-
-      color:
-        var(--green, #173b32);
+      color: #173b32;
     }
 
     .explore-section-heading span {
-      font-size: 10px;
-
-      color:
-        var(--muted, #777);
+      font-size: 12px;
+      color: #888;
     }
 
-
-    /* =====================================================
+    /* =========================
        CATEGORY GRID
-       SAME GENERAL SHAPE AS THE CURRENT EXPLORE DESIGN
-    ===================================================== */
+    ========================== */
 
     .explore-categories {
       display: grid;
@@ -223,7 +190,7 @@
       grid-template-columns:
         repeat(4, minmax(0, 1fr));
 
-      gap: 10px 7px;
+      gap: 18px 9px;
     }
 
     .explore-category {
@@ -232,24 +199,21 @@
       min-width: 0;
 
       text-decoration: none;
-
       color: inherit;
     }
 
     .explore-category-image {
       width: 100%;
-
       aspect-ratio: 1 / 1;
 
       overflow: hidden;
 
-      border-radius: 16px;
+      border-radius: 18px;
 
       background: #e4dfd5;
 
       box-shadow:
-        0 3px 8px
-        rgba(23, 59, 50, 0.06);
+        0 4px 10px rgba(23, 59, 50, 0.07);
     }
 
     .explore-category-image img {
@@ -264,38 +228,31 @@
     .explore-category-name {
       display: block;
 
-      min-height: 22px;
-
-      margin-top: 5px;
+      margin-top: 6px;
 
       text-align: center;
 
       font-family: Georgia, serif;
 
-      font-size: 9px;
-
+      font-size: 10px;
       line-height: 1.15;
 
       font-weight: 700;
 
-      color:
-        var(--green, #173b32);
+      color: #173b32;
     }
 
-
-    /* =====================================================
+    /* =========================
        ALL PRODUCTS
-    ===================================================== */
+    ========================== */
 
     .products-section {
-      margin-top: 24px;
-
-      margin-bottom: 28px;
+      margin-top: 32px;
+      margin-bottom: 30px;
     }
 
     .explore-products {
       column-count: 2;
-
       column-gap: 5px;
     }
 
@@ -306,8 +263,7 @@
 
       overflow: hidden;
 
-      background:
-        var(--cream-light, #faf8f2);
+      background: var(--cream-light, #faf8f2);
 
       border:
         1px solid rgba(23, 59, 50, 0.06);
@@ -317,21 +273,17 @@
       padding: 3px;
 
       box-shadow:
-        0 5px 14px
-        rgba(23, 59, 50, 0.06);
+        0 5px 14px rgba(23, 59, 50, 0.06);
     }
 
     .explore-product a {
       display: block;
-
       text-decoration: none;
-
       color: inherit;
     }
 
     .explore-product-image {
       overflow: hidden;
-
       border-radius: 15px;
 
       background:
@@ -359,76 +311,60 @@
       margin: 0 0 3px;
 
       font-size: 12px;
-
       line-height: 1.25;
 
       font-weight: 700;
 
-      color:
-        var(--green, #173b32);
+      color: #173b32;
     }
 
     .explore-product-price {
       margin: 0 0 4px;
 
       font-size: 12px;
-
       font-weight: 700;
 
-      color:
-        var(--green, #173b32);
+      color: #173b32;
     }
 
     .explore-product-description {
       margin: 0 0 5px;
 
       font-size: 9px;
-
       line-height: 1.35;
 
-      color:
-        var(--muted, #777);
+      color: #777;
     }
 
     .explore-verified {
-      display: inline-flex;
-
-      align-items: center;
-
-      gap: 3px;
-
       font-size: 8px;
+      font-weight: 700;
 
       color: #315d4f;
-
-      font-weight: 700;
     }
 
-
-    /* =====================================================
+    /* =========================
        TRENDING STYLES
-       THIS IS INTENTIONALLY AFTER ALL PRODUCTS
-    ===================================================== */
+       VERY BOTTOM
+    ========================== */
 
-    .trending-styles-section {
-      margin-top: 28px;
-
-      margin-bottom: 30px;
+    .trending-section {
+      margin-top: 34px;
+      margin-bottom: 35px;
     }
 
-    .trending-styles-grid {
+    .trending-grid {
       display: grid;
 
       grid-template-columns:
         repeat(4, minmax(0, 1fr));
 
-      gap: 10px 7px;
+      gap: 18px 9px;
     }
 
-
-    /* =====================================================
+    /* =========================
        BOTTOM NAVIGATION
-    ===================================================== */
+    ========================== */
 
     .bottom-nav {
       position: fixed;
@@ -437,36 +373,36 @@
       right: 0;
       bottom: 0;
 
-      z-index: 1000;
+      z-index: 9999;
 
       display: flex;
 
       align-items: center;
-
       justify-content: space-around;
 
-      height: 67px;
+      height: 70px;
 
       padding:
-        5px 5px
+        4px 4px
         env(safe-area-inset-bottom);
 
+      box-sizing: border-box;
+
       background:
-        rgba(250, 248, 242, 0.97);
+        rgba(250, 248, 242, 0.98);
 
       border-top:
         1px solid rgba(23, 59, 50, 0.08);
 
       box-shadow:
-        0 -4px 15px
-        rgba(23, 59, 50, 0.05);
+        0 -5px 18px
+        rgba(23, 59, 50, 0.08);
 
-      backdrop-filter: blur(10px);
-
-      -webkit-backdrop-filter: blur(10px);
+      border-radius:
+        28px 28px 0 0;
     }
 
-    .bottom-nav .nav-item {
+    .nav-item {
       flex: 1;
 
       display: flex;
@@ -474,50 +410,41 @@
       flex-direction: column;
 
       align-items: center;
-
       justify-content: center;
 
-      min-height: 48px;
+      gap: 3px;
 
-      border: none;
+      min-height: 58px;
+
+      border: 0;
 
       background: transparent;
 
       text-decoration: none;
 
+      color: #777;
+
       font-family: Arial, sans-serif;
 
       font-size: 10px;
-
       font-weight: 600;
-
-      color: #777;
     }
 
-    .bottom-nav .nav-item.active {
-      color:
-        var(--green, #173b32);
+    .nav-icon {
+      font-size: 22px;
+      line-height: 1;
+    }
 
+    .nav-item.active {
+      color: #173b32;
       font-weight: 700;
     }
-
-
-    /* =====================================================
-       DESKTOP
-    ===================================================== */
 
     @media (min-width: 700px) {
 
       .explore-page {
         max-width: 900px;
-
         margin: 0 auto;
-      }
-
-      .explore-categories,
-      .trending-styles-grid {
-        grid-template-columns:
-          repeat(8, minmax(0, 1fr));
       }
 
       .explore-products {
@@ -529,53 +456,27 @@
         right: auto;
 
         width: 100%;
-
         max-width: 900px;
 
-        transform:
-          translateX(-50%);
-
-        border-radius:
-          18px 18px 0 0;
+        transform: translateX(-50%);
       }
-
     }
-
   </style>
 </head>
-
 
 <body>
 
   <main class="explore-page">
 
-
-    <!-- =================================================
-         PAGE HEADER
-    ================================================== -->
-
-    <header class="explore-header">
-
-      <h1>Explore</h1>
-
-      <p>
-        Style it your way.
-      </p>
-
-    </header>
-
-
-    <!-- =================================================
-         SEARCH BAR — AT THE TOP
-    ================================================== -->
+    <!-- =========================
+         SEARCH BAR
+    ========================== -->
 
     <section class="explore-search">
 
       <div class="explore-search-box">
 
-        <span class="explore-search-icon">
-          ⌕
-        </span>
+        <span class="explore-search-icon">⌕</span>
 
         <input
           type="search"
@@ -589,9 +490,22 @@
     </section>
 
 
-    <!-- =================================================
-         SECTION NAVIGATION
-    ================================================== -->
+    <!-- =========================
+         INTRO
+    ========================== -->
+
+    <section class="explore-intro">
+
+      <h1>Explore</h1>
+
+      <p>Style it your way.</p>
+
+    </section>
+
+
+    <!-- =========================
+         TOP NAV
+    ========================== -->
 
     <nav class="explore-tabs">
 
@@ -620,22 +534,22 @@
         href="#products"
         class="explore-tab"
       >
-        Products
+        All Products
       </a>
 
       <a
         href="#trending"
         class="explore-tab"
       >
-        Trending
+        Trending Styles
       </a>
 
     </nav>
 
 
-    <!-- =================================================
-         MEN'S SECTION — FIRST
-    ================================================== -->
+    <!-- =========================
+         MEN'S SECTION
+    ========================== -->
 
     <section
       class="explore-section"
@@ -653,7 +567,6 @@
 
       <div class="explore-categories">
 
-
         <a
           href="#products"
           class="explore-category"
@@ -665,7 +578,6 @@
               alt="Men's Tops"
             >
           </div>
-
           <span class="explore-category-name">
             Tops
           </span>
@@ -683,7 +595,6 @@
               alt="Men's Shirts"
             >
           </div>
-
           <span class="explore-category-name">
             Shirts
           </span>
@@ -701,7 +612,6 @@
               alt="Men's Outerwear"
             >
           </div>
-
           <span class="explore-category-name">
             Outerwear
           </span>
@@ -719,7 +629,6 @@
               alt="Men's Denim"
             >
           </div>
-
           <span class="explore-category-name">
             Denim
           </span>
@@ -737,7 +646,6 @@
               alt="Men's Native"
             >
           </div>
-
           <span class="explore-category-name">
             Native
           </span>
@@ -755,7 +663,6 @@
               alt="Men's Shorts"
             >
           </div>
-
           <span class="explore-category-name">
             Shorts
           </span>
@@ -773,7 +680,6 @@
               alt="Men's Knitwear"
             >
           </div>
-
           <span class="explore-category-name">
             Knitwear
           </span>
@@ -783,7 +689,7 @@
         <a
           href="#products"
           class="explore-category"
-          data-search="men shoes footwear"
+          data-search="men shoes"
         >
           <div class="explore-category-image">
             <img
@@ -791,7 +697,6 @@
               alt="Men's Shoes"
             >
           </div>
-
           <span class="explore-category-name">
             Shoes
           </span>
@@ -802,9 +707,9 @@
     </section>
 
 
-    <!-- =================================================
-         WOMEN'S SECTION — SECOND
-    ================================================== -->
+    <!-- =========================
+         WOMEN'S SECTION
+    ========================== -->
 
     <section
       class="explore-section"
@@ -822,7 +727,6 @@
 
       <div class="explore-categories">
 
-
         <a
           href="#products"
           class="explore-category"
@@ -834,7 +738,6 @@
               alt="Women's Tops"
             >
           </div>
-
           <span class="explore-category-name">
             Tops
           </span>
@@ -852,7 +755,6 @@
               alt="Women's Shirts"
             >
           </div>
-
           <span class="explore-category-name">
             Shirts
           </span>
@@ -862,7 +764,7 @@
         <a
           href="#products"
           class="explore-category"
-          data-search="women outerwear jackets"
+          data-search="women outerwear"
         >
           <div class="explore-category-image">
             <img
@@ -870,7 +772,6 @@
               alt="Women's Outerwear"
             >
           </div>
-
           <span class="explore-category-name">
             Outerwear
           </span>
@@ -888,7 +789,6 @@
               alt="Women's Denim"
             >
           </div>
-
           <span class="explore-category-name">
             Denim
           </span>
@@ -906,7 +806,6 @@
               alt="Women's Knitwear"
             >
           </div>
-
           <span class="explore-category-name">
             Knitwear
           </span>
@@ -916,7 +815,7 @@
         <a
           href="#products"
           class="explore-category"
-          data-search="women bags handbags"
+          data-search="women bags"
         >
           <div class="explore-category-image">
             <img
@@ -924,7 +823,6 @@
               alt="Women's Bags"
             >
           </div>
-
           <span class="explore-category-name">
             Bags
           </span>
@@ -942,7 +840,6 @@
               alt="Women's Shoes"
             >
           </div>
-
           <span class="explore-category-name">
             Shoes
           </span>
@@ -960,7 +857,6 @@
               alt="Women's Jewelry"
             >
           </div>
-
           <span class="explore-category-name">
             Jewelry
           </span>
@@ -971,9 +867,9 @@
     </section>
 
 
-    <!-- =================================================
-         KIDS SECTION — THIRD
-    ================================================== -->
+    <!-- =========================
+         KIDS SECTION
+    ========================== -->
 
     <section
       class="explore-section"
@@ -991,7 +887,6 @@
 
       <div class="explore-categories">
 
-
         <a
           href="#products"
           class="explore-category"
@@ -1003,7 +898,6 @@
               alt="Kids Tops"
             >
           </div>
-
           <span class="explore-category-name">
             Tops
           </span>
@@ -1021,7 +915,6 @@
               alt="Kids Shirts"
             >
           </div>
-
           <span class="explore-category-name">
             Shirts
           </span>
@@ -1039,7 +932,6 @@
               alt="Kids Denim"
             >
           </div>
-
           <span class="explore-category-name">
             Denim
           </span>
@@ -1057,7 +949,6 @@
               alt="Kids Shorts"
             >
           </div>
-
           <span class="explore-category-name">
             Shorts
           </span>
@@ -1075,7 +966,6 @@
               alt="Kids Knitwear"
             >
           </div>
-
           <span class="explore-category-name">
             Knitwear
           </span>
@@ -1093,5 +983,644 @@
               alt="Kids Shoes"
             >
           </div>
+          <span class="explore-category-name">
+            Shoes
+          </span>
+        </a>
 
-          <s
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         ALL PRODUCTS
+         THIS STAYS ABOVE TRENDING
+    ========================== -->
+
+    <section
+      class="explore-section products-section"
+      id="products"
+    >
+
+      <div class="explore-section-heading">
+
+        <h2>All Products</h2>
+
+        <span>WERAE verified</span>
+
+      </div>
+
+
+      <div
+        class="explore-products"
+        id="productsGrid"
+      >
+
+        <!-- PREMIUM HANDBAG -->
+
+        <article
+          class="explore-product"
+          data-search="premium handbag bag leather women"
+        >
+
+          <a href="product.html">
+
+            <div class="explore-product-image">
+
+              <img
+                src="product-premium-handbag.jpg"
+                alt="Premium Handbag"
+              >
+
+            </div>
+
+            <div class="explore-product-info">
+
+              <h3 class="explore-product-name">
+                Premium Handbag
+              </h3>
+
+              <p class="explore-product-price">
+                ₦85,000
+              </p>
+
+              <p class="explore-product-description">
+                Structured black leather handbag,
+                excellent condition.
+              </p>
+
+              <span class="explore-verified">
+                ✓ WERAE verified
+              </span>
+
+            </div>
+
+          </a>
+
+        </article>
+
+
+        <!-- CLASSIC SNEAKERS -->
+
+        <article
+          class="explore-product"
+          data-search="classic sneakers shoes footwear men women"
+        >
+
+          <a href="product.html">
+    <div class="explore-product-image">
+
+      <img
+        src="product-classic-sneakers.jpg"
+        alt="Classic Sneakers"
+      >
+
+    </div>
+
+    <div class="explore-product-info">
+
+      <h3 class="explore-product-name">
+        Classic Sneakers
+      </h3>
+
+      <p class="explore-product-price">
+        ₦65,000
+      </p>
+
+      <p class="explore-product-description">
+        Classic everyday sneakers in good
+        pre-owned condition.
+      </p>
+
+      <span class="explore-verified">
+        ✓ WERAE verified
+      </span>
+
+    </div>
+
+  </a>
+
+</article>
+
+
+<!-- DESIGNER JACKET -->
+
+<article
+  class="explore-product"
+  data-search="designer jacket outerwear men women"
+>
+
+  <a href="product.html">
+
+    <div class="explore-product-image">
+
+      <img
+        src="product-designer-jacket-portrait-clean.jpg"
+        alt="Designer Jacket"
+      >
+
+    </div>
+
+    <div class="explore-product-info">
+
+      <h3 class="explore-product-name">
+        Designer Jacket
+      </h3>
+
+      <p class="explore-product-price">
+        ₦120,000
+      </p>
+
+      <p class="explore-product-description">
+        Stylish pre-owned jacket in excellent
+        condition.
+      </p>
+
+      <span class="explore-verified">
+        ✓ WERAE verified
+      </span>
+
+    </div>
+
+  </a>
+
+</article>
+
+
+<!-- LEATHER SHOES -->
+
+<article
+  class="explore-product"
+  data-search="leather shoes footwear men women"
+>
+
+  <a href="product.html">
+
+    <div class="explore-product-image">
+
+      <img
+        src="product-leather-shoes.jpg"
+        alt="Leather Shoes"
+      >
+
+    </div>
+
+    <div class="explore-product-info">
+
+      <h3 class="explore-product-name">
+        Leather Shoes
+      </h3>
+
+      <p class="explore-product-price">
+        ₦55,000
+      </p>
+
+      <p class="explore-product-description">
+        Classic leather shoes suitable for
+        everyday and formal wear.
+      </p>
+
+      <span class="explore-verified">
+        ✓ WERAE verified
+      </span>
+
+    </div>
+
+  </a>
+
+</article>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     TRENDING STYLES
+========================= -->
+
+<section
+  class="explore-section trending-section"
+  id="trending"
+>
+
+  <div class="explore-section-heading">
+
+    <h2>Trending Styles</h2>
+
+    <span>Popular now</span>
+
+  </div>
+
+
+  <div class="trending-grid">
+
+    <a
+      href="#products"
+      class="explore-category"
+    >
+
+      <div class="explore-category-image">
+        <img
+          src="category-tops.jpg"
+          alt="Trending Tops"
+        >
+      </div>
+
+      <span class="explore-category-name">
+        Tops
+      </span>
+
+    </a>
+
+
+    <a
+      href="#products"
+      class="explore-category"
+    >
+
+      <div class="explore-category-image">
+        <img
+          src="category-shirts-new.jpg"
+          alt="Trending Shirts"
+        >
+      </div>
+
+      <span class="explore-category-name">
+        Shirts
+      </span>
+
+    </a>
+
+
+    <a
+      href="#products"
+      class="explore-category"
+    >
+
+      <div class="explore-category-image">
+        <img
+          src="category-outerwear.jpg"
+          alt="Trending Outerwear"
+        >
+      </div>
+
+      <span class="explore-category-name">
+        Outerwear
+      </span>
+
+    </a>
+
+
+    <a
+      href="#products"
+      class="explore-category"
+    >
+
+      <div class="explore-category-image">
+        <img
+          src="category-denim.jpg"
+          alt="Trending Denim"
+        >
+      </div>
+
+      <span class="explore-category-name">
+        Denim
+      </span>
+
+    </a>
+
+
+    <a
+      href="#products"
+      class="explore-category"
+    >
+
+      <div class="explore-category-image">
+        <img
+          src="category-knitwear.jpg"
+          alt="Trending Knitwear"
+        >
+      </div>
+
+      <span class="explore-category-name">
+        Knitwear
+      </span>
+
+    </a>
+
+
+    <a
+      href="#products"
+      class="explore-category"
+    >
+
+      <div class="explore-category-image">
+        <img
+          src="category-bags.jpg"
+          alt="Trending Bags"
+        >
+      </div>
+
+      <span class="explore-category-name">
+        Bags
+      </span>
+
+    </a>
+
+
+    <a
+      href="#products"
+      class="explore-category"
+    >
+
+      <div class="explore-category-image">
+        <img
+          src="category-shoes.jpg"
+          alt="Trending Shoes"
+        >
+      </div>
+
+      <span class="explore-category-name">
+        Shoes
+      </span>
+
+    </a>
+
+
+    <a
+      href="#products"
+      class="explore-category"
+    >
+
+      <div class="explore-category-image">
+        <img
+          src="category-jewelry.jpg"
+          alt="Trending Jewelry"
+        >
+      </div>
+
+      <span class="explore-category-name">
+        Jewelry
+      </span>
+
+    </a>
+
+
+    <a
+      href="#products"
+      class="explore-category"
+    >
+
+      <div class="explore-category-image">
+        <img
+          src="category-accessories.jpg"
+          alt="Trending Accessories"
+        >
+      </div>
+
+      <span class="explore-category-name">
+        Accessories
+      </span>
+
+    </a>
+
+
+    <a
+      href="#products"
+      class="explore-category"
+    >
+
+      <div class="explore-category-image">
+        <img
+          src="category-polo.jpg"
+          alt="Trending Polo Shirts"
+        >
+      </div>
+
+      <span class="explore-category-name">
+        Polo Shirts
+      </span>
+
+    </a>
+
+
+    <a
+      href="#products"
+      class="explore-category"
+    >
+
+      <div class="explore-category-image">
+        <img
+          src="category-underwear.jpg"
+          alt="Trending Underwear"
+        >
+      </div>
+
+      <span class="explore-category-name">
+        Underwear
+      </span>
+
+    </a>
+
+
+    <a
+      href="#products"
+      class="explore-category"
+    >
+
+      <div class="explore-category-image">
+        <img
+          src="category-sports.jpg"
+          alt="Trending Sports & Outdoor"
+        >
+      </div>
+
+      <span class="explore-category-name">
+        Sports & Outdoor
+      </span>
+
+    </a>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     FIXED BOTTOM NAVIGATION
+========================= -->
+
+<nav class="bottom-nav">
+
+  <a
+    href="index.html"
+    class="nav-item"
+  >
+    <span class="nav-icon">⌂</span>
+    <span>Home</span>
+  </a>
+
+
+  <a
+    href="explore.html"
+    class="nav-item active"
+  >
+    <span class="nav-icon">⌕</span>
+    <span>Explore</span>
+  </a>
+
+
+  <a
+    href="orders.html"
+    class="nav-item"
+  >
+    <span class="nav-icon">▣</span>
+    <span>Orders</span>
+  </a>
+
+
+  <a
+    href="saved.html"
+    class="nav-item"
+  >
+    <span class="nav-icon">♡</span>
+    <span>Saved</span>
+  </a>
+
+
+  <a
+    href="profile.html"
+    class="nav-item"
+  >
+    <span class="nav-icon">♙</span>
+    <span>Profile</span>
+  </a>
+
+</nav>
+
+
+<script>
+
+  const searchInput =
+    document.getElementById("exploreSearch");
+
+  const categories =
+    document.querySelectorAll(
+      ".explore-category"
+    );
+
+  const products =
+    document.querySelectorAll(
+      ".explore-product"
+    );
+
+
+  searchInput.addEventListener(
+    "input",
+    function () {
+
+      const term =
+        this.value
+          .toLowerCase()
+          .trim();
+
+
+      categories.forEach(
+        function (item) {
+
+          const text =
+            (
+              item.dataset.search ||
+              item.innerText
+            ).toLowerCase();
+
+
+          if (
+            term === "" ||
+            text.includes(term)
+          ) {
+
+            item.style.display = "";
+
+          } else {
+
+            item.style.display = "none";
+
+          }
+
+        }
+      );
+
+
+      products.forEach(
+        function (item) {
+
+          const text =
+            (
+              item.dataset.search ||
+              item.innerText
+            ).toLowerCase();
+
+
+          if (
+            term === "" ||
+            text.includes(term)
+          ) {
+
+            item.style.display = "";
+
+          } else {
+
+            item.style.display = "none";
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+
+  const tabs =
+    document.querySelectorAll(
+      ".explore-tab"
+    );
+
+
+  tabs.forEach(
+    function (tab) {
+
+      tab.addEventListener(
+        "click",
+        function () {
+
+          tabs.forEach(
+            function (other) {
+
+              other.classList.remove(
+                "active"
+              );
+
+            }
+          );
+
+          this.classList.add(
+            "active"
+          );
+
+        }
+      );
+
+    }
+  );
+
+</script>
+
+</body>
+        </html>
+       
