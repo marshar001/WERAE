@@ -332,8 +332,7 @@ body {
 }
 
 .product-image {
-  height: 190px;
-overflow: hidden;
+  overflow: hidden;
 }
 
 .product-image img {
