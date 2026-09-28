@@ -4,1181 +4,582 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>WERAE — Pre-Owned Fashion Marketplace</title>
+  <title>WERAE</title>
 
   <meta
     name="description"
-    content="WERAE is a modern marketplace for discovering quality pre-owned fashion from independent sellers."
+    content="WERAE — Discover pre-owned fashion you'll love."
   >
 
-  <style>
-    :root {
-      --green: #173b32;
-      --green-dark: #102c26;
-      --green-soft: #315b4e;
-
-      --cream: #f7f4ed;
-      --cream-light: #fcfaf5;
-      --white: #ffffff;
-
-      --text: #17201d;
-      --muted: #737b76;
-      --line: rgba(23, 59, 50, 0.10);
-
-      --radius-lg: 26px;
-      --radius-md: 18px;
-      --radius-sm: 12px;
-
-      --shadow-soft:
-        0 8px 30px rgba(23, 59, 50, 0.07);
-
-      --shadow-card:
-        0 5px 20px rgba(23, 59, 50, 0.08);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: var(--cream);
-      color: var(--text);
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    img {
-      max-width: 100%;
-    }
-
-    /* =========================
-       HEADER
-    ========================= */
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-
-      background: rgba(247, 244, 237, 0.94);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-
-      border-bottom: 1px solid var(--line);
-    }
-
-    .header-inner {
-      max-width: 1180px;
-      margin: 0 auto;
-
-      min-height: 68px;
-      padding: 0 18px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-
-      color: var(--green);
-      font-weight: 900;
-      letter-spacing: -0.7px;
-      font-size: 22px;
-    }
-
-    .brand-mark {
-      width: 31px;
-      height: 31px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 10px;
-      background: var(--green);
-      color: var(--cream-light);
-
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-    }
-
-    .header-nav {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .header-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-
-      min-height: 38px;
-      padding: 0 13px;
-
-      border-radius: 999px;
-
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 700;
-
-      transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease;
-    }
-
-    .header-link:hover {
-      background: rgba(23, 59, 50, 0.07);
-      color: var(--green);
-      transform: translateY(-1px);
-    }
-
-    .header-button {
-      background: var(--green);
-      color: white;
-    }
-
-    .header-button:hover {
-      background: var(--green-dark);
-      color: white;
-    }
-
-    /* =========================
-       MAIN
-    ========================= */
-
-    main {
-      width: 100%;
-    }
-
-    .page {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 14px 50px;
-    }
-
-    /* =========================
-       HERO
-    ========================= */
-
-    .hero {
-      margin-top: 14px;
-
-      min-height: 440px;
-      padding: 42px 24px 30px;
-
-      position: relative;
-      overflow: hidden;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-
-      border-radius: var(--radius-lg);
-
-      background:
-        radial-gradient(
-          circle at 85% 15%,
-          rgba(255, 255, 255, 0.15),
-          transparent 32%
-        ),
-        linear-gradient(
-          135deg,
-          #173b32 0%,
-          #234d42 55%,
-          #315b4e 100%
-        );
-
-      color: white;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .hero::before {
-      content: "";
-
-      position: absolute;
-      width: 260px;
-      height: 260px;
-
-      top: -100px;
-      right: -70px;
-
-      border-radius: 50%;
-
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .hero::after {
-      content: "";
-
-      position: absolute;
-      width: 180px;
-      height: 180px;
-
-      top: -60px;
-      right: 10px;
-
-      border-radius: 50%;
-
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-
-      max-width: 650px;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-
-      margin-bottom: 15px;
-
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1.1px;
-      text-transform: uppercase;
-
-      color: rgba(255, 255, 255, 0.72);
-    }
-
-    .hero-eyebrow span {
-      width: 7px;
-      height: 7px;
-
-      border-radius: 50%;
-      background: #d9e5d9;
-    }
-
-    .hero h1 {
-      max-width: 650px;
-
-      font-size: clamp(38px, 8vw, 72px);
-      line-height: 0.98;
-
-      letter-spacing: -3px;
-      font-weight: 900;
-
-      margin-bottom: 18px;
-    }
-
-    .hero p {
-      max-width: 560px;
-
-      color: rgba(255, 255, 255, 0.78);
-
-      font-size: 15px;
-      line-height: 1.65;
-
-      margin-bottom: 24px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .hero-button {
-      min-height: 46px;
-      padding: 0 18px;
-
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 999px;
-
-      font-size: 13px;
-      font-weight: 800;
-
-      transition:
-        transform 0.2s ease,
-        background 0.2s ease;
-    }
-
-    .hero-button:hover {
-      transform: translateY(-2px);
-    }
-
-    .hero-button-primary {
-      background: white;
-      color: var(--green);
-    }
-
-    .hero-button-primary:hover {
-      background: #f1eee7;
-    }
-
-    .hero-button-secondary {
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      color: white;
-      background: rgba(255, 255, 255, 0.07);
-    }
-
-    .hero-button-secondary:hover {
-      background: rgba(255, 255, 255, 0.13);
-    }
-
-    /* =========================
-       SECTION
-    ========================= */
-
-    .section {
-      margin-top: 36px;
-    }
-
-    .section-heading {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 16px;
-
-      margin-bottom: 14px;
-      padding: 0 3px;
-    }
-
-    .section-heading h2 {
-      color: var(--green);
-
-      font-size: 22px;
-      line-height: 1.1;
-
-      letter-spacing: -0.7px;
-      font-weight: 900;
-    }
-
-    .section-heading p {
-      margin-top: 5px;
-
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .section-link {
-      flex-shrink: 0;
-
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    /* =========================
-       TRENDING STORES
-    ========================= */
-
-    .trending-section {
-      margin-top: 30px;
-    }
-
-    .trending-row {
-      display: flex;
-      gap: 12px;
-
-      overflow-x: auto;
-      overflow-y: hidden;
-
-      padding: 2px 3px 8px;
-
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-
-      overscroll-behavior-x: contain;
-    }
-
-    .trending-row::-webkit-scrollbar {
-      display: none;
-    }
-
-    .trending-card {
-      position: relative;
-
-      flex: 0 0 118px;
-      width: 118px;
-      height: 158px;
-
-      overflow: hidden;
-
-      border-radius: 21px;
-
-      background: #d9dfd8;
-
-      box-shadow: var(--shadow-card);
-
-      transition:
-        transform 0.22s ease,
-        box-shadow 0.22s ease;
-    }
-
-    .trending-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 28px rgba(23, 59, 50, 0.13);
-    }
-
-    .trending-card img {
-      width: 100%;
-      height: 100%;
-
-      display: block;
-
-      object-fit: cover;
-
-      transition: transform 0.4s ease;
-    }
-
-    .trending-card:hover img {
-      transform: scale(1.04);
-    }
-
-    .trending-overlay {
-      position: absolute;
-
-      left: 0;
-      right: 0;
-      bottom: 0;
-
-      padding: 30px 10px 11px;
-
-      color: white;
-
-      background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.64),
-        rgba(0, 0, 0, 0)
-      );
-    }
-
-    .trending-name {
-      display: block;
-
-      font-size: 11px;
-      line-height: 1.2;
-      font-weight: 800;
-    }
-
-    .trending-verified {
-      display: block;
-
-      margin-top: 3px;
-
-      font-size: 8px;
-      font-weight: 700;
-
-      opacity: 0.78;
-    }
-
-    /* =========================
-       PRODUCTS
-    ========================= */
-
-    .products {
-      columns: 2;
-      column-gap: 12px;
-    }
-
-    .product-card {
-      display: block;
-
-      break-inside: avoid;
-
-      margin: 0 0 12px;
-
-      overflow: hidden;
-
-      background: var(--cream-light);
-
-      border: 1px solid var(--line);
-      border-radius: 20px;
-
-      box-shadow: var(--shadow-card);
-
-      transition:
-        transform 0.22s ease,
-        box-shadow 0.22s ease;
-    }
-
-    .product-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(23, 59, 50, 0.11);
-    }
-
-    .product-image {
-      position: relative;
-
-      overflow: hidden;
-
-      background: #e4dfd5;
-    }
-
-    .product-image img {
-      width: 100%;
-      height: auto;
-
-      display: block;
-
-      object-fit: contain;
-
-      background:
-        linear-gradient(
-          145deg,
-          #e4dfd5,
-          #d4dcd3
-        );
-
-      transition: transform 0.35s ease;
-    }
-
-    .product-card:hover .product-image img {
-      transform: scale(1.025);
-    }
-
-    .verified-badge {
-      position: absolute;
-
-      top: 9px;
-      left: 9px;
-
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-
-      padding: 5px 8px;
-
-      border-radius: 999px;
-
-      background: rgba(255, 255, 255, 0.92);
-
-      color: var(--green);
-
-      font-size: 8px;
-      line-height: 1;
-      font-weight: 800;
-
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    .product-info {
-      padding: 13px 13px 14px;
-    }
-
-    .product-category {
-      display: block;
-
-      margin-bottom: 4px;
-
-      color: var(--muted);
-
-      font-size: 9px;
-      font-weight: 800;
-
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-    }
-
-    .product-card h3 {
-      color: var(--green);
-
-      font-size: 14px;
-      line-height: 1.25;
-
-      letter-spacing: -0.2px;
-      font-weight: 850;
-    }
-
-    .product-price {
-      margin-top: 5px;
-
-      color: var(--text);
-
-      font-size: 14px;
-      font-weight: 900;
-    }
-
-    .product-description {
-      margin-top: 7px;
-
-      color: var(--muted);
-
-      font-size: 10px;
-      line-height: 1.5;
-    }
-
-    .product-seller {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-
-      margin-top: 11px;
-      padding-top: 10px;
-
-      border-top: 1px solid var(--line);
-
-      color: var(--muted);
-
-      font-size: 9px;
-      font-weight: 700;
-    }
-
-    .seller-dot {
-      width: 6px;
-      height: 6px;
-
-      border-radius: 50%;
-
-      background: var(--green-soft);
-    }
-
-    /* =========================
-       TRUST SECTION
-    ========================= */
-
-    .trust-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-
-      gap: 10px;
-    }
-
-    .trust-card {
-      min-height: 145px;
-
-      padding: 18px 15px;
-
-      background: var(--cream-light);
-
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-
-      box-shadow: var(--shadow-card);
-    }
-
-    .trust-icon {
-      width: 34px;
-      height: 34px;
-
-      display: grid;
-      place-items: center;
-
-      margin-bottom: 13px;
-
-      border-radius: 11px;
-
-      background: rgba(23, 59, 50, 0.08);
-
-      color: var(--green);
-
-      font-size: 14px;
-      font-weight: 900;
-    }
-
-    .trust-card h3 {
-      color: var(--green);
-
-      font-size: 13px;
-      line-height: 1.25;
-
-      margin-bottom: 5px;
-
-      font-weight: 850;
-    }
-
-    .trust-card p {
-      color: var(--muted);
-
-      font-size: 10px;
-      line-height: 1.55;
-    }
-
-    /* =========================
-       SELLER CTA
-    ========================= */
-
-    .seller-banner {
-      margin-top: 36px;
-
-      padding: 26px 22px;
-
-      border-radius: var(--radius-lg);
-
-      background: var(--green);
-      color: white;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 20px;
-
-      box-shadow: var(--shadow-soft);
-    }
-
-    .seller-banner-content {
-      max-width: 600px;
-    }
-
-    .seller-banner h2 {
-      font-size: 24px;
-      line-height: 1.05;
-
-      letter-spacing: -0.8px;
-
-      margin-bottom: 8px;
-    }
-
-    .seller-banner p {
-      color: rgba(255, 255, 255, 0.7);
-
-      font-size: 12px;
-      line-height: 1.55;
-    }
-
-    .seller-button {
-      flex-shrink: 0;
-
-      min-height: 43px;
-      padding: 0 17px;
-
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 999px;
-
-      background: white;
-      color: var(--green);
-
-      font-size: 12px;
-      font-weight: 850;
-
-      transition:
-        transform 0.2s ease,
-        background 0.2s ease;
-    }
-
-    .seller-button:hover {
-      transform: translateY(-2px);
-      background: #f2efe8;
-    }
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      margin-top: 45px;
-
-      padding: 28px 4px 12px;
-
-      border-top: 1px solid var(--line);
-    }
-
-    .footer-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-
-      gap: 20px;
-    }
-
-    .footer-brand {
-      color: var(--green);
-
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-    }
-
-    .footer-copy {
-      max-width: 330px;
-
-      margin-top: 7px;
-
-      color: var(--muted);
-
-      font-size: 10px;
-      line-height: 1.6;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-
-      justify-content: flex-end;
-
-      gap: 8px 18px;
-    }
-
-    .footer-links a {
-      color: var(--muted);
-
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .footer-links a:hover {
-      color: var(--green);
-    }
-
-    .footer-bottom {
-      margin-top: 24px;
-
-      color: #9a9e9b;
-
-      font-size: 9px;
-    }
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 650px) {
-
-      .header-inner {
-        min-height: 62px;
-        padding: 0 13px;
-      }
-
-      .brand {
-        font-size: 19px;
-      }
-
-      .brand-mark {
-        width: 28px;
-        height: 28px;
-        border-radius: 9px;
-        font-size: 11px;
-      }
-
-      .header-link {
-        padding: 0 9px;
-        font-size: 11px;
-      }
-
-      .header-link:not(.header-button) {
-        display: none;
-      }
-
-      .page {
-        padding: 0 9px 35px;
-      }
-
-      .hero {
-        min-height: 470px;
-
-        margin-top: 9px;
-
-        padding:
-          30px
-          19px
-          24px;
-
-        border-radius: 23px;
-      }
-
-      .hero h1 {
-        font-size: 45px;
-        letter-spacing: -2.2px;
-      }
-
-      .hero p {
-        font-size: 13px;
-      }
-
-      .hero-button {
-        min-height: 43px;
-        padding: 0 15px;
-      }
-
-      .section {
-        margin-top: 29px;
-      }
-
-      .section-heading h2 {
-        font-size: 19px;
-      }
-
-      .section-heading p {
-        font-size: 10px;
-      }
-
-      .section-link {
-        font-size: 10px;
-      }
-
-      .trending-card {
-        flex-basis: 110px;
-        width: 110px;
-        height: 150px;
-      }
-
-      .products {
-        column-gap: 8px;
-      }
-
-      .product-card {
-        margin-bottom: 8px;
-        border-radius: 16px;
-      }
-
-      .product-info {
-        padding: 11px 10px 12px;
-      }
-
-      .product-card h3 {
-        font-size: 12px;
-      }
-
-      .product-price {
-        font-size: 12px;
-      }
-
-      .product-description {
-        font-size: 9px;
-      }
-
-      .trust-grid {
-        gap: 7px;
-      }
-
-      .trust-card {
-        min-height: 135px;
-        padding: 14px 10px;
-        border-radius: 15px;
-      }
-
-      .trust-card h3 {
-        font-size: 11px;
-      }
-
-      .trust-card p {
-        font-size: 9px;
-      }
-
-      .seller-banner {
-        flex-direction: column;
-        align-items: flex-start;
-
-        padding: 23px 18px;
-      }
-
-      .seller-banner h2 {
-        font-size: 21px;
-      }
-
-      .seller-button {
-        width: 100%;
-      }
-
-      .footer-top {
-        flex-direction: column;
-      }
-
-      .footer-links {
-        justify-content: flex-start;
-      }
-    }
-
-    /* =========================
-       DESKTOP
-    ========================= */
-
-    @media (min-width: 800px) {
-
-      .products {
-        columns: 4;
-      }
-
-      .trending-card {
-        flex-basis: 145px;
-        width: 145px;
-        height: 185px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-  <!-- =========================
-       HEADER
-  ========================= -->
+  <!-- WELCOME CAROUSEL -->
+  <section class="welcome-carousel">
 
-  <header class="site-header">
+    <div class="welcome-track">
 
-    <div class="header-inner">
+      <!-- SLIDE 1 -->
+      <div class="welcome-slide active">
+        <div class="welcome-content">
+          <p>WELCOME TO WERAE</p>
+          <h1>Discover fashion<br>you'll love.</h1>
+          <button type="button">Explore now →</button>
+        </div>
+      </div>
 
-      <a href="index.html" class="brand">
-        <span class="brand-mark">W</span>
-        WERAE
-      </a>
+      <!-- SLIDE 2 -->
+      <div class="welcome-slide">
+        <div class="welcome-content">
+          <p>FRESH FINDS</p>
+          <h1>Find your next<br>favourite piece.</h1>
+          <button type="button">Shop now →</button>
+        </div>
+      </div>
 
-      <nav class="header-nav">
-
-        <a href="#products" class="header-link">
-          Shop
-        </a>
-
-        <a href="#stores" class="header-link">
-          Stores
-        </a>
-
-        <a href="#sell" class="header-link header-button">
-          Sell on WERAE
-        </a>
-
-      </nav>
+      <!-- SLIDE 3 -->
+      <div class="welcome-slide">
+        <div class="welcome-content">
+          <p>WERAE PICKS</p>
+          <h1>Pre-owned fashion,<br>reimagined.</h1>
+          <button type="button">Explore picks →</button>
+        </div>
+      </div>
 
     </div>
 
-  </header>
+    <!-- DOTS -->
+    <div class="carousel-dots">
+
+      <button
+        class="carousel-dot active"
+        type="button"
+        aria-label="Slide 1">
+      </button>
+
+      <button
+        class="carousel-dot"
+        type="button"
+        aria-label="Slide 2">
+      </button>
+
+      <button
+        class="carousel-dot"
+        type="button"
+        aria-label="Slide 3">
+      </button>
+
+    </div>
+
+  </section>
 
 
-  <main>
+  <!-- TRENDING STORE -->
+  <section class="trending-section">
 
-    <div class="page">
+    <h2>Trending Store</h2>
 
-      <!-- =========================
-           HERO
-      ========================= -->
+    <div class="trending-row">
 
-      <section class="hero">
+      <a href="store-1.html" class="trending-card">
+        <img
+          src="trending-1.jpg"
+          alt="Luxe Closet"
+        >
+      </a>
 
-        <div class="hero-content">
+      <a href="store-2.html" class="trending-card">
+        <img
+          src="trending-2.jpg"
+          alt="Urban Finds"
+        >
+      </a>
 
-          <div class="hero-eyebrow">
-            <span></span>
-            Pre-owned fashion marketplace
-          </div>
+      <a href="store-3.html" class="trending-card">
+        <img
+          src="trending-3.jpg"
+          alt="The Shoe Room"
+        >
+      </a>
 
-          <h1>
-            Style worth
-            finding again.
-          </h1>
+      <a href="store-4.html" class="trending-card">
+        <img
+          src="trending-4.jpg"
+          alt="Vintage Hub"
+        >
+      </a>
 
-          <p>
-            Discover quality pre-owned fashion from independent sellers
-            on WERAE. Unique pieces, trusted sellers and a more thoughtful
-            way to shop.
-          </p>
+      <a href="store-5.html" class="trending-card">
+        <img
+          src="trending-5.jpg"
+          alt="Style Archive"
+        >
+      </a>
 
-          <div class="hero-actions">
+    </div>
 
-            <a href="#products" class="hero-button hero-button-primary">
-              Explore fashion
-            </a>
+  </section>
 
-            <a href="#stores" class="hero-button hero-button-secondary">
-              Browse stores
-            </a>
 
-          </div>
+  <!-- CATEGORIES -->
+  <section class="section">
+
+    <!-- CATEGORY ROW 1 -->
+    <div class="categories-row">
+
+      <div class="category-item">
+        <button>
+          <img src="category-tops.jpg" alt="Tops">
+        </button>
+        <span>Tops</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img src="category-shirts-new.jpg" alt="Shirts">
+        </button>
+        <span>Shirts</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img src="category-outerwear.jpg" alt="Outerwear">
+        </button>
+        <span>Outerwear</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img src="category-denim.jpg" alt="Denim">
+        </button>
+        <span>Denim</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img src="category-native.jpg" alt="Native">
+        </button>
+        <span>Native</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img src="category-shorts-1.jpg" alt="Shorts">
+        </button>
+        <span>Shorts</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img src="category-knitwear.jpg" alt="Knitwear">
+        </button>
+        <span>Knitwear</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img src="category-coords.jpg" alt="Co-ords">
+        </button>
+        <span>Co-ords</span>
+      </div>
+
+    </div>
+
+
+    <!-- CATEGORY ROW 2 -->
+    <div class="categories-row">
+
+      <div class="category-item">
+        <button>
+          <img src="category-bags.jpg" alt="Bags">
+        </button>
+        <span>Bags</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img src="category-shoes.jpg" alt="Shoes">
+        </button>
+        <span>Shoes</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img src="category-watches.jpg" alt="Watches">
+        </button>
+        <span>Watches</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img src="category-jewelry.jpg" alt="Jewelry">
+        </button>
+        <span>Jewelry</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img src="category-accessories.jpg" alt="Accessories">
+        </button>
+        <span>Accessories</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img src="category-polo.jpg" alt="Polo Shirts">
+        </button>
+        <span>Polo Shirts</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img src="category-underwear.jpg" alt="Underwear">
+        </button>
+        <span>Underwear</span>
+      </div>
+
+      <div class="category-item">
+        <button>
+          <img
+            src="category-sports.jpg"
+            alt="Sports & Outdoor"
+          >
+        </button>
+        <span>Sports & Outdoor</span>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PRODUCTS -->
+  <section class="section">
+
+    <div class="products">
+
+
+      <!-- PREMIUM HANDBAG -->
+
+      <a href="product.html" class="product-card">
+
+        <div class="product-image">
+
+          <img
+            src="product-premium-handbag.jpg"
+            alt="Premium Handbag"
+          >
 
         </div>
 
-      </section>
+        <h3>
+          Premium Handbag
+        </h3>
+
+        <p>
+          ₦85,000
+        </p>
+
+        <small>
+          Structured black leather handbag,
+          excellent condition.
+        </small>
+
+        <small>
+          ✓ WERAE verified
+        </small>
+
+      </a>
 
 
-      <!-- =========================
-           TRENDING STORES
-      ========================= -->
+      <!-- CLASSIC SNEAKERS -->
 
-      <section class="section trending-section" id="stores">
+      <article class="product-card">
 
-        <div class="section-heading">
+        <div class="product-image">
 
-          <div>
-            <h2>Trending Stores</h2>
-
-            <p>
-              Discover independent sellers on WERAE
-            </p>
-          </div>
-
-          <a href="#stores" class="section-link">
-            Explore →
-          </a>
+          <img
+            src="product-classic-sneakers.jpg"
+            alt="Classic Sneakers"
+          >
 
         </div>
 
+        <h3>
+          Classic Sneakers
+        </h3>
 
-        <div class="trending-row">
+        <p>
+          ₦65,000
+        </p>
 
-          <a href="store-1.html" class="trending-card">
+        <small>
+          ✓ WERAE verified
+        </small>
 
-            <img
-              src="trending-1.jpg"
-              alt="Luxe Closet"
-            >
-
-            <span class="trending-overlay">
-
-              <span class="trending-name">
-                Luxe Closet
-              </span>
-
-              <span class="trending-verified">
-                ✓ WERAE seller
-              </span>
-
-            </span>
-
-          </a>
+      </article>
 
 
-          <a href="store-2.html" class="trending-card">
+      <!-- DESIGNER JACKET -->
 
-            <img
-              src="trending-2.jpg"
-              alt="Urban Finds"
-            >
+      <article class="product-card">
 
-            <span class="trending-overlay">
+        <div class="product-image">
 
-              <span class="trending-name">
-                Urban Finds
-              </span>
+          <img
+            src="product-designer-jacket-portrait-clean.jpg"
+            alt="Designer Jacket"
+          >
 
-              <span class="trending-verified">
-                ✓ WERAE seller
-              </span>
+        </div>
 
-            </span>
+        <h3>
+          Designer Jacket
+        </h3>
 
-          </a>
+        <p>
+          ₦120,000
+        </p>
+
+        <small>
+          ✓ WERAE verified
+        </small>
+
+      </article>
 
 
-          <a href="store-3.html" class="trending-card
+      <!-- LEATHER SHOES -->
+
+      <article class="product-card">
+
+        <div class="product-image">
+
+          <img
+            src="product-leather-shoes.jpg"
+            alt="Leather Shoes"
+          >
+
+        </div>
+
+        <h3>
+          Leather Shoes
+        </h3>
+
+        <p>
+          ₦55,000
+        </p>
+
+        <small>
+          ✓ WERAE verified
+        </small>
+
+      </article>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- BOTTOM NAVIGATION -->
+
+  <nav class="bottom-nav">
+
+    <button class="nav-item active">
+      Home
+    </button>
+
+    <button class="nav-item">
+      Explore
+    </button>
+
+    <button class="nav-item">
+      Orders
+    </button>
+
+    <button class="nav-item">
+      Saved
+    </button>
+
+    <button class="nav-item">
+      Profile
+    </button>
+
+  </nav>
+
+
+  <!-- CAROUSEL SCRIPT -->
+
+  <script>
+
+    const welcomeSlides =
+      document.querySelectorAll(".welcome-slide");
+
+    const welcomeDots =
+      document.querySelectorAll(".carousel-dot");
+
+    const welcomeCarousel =
+      document.querySelector(".welcome-carousel");
+
+
+    let currentSlide = 0;
+
+    let autoSlideTimer;
+
+    let touchStartX = 0;
+
+    let touchEndX = 0;
+
+
+    function showSlide(index) {
+
+      currentSlide =
+        (index + welcomeSlides.length)
+        % welcomeSlides.length;
+
+
+      welcomeSlides.forEach((slide, i) => {
+
+        slide.classList.toggle(
+          "active",
+          i === currentSlide
+        );
+
+      });
+
+
+      welcomeDots.forEach((dot, i) => {
+
+        dot.classList.toggle(
+          "active",
+          i === currentSlide
+        );
+
+      });
+
+    }
+
+
+    function nextSlide() {
+
+      showSlide(currentSlide + 1);
+
+    }
+
+
+    function previousSlide() {
+
+      showSlide(currentSlide - 1);
+
+    }
+
+
+    function startAutoSlide() {
+
+      stopAutoSlide();
+
+      autoSlideTimer = setInterval(() => {
+
+        nextSlide();
+
+      }, 4500);
+
+    }
+
+
+    function stopAutoSlide() {
+
+      clearInterval(autoSlideTimer);
+
+    }
+
+
+    /* DOTS */
+
+    welcomeDots.forEach((dot, index) => {
+
+      dot.addEventListener("click", () => {
+
+        showSlide(index);
+
+        startAutoSlide();
+
+      });
+
+    });
+
+
+    /* DESKTOP HOVER */
+
+    welcomeCarousel.addEventListener(
+      "mouseenter",
+      stopAutoSlide
+    );
+
+
+    welcomeCarousel.addEventListener(
+      "mouseleave",
+      startAutoSlide
+    );
+
+
+    /* MOBILE SWIPE */
+
+    welcomeCarousel.addEventListener(
+      "touchstart",
+      (event) => {
+
+        stopAutoSlide();
+
+        touchStartX =
+          event.touches[0].clientX;
+
+      }
+    );
+
+
+    welcomeCarousel.addEventListener(
+      "touchend",
+      (event) => {
+
+        touchEndX =
+          event.changedTouches[0].clientX;
+
+
+        const difference =
+          touchStartX - touchEndX;
+
+
+        if (Math.abs(difference) > 50) {
+
+          if (difference > 0) {
+
+            nextSlide();
+
+          } else {
+
+            previousSlide();
+
+          }
+
+        }
+
+
+        startAutoSlide();
+
+      }
+    );
+
+
+    /* START CAROUSEL */
+
+    showSlide(0);
+
+    startAutoSlide();
+
+  </script>
+
+</body>
+</html>
