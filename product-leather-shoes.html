@@ -189,7 +189,38 @@
 
       }
     });
+    const cartButton = document.querySelector(".cart-button");
 
+    cartButton.addEventListener("click", () => {
+      const cart = JSON.parse(
+        localStorage.getItem("weraeCart") || "[]"
+      );
+
+      const cartItem = {
+        name: "Leather Shoes",
+        price: "₦55,000",
+        image: "product-leather-shoes.jpg",
+        url: "product-leather-shoes.html",
+        quantity: 1
+      };
+
+      const existingItem = cart.find(
+        item => item.url === cartItem.url
+      );
+
+      if (existingItem) {
+        existingItem.quantity = existingItem.quantity || 1;
+      } else {
+        cart.push(cartItem);
+      }
+
+      localStorage.setItem(
+        "weraeCart",
+        JSON.stringify(cart)
+      );
+
+      window.location.href = "cart.html";
+    });
   </script>
 
 </body>
