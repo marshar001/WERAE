@@ -113,6 +113,43 @@
 
       recentlyViewedGrid.appendChild(card);
     });
+        const cartItems = document.getElementById("cartItems");
+
+    const cartProducts = JSON.parse(
+      localStorage.getItem("weraeCart") || "[]"
+    );
+
+    if (cartProducts.length === 0) {
+
+      cartItems.innerHTML = `
+        <div class="cart-empty">
+          <h2>Your cart is empty</h2>
+          <p>Add products to your cart and they will appear here.</p>
+
+          <a href="index.html" class="continue-shopping">
+            Start Shopping
+          </a>
+        </div>
+      `;
+
+    } else {
+
+      cartProducts.forEach(product => {
+
+        const item = document.createElement("div");
+
+        item.className = "cart-empty";
+
+        item.innerHTML = `
+          <h2>${product.name}</h2>
+          <p>${product.price}</p>
+        `;
+
+        cartItems.appendChild(item);
+
+      });
+
+    }
   </script>
 
 </body>
