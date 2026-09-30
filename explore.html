@@ -101,10 +101,30 @@
       color: #fff;
     }
 
-    .explore-section {
-  grid-column: 2;
+    .explore-body {
+  display: grid;
+  grid-template-columns: 105px minmax(0, 1fr);
+  height: calc(100vh - 190px);
+  min-height: 500px;
+  margin-bottom: 80px;
+}
+
+.explore-content {
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.explore-content::-webkit-scrollbar {
+  display: none;
+}
+
+.explore-section {
   padding: 10px 8px 16px;
-    }
+}
 
     .explore-section-heading {
       display: flex;
