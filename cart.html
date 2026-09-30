@@ -232,7 +232,28 @@
     cartItems.appendChild(item);
 
   });
+    const orderSummary = document.createElement("section");
+    orderSummary.className = "cart-order-summary";
+    orderSummary.innerHTML = `
+      <h2>Order Summary</h2>
+      <div class="cart-summary-row">
+        <span>Subtotal</span>
+        <strong>₦0</strong>
+      </div>
+      <div class="cart-summary-row">
+        <span>Delivery</span>
+        <strong>Calculated at checkout</strong>
+      </div>
+      <div class="cart-summary-total">
+        <span>Total</span>
+        <strong>₦0</strong>
+      </div>
+      <button type="button" class="cart-checkout-button">
+        Checkout
+      </button>
+    `;
 
+    cartItems.appendChild(orderSummary);
   document.querySelectorAll(".cart-quantity-minus").forEach(button => {
 
     button.addEventListener("click", () => {
