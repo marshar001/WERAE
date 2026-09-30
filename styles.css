@@ -818,10 +818,10 @@ button:active {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 92px 1fr;
+  grid-template-columns: 106px 1fr;
   gap: 12px;
   align-items: start;
-  min-height: 108px;
+  min-height: 126px;
   padding: 12px 12px 42px;
   margin: 0;
   background: var(--cream-light);
@@ -833,8 +833,8 @@ button:active {
 
 .cart-product-image {
   position: relative;
-  width: 92px;
-  height: 108px;
+  width: 106px;
+  height: 124px;
   overflow: hidden;
   border-radius: 14px;
   background: #e4dfd5;
@@ -849,10 +849,10 @@ button:active {
 
 .cart-product-select {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 25px;
-  height: 25px;
+  top: 7px;
+  left: 7px;
+  width: 19px;
+  height: 19px;
   margin: 0;
   cursor: pointer;
 }
@@ -870,17 +870,17 @@ button:active {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid white;
-  border-radius: 7px;
+  border: 1.5px solid white;
+  border-radius: 5px;
   background: rgba(23, 59, 50, 0.82);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16);
 }
 
 .cart-product-select input:checked + span::after {
   content: "✓";
   color: white;
   font-family: Arial, sans-serif;
-  font-size: 17px;
+  font-size: 12px;
   font-weight: bold;
   line-height: 1;
 }
@@ -909,23 +909,23 @@ button:active {
   display: flex;
   align-items: center;
   width: fit-content;
-  margin-top: 13px;
+  margin-top: 19px;
   border: 1px solid rgba(23, 59, 50, 0.14);
-  border-radius: 10px;
+  border-radius: 9px;
   overflow: hidden;
   background: white;
 }
 
 .cart-quantity-minus,
 .cart-quantity-plus {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   padding: 0;
   border: none;
   background: white;
   color: var(--deep-green);
   font-family: Arial, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
 }
 
@@ -933,20 +933,20 @@ button:active {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 34px;
-  height: 34px;
-  padding: 0 4px;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 3px;
   border-left: 1px solid rgba(23, 59, 50, 0.1);
   border-right: 1px solid rgba(23, 59, 50, 0.1);
   color: var(--deep-green);
   font-family: Arial, sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: bold;
 }
 
 .cart-remove {
   position: absolute;
-  left: 12px;
+  right: 12px;
   bottom: 9px;
   min-height: 26px;
   padding: 0;
@@ -957,6 +957,59 @@ button:active {
   font-size: 11px;
 }
 
+.cart-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.52);
+}
+
+.cart-confirm-box {
+  width: min(100%, 360px);
+  padding: 24px 20px 20px;
+  border-radius: 18px;
+  background: var(--cream-light);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+  text-align: center;
+}
+
+.cart-confirm-box h2 {
+  margin: 0 0 22px;
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.cart-confirm-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.cart-confirm-cancel,
+.cart-confirm-delete {
+  min-height: 42px;
+  border-radius: 9px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.cart-confirm-cancel {
+  border: 1px solid rgba(23, 59, 50, 0.18);
+  background: white;
+  color: var(--text);
+}
+
+.cart-confirm-delete {
+  border: none;
+  background: #222222;
+  color: white;
+}
 .cart-empty {
   padding: 34px 20px;
   text-align: center;
