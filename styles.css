@@ -32,7 +32,7 @@ body {
   margin: 8px 16px 14px;
   height: 180px;
   border-radius: 28px;
-  overflow: visible;
+  overflow: hidden;
   background: var(--deep-green);
   box-shadow: 0 10px 25px rgba(23, 59, 50, 0.14);
   touch-action: pan-y;
