@@ -232,22 +232,38 @@
     cartItems.appendChild(item);
 
   });
-    const orderSummary = document.createElement("section");
+        const orderSummary = document.createElement("section");
     orderSummary.className = "cart-order-summary";
+
+    const cartSubtotal = cartProducts.reduce((total, product) => {
+      const numericPrice = Number(
+        String(product.price).replace(/[^\d.]/g, "")
+      );
+
+      return total + numericPrice * (product.quantity || 1);
+    }, 0);
+
+    const formattedSubtotal =
+      "₦" + cartSubtotal.toLocaleString("en-NG");
+
     orderSummary.innerHTML = `
       <h2>Order Summary</h2>
+
       <div class="cart-summary-row">
         <span>Subtotal</span>
-        <strong>₦0</strong>
+        <strong>${formattedSubtotal}</strong>
       </div>
+
       <div class="cart-summary-row">
         <span>Delivery</span>
         <strong>Calculated at checkout</strong>
       </div>
+
       <div class="cart-summary-total">
         <span>Total</span>
-        <strong>₦0</strong>
+        <strong>${formattedSubtotal}</strong>
       </div>
+
       <button type="button" class="cart-checkout-button">
         Checkout
       </button>
