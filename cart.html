@@ -304,55 +304,62 @@
 
   document.querySelectorAll(".cart-swipe").forEach(item => {
 
-    let startX = 0;
-    let currentX = 0;
-    let swiped = false;
+  const card = item.querySelector(".cart-product");
 
-    item.addEventListener("touchstart", event => {
+  let startX = 0;
+  let currentX = 0;
 
-      startX = event.touches[0].clientX;
-      currentX = startX;
+  item.addEventListener("touchstart", event => {
 
-    }, { passive: true });
+    startX = event.touches[0].clientX;
+    currentX = startX;
 
-    item.addEventListener("touchmove", event => {
+    card.style.transition = "none";
 
-      currentX = event.touches[0].clientX;
+  }, { passive: true });
 
-      const distance = currentX - startX;
+  item.addEventListener("touchmove", event => {
 
-      if (distance < 0) {
+    currentX = event.touches[0].clientX;
 
-        const move = Math.max(distance, -90);
+    const distance = currentX - startX;
 
-        item.style.transform =
-          `translateX(${move}px)`;
+    if (distance < 0) {
 
-      }
+      const move = Math.max(distance, -90);
 
-    }, { passive: true });
+      card.style.transform =
+        `translateX(${move}px)`;
 
-    item.addEventListener("touchend", () => {
+    }
 
-      const distance = currentX - startX;
+  }, { passive: true });
 
-      if (distance < -50) {
+  item.addEventListener("touchend", () => {
 
-        item.classList.add("swiped");
-        swiped = true;
+    const distance = currentX - startX;
 
-      } else {
+    card.style.transition =
+      "transform 0.2s ease";
 
-        item.style.transform = "";
-        item.classList.remove("swiped");
-        swiped = false;
+    if (distance < -50) {
 
-      }
+      card.style.transform =
+        "translateX(-90px)";
 
-    });
+      item.classList.add("swiped");
+
+    } else {
+
+      card.style.transform = "";
+
+      item.classList.remove("swiped");
+
+    }
 
   });
 
+});
       }
   </script>
 
