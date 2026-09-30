@@ -202,7 +202,38 @@
 
       }
     });
+    const cartButton = document.querySelector(".cart-button");
 
+    cartButton.addEventListener("click", () => {
+      const cart = JSON.parse(
+        localStorage.getItem("weraeCart") || "[]"
+      );
+
+      const cartItem = {
+        name: "Classic Sneakers",
+        price: "₦65,000",
+        image: "product-classic-sneakers.jpg",
+        url: "product-sneakers.html",
+        quantity: 1
+      };
+
+      const existingItem = cart.find(
+        item => item.url === cartItem.url
+      );
+
+      if (existingItem) {
+        existingItem.quantity = existingItem.quantity || 1;
+      } else {
+        cart.push(cartItem);
+      }
+
+      localStorage.setItem(
+        "weraeCart",
+        JSON.stringify(cart)
+      );
+
+      window.location.href = "cart.html";
+    });
   </script>
 
 </body>
