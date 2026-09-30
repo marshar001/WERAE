@@ -332,10 +332,13 @@ body {
   text-decoration: none;
   color: inherit;
 }
+a.product-card {
+  display: block;
+}
+
 .product-image {
   overflow: hidden;
 }
-
 .product-image img {
   width: 100%;
   height: auto;
