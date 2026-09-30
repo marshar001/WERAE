@@ -818,11 +818,11 @@ button:active {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 106px 1fr;
+  grid-template-columns: 96px 1fr;
   gap: 12px;
   align-items: start;
-  min-height: 126px;
-  padding: 12px 12px 42px;
+  min-height: 104px;
+  padding: 10px 10px 34px;
   margin: 0;
   background: var(--cream-light);
   border: 1px solid rgba(23, 59, 50, 0.08);
@@ -832,8 +832,8 @@ button:active {
 }
 .cart-product-image {
   position: relative;
-  width: 106px;
-  height: 124px;
+  width: 96px;
+height: 100px;
   overflow: visible;
   border-radius: 14px;
   background: #e4dfd5;
@@ -850,7 +850,7 @@ button:active {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -27px;
+  bottom: -23px;
   margin: 0;
   color: var(--deep-green);
   font-family: Arial, sans-serif;
@@ -925,7 +925,7 @@ button:active {
   align-items: center;
   width: fit-content;
   height: 30px;
-  margin-top: 19px;
+  margin-top: 10px;
   border: 1px solid rgba(23, 59, 50, 0.14);
   border-radius: 9px;
   overflow: hidden;
