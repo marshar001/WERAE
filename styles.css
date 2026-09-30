@@ -844,6 +844,7 @@ button:active {
   height: 100%;
   display: block;
   object-fit: cover;
+  border-radius: 18px;
 }
 .cart-product-seller {
   position: absolute;
