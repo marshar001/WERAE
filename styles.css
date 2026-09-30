@@ -603,8 +603,6 @@ button:active {
 .product-actions .buy-button {
   background: var(--deep-green);
   color: white;
-}font-size: 14px;
-  font-weight: bold;
 }
 
 /* RECOMMENDED */
