@@ -97,7 +97,33 @@
       <span>Profile</span>
     </a>
 
-  </nav>
+    </nav>
+
+  <script>
+    const recentlyViewedGrid =
+      document.getElementById("recentlyViewedGrid");
+
+    const recentlyViewedProducts = JSON.parse(
+      localStorage.getItem("weraeRecentlyViewed") || "[]"
+    );
+
+    recentlyViewedProducts.forEach(product => {
+      const card = document.createElement("a");
+
+      card.href = product.url;
+      card.className = "recently-viewed-card";
+
+      card.innerHTML = `
+        <div class="recently-viewed-image">
+          <img src="${product.image}" alt="${product.name}">
+        </div>
+        <h3>${product.name}</h3>
+        <p>${product.price}</p>
+      `;
+
+      recentlyViewedGrid.appendChild(card);
+    });
+  </script>
 
 </body>
 </html>
