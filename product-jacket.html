@@ -189,7 +189,38 @@
 
       }
     });
+    const cartButton = document.querySelector(".cart-button");
 
+    cartButton.addEventListener("click", () => {
+      const cart = JSON.parse(
+        localStorage.getItem("weraeCart") || "[]"
+      );
+
+      const cartItem = {
+        name: "Designer Jacket",
+        price: "₦120,000",
+        image: "product-designer-jacket-portrait-clean.jpg",
+        url: "product-jacket.html",
+        quantity: 1
+      };
+
+      const existingItem = cart.find(
+        item => item.url === cartItem.url
+      );
+
+      if (existingItem) {
+        existingItem.quantity = existingItem.quantity || 1;
+      } else {
+        cart.push(cartItem);
+      }
+
+      localStorage.setItem(
+        "weraeCart",
+        JSON.stringify(cart)
+      );
+
+      window.location.href = "cart.html";
+    });
   </script>
 
 </body>
