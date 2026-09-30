@@ -1489,12 +1489,14 @@
     );
 
 
-  tabs.forEach(
+    tabs.forEach(
     function (tab) {
 
       tab.addEventListener(
         "click",
-        function () {
+        function (event) {
+
+          event.preventDefault();
 
           tabs.forEach(
             function (other) {
@@ -1506,10 +1508,33 @@
             }
           );
 
-
           this.classList.add(
             "active"
           );
+
+          const target =
+            document.querySelector(
+              this.getAttribute("href")
+            );
+
+          const content =
+            document.querySelector(
+              ".explore-content"
+            );
+
+          if (
+            target &&
+            content
+          ) {
+
+            content.scrollTo({
+              top:
+                target.offsetTop -
+                content.offsetTop,
+              behavior: "smooth"
+            });
+
+          }
 
         }
       );
