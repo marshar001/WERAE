@@ -447,6 +447,7 @@ button:active {
   background: rgba(255, 255, 255, 0.18);
   color: white;
   border-radius: 22px;
+  font-weight: 600;
 }
 
 /* SMALL PHONES */
