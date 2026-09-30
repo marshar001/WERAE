@@ -185,8 +185,40 @@ galleryImage.addEventListener("touchend", function(event) {
   }
 });
 
+const addToCartButton =
+  document.querySelector(".cart-button");
 
-</script>
+addToCartButton.addEventListener("click", function() {
+
+  const cart = JSON.parse(
+    localStorage.getItem("weraeCart") || "[]"
+  );
+
+  const cartItem = {
+    name: "Premium Handbag",
+    price: "₦85,000",
+    image: "product-premium-handbag.jpg",
+    url: "product.html"
+  };
+
+  const existingItem = cart.find(
+    item => item.url === cartItem.url
+  );
+
+  if (!existingItem) {
+    cart.push(cartItem);
+  }
+
+  localStorage.setItem(
+    "weraeCart",
+    JSON.stringify(cart)
+  );
+
+  window.location.href = "cart.html";
+
+});
+
+  </script>
 
 </body>
 </html>
