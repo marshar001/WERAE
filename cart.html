@@ -121,80 +121,239 @@
 
         if (cartProducts.length === 0) {
 
-      cartItems.innerHTML = `
-        <div class="cart-empty">
-          <h2>Your cart is empty</h2>
-          <p>Add products to your cart and they will appear here.</p>
+  cartItems.innerHTML = `
+    <div class="cart-empty">
+      <h2>Your cart is empty</h2>
+      <p>Add products to your cart and they will appear here.</p>
 
-          <a href="index.html" class="continue-shopping">
-            Start Shopping
-          </a>
-        </div>
-      `;
+      <a href="index.html" class="continue-shopping">
+        Start Shopping
+      </a>
+    </div>
+  `;
 
-    } else {
+} else {
 
-      cartProducts.forEach((product, index) => {
+  cartProducts.forEach((product, index) => {
 
-        const item = document.createElement("article");
+    const item = document.createElement("article");
 
-        item.className = "cart-product";
+    item.className = "cart-swipe";
 
-        item.innerHTML = `
-          <div class="cart-product-select">
+    item.innerHTML = `
+      <button
+        type="button"
+        class="cart-swipe-delete"
+        data-index="${index}"
+        aria-label="Delete ${product.name}"
+      >
+        Delete
+      </button>
+
+      <div class="cart-product">
+
+        <div class="cart-product-image">
+
+          <img
+            src="${product.image}"
+            alt="${product.name}"
+          >
+
+          <label class="cart-product-select">
             <input
               type="checkbox"
               checked
               aria-label="Select ${product.name}"
             >
-          </div>
+            <span></span>
+          </label>
 
-          <div class="cart-product-image">
-            <img
-              src="${product.image}"
-              alt="${product.name}"
+        </div>
+
+        <div class="cart-product-details">
+
+          <h2>
+            ${product.name}
+          </h2>
+
+          <p class="cart-product-price">
+            ${product.price}
+          </p>
+
+          <div class="cart-product-controls">
+
+            <button
+              type="button"
+              class="cart-quantity-minus"
+              data-index="${index}"
+              aria-label="Decrease quantity"
             >
-          </div>
+              −
+            </button>
 
-          <div class="cart-product-details">
+            <span class="cart-quantity">
+              ${product.quantity || 1}
+            </span>
 
-            <h2>
-              ${product.name}
-            </h2>
-
-            <p class="cart-product-price">
-              ${product.price}
-            </p>
-
-            <div class="cart-product-controls">
-
-              <button
-                type="button"
-                class="cart-quantity"
-                aria-label="Quantity"
-              >
-                1
-              </button>
-
-              <button
-                type="button"
-                class="cart-remove"
-                data-index="${index}"
-                aria-label="Remove ${product.name}"
-              >
-                Remove
-              </button>
-
-            </div>
+            <button
+              type="button"
+              class="cart-quantity-plus"
+              data-index="${index}"
+              aria-label="Increase quantity"
+            >
+              +
+            </button>
 
           </div>
-        `;
 
-        cartItems.appendChild(item);
+          <button
+            type="button"
+            class="cart-remove"
+            data-index="${index}"
+            aria-label="Remove ${product.name}"
+          >
+            Remove
+          </button>
 
-      });
+        </div>
 
-    }
+      </div>
+    `;
+
+    cartItems.appendChild(item);
+
+  });
+
+  document.querySelectorAll(".cart-quantity-minus").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const index = Number(button.dataset.index);
+
+      cartProducts[index].quantity =
+        Math.max(1, (cartProducts[index].quantity || 1) - 1);
+
+      localStorage.setItem(
+        "weraeCart",
+        JSON.stringify(cartProducts)
+      );
+
+      location.reload();
+
+    });
+
+  });
+
+  document.querySelectorAll(".cart-quantity-plus").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const index = Number(button.dataset.index);
+
+      cartProducts[index].quantity =
+        (cartProducts[index].quantity || 1) + 1;
+
+      localStorage.setItem(
+        "weraeCart",
+        JSON.stringify(cartProducts)
+      );
+
+      location.reload();
+
+    });
+
+  });
+
+  document.querySelectorAll(".cart-remove").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const index = Number(button.dataset.index);
+
+      cartProducts.splice(index, 1);
+
+      localStorage.setItem(
+        "weraeCart",
+        JSON.stringify(cartProducts)
+      );
+
+      location.reload();
+
+    });
+
+  });
+
+  document.querySelectorAll(".cart-swipe-delete").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const index = Number(button.dataset.index);
+
+      cartProducts.splice(index, 1);
+
+      localStorage.setItem(
+        "weraeCart",
+        JSON.stringify(cartProducts)
+      );
+
+      location.reload();
+
+    });
+
+  });
+
+  document.querySelectorAll(".cart-swipe").forEach(item => {
+
+    let startX = 0;
+    let currentX = 0;
+    let swiped = false;
+
+    item.addEventListener("touchstart", event => {
+
+      startX = event.touches[0].clientX;
+      currentX = startX;
+
+    }, { passive: true });
+
+    item.addEventListener("touchmove", event => {
+
+      currentX = event.touches[0].clientX;
+
+      const distance = currentX - startX;
+
+      if (distance < 0) {
+
+        const move = Math.max(distance, -90);
+
+        item.style.transform =
+          `translateX(${move}px)`;
+
+      }
+
+    }, { passive: true });
+
+    item.addEventListener("touchend", () => {
+
+      const distance = currentX - startX;
+
+      if (distance < -50) {
+
+        item.classList.add("swiped");
+        swiped = true;
+
+      } else {
+
+        item.style.transform = "";
+        item.classList.remove("swiped");
+        swiped = false;
+
+      }
+
+    });
+
+  });
+
+      }
   </script>
 
 </body>
