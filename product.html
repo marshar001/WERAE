@@ -123,12 +123,29 @@
   </main>
 
   <script>
+const recentlyViewedProduct = {
+  name: "Premium Handbag",
+  price: "₦85,000",
+  image: "product-premium-handbag.jpg",
+  url: "product.html"
+};
+
+const recentlyViewed = JSON.parse(
+  localStorage.getItem("weraeRecentlyViewed") || "[]"
+);
+
+const filteredRecentlyViewed = recentlyViewed.filter(
+  product => product.url !== recentlyViewedProduct.url
+);
+
+filteredRecentlyViewed.unshift(recentlyViewedProduct);
+
+localStorage.setItem(
+  "weraeRecentlyViewed",
+  JSON.stringify(filteredRecentlyViewed.slice(0, 6))
+);
+
 const productImages = [
-  "IMG_20260922_142902.jpg",
-  "IMG_20260922_142927.jpg",
-  "IMG_20260922_142956.jpg",
-  "Screenshot_20260922-142655~2.jpg"
-];
 
 let currentImage = 0;
 
