@@ -150,11 +150,42 @@
         Delete
       </button>
 
-      <div class="cart-product">
+            <div class="cart-product">
 
-                <p class="cart-product-seller">
-  Verified Fashion Store
-</p>
+        <div class="cart-product-image">
+
+          <img
+            src="${product.image}"
+            alt="${product.name}"
+          >
+
+          <label class="cart-product-select">
+            <input
+              type="checkbox"
+              checked
+              aria-label="Select ${product.name}"
+            >
+            <span></span>
+          </label>
+
+          <p class="cart-product-seller">
+            Verified Fashion Store
+          </p>
+
+        </div>
+
+        <div class="cart-product-details">
+
+          <h2>
+            ${product.name}
+          </h2>
+
+          <p class="cart-product-price">
+            ${product.price}
+          </p>
+
+          <div class="cart-product-controls">
+
             <button
               type="button"
               class="cart-quantity-minus"
@@ -189,7 +220,6 @@
           </button>
 
         </div>
-
       </div>
     `;
 
