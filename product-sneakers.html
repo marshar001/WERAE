@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classic Sneakers | WERAE</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <main class="product-page">
+
+    <a href="index.html" class="back-button">← Back</a>
+
+    <section class="product-gallery">
+
+      <div class="main-product-image">
+
+        <img
+          id="mainProductImage"
+          src="product-classic-sneakers.jpg"
+          alt="Classic Sneakers"
+        >
+
+        <div id="photoCounter" class="photo-counter">1 / 1</div>
+
+      </div>
+
+      <div class="color-options">
+
+        <button
+          type="button"
+          class="color-option active"
+          aria-label="Classic"
+        >
+          <span class="color-swatch black"></span>
+          <span>Classic</span>
+        </button>
+
+      </div>
+
+    </section>
+
+    <section class="product-information">
+
+      <p class="verified-badge">✓ VERIFIED WERI SELLER</p>
+
+      <h1>Classic Sneakers</h1>
+
+      <p class="product-price">₦65,000</p>
+
+      <div class="product-meta">
+        <span>✓ Verified Seller</span>
+        <span>✓ Secure WERI Checkout</span>
+      </div>
+
+      <p class="product-description">
+        Classic sneakers from a verified WERI seller.
+        This product is processed through WERI for secure payment and delivery.
+      </p>
+
+      <div class="seller-card">
+
+        <div class="seller-top">
+
+          <div>
+            <strong>Verified Fashion Store</strong>
+            <p>✓ WERI Verified Business</p>
+          </div>
+
+        </div>
+
+        <p>Business seller verified by WERI.</p>
+
+      </div>
+
+      <div class="protection-card">
+
+        <h2>Buyer Protection</h2>
+
+        <p>
+          Your purchase is protected by WERAE.
+          Delivery and order protection apply.
+        </p>
+
+      </div>
+
+      <div class="product-actions">
+
+        <button class="cart-button">
+          Add to Cart
+        </button>
+
+        <button class="buy-button">
+          Checkout
+        </button>
+
+      </div>
+
+    </section>
+
+    <section class="recommended">
+
+      <h2>YOU MAY ALSO LIKE</h2>
+
+      <div class="recommended-grid">
+
+        <a href="product.html" class="recommended-card">
+
+          <div>
+            <img
+              src="product-premium-handbag.jpg"
+              alt="Premium Handbag"
+            >
+          </div>
+
+          <h3>Premium Handbag</h3>
+          <p>₦85,000</p>
+
+        </a>
+
+        <a href="product.html" class="recommended-card">
+
+          <div>
+            <img
+              src="product-designer-jacket-portrait-clean.jpg"
+              alt="Designer Jacket"
+            >
+          </div>
+
+          <h3>Designer Jacket</h3>
+          <p>₦120,000</p>
+
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+
+    const recentlyViewedProduct = {
+      name: "Classic Sneakers",
+      price: "₦65,000",
+      image: "product-classic-sneakers.jpg",
+      url: "product-sneakers.html"
+    };
+
+    const recentlyViewed = JSON.parse(
+      localStorage.getItem("weraeRecentlyViewed") || "[]"
+    );
+
+    const filteredRecentlyViewed = recentlyViewed.filter(
+      product => product.url !== recentlyViewedProduct.url
+    );
+
+    filteredRecentlyViewed.unshift(recentlyViewedProduct);
+
+    localStorage.setItem(
+      "weraeRecentlyViewed",
+      JSON.stringify(filteredRecentlyViewed.slice(0, 6))
+    );
+
+    const productImages = [
+      "product-classic-sneakers.jpg"
+    ];
+
+    let currentImage = 0;
+
+    function showProductImage(index) {
+      currentImage = (index + productImages.length) % productImages.length;
+
+      document.getElementById("mainProductImage").src =
+        productImages[currentImage];
+
+      document.getElementById("photoCounter").textContent =
+        (currentImage + 1) + " / " + productImages.length;
+    }
+
+    let startX = 0;
+
+    const galleryImage = document.getElementById("mainProductImage");
+
+    galleryImage.addEventListener("touchstart", function(event) {
+      startX = event.touches[0].clientX;
+    });
+
+    galleryImage.addEventListener("touchend", function(event) {
+      const endX = event.changedTouches[0].clientX;
+      const difference = startX - endX;
+
+      if (Math.abs(difference) > 50) {
+
+        if (difference > 0) {
+          showProductImage(currentImage + 1);
+        } else {
+          showProductImage(currentImage - 1);
+        }
+
+      }
+    });
+
+  </script>
+
+</body>
+  </html>
