@@ -924,7 +924,11 @@ button:active {
   display: flex;
   align-items: center;
   width: fit-content;
+  height: 30px;
   margin-top: 19px;
+  border: 1px solid rgba(23, 59, 50, 0.14);
+  border-radius: 9px;
+  overflow: hidden;
   background: white;
 }
 
