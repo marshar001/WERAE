@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Checkout — WERAE</title>
+
+  <meta
+    name="description"
+    content="Complete your WERAE order."
+  >
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <main class="checkout-page">
+
+    <a href="cart.html" class="back-button">
+      ← Back to Cart
+    </a>
+
+    <header class="checkout-header">
+      <p class="verified-badge">WERAE CHECKOUT</p>
+      <h1>Checkout</h1>
+      <p>Enter your delivery information to continue.</p>
+    </header>
+
+    <section class="checkout-section">
+      <h2>Delivery Information</h2>
+
+      <label>
+        Full Name
+        <input type="text" id="checkoutName" placeholder="Enter your full name">
+      </label>
+
+      <label>
+        Phone Number
+        <input type="tel" id="checkoutPhone" placeholder="Enter your phone number">
+      </label>
+
+      <label>
+        Delivery Address
+        <textarea id="checkoutAddress" rows="3" placeholder="Enter your delivery address"></textarea>
+      </label>
+
+      <label>
+        City
+        <input type="text" id="checkoutCity" placeholder="Enter your city">
+      </label>
+    </section>
+
+    <section class="checkout-section">
+      <h2>Order Summary</h2>
+
+      <div id="checkoutItems"></div>
+
+      <div class="checkout-total">
+        <span>Total</span>
+        <strong id="checkoutTotal">₦0</strong>
+      </div>
+    </section>
+
+    <button type="button" class="checkout-place-order">
+      Continue to Payment
+    </button>
+
+  </main>
+
+</body>
+</html>
