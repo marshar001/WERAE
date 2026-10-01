@@ -465,15 +465,19 @@
 
       card.style.transform = "";
 
-      item.classList.remove("swiped");
+            item.classList.remove("swiped");
 
     }
 
   });
 
 });
-      }
-  </script>
+
+document.getElementById("cartCheckoutButton").addEventListener("click", () => {
+  window.location.href = "checkout.html";
+});
+
+</script>
 
 </body>
 </html>
