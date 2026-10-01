@@ -473,10 +473,14 @@
 
 });
 
-document.getElementById("cartCheckoutButton").addEventListener("click", () => {
-  window.location.href = "checkout.html";
-});
+const cartCheckoutButton =
+  document.getElementById("cartCheckoutButton");
 
+if (cartCheckoutButton) {
+  cartCheckoutButton.addEventListener("click", () => {
+    window.location.href = "checkout.html";
+  });
+}
 </script>
 
 </body>
