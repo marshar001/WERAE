@@ -482,8 +482,19 @@ button:active {
   color: var(--deep-green);
   text-decoration: none;
   font-family: Arial, sans-serif;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 0;
+  font-weight: normal;
+  line-height: 1;
+  width: 42px;
+  height: 42px;
+}
+
+.back-button::before {
+  content: "‹";
+  display: block;
+  font-size: 52px;
+  font-weight: normal;
+  line-height: 38px;
 }
 
 .main-product-image {
