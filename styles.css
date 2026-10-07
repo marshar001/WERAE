@@ -473,16 +473,21 @@ button:active {
 .product-page {
   max-width: 600px;
   margin: 0 auto;
-  padding: 8px 16px 110px;
+  padding: 0 16px 110px;
+  position: relative;
 }
 
 .back-button {
-  display: inline-flex;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  z-index: 10;
+  display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   width: 44px;
   height: 44px;
-  margin-bottom: 8px;
+  margin: 0;
   color: var(--deep-green);
   text-decoration: none;
   font-size: 0;
@@ -493,9 +498,9 @@ button:active {
   content: "‹";
   display: block;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 46px;
+  font-size: 48px;
   font-weight: normal;
-  line-height: 40px;
+  line-height: 44px;
 }
 
 .main-product-image {
