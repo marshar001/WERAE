@@ -33,22 +33,38 @@
 
       <label>
         Full Name
-        <input type="text" id="checkoutName" placeholder="Enter your full name">
+        <input
+          type="text"
+          id="checkoutName"
+          placeholder="Enter your full name"
+        >
       </label>
 
       <label>
         Phone Number
-        <input type="tel" id="checkoutPhone" placeholder="Enter your phone number">
+        <input
+          type="tel"
+          id="checkoutPhone"
+          placeholder="Enter your phone number"
+        >
       </label>
 
       <label>
         Delivery Address
-        <textarea id="checkoutAddress" rows="3" placeholder="Enter your delivery address"></textarea>
+        <textarea
+          id="checkoutAddress"
+          rows="3"
+          placeholder="Enter your delivery address"
+        ></textarea>
       </label>
 
       <label>
         City
-        <input type="text" id="checkoutCity" placeholder="Enter your city">
+        <input
+          type="text"
+          id="checkoutCity"
+          placeholder="Enter your city"
+        >
       </label>
     </section>
 
@@ -68,6 +84,74 @@
     </button>
 
   </main>
+
+  <script>
+    const checkoutItems =
+      document.getElementById("checkoutItems");
+
+    const checkoutTotal =
+      document.getElementById("checkoutTotal");
+
+    const cartProducts = JSON.parse(
+      localStorage.getItem("weraeCart") || "[]"
+    );
+
+    if (cartProducts.length === 0) {
+
+      checkoutItems.innerHTML = `
+        <p>
+          Your cart is empty.
+        </p>
+
+        <a href="index.html" class="continue-shopping">
+          Start Shopping
+        </a>
+      `;
+
+      checkoutTotal.textContent = "₦0";
+
+    } else {
+
+      let cartTotal = 0;
+
+      cartProducts.forEach(product => {
+
+        const numericPrice = Number(
+          String(product.price).replace(/[^\d.]/g, "")
+        );
+
+        const quantity = product.quantity || 1;
+
+        const productTotal =
+          numericPrice * quantity;
+
+        cartTotal += productTotal;
+
+        const item = document.createElement("div");
+
+        item.className = "checkout-item";
+
+        item.innerHTML = `
+          <div>
+            <strong>${product.name}</strong>
+            <p>
+              Quantity: ${quantity}
+            </p>
+          </div>
+
+          <strong>
+            ₦${productTotal.toLocaleString("en-NG")}
+          </strong>
+        `;
+
+        checkoutItems.appendChild(item);
+
+      });
+
+      checkoutTotal.textContent =
+        "₦" + cartTotal.toLocaleString("en-NG");
+    }
+  </script>
 
 </body>
 </html>
