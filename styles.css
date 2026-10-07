@@ -473,28 +473,29 @@ button:active {
 .product-page {
   max-width: 600px;
   margin: 0 auto;
-  padding: 22px 16px 110px;
+  padding: 8px 16px 110px;
 }
 
 .back-button {
-  display: inline-block;
-  margin-bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 8px;
   color: var(--deep-green);
   text-decoration: none;
-  font-family: Arial, sans-serif;
   font-size: 0;
-  font-weight: normal;
   line-height: 1;
-  width: 42px;
-  height: 42px;
 }
 
 .back-button::before {
   content: "‹";
   display: block;
-  font-size: 52px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 46px;
   font-weight: normal;
-  line-height: 38px;
+  line-height: 40px;
 }
 
 .main-product-image {
