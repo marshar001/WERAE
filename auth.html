@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sign In or Create Account — WERAE</title>
+
+  <meta
+    name="description"
+    content="Sign in or create your WERAE customer account."
+  >
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <main class="auth-page">
+
+    <a href="index.html" class="back-button">
+      ← Back to WERAE
+    </a>
+
+    <header class="auth-header">
+      <p class="verified-badge">WERAE ACCOUNT</p>
+
+      <h1 id="authTitle">
+        Welcome to WERAE
+      </h1>
+
+      <p id="authSubtitle">
+        Sign in to continue with your account.
+      </p>
+    </header>
+
+    <section class="auth-card">
+
+      <div class="auth-tabs">
+
+        <button
+          type="button"
+          class="auth-tab active"
+          id="signInTab"
+        >
+          Sign In
+        </button>
+
+        <button
+          type="button"
+          class="auth-tab"
+          id="createAccountTab"
+        >
+          Create Account
+        </button>
+
+      </div>
+
+      <form id="signInForm">
+
+        <label>
+          Email
+          <input
+            type="email"
+            id="signInEmail"
+            placeholder="Enter your email"
+            required
+          >
+        </label>
+
+        <label>
+          Password
+          <input
+            type="password"
+            id="signInPassword"
+            placeholder="Enter your password"
+            required
+          >
+        </label>
+
+        <p
+          class="auth-message"
+          id="signInMessage"
+        ></p>
+
+        <button
+          type="submit"
+          class="auth-submit"
+        >
+          Sign In
+        </button>
+
+      </form>
+
+      <form
+        id="createAccountForm"
+        hidden
+      >
+
+        <label>
+          Full Name
+          <input
+            type="text"
+            id="createName"
+            placeholder="Enter your full name"
+            required
+          >
+        </label>
+
+        <label>
+          Email
+          <input
+            type="email"
+            id="createEmail"
+            placeholder="Enter your email"
+            required
+          >
+        </label>
+
+        <label>
+          Password
+          <input
+            type="password"
+            id="createPassword"
+            placeholder="Create a password"
+            required
+          >
+        </label>
+
+        <label>
+          Confirm Password
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm your password"
+            required
+          >
+        </label>
+
+        <p
+          class="auth-message"
+          id="createAccountMessage"
+        ></p>
+
+        <button
+          type="submit"
+          class="auth-submit"
+        >
+          Create Account
+        </button>
+
+      </form>
+
+    </section>
+
+  </main>
+
+  <script>
+
+    const signInTab =
+      document.getElementById("signInTab");
+
+    const createAccountTab =
+      document.getElementById("createAccountTab");
+
+    const signInForm =
+      document.getElementById("signInForm");
+
+    const createAccountForm =
+      document.getElementById("createAccountForm");
+
+    const authTitle =
+      document.getElementById("authTitle");
+
+    const authSubtitle =
+      document.getElementById("authSubtitle");
+
+    const signInMessage =
+      document.getElementById("signInMessage");
+
+    const createAccountMessage =
+      document.getElementById("createAccountMessage");
+
+    function showSignIn() {
+
+      signInTab.classList.add("active");
+      createAccountTab.classList.remove("active");
+
+      signInForm.hidden = false;
+      createAccountForm.hidden = true;
+
+      authTitle.textContent =
+        "Welcome to WERAE";
+
+      authSubtitle.textContent =
+        "Sign in to continue with your account.";
+
+      signInMessage.textContent = "";
+      createAccountMessage.textContent = "";
+    }
+
+    function showCreateAccount() {
+
+      signInTab.classList.remove("active");
+      createAccountTab.classList.add("active");
+
+      signInForm.hidden = true;
+      createAccountForm.hidden = false;
+
+      authTitle.textContent =
+        "Create your WERAE account";
+
+      authSubtitle.textContent =
+        "Create an account to continue.";
+
+      signInMessage.textContent = "";
+      createAccountMessage.textContent = "";
+    }
+
+    signInTab.addEventListener(
+      "click",
+      showSignIn
+    );
+
+    createAccountTab.addEventListener(
+      "click",
+      showCreateAccount
+    );
+
+    const urlParams =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const returnPage =
+      urlParams.get("return") || "profile";
+
+    signInForm.addEventListener(
+      "submit",
+      event => {
+
+        event.preventDefault();
+
+        const email =
+          document.getElementById(
+            "signInEmail"
+          ).value.trim();
+
+        const password =
+          document.getElementById(
+            "signInPassword"
+          ).value;
+
+        const savedUser =
+          JSON.parse(
+            localStorage.getItem(
+              "weraeUser"
+            ) || "null"
+          );
+
+        if (!savedUser) {
+
+          signInMessage.textContent =
+            "No WERAE account was found. Please create an account first.";
+
+          return;
+        }
+
+        if (
+          savedUser.email !== email ||
+          savedUser.password !== password
+        ) {
+
+          signInMessage.textContent =
+            "The email or password is incorrect.";
+
+          return;
+        }
+
+        savedUser.loggedIn = true;
+
+        localStorage.setItem(
+          "weraeUser",
+          JSON.stringify(savedUser)
+        );
+
+        window.location.href =
+          returnPage === "checkout"
+            ? "checkout.html"
+            : "profile.html";
+
+      }
+    );
+
+    createAccountForm.addEventListener(
+      "submit",
+      event => {
+
+        event.preventDefault();
+
+        const name =
+          document.getElementById(
+            "createName"
+          ).value.trim();
+
+        const email =
+          document.getElementById(
+            "createEmail"
+          ).value.trim();
+
+        const password =
+          document.getElementById(
+            "createPassword"
+          ).value;
+
+        const confirmPassword =
+          document.getElementById(
+            "confirmPassword"
+          ).value;
+
+        if (
+          password !== confirmPassword
+        ) {
+
+          createAccountMessage.textContent =
+            "Passwords do not match.";
+
+          return;
+        }
+
+        const user = {
+          name: name,
+          email: email,
+          password: password,
+          loggedIn: true
+        };
+
+        localStorage.setItem(
+          "weraeUser",
+          JSON.stringify(user)
+        );
+
+        window.location.href =
+          returnPage === "checkout"
+            ? "checkout.html"
+            : "profile.html";
+
+      }
+    );
+
+  </script>
+
+</body>
+  </html> 
