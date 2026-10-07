@@ -105,16 +105,16 @@
   </main>
 
   <script>
-        const savedUser = JSON.parse(
+            const savedUser = JSON.parse(
       localStorage.getItem("weraeUser") || "null"
     );
 
     if (!savedUser || savedUser.loggedIn !== true) {
       window.location.href = "auth.html?return=checkout";
     }
+
     const checkoutItems =
       document.getElementById("checkoutItems");
-
     const checkoutItemCount =
       document.getElementById("checkoutItemCount");
 
