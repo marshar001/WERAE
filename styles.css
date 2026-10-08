@@ -482,9 +482,9 @@ button:active {
 
 .back-button,
 .product-cart-button {
-  position: absolute;
-  top: 10px;
-  z-index: 10;
+  position: fixed;
+  top: 18px;
+  z-index: 1000;
   width: 44px;
   height: 44px;
   display: flex;
@@ -496,11 +496,11 @@ button:active {
 }
 
 .back-button {
-  left: 8px;
+  left: max(18px, calc(50% - 300px));
 }
 
 .product-cart-button {
-  right: 8px;
+  right: max(18px, calc(50% - 300px));
 }
 
 .back-button svg {
