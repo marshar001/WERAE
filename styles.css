@@ -559,12 +559,6 @@ button:active {
     transform: scale(0.94);
   }
 }
-  display: block;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 48px;
-  font-weight: normal;
-  line-height: 44px;
-}
 
 .main-product-image {
   height: 300px;
