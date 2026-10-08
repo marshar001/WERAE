@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Premium Handbag | WERAE</title>
+
+  <title>Premium Handbag | BODEGS</title>
+
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -11,214 +13,676 @@
 
   <main class="product-page">
 
-    <a href="index.html" class="back-button">← Back</a>
-
     <section class="product-gallery">
 
-  <div class="main-product-image">
+      <!-- BACK BUTTON -->
+      <a href="index.html" class="back-button" aria-label="Back">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 5L8 12L15 19"></path>
+        </svg>
+      </a>
 
-  <img
-    id="mainProductImage"
-    src="IMG_20260922_142902.jpg"
-    alt="Premium Handbag"
-  >
+      <!-- CART BUTTON -->
+      <a href="cart.html" class="product-cart-button" aria-label="Cart">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 8h14l-1 12H6L5 8Z"></path>
+          <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+        </svg>
 
-  <div id="photoCounter" class="photo-counter">1 / 4</div>
+        <span
+          id="productCartCount"
+          class="product-cart-count"
+          hidden
+        >
+          0
+        </span>
+      </a>
 
-</div>
+      <!-- PRODUCT IMAGE -->
+      <div class="main-product-image">
 
-  <div class="color-options">
+        <img
+          id="mainProductImage"
+          src="IMG_20260922_142902.jpg"
+          alt="Premium Handbag"
+        >
 
-    <button
-      type="button"
-      class="color-option active"
-      aria-label="Black"
-    >
-      <span class="color-swatch black"></span>
-      <span>Black</span>
-    </button>
+        <div
+          id="photoCounter"
+          class="photo-counter"
+        >
+          1 / 4
+        </div>
 
-  </div>
+      </div>
 
-</section>
+      <!-- COLOR -->
+      <div class="color-options">
 
+        <button
+          type="button"
+          class="color-option active"
+          aria-label="Black"
+        >
+          <span class="color-swatch black"></span>
+          <span>Black</span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- PRODUCT INFORMATION -->
     <section class="product-information">
 
-    <p class="verified-badge">✓ VERIFIED WERI SELLER</p>
-  <h1>Premium Handbag</h1>
+      <p class="verified-badge">
+        ✓ VERIFIED BODEGS SELLER
+      </p>
 
-    
-  <p class="product-price">₦85,000</p>
+      <h1>Premium Handbag</h1>
 
-    <div class="product-meta">
-    <span>✓ Verified Seller</span>
-    <span>✓ Secure WERI Checkout</span>
-  </div>
-    <p class="product-description">
-    A premium handbag from a verified WERI seller.
-    This product is processed through WERI for secure payment and delivery.
-    </p>
-    <div class="seller-card">
-    <div class="seller-top">
-      <div>
-        <strong>Verified Fashion Store</strong>
-        <p>✓ WERI Verified Business</p>
+      <p class="product-price">
+        ₦85,000
+      </p>
+
+      <div class="product-meta">
+
+        <span>
+          ✓ Verified Seller
+        </span>
+
+        <span>
+          ✓ Secure BODEGS Checkout
+        </span>
+
       </div>
-    </div>
 
-    <p>Business seller verified by WERI.</p>
+      <p class="product-description">
+        A premium handbag from a verified BODEGS seller.
+        This product is processed through BODEGS for secure payment and delivery.
+      </p>
+
+
+      <!-- SELLER -->
+      <div class="seller-card">
+
+        <div class="seller-top">
+
+          <div>
+
+            <strong>
+              Verified Fashion Store
+            </strong>
+
+            <p>
+              ✓ BODEGS Verified Business
+            </p>
+
+          </div>
+
         </div>
-  <div class="protection-card">
-    <h2>Buyer Protection</h2>
-    <p>
-      Your purchase is protected by WERAE.
-      Delivery and order protection apply.
-    </p>
-  </div>
 
-    <div class="product-actions">
-  <button class="cart-button">
-    Add to Cart
-  </button>
+        <p>
+          Business seller verified by BODEGS.
+        </p>
 
-  <button class="buy-button">
-    Checkout
-  </button>
-    </div>
+      </div>
 
-</section>
 
+      <!-- BUYER PROTECTION -->
+      <div class="protection-card">
+
+        <h2>
+          Buyer Protection
+        </h2>
+
+        <p>
+          Your purchase is protected by BODEGS.
+          Delivery and order protection apply.
+        </p>
+
+      </div>
+
+
+      <!-- ACTION BUTTONS -->
+      <div class="product-actions">
+
+        <button
+          class="cart-button"
+          type="button"
+        >
+          Add to Cart
+        </button>
+
+        <button
+          class="buy-button"
+          type="button"
+        >
+          Checkout
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- RECOMMENDED PRODUCTS -->
     <section class="recommended">
 
-      <h2>YOU MAY ALSO LIKE</h2>
+      <h2>
+        YOU MAY ALSO LIKE
+      </h2>
 
-            <div class="recommended-grid">
+      <div class="recommended-grid">
 
-                <a href="product.html" class="recommended-card">
+        <a
+          href="product.html"
+          class="recommended-card"
+        >
+
           <div>
+
             <img
               src="product-classic-sneakers.jpg"
               alt="Classic Sneakers"
             >
+
           </div>
-          <h3>Classic Sneakers</h3>
-          <p>₦65,000</p>
+
+          <h3>
+            Classic Sneakers
+          </h3>
+
+          <p>
+            ₦65,000
+          </p>
+
         </a>
 
-        <a href="product.html" class="recommended-card">
+
+        <a
+          href="product.html"
+          class="recommended-card"
+        >
+
           <div>
+
             <img
               src="product-designer-jacket-portrait-clean.jpg"
               alt="Designer Jacket"
             >
+
           </div>
-          <h3>Designer Jacket</h3>
-          <p>₦120,000</p>
+
+          <h3>
+            Designer Jacket
+          </h3>
+
+          <p>
+            ₦120,000
+          </p>
+
         </a>
 
-            </div>
+      </div>
 
     </section>
 
   </main>
 
+
   <script>
-const recentlyViewedProduct = {
-  name: "Premium Handbag",
-  price: "₦85,000",
-  image: "product-premium-handbag.jpg",
-  url: "product.html"
-};
 
-const recentlyViewed = JSON.parse(
-  localStorage.getItem("weraeRecentlyViewed") || "[]"
-);
+    /* =================================
+       RECENTLY VIEWED
+       ================================= */
 
-const filteredRecentlyViewed = recentlyViewed.filter(
-  product => product.url !== recentlyViewedProduct.url
-);
+    const recentlyViewedProduct = {
 
-filteredRecentlyViewed.unshift(recentlyViewedProduct);
+      name: "Premium Handbag",
 
-localStorage.setItem(
-  "weraeRecentlyViewed",
-  JSON.stringify(filteredRecentlyViewed.slice(0, 6))
-);
+      price: "₦85,000",
 
-const productImages = [
-  "IMG_20260922_142902.jpg",
-  "IMG_20260922_142927.jpg",
-  "IMG_20260922_142956.jpg",
-  "Screenshot_20260922-142655~2.jpg"
-];
+      image: "product-premium-handbag.jpg",
 
-let currentImage = 0;
+      url: "product.html"
 
-function showProductImage(index) {
-  currentImage = (index + productImages.length) % productImages.length;
+    };
 
-  document.getElementById("mainProductImage").src =
-    productImages[currentImage];
 
-  document.getElementById("photoCounter").textContent =
-    (currentImage + 1) + " / " + productImages.length;
-}
+    const recentlyViewed = JSON.parse(
 
-let startX = 0;
+      localStorage.getItem(
+        "weraeRecentlyViewed"
+      ) || "[]"
 
-const galleryImage = document.getElementById("mainProductImage");
+    );
 
-galleryImage.addEventListener("touchstart", function(event) {
-  startX = event.touches[0].clientX;
-});
 
-galleryImage.addEventListener("touchend", function(event) {
-  const endX = event.changedTouches[0].clientX;
-  const difference = startX - endX;
+    const filteredRecentlyViewed =
+      recentlyViewed.filter(
 
-  if (Math.abs(difference) > 50) {
-    if (difference > 0) {
-      showProductImage(currentImage + 1);
-    } else {
-      showProductImage(currentImage - 1);
+        product =>
+          product.url !==
+          recentlyViewedProduct.url
+
+      );
+
+
+    filteredRecentlyViewed.unshift(
+      recentlyViewedProduct
+    );
+
+
+    localStorage.setItem(
+
+      "weraeRecentlyViewed",
+
+      JSON.stringify(
+        filteredRecentlyViewed.slice(0, 6)
+      )
+
+    );
+
+
+    /* =================================
+       PRODUCT IMAGE GALLERY
+       ================================= */
+
+    const productImages = [
+
+      "IMG_20260922_142902.jpg",
+
+      "IMG_20260922_142927.jpg",
+
+      "IMG_20260922_142956.jpg",
+
+      "Screenshot_20260922-142655~2.jpg"
+
+    ];
+
+
+    let currentImage = 0;
+
+
+    function showProductImage(index) {
+
+      currentImage =
+        (index + productImages.length)
+        % productImages.length;
+
+
+      document.getElementById(
+        "mainProductImage"
+      ).src =
+        productImages[currentImage];
+
+
+      document.getElementById(
+        "photoCounter"
+      ).textContent =
+        (currentImage + 1)
+        + " / "
+        + productImages.length;
+
     }
-  }
-});
 
-const addToCartButton =
-  document.querySelector(".cart-button");
 
-addToCartButton.addEventListener("click", function() {
+    /* =================================
+       SWIPE GALLERY
+       ================================= */
 
-  const cart = JSON.parse(
-    localStorage.getItem("weraeCart") || "[]"
-  );
+    let startX = 0;
 
-  const cartItem = {
-    name: "Premium Handbag",
-    price: "₦85,000",
-    image: "product-premium-handbag.jpg",
-    url: "product.html"
-  };
 
-  const existingItem = cart.find(
-    item => item.url === cartItem.url
-  );
+    const galleryImage =
+      document.getElementById(
+        "mainProductImage"
+      );
 
-  if (!existingItem) {
-    cart.push(cartItem);
-  }
 
-  localStorage.setItem(
-    "weraeCart",
-    JSON.stringify(cart)
-  );
+    galleryImage.addEventListener(
+      "touchstart",
+      function(event) {
 
-  window.location.href = "cart.html";
+        startX =
+          event.touches[0].clientX;
 
-});
+      }
+    );
+
+
+    galleryImage.addEventListener(
+      "touchend",
+      function(event) {
+
+        const endX =
+          event.changedTouches[0].clientX;
+
+
+        const difference =
+          startX - endX;
+
+
+        if (Math.abs(difference) > 50) {
+
+          if (difference > 0) {
+
+            showProductImage(
+              currentImage + 1
+            );
+
+          } else {
+
+            showProductImage(
+              currentImage - 1
+            );
+
+          }
+
+        }
+
+      }
+    );
+
+
+    /* =================================
+       CART
+       ================================= */
+
+    const addToCartButton =
+      document.querySelector(
+        ".cart-button"
+      );
+
+
+    const productCartButton =
+      document.querySelector(
+        ".product-cart-button"
+      );
+
+
+    const productCartCount =
+      document.getElementById(
+        "productCartCount"
+      );
+
+
+    function getCart() {
+
+      return JSON.parse(
+
+        localStorage.getItem(
+          "weraeCart"
+        ) || "[]"
+
+      );
+
+    }
+
+
+    function updateProductCartCount() {
+
+      const cart = getCart();
+
+
+      productCartCount.textContent =
+        cart.length;
+
+
+      productCartCount.hidden =
+        cart.length === 0;
+
+    }
+
+
+    /* =================================
+       FLY PRODUCT INTO CART
+       ================================= */
+
+    function animateProductToCart() {
+
+      const sourceImage =
+        document.getElementById(
+          "mainProductImage"
+        );
+
+
+      if (
+        !sourceImage ||
+        !productCartButton
+      ) {
+
+        return;
+
+      }
+
+
+      const sourceRect =
+        sourceImage.getBoundingClientRect();
+
+
+      const targetRect =
+        productCartButton
+          .getBoundingClientRect();
+
+
+      const flyingImage =
+        document.createElement("img");
+
+
+      flyingImage.src =
+        sourceImage.src;
+
+
+      flyingImage.alt = "";
+
+
+      flyingImage.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+
+      flyingImage.style.position =
+        "fixed";
+
+
+      flyingImage.style.left =
+        sourceRect.left + "px";
+
+
+      flyingImage.style.top =
+        sourceRect.top + "px";
+
+
+      flyingImage.style.width =
+        sourceRect.width + "px";
+
+
+      flyingImage.style.height =
+        sourceRect.height + "px";
+
+
+      flyingImage.style.objectFit =
+        "contain";
+
+
+      flyingImage.style.borderRadius =
+        "22px";
+
+
+      flyingImage.style.zIndex =
+        "2000";
+
+
+      flyingImage.style.pointerEvents =
+        "none";
+
+
+      flyingImage.style.transition =
+
+        "left 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), " +
+
+        "top 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), " +
+
+        "width 0.55s ease, " +
+
+        "height 0.55s ease, " +
+
+        "opacity 0.55s ease";
+
+
+      document.body.appendChild(
+        flyingImage
+      );
+
+
+      requestAnimationFrame(
+        function() {
+
+          flyingImage.style.left =
+
+            (
+              targetRect.left
+              + targetRect.width / 2
+              - 22
+            ) + "px";
+
+
+          flyingImage.style.top =
+
+            (
+              targetRect.top
+              + targetRect.height / 2
+              - 22
+            ) + "px";
+
+
+          flyingImage.style.width =
+            "44px";
+
+
+          flyingImage.style.height =
+            "44px";
+
+
+          flyingImage.style.borderRadius =
+            "10px";
+
+
+          flyingImage.style.opacity =
+            "0.25";
+
+        }
+      );
+
+
+      flyingImage.addEventListener(
+
+        "transitionend",
+
+        function() {
+
+          flyingImage.remove();
+
+        },
+
+        { once: true }
+
+      );
+
+
+      productCartButton.classList.add(
+        "cart-bounce"
+      );
+
+
+      setTimeout(
+        function() {
+
+          productCartButton.classList.remove(
+            "cart-bounce"
+          );
+
+        },
+        500
+      );
+
+    }
+
+
+    /* =================================
+       ADD TO CART
+       ================================= */
+
+    addToCartButton.addEventListener(
+      "click",
+      function() {
+
+        const cart = getCart();
+
+
+        const cartItem = {
+
+          name: "Premium Handbag",
+
+          price: "₦85,000",
+
+          image:
+            "product-premium-handbag.jpg",
+
+          url:
+            "product.html"
+
+        };
+
+
+        const existingItem =
+          cart.find(
+
+            item =>
+              item.url ===
+              cartItem.url
+
+          );
+
+
+        if (!existingItem) {
+
+          cart.push(
+            cartItem
+          );
+
+        }
+
+
+        localStorage.setItem(
+
+          "weraeCart",
+
+          JSON.stringify(cart)
+
+        );
+
+
+        updateProductCartCount();
+
+
+        animateProductToCart();
+
+      }
+    );
+
+
+    /* =================================
+       INITIAL CART COUNT
+       ================================= */
+
+    updateProductCartCount();
 
   </script>
 
 </body>
-</html>
+  </html>
