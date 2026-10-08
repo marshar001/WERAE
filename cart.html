@@ -92,6 +92,15 @@
     </nav>
 
   <script>
+const cartBackButton =
+  document.getElementById("cartBackButton");
+
+const lastProductPage =
+  localStorage.getItem("weraeLastProductPage");
+
+if (lastProductPage) {
+  cartBackButton.href = lastProductPage;
+}
     const recentlyViewedGrid =
       document.getElementById("recentlyViewedGrid");
 
