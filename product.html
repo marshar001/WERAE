@@ -392,80 +392,119 @@
        ================================= */
 
     const addToCartButton =
-      document.querySelector(
-        ".cart-button"
-      );
+  document.querySelector(".cart-button");
 
+const productCartButton =
+  document.querySelector(".product-cart-button");
 
-    const productCartButton =
-      document.querySelector(
-        ".product-cart-button"
-      );
+const productCartCount =
+  document.getElementById("productCartCount");
 
+function getCart() {
+  return JSON.parse(
+    localStorage.getItem("weraeCart") || "[]"
+  );
+}
 
-    const productCartCount =
-      document.getElementById(
-        "productCartCount"
-      );
+function updateProductCartCount() {
+  const cart = getCart();
 
+  productCartCount.textContent = cart.length;
+  productCartCount.hidden = cart.length === 0;
+}
 
-    function getCart() {
+function animateProductToCart() {
+  const sourceImage =
+    document.getElementById("mainProductImage");
 
-      return JSON.parse(
+  const sourceRect =
+    sourceImage.getBoundingClientRect();
 
-        localStorage.getItem(
-          "weraeCart"
-        ) || "[]"
+  const targetRect =
+    productCartButton.getBoundingClientRect();
 
-      );
+  const flyingImage =
+    document.createElement("img");
 
-    }
+  flyingImage.src = sourceImage.src;
+  flyingImage.alt = "";
+  flyingImage.setAttribute("aria-hidden", "true");
 
+  flyingImage.style.position = "fixed";
+  flyingImage.style.left = sourceRect.left + "px";
+  flyingImage.style.top = sourceRect.top + "px";
+  flyingImage.style.width = sourceRect.width + "px";
+  flyingImage.style.height = sourceRect.height + "px";
+  flyingImage.style.objectFit = "contain";
+  flyingImage.style.borderRadius = "22px";
+  flyingImage.style.zIndex = "2000";
+  flyingImage.style.pointerEvents = "none";
 
-    function updateProductCartCount() {
+  flyingImage.style.transition =
+    "left 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), " +
+    "top 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), " +
+    "width 0.55s ease, " +
+    "height 0.55s ease, " +
+    "opacity 0.55s ease";
 
-      const cart = getCart();
+  document.body.appendChild(flyingImage);
 
+  requestAnimationFrame(() => {
+    flyingImage.style.left =
+      (targetRect.left + targetRect.width / 2 - 22) + "px";
 
-      productCartCount.textContent =
-        cart.length;
+    flyingImage.style.top =
+      (targetRect.top + targetRect.height / 2 - 22) + "px";
 
+    flyingImage.style.width = "44px";
+    flyingImage.style.height = "44px";
+    flyingImage.style.borderRadius = "10px";
+    flyingImage.style.opacity = "0.25";
+  });
 
-      productCartCount.hidden =
-        cart.length === 0;
+  flyingImage.addEventListener(
+    "transitionend",
+    () => flyingImage.remove(),
+    { once: true }
+  );
 
-    }
+  productCartButton.classList.add("cart-bounce");
 
+  setTimeout(() => {
+    productCartButton.classList.remove("cart-bounce");
+  }, 500);
+}
 
-    /* =================================
-       FLY PRODUCT INTO CART
-       ================================= */
+addToCartButton.addEventListener("click", function() {
 
-    function animateProductToCart() {
+  const cart = getCart();
 
-      const sourceImage =
-        document.getElementById(
-          "mainProductImage"
-        );
+  const cartItem = {
+    name: "Premium Handbag",
+    price: "₦85,000",
+    image: "product-premium-handbag.jpg",
+    url: "product.html"
+  };
 
+  const existingItem = cart.find(
+    item => item.url === cartItem.url
+  );
 
-      if (
-        !sourceImage ||
-        !productCartButton
-      ) {
+  if (!existingItem) {
+    cart.push(cartItem);
+  }
 
-        return;
+  localStorage.setItem(
+    "weraeCart",
+    JSON.stringify(cart)
+  );
 
-      }
+  updateProductCartCount();
+  animateProductToCart();
 
+});
 
-      const sourceRect =
-        sourceImage.getBoundingClientRect();
-
-
-      const targetRect =
-        productCartButton
-          .getBoundingClientRect();
+updateProductCartCount();
 
 
       const flyingImage =
