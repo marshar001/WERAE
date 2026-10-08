@@ -4,14 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Premium Handbag | BODEGS</title>
+  <title>BODEGS | Product</title>
 
   <link rel="stylesheet" href="styles.css">
+
+  <!-- CENTRAL PRODUCT DATA -->
+  <script src="products.js"></script>
 </head>
 
 <body>
 
   <main class="product-page">
+
+    <!-- =================================
+         PRODUCT GALLERY
+         ================================= -->
 
     <section class="product-gallery">
 
@@ -22,73 +29,90 @@
         </svg>
       </a>
 
+
       <!-- CART BUTTON -->
-<a href="cart.html" class="product-cart-button" aria-label="Cart">
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M5 8h14l-1 12H6L5 8Z"></path>
-    <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
-  </svg>
+      <a
+        href="cart.html"
+        class="product-cart-button"
+        aria-label="Cart"
+      >
 
-  <span
-    id="productCartCount"
-    class="product-cart-count"
-    hidden
-  >
-    0
-  </span>
-</a>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 8h14l-1 12H6L5 8Z"></path>
+          <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+        </svg>
 
-      <!-- PRODUCT IMAGE -->
+        <span
+          id="productCartCount"
+          class="product-cart-count"
+          hidden
+        >
+          0
+        </span>
+
+      </a>
+
+
+      <!-- MAIN PRODUCT IMAGE -->
       <div class="main-product-image">
 
         <img
           id="mainProductImage"
-          src="IMG_20260922_142902.jpg"
-          alt="Premium Handbag"
+          src=""
+          alt=""
         >
 
         <div
           id="photoCounter"
           class="photo-counter"
         >
-          1 / 4
+          1 / 1
         </div>
 
       </div>
 
-      <!-- COLOR -->
-      <div class="color-options">
 
-        <button
-          type="button"
-          class="color-option active"
-          aria-label="Black"
-        >
-          <span class="color-swatch black"></span>
-          <span>Black</span>
-        </button>
-
+      <!-- COLOR OPTIONS -->
+      <div
+        id="colorOptions"
+        class="color-options"
+      >
       </div>
 
     </section>
 
 
-    <!-- PRODUCT INFORMATION -->
+
+    <!-- =================================
+         PRODUCT INFORMATION
+         ================================= -->
+
     <section class="product-information">
 
-      <p class="verified-badge">
+      <p
+        id="verifiedBadge"
+        class="verified-badge"
+      >
         ✓ VERIFIED BODEGS SELLER
       </p>
 
-      <h1>Premium Handbag</h1>
 
-      <p class="product-price">
-        ₦85,000
+      <h1 id="productName">
+        Product
+      </h1>
+
+
+      <p
+        id="productPrice"
+        class="product-price"
+      >
+        ₦0
       </p>
+
 
       <div class="product-meta">
 
-        <span>
+        <span id="sellerVerification">
           ✓ Verified Seller
         </span>
 
@@ -98,24 +122,30 @@
 
       </div>
 
-      <p class="product-description">
-        A premium handbag from a verified BODEGS seller.
-        This product is processed through BODEGS for secure payment and delivery.
+
+      <p
+        id="productDescription"
+        class="product-description"
+      >
       </p>
 
 
-      <!-- SELLER -->
+
+      <!-- =================================
+           SELLER
+           ================================= -->
+
       <div class="seller-card">
 
         <div class="seller-top">
 
           <div>
 
-            <strong>
-              Verified Fashion Store
+            <strong id="sellerName">
+              BODEGS Seller
             </strong>
 
-            <p>
+            <p id="sellerStatus">
               ✓ BODEGS Verified Business
             </p>
 
@@ -130,7 +160,11 @@
       </div>
 
 
-      <!-- BUYER PROTECTION -->
+
+      <!-- =================================
+           BUYER PROTECTION
+           ================================= -->
+
       <div class="protection-card">
 
         <h2>
@@ -145,10 +179,15 @@
       </div>
 
 
-      <!-- ACTION BUTTONS -->
+
+      <!-- =================================
+           ACTION BUTTONS
+           ================================= -->
+
       <div class="product-actions">
 
         <button
+          id="addToCartButton"
           class="cart-button"
           type="button"
         >
@@ -156,6 +195,7 @@
         </button>
 
         <button
+          id="buyButton"
           class="buy-button"
           type="button"
         >
@@ -167,64 +207,21 @@
     </section>
 
 
-    <!-- RECOMMENDED PRODUCTS -->
+
+    <!-- =================================
+         RECOMMENDED PRODUCTS
+         ================================= -->
+
     <section class="recommended">
 
       <h2>
         YOU MAY ALSO LIKE
       </h2>
 
-      <div class="recommended-grid">
-
-        <a
-          href="product-sneakers.html"
-          class="recommended-card"
-        >
-
-          <div>
-
-            <img
-              src="product-classic-sneakers.jpg"
-              alt="Classic Sneakers"
-            >
-
-          </div>
-
-          <h3>
-            Classic Sneakers
-          </h3>
-
-          <p>
-            ₦65,000
-          </p>
-
-        </a>
-
-
-        <a
-          href="product-jacket.html"
-          class="recommended-card"
-        >
-
-          <div>
-
-            <img
-              src="product-designer-jacket-portrait-clean.jpg"
-              alt="Designer Jacket"
-            >
-
-          </div>
-
-          <h3>
-            Designer Jacket
-          </h3>
-
-          <p>
-            ₦120,000
-          </p>
-
-        </a>
-
+      <div
+        id="recommendedGrid"
+        class="recommended-grid"
+      >
       </div>
 
     </section>
@@ -232,101 +229,323 @@
   </main>
 
 
+
   <script>
 
     /* =================================
-       RECENTLY VIEWED
+       GET PRODUCT FROM CENTRAL DATA
        ================================= */
 
-    const recentlyViewedProduct = {
+    const params =
+      new URLSearchParams(window.location.search);
 
-      name: "Premium Handbag",
-
-      price: "₦85,000",
-
-      image: "product-premium-handbag.jpg",
-
-      url: "product.html"
-
-    };
+    const productId =
+      params.get("id");
 
 
-    const recentlyViewed = JSON.parse(
+    /*
+      Backward compatibility:
 
-      localStorage.getItem(
-        "weraeRecentlyViewed"
-      ) || "[]"
+      If somebody opens product.html
+      without an ID, show Premium Handbag.
 
-    );
+      This means the old product.html
+      URL will not immediately break.
+    */
+
+    const selectedProductId =
+      productId || "prod_premium_handbag";
 
 
-    const filteredRecentlyViewed =
-      recentlyViewed.filter(
+    const product =
+      window.BODEGS &&
+      window.BODEGS.getProductById
+        ? window.BODEGS.getProductById(
+            selectedProductId
+          )
+        : null;
 
-        product =>
-          product.url !==
-          recentlyViewedProduct.url
 
+    /* =================================
+       PRODUCT NOT FOUND
+       ================================= */
+
+    if (!product) {
+
+      document.title =
+        "Product Not Found | BODEGS";
+
+      document.querySelector(
+        ".product-page"
+      ).innerHTML = `
+
+        <section
+          style="
+            padding:40px 20px;
+            text-align:center;
+          "
+        >
+
+          <h1>
+            Product not found
+          </h1>
+
+          <p>
+            This product is no longer available.
+          </p>
+
+          <a
+            href="index.html"
+            class="back-button"
+          >
+            Back to BODEGS
+          </a>
+
+        </section>
+
+      `;
+
+      throw new Error(
+        "BODEGS product not found: " +
+        selectedProductId
+      );
+
+    }
+
+
+
+    /* =================================
+       PAGE TITLE
+       ================================= */
+
+    document.title =
+      product.name + " | BODEGS";
+
+
+
+    /* =================================
+       BASIC PRODUCT INFORMATION
+       ================================= */
+
+    document.getElementById(
+      "productName"
+    ).textContent =
+      product.name;
+
+
+    document.getElementById(
+      "productPrice"
+    ).textContent =
+      window.BODEGS.formatCurrency(
+        product.price,
+        product.currency
       );
 
 
-    filteredRecentlyViewed.unshift(
-      recentlyViewedProduct
-    );
+    document.getElementById(
+      "productDescription"
+    ).textContent =
+      product.description;
 
 
-    localStorage.setItem(
+    document.getElementById(
+      "sellerName"
+    ).textContent =
+      product.sellerName || "BODEGS Seller";
 
-      "weraeRecentlyViewed",
 
-      JSON.stringify(
-        filteredRecentlyViewed.slice(0, 6)
-      )
 
-    );
+    /* =================================
+       SELLER VERIFICATION
+       ================================= */
+
+    const verifiedBadge =
+      document.getElementById(
+        "verifiedBadge"
+      );
+
+    const sellerVerification =
+      document.getElementById(
+        "sellerVerification"
+      );
+
+    const sellerStatus =
+      document.getElementById(
+        "sellerStatus"
+      );
+
+
+    if (product.sellerVerified) {
+
+      verifiedBadge.textContent =
+        "✓ VERIFIED BODEGS SELLER";
+
+      sellerVerification.textContent =
+        "✓ Verified Seller";
+
+      sellerStatus.textContent =
+        "✓ BODEGS Verified Business";
+
+    } else {
+
+      verifiedBadge.textContent =
+        "BODEGS SELLER";
+
+      sellerVerification.textContent =
+        "Seller";
+
+      sellerStatus.textContent =
+        "BODEGS Seller";
+
+    }
+
 
 
     /* =================================
        PRODUCT IMAGE GALLERY
        ================================= */
 
-    const productImages = [
-
-      "IMG_20260922_142902.jpg",
-
-      "IMG_20260922_142927.jpg",
-
-      "IMG_20260922_142956.jpg",
-
-      "Screenshot_20260922-142655~2.jpg"
-
-    ];
+    const productImages =
+      Array.isArray(product.images) &&
+      product.images.length
+        ? product.images
+        : [];
 
 
     let currentImage = 0;
 
 
-    function showProductImage(index) {
-
-      currentImage =
-        (index + productImages.length)
-        % productImages.length;
-
-
+    const mainProductImage =
       document.getElementById(
         "mainProductImage"
-      ).src =
+      );
+
+
+    const photoCounter =
+      document.getElementById(
+        "photoCounter"
+      );
+
+
+    function showProductImage(index) {
+
+      if (!productImages.length) {
+        return;
+      }
+
+
+      currentImage =
+        (
+          index +
+          productImages.length
+        ) %
+        productImages.length;
+
+
+      mainProductImage.src =
         productImages[currentImage];
 
 
-      document.getElementById(
-        "photoCounter"
-      ).textContent =
-        (currentImage + 1)
-        + " / "
-        + productImages.length;
+      mainProductImage.alt =
+        product.name;
+
+
+      photoCounter.textContent =
+        (currentImage + 1) +
+        " / " +
+        productImages.length;
 
     }
+
+
+    showProductImage(0);
+
+
+
+    /* =================================
+       COLOR OPTIONS
+       ================================= */
+
+    const colorOptions =
+      document.getElementById(
+        "colorOptions"
+      );
+
+
+    colorOptions.innerHTML = "";
+
+
+    if (
+      Array.isArray(product.colors) &&
+      product.colors.length
+    ) {
+
+      product.colors.forEach(
+        (color, index) => {
+
+          const button =
+            document.createElement(
+              "button"
+            );
+
+          button.type =
+            "button";
+
+          button.className =
+            "color-option" +
+            (
+              index === 0
+                ? " active"
+                : ""
+            );
+
+          button.setAttribute(
+            "aria-label",
+            color.name
+          );
+
+
+          const swatch =
+            document.createElement(
+              "span"
+            );
+
+          swatch.className =
+            "color-swatch";
+
+
+          swatch.style.background =
+            color.value ||
+            "#111111";
+
+
+          const label =
+            document.createElement(
+              "span"
+            );
+
+          label.textContent =
+            color.name;
+
+
+          button.appendChild(
+            swatch
+          );
+
+          button.appendChild(
+            label
+          );
+
+
+          colorOptions.appendChild(
+            button
+          );
+
+        }
+      );
+
+    }
+
 
 
     /* =================================
@@ -336,13 +555,7 @@
     let startX = 0;
 
 
-    const galleryImage =
-      document.getElementById(
-        "mainProductImage"
-      );
-
-
-    galleryImage.addEventListener(
+    mainProductImage.addEventListener(
       "touchstart",
       function(event) {
 
@@ -353,7 +566,7 @@
     );
 
 
-    galleryImage.addEventListener(
+    mainProductImage.addEventListener(
       "touchend",
       function(event) {
 
@@ -365,7 +578,9 @@
           startX - endX;
 
 
-        if (Math.abs(difference) > 50) {
+        if (
+          Math.abs(difference) > 50
+        ) {
 
           if (difference > 0) {
 
@@ -387,130 +602,610 @@
     );
 
 
+
     /* =================================
        CART
        ================================= */
 
     const addToCartButton =
-  document.querySelector(".cart-button");
+      document.getElementById(
+        "addToCartButton"
+      );
 
-const productCartButton =
-  document.querySelector(".product-cart-button");
 
-const productCartCount =
-  document.getElementById("productCartCount");
+    const buyButton =
+      document.getElementById(
+        "buyButton"
+      );
 
-function getCart() {
-  return JSON.parse(
-    localStorage.getItem("weraeCart") || "[]"
-  );
-}
 
-function updateProductCartCount() {
-  const cart = getCart();
+    const productCartButton =
+      document.querySelector(
+        ".product-cart-button"
+      );
 
-  productCartCount.textContent = cart.length;
-  productCartCount.hidden = cart.length === 0;
-}
 
-function animateProductToCart() {
-  const sourceImage =
-    document.getElementById("mainProductImage");
+    const productCartCount =
+      document.getElementById(
+        "productCartCount"
+      );
 
-  const sourceRect =
-    sourceImage.getBoundingClientRect();
 
-  const targetRect =
-    productCartButton.getBoundingClientRect();
 
-  const flyingImage =
-    document.createElement("img");
+    function getCart() {
 
-  flyingImage.src = sourceImage.src;
-  flyingImage.alt = "";
-  flyingImage.setAttribute("aria-hidden", "true");
+      return JSON.parse(
+        localStorage.getItem(
+          "weraeCart"
+        ) || "[]"
+      );
 
-  flyingImage.style.position = "fixed";
-  flyingImage.style.left = sourceRect.left + "px";
-  flyingImage.style.top = sourceRect.top + "px";
-  flyingImage.style.width = sourceRect.width + "px";
-  flyingImage.style.height = sourceRect.height + "px";
-  flyingImage.style.objectFit = "contain";
-  flyingImage.style.borderRadius = "22px";
-  flyingImage.style.zIndex = "2000";
-  flyingImage.style.pointerEvents = "none";
+    }
 
-  flyingImage.style.transition =
-    "left 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), " +
-    "top 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), " +
-    "width 0.55s ease, " +
-    "height 0.55s ease, " +
-    "opacity 0.55s ease";
 
-  document.body.appendChild(flyingImage);
 
-  requestAnimationFrame(() => {
-    flyingImage.style.left =
-      (targetRect.left + targetRect.width / 2 - 22) + "px";
+    function saveCart(cart) {
 
-    flyingImage.style.top =
-      (targetRect.top + targetRect.height / 2 - 22) + "px";
+      localStorage.setItem(
+        "weraeCart",
+        JSON.stringify(cart)
+      );
 
-    flyingImage.style.width = "44px";
-    flyingImage.style.height = "44px";
-    flyingImage.style.borderRadius = "10px";
-    flyingImage.style.opacity = "0.25";
-  });
+    }
 
-  flyingImage.addEventListener(
-    "transitionend",
-    () => flyingImage.remove(),
-    { once: true }
-  );
 
-  productCartButton.classList.add("cart-bounce");
 
-  setTimeout(() => {
-    productCartButton.classList.remove("cart-bounce");
-  }, 500);
-}
-productCartButton.addEventListener("click", function() {
-  localStorage.setItem(
-    "weraeLastProductPage",
-    window.location.pathname.split("/").pop() || "product.html"
-  );
-});
-addToCartButton.addEventListener("click", function() {
+    function updateProductCartCount() {
 
-  const cart = getCart();
+      const cart =
+        getCart();
 
-  const cartItem = {
-    name: "Premium Handbag",
-    price: "₦85,000",
-    image: "product-premium-handbag.jpg",
-    url: "product.html"
-  };
 
-  const existingItem = cart.find(
-    item => item.url === cartItem.url
-  );
+      /*
+        Count total quantities rather
+        than just number of products.
+      */
 
-  if (!existingItem) {
-    cart.push(cartItem);
-  }
+      const totalQuantity =
+        cart.reduce(
+          (total, item) =>
+            total +
+            Number(
+              item.quantity || 1
+            ),
+          0
+        );
 
-  localStorage.setItem(
-    "weraeCart",
-    JSON.stringify(cart)
-  );
 
-  updateProductCartCount();
-  animateProductToCart();
+      productCartCount.textContent =
+        totalQuantity;
 
-});
 
-updateProductCartCount();
+      productCartCount.hidden =
+        totalQuantity === 0;
 
+    }
+
+
+
+    /* =================================
+       ADD PRODUCT TO CART
+       ================================= */
+
+    function addProductToCart() {
+
+      const cart =
+        getCart();
+
+
+      /*
+        New stable identity:
+
+        productId
+
+        We no longer use the page URL
+        as the product's identity.
+      */
+
+      const existingItem =
+        cart.find(
+          item =>
+            item.productId ===
+            product.id
+        );
+
+
+      if (existingItem) {
+
+        existingItem.quantity =
+          Number(
+            existingItem.quantity || 1
+          ) + 1;
+
+      } else {
+
+        /*
+          Keep the old fields as well
+          because the existing cart page
+          still uses them.
+
+          productId is now the real
+          marketplace identity.
+        */
+
+        cart.push({
+
+          productId:
+            product.id,
+
+          sellerId:
+            product.sellerId,
+
+          name:
+            product.name,
+
+          price:
+            window.BODEGS.formatCurrency(
+              product.price,
+              product.currency
+            ),
+
+          numericPrice:
+            product.price,
+
+          image:
+            product.images &&
+            product.images.length
+              ? product.images[0]
+              : "",
+
+          url:
+            "product.html?id=" +
+            encodeURIComponent(
+              product.id
+            ),
+
+          quantity: 1
+
+        });
+
+      }
+
+
+      saveCart(cart);
+
+      updateProductCartCount();
+
+      animateProductToCart();
+
+    }
+
+
+
+    /* =================================
+       ADD TO CART ANIMATION
+       ================================= */
+
+    function animateProductToCart() {
+
+      const sourceImage =
+        document.getElementById(
+          "mainProductImage"
+        );
+
+
+      const sourceRect =
+        sourceImage.getBoundingClientRect();
+
+
+      const targetRect =
+        productCartButton.getBoundingClientRect();
+
+
+      const flyingImage =
+        document.createElement(
+          "img"
+        );
+
+
+      flyingImage.src =
+        sourceImage.src;
+
+
+      flyingImage.alt =
+        "";
+
+
+      flyingImage.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+
+      flyingImage.style.position =
+        "fixed";
+
+
+      flyingImage.style.left =
+        sourceRect.left + "px";
+
+
+      flyingImage.style.top =
+        sourceRect.top + "px";
+
+
+      flyingImage.style.width =
+        sourceRect.width + "px";
+
+
+      flyingImage.style.height =
+        sourceRect.height + "px";
+
+
+      flyingImage.style.objectFit =
+        "contain";
+
+
+      flyingImage.style.borderRadius =
+        "22px";
+
+
+      flyingImage.style.zIndex =
+        "2000";
+
+
+      flyingImage.style.pointerEvents =
+        "none";
+
+
+      flyingImage.style.transition =
+        "left 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), " +
+        "top 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), " +
+        "width 0.55s ease, " +
+        "height 0.55s ease, " +
+        "opacity 0.55s ease";
+
+
+      document.body.appendChild(
+        flyingImage
+      );
+
+
+      requestAnimationFrame(
+        () => {
+
+          flyingImage.style.left =
+            (
+              targetRect.left +
+              targetRect.width / 2 -
+              22
+            ) + "px";
+
+
+          flyingImage.style.top =
+            (
+              targetRect.top +
+              targetRect.height / 2 -
+              22
+            ) + "px";
+
+
+          flyingImage.style.width =
+            "44px";
+
+
+          flyingImage.style.height =
+            "44px";
+
+
+          flyingImage.style.borderRadius =
+            "10px";
+
+
+          flyingImage.style.opacity =
+            "0.25";
+
+        }
+      );
+
+
+      flyingImage.addEventListener(
+        "transitionend",
+        () =>
+          flyingImage.remove(),
+        {
+          once: true
+        }
+      );
+
+
+      productCartButton.classList.add(
+        "cart-bounce"
+      );
+
+
+      setTimeout(
+        () => {
+
+          productCartButton.classList.remove(
+            "cart-bounce"
+          );
+
+        },
+        500
+      );
+
+    }
+
+
+
+    /* =================================
+       ADD TO CART BUTTON
+       ================================= */
+
+    addToCartButton.addEventListener(
+      "click",
+      function() {
+
+        addProductToCart();
+
+      }
+    );
+
+
+
+    /* =================================
+       CHECKOUT BUTTON
+       ================================= */
+
+    buyButton.addEventListener(
+      "click",
+      function() {
+
+        addProductToCart();
+
+        setTimeout(
+          () => {
+
+            window.location.href =
+              "cart.html";
+
+          },
+          350
+        );
+
+      }
+    );
+
+
+
+    /* =================================
+       CART BUTTON
+       ================================= */
+
+    productCartButton.addEventListener(
+      "click",
+      function() {
+
+        localStorage.setItem(
+          "weraeLastProductPage",
+          window.location.href
+        );
+
+      }
+    );
+
+
+
+    /* =================================
+       RECENTLY VIEWED
+       ================================= */
+
+    function updateRecentlyViewed() {
+
+      const recentlyViewed =
+        JSON.parse(
+          localStorage.getItem(
+            "weraeRecentlyViewed"
+          ) || "[]"
+        );
+
+
+      /*
+        The product ID is now the
+        identity of a recently viewed
+        product.
+      */
+
+      const recentlyViewedProduct = {
+
+        productId:
+          product.id,
+
+        sellerId:
+          product.sellerId,
+
+        name:
+          product.name,
+
+        price:
+          window.BODEGS.formatCurrency(
+            product.price,
+            product.currency
+          ),
+
+        numericPrice:
+          product.price,
+
+        image:
+          product.images &&
+          product.images.length
+            ? product.images[0]
+            : "",
+
+        url:
+          "product.html?id=" +
+          encodeURIComponent(
+            product.id
+          )
+
+      };
+
+
+      const filtered =
+        recentlyViewed.filter(
+          item =>
+            item.productId !==
+            product.id
+        );
+
+
+      filtered.unshift(
+        recentlyViewedProduct
+      );
+
+
+      localStorage.setItem(
+        "weraeRecentlyViewed",
+        JSON.stringify(
+          filtered.slice(0, 6)
+        )
+      );
+
+    }
+
+
+    updateRecentlyViewed();
+
+
+
+    /* =================================
+       RECOMMENDED PRODUCTS
+       ================================= */
+
+    const recommendedGrid =
+      document.getElementById(
+        "recommendedGrid"
+      );
+
+
+    const allProducts =
+      window.BODEGS.getAllProducts();
+
+
+    const recommendedProducts =
+      allProducts
+        .filter(
+          item =>
+            item.id !==
+            product.id
+        )
+        .slice(0, 2);
+
+
+    recommendedGrid.innerHTML = "";
+
+
+    recommendedProducts.forEach(
+      recommendedProduct => {
+
+        const card =
+          document.createElement(
+            "a"
+          );
+
+
+        card.className =
+          "recommended-card";
+
+
+        card.href =
+          "product.html?id=" +
+          encodeURIComponent(
+            recommendedProduct.id
+          );
+
+
+        const imageWrapper =
+          document.createElement(
+            "div"
+          );
+
+
+        const image =
+          document.createElement(
+            "img"
+          );
+
+
+        image.src =
+          recommendedProduct.images &&
+          recommendedProduct.images.length
+            ? recommendedProduct.images[0]
+            : "";
+
+
+        image.alt =
+          recommendedProduct.name;
+
+
+        imageWrapper.appendChild(
+          image
+        );
+
+
+        const title =
+          document.createElement(
+            "h3"
+          );
+
+
+        title.textContent =
+          recommendedProduct.name;
+
+
+        const price =
+          document.createElement(
+            "p"
+          );
+
+
+        price.textContent =
+          window.BODEGS.formatCurrency(
+            recommendedProduct.price,
+            recommendedProduct.currency
+          );
+
+
+        card.appendChild(
+          imageWrapper
+        );
+
+
+        card.appendChild(
+          title
+        );
+
+
+        card.appendChild(
+          price
+        );
+
+
+        recommendedGrid.appendChild(
+          card
+        );
+
+      }
+    );
+
+
+
+    /* =================================
+       INITIAL CART COUNT
+       ================================= */
+
+    updateProductCartCount();
 
   </script>
 
