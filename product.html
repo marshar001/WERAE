@@ -23,20 +23,20 @@
       </a>
 
       <!-- CART BUTTON -->
-      <a href="cart.html" class="product-cart-button" aria-label="Cart">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M5 8h14l-1 12H6L5 8Z"></path>
-          <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
-        </svg>
+<a href="cart.html" class="product-cart-button" aria-label="Cart">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M5 8h14l-1 12H6L5 8Z"></path>
+    <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+  </svg>
 
-        <span
-          id="productCartCount"
-          class="product-cart-count"
-          hidden
-        >
-          0
-        </span>
-      </a>
+  <span
+    id="productCartCount"
+    class="product-cart-count"
+    hidden
+  >
+    0
+  </span>
+</a>
 
       <!-- PRODUCT IMAGE -->
       <div class="main-product-image">
@@ -474,7 +474,12 @@ function animateProductToCart() {
     productCartButton.classList.remove("cart-bounce");
   }, 500);
 }
-
+productCartButton.addEventListener("click", function() {
+  localStorage.setItem(
+    "weraeLastProductPage",
+    window.location.pathname.split("/").pop() || "product.html"
+  );
+});
 addToCartButton.addEventListener("click", function() {
 
   const cart = getCart();
