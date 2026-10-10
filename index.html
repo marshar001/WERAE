@@ -12,7 +12,7 @@
   >
 
   <link rel="stylesheet" href="styles.css">
-  <script src="products.js"></script>
+<script src="products.js"></script>
 </head>
 
 <body>
@@ -254,125 +254,14 @@
   </section>
 
 
+  
   <!-- PRODUCTS -->
   <section class="section">
-
-    <div class="products">
-
-
-      <!-- PREMIUM HANDBAG -->
-
-      <a href="product.html" class="product-card">
-
-        <div class="product-image">
-
-          <img
-            src="product-premium-handbag.jpg"
-            alt="Premium Handbag"
-          >
-
-        </div>
-
-        <h3>
-          Premium Handbag
-        </h3>
-
-        <p>
-          ₦85,000
-        </p>
-
-        <small>
-          Structured black leather handbag,
-          excellent condition.
-        </small>
-
-        <small>
-                    ✓ BODEGS verified
-        </small>
-
-      </a>
-
-
-      <!-- CLASSIC SNEAKERS -->
-
-<a href="product-sneakers.html" class="product-card">
-
-  <div class="product-image">
-
-    <img
-      src="product-classic-sneakers.jpg"
-      alt="Classic Sneakers"
-    >
-
-  </div>
-
-  <h3>
-    Classic Sneakers
-  </h3>
-
-  <p>
-    ₦65,000
-  </p>
-
-  <small>
-        ✓ BODEGS verified
-  </small>
-
-</a>      <!-- DESIGNER JACKET -->
-
-        <a href="product-jacket.html" class="product-card">
-
-  <div class="product-image">
-
-    <img
-      src="product-designer-jacket-portrait-clean.jpg"
-      alt="Designer Jacket"
-    >
-
-  </div>
-
-  <h3>
-    Designer Jacket
-  </h3>
-
-  <p>
-    ₦120,000
-  </p>
-
-  <small>
-        ✓ BODEGS verified
-  </small>
-
-        </a>      <!-- LEATHER SHOES -->
-
-            <a href="product-leather-shoes.html" class="product-card">
-
-        <div class="product-image">
-
-          <img
-            src="product-leather-shoes.jpg"
-            alt="Leather Shoes"
-          >
-
-        </div>
-
-        <h3>
-          Leather Shoes
-        </h3>
-
-        <p>
-          ₦55,000
-        </p>
-
-        <small>
-                    ✓ BODEGS verified
-        </small>
-
-            </a>
+    <div class="products" id="homeProducts">
+      <!-- Product cards will load from products.js -->
     </div>
-
   </section>
-
+  
 
   <!-- BOTTOM NAVIGATION -->
 
@@ -594,5 +483,62 @@
 
   </script>
 
+  <!-- HOME PRODUCTS SCRIPT -->
+  <script>
+    (function () {
+      const container = document.getElementById("homeProducts");
+
+      if (!container || !window.BODEGS) {
+        console.error("BODEGS product data could not be loaded.");
+        return;
+      }
+
+      const products = window.BODEGS.getAllProducts();
+
+      products.forEach(function (product) {
+        const card = document.createElement("a");
+        card.className = "product-card";
+        card.href =
+          "product.html?id=" + encodeURIComponent(product.id);
+
+        const imageWrap = document.createElement("div");
+        imageWrap.className = "product-image";
+
+        const image = document.createElement("img");
+        image.src = product.images[0];
+        image.alt = product.name;
+        image.loading = "lazy";
+
+        imageWrap.appendChild(image);
+        card.appendChild(imageWrap);
+
+        const name = document.createElement("h3");
+        name.textContent = product.name;
+        card.appendChild(name);
+
+        const price = document.createElement("p");
+        price.textContent = window.BODEGS.formatCurrency(
+          product.price,
+          product.currency || "NGN"
+        );
+        card.appendChild(price);
+
+        if (product.description) {
+          const description = document.createElement("small");
+          description.textContent = product.description;
+          card.appendChild(description);
+        }
+
+        if (product.productVerified) {
+          const verified = document.createElement("small");
+          verified.textContent = "✓ BODEGS verified";
+          card.appendChild(verified);
+        }
+
+        container.appendChild(card);
+      });
+    })();
+  </script>
+  
 </body>
 </html>
