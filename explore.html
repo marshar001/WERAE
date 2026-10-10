@@ -1410,6 +1410,103 @@
 <script>
 
 
+/* =========================
+   BODEGS CATEGORY PRODUCTS
+========================== */
+
+document.querySelectorAll(".explore-category").forEach(function (categoryLink) {
+  categoryLink.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    const searchWords = (
+      this.dataset.search || this.innerText
+    ).toLowerCase().trim().split(/\s+/);
+
+    const categoryNames = {
+      tops: "Tops",
+      shirts: "Shirts",
+      outerwear: "Outerwear",
+      denim: "Denim",
+      native: "Native",
+      shorts: "Shorts",
+      knitwear: "Knitwear",
+      shoes: "Shoes",
+      bags: "Bags",
+      jewelry: "Jewelry"
+    };
+
+    const selectedCategory = searchWords[searchWords.length - 1];
+    const categoryName = categoryNames[selectedCategory] || selectedCategory;
+
+    const allProducts = window.BODEGS.getAllProducts();
+
+    let resultsSection = document.getElementById("categoryProductResults");
+
+    if (!resultsSection) {
+      resultsSection = document.createElement("section");
+      resultsSection.id = "categoryProductResults";
+      resultsSection.className = "explore-section";
+      resultsSection.style.padding = "16px";
+      document.querySelector("#trending").before(resultsSection);
+    }
+
+    const matchingProducts = allProducts.filter(function (product) {
+      return (product.category || "").toLowerCase() ===
+        categoryName.toLowerCase();
+    });
+
+    resultsSection.innerHTML = "";
+
+    const heading = document.createElement("h2");
+    heading.textContent = categoryName;
+    resultsSection.appendChild(heading);
+
+    const grid = document.createElement("div");
+    grid.className = "trending-products";
+    resultsSection.appendChild(grid);
+
+    if (matchingProducts.length === 0) {
+      const message = document.createElement("p");
+      message.textContent =
+        "No products listed in this category yet.";
+      resultsSection.appendChild(message);
+    }
+
+    matchingProducts.forEach(function (product) {
+      const link = document.createElement("a");
+      link.className = "explore-product";
+      link.href = "product.html?id=" +
+        encodeURIComponent(product.id);
+
+      const image = document.createElement("img");
+      image.src = product.images && product.images.length
+        ? product.images[0]
+        : (product.image || "");
+      image.alt = product.name || "Product";
+      image.style.width = "100%";
+      image.style.height = "180px";
+      image.style.objectFit = "cover";
+
+      const name = document.createElement("p");
+      name.className = "explore-product-name";
+      name.textContent = product.name;
+
+      const price = document.createElement("p");
+      price.textContent = window.BODEGS.formatCurrency(product.price);
+
+      link.appendChild(image);
+      link.appendChild(name);
+      link.appendChild(price);
+      grid.appendChild(link);
+    });
+
+    resultsSection.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+});
+
   /* =========================
      SEARCH
   ========================== */
