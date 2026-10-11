@@ -21,7 +21,7 @@
     rel="stylesheet"
     href="styles.css"
   >
-<script src="products.js"></script>
+
   <style>
 
     .explore-page {
@@ -66,26 +66,21 @@
       font-size: 13px;
     }
 
-    
-.explore-tabs {
+    .explore-tabs {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 8px;
-  padding: 8px 4px 12px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  min-width: 0;
-}
+  padding: 8px 6px 12px 4px;
+  overflow: hidden;
+    }
 
-.explore-tabs::-webkit-scrollbar {
-  display: none;
-}
+    .explore-tabs::-webkit-scrollbar {
+      display: none;
+    }
 
-.explore-tab {
-  display: block;
+    .explore-tab {
   width: 100%;
-  min-width: 0;
   box-sizing: border-box;
   border: 1px solid rgba(23, 59, 50, 0.12);
   background: #fff;
@@ -93,36 +88,27 @@
   border-radius: 20px;
   padding: 11px 5px;
   font-size: 11px;
-  line-height: 1.3;
+  line-height: 1.2;
   text-decoration: none;
-  overflow-wrap: anywhere;
+  white-space: normal;
   text-align: center;
-}
+      }
 
-.explore-tab.active {
-  background: #173b32;
-  color: #fff;
-}
+    .explore-tab.active {
+      background: #173b32;
+      color: #fff;
+    }
 
-.explore-body {
-  display: grid !important;
-  grid-template-columns: 105px minmax(0, 1fr) !important;
-  align-items: start;
-  gap: 8px;
-  width: 100%;
-  box-sizing: border-box;
-  min-width: 0;
+    .explore-body {
+  display: grid;
+  grid-template-columns: 105px minmax(0, 1fr);
   height: calc(100vh - 190px);
   min-height: 500px;
   margin-bottom: 80px;
 }
 
 .explore-content {
-  display: block;
-  width: 100%;
   min-width: 0;
-  max-width: 100%;
-  box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
   padding-right: 4px;
@@ -134,7 +120,6 @@
 .explore-content::-webkit-scrollbar {
   display: none;
 }
-
 
 .explore-section {
   padding: 10px 8px 16px;
@@ -363,26 +348,37 @@
 
   <div class="explore-body">
 
-    
-<nav class="explore-tabs">
+    <nav class="explore-tabs">
 
-  <a href="#men" class="explore-tab active">
-    Men
-  </a>
+    <a
+      href="#men"
+      class="explore-tab active"
+    >
+      Men
+    </a>
 
-  <a href="#women" class="explore-tab">
-    Women
-  </a>
+    <a
+      href="#women"
+      class="explore-tab"
+    >
+      Women
+    </a>
 
-  <a href="#kids" class="explore-tab">
-    Kids
-  </a>
+    <a
+      href="#kids"
+      class="explore-tab"
+    >
+      Kids
+    </a>
 
-  <a href="#trending" class="explore-tab">
-    Trending Styles
-  </a>
+    <a
+      href="#trending"
+      class="explore-tab"
+    >
+      Trending Styles
+    </a>
 
-</nav>
+    </nav>
 
   <div class="explore-content">
 
@@ -1177,366 +1173,3 @@
 
             <p class="explore-product-description">
               Popular footwear styles on WERAE.
-            </p>
-
-          </div>
-
-        </a>
-
-      </article>
-
-
-      <article
-        class="explore-product"
-        data-search="trending jewelry"
-      >
-
-        <a href="#trending">
-
-          <div class="explore-product-image">
-
-            <img
-              src="category-jewelry.jpg"
-              alt="Trending Jewelry"
-            >
-
-          </div>
-
-          <div class="explore-product-info">
-
-            <h3 class="explore-product-name">
-              Jewelry
-            </h3>
-
-            <p class="explore-product-description">
-              Explore popular jewelry styles.
-            </p>
-
-          </div>
-
-        </a>
-
-      </article>
-
-
-      <article
-        class="explore-product"
-        data-search="trending accessories"
-      >
-
-        <a href="#trending">
-
-          <div class="explore-product-image">
-
-            <img
-              src="category-accessories.jpg"
-              alt="Trending Accessories"
-            >
-
-          </div>
-
-          <div class="explore-product-info">
-
-            <h3 class="explore-product-name">
-              Accessories
-            </h3>
-
-            <p class="explore-product-description">
-              Popular accessories on WERAE.
-            </p>
-
-          </div>
-
-        </a>
-
-      </article>
-
-
-      <article
-        class="explore-product"
-        data-search="trending polo shirts"
-      >
-
-        <a href="#trending">
-
-          <div class="explore-product-image">
-
-            <img
-              src="category-polo.jpg"
-              alt="Trending Polo Shirts"
-            >
-
-          </div>
-
-          <div class="explore-product-info">
-
-            <h3 class="explore-product-name">
-              Polo Shirts
-            </h3>
-
-            <p class="explore-product-description">
-              Explore popular polo shirt styles.
-            </p>
-
-          </div>
-
-        </a>
-
-      </article>
-
-
-      <article
-        class="explore-product"
-        data-search="trending underwear"
-      >
-
-        <a href="#trending">
-
-          <div class="explore-product-image">
-
-            <img
-              src="category-underwear.jpg"
-              alt="Trending Underwear"
-            >
-
-          </div>
-
-          <div class="explore-product-info">
-
-            <h3 class="explore-product-name">
-              Underwear
-            </h3>
-
-            <p class="explore-product-description">
-              Browse available pre-owned styles.
-            </p>
-
-          </div>
-
-        </a>
-
-      </article>
-
-
-      <article
-        class="explore-product"
-        data-search="trending sports outdoor"
-      >
-
-        <a href="#trending">
-
-          <div class="explore-product-image">
-
-            <img
-              src="category-sports.jpg"
-              alt="Trending Sports & Outdoor"
-            >
-
-          </div>
-
-          <div class="explore-product-info">
-
-            <h3 class="explore-product-name">
-              Sports & Outdoor
-            </h3>
-
-            <p class="explore-product-description">
-              Popular active and outdoor styles.
-            </p>
-
-          </div>
-
-        </a>
-
-      </article>
-
-
-    </div>
-
-    </section>
-
-  </div>
-
-  </div>
-
-</main>
-
-<!-- =========================
-     FIXED BOTTOM NAVIGATION
-========================== -->
-
-<nav class="bottom-nav">
-
-  <a href="index.html" class="nav-item">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M3 10.5 12 3l9 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 19.5v-9Z"></path>
-      <path d="M9 21v-6h6v6"></path>
-    </svg>
-    <span>Home</span>
-  </a>
-
-  <a href="explore.html" class="nav-item active">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="11" cy="11" r="6.5"></circle>
-      <path d="m16 16 5 5"></path>
-    </svg>
-    <span>Explore</span>
-  </a>
-
-  <a href="cart.html" class="nav-item">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 8h14l-1 12H6L5 8Z"></path>
-      <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
-    </svg>
-    <span>Cart</span>
-  </a>
-
-  <a href="orders.html" class="nav-item">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M6 3.5h12A1.5 1.5 0 0 1 19.5 5v14A1.5 1.5 0 0 1 18 20.5H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5Z"></path>
-      <path d="M8 8h8M8 12h8M8 16h5"></path>
-    </svg>
-    <span>Orders</span>
-  </a>
-
-  <a href="profile.html" class="nav-item">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="8" r="3.5"></circle>
-      <path d="M5 20a7 7 0 0 1 14 0"></path>
-    </svg>
-    <span>Profile</span>
-  </a>
-
-</nav>
-
-
-
-<script>
-
-
-  /* =========================
-     SEARCH
-  ========================== */
-
-  const searchInput =
-    document.getElementById(
-      "exploreSearch"
-    );
-
-
-  const searchableItems =
-    document.querySelectorAll(
-      ".explore-category, .explore-product"
-    );
-
-
-  searchInput.addEventListener(
-    "input",
-    function () {
-
-      const term =
-        this.value
-          .toLowerCase()
-          .trim();
-
-
-      searchableItems.forEach(
-        function (item) {
-
-          const text =
-            (
-              item.dataset.search ||
-              item.innerText
-            ).toLowerCase();
-
-
-          if (
-            term === "" ||
-            text.includes(term)
-          ) {
-
-            item.style.display = "";
-
-          } else {
-
-            item.style.display = "none";
-
-          }
-
-        }
-      );
-
-    }
-  );
-
-
-  /* =========================
-     TABS
-  ========================== */
-
-  const tabs =
-    document.querySelectorAll(
-      ".explore-tab"
-    );
-
-
-    tabs.forEach(
-    function (tab) {
-
-      tab.addEventListener(
-        "click",
-        function (event) {
-
-          event.preventDefault();
-
-          tabs.forEach(
-            function (other) {
-
-              other.classList.remove(
-                "active"
-              );
-
-            }
-          );
-
-          this.classList.add(
-            "active"
-          );
-
-          const target =
-            document.querySelector(
-              this.getAttribute("href")
-            );
-
-          const content =
-            document.querySelector(
-              ".explore-content"
-            );
-
-          if (
-            target &&
-            content
-          ) {
-
-            content.scrollTo({
-              top:
-                target.offsetTop -
-                content.offsetTop,
-              behavior: "smooth"
-            });
-
-          }
-
-        }
-      );
-
-    }
-  );
-
-
-</script>
-
-
-</body>
-
-</html>
