@@ -1413,42 +1413,42 @@
 
 
   /* =========================
-     TABS
-  ========================== */
+  
+/* =========================
+   TABS
+========================== */
 
-  const tabs =
-    document.querySelectorAll(
-      ".explore-tab"
-    );
+const tabs = document.querySelectorAll(".explore-tab");
+const exploreContent = document.querySelector(".explore-content");
 
+const tabTargets = {
+  "#men": document.querySelector("#men"),
+  "#women": document.querySelector("#women"),
+  "#kids": document.querySelector("#kids"),
+  "#trending": document.querySelector("#trending")
+};
 
-  tabs.forEach(
-    function (tab) {
+tabs.forEach(function (tab) {
+  tab.addEventListener("click", function (event) {
+    event.preventDefault();
 
-      tab.addEventListener(
-        "click",
-        function () {
+    tabs.forEach(function (other) {
+      other.classList.remove("active");
+    });
 
-          tabs.forEach(
-            function (other) {
+    this.classList.add("active");
 
-              other.classList.remove(
-                "active"
-              );
+    const target = tabTargets[this.getAttribute("href")];
 
-            }
-          );
-
-
-          this.classList.add(
-            "active"
-          );
-
-        }
-      );
-
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
     }
-  );
+  });
+});
+
 
 
 </script>
