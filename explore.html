@@ -29,8 +29,9 @@
 }
 
     .explore-header {
+  grid-column: 1 / -1;
   padding: 18px 14px 10px;
-    }
+}
 
     .explore-search {
       width: 100%;
@@ -50,8 +51,9 @@
     }
 
     .explore-intro {
+  grid-column: 1 / -1;
   padding: 8px 14px 14px;
-    }
+}
 
     .explore-intro h1 {
       margin: 0 0 5px;
@@ -99,32 +101,22 @@
       color: #fff;
     }
 
-    
-.explore-body {
+    .explore-body {
   display: grid;
   grid-template-columns: 105px minmax(0, 1fr);
-  align-items: start;
-  height: calc(100dvh - 260px);
-  min-height: 300px;
+  height: calc(100vh - 190px);
+  min-height: 500px;
   margin-bottom: 80px;
-  overflow: hidden;
 }
-
-
 
 .explore-content {
   min-width: 0;
-  min-height: 0;
-  height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
   padding-right: 4px;
-  box-sizing: border-box;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: contain;
   scrollbar-width: none;
 }
-
 
 .explore-content::-webkit-scrollbar {
   display: none;
@@ -246,55 +238,38 @@
       line-height: 1.4;
     }
 
-        .bottom-nav {
+    .bottom-nav {
       position: fixed;
-      left: 12px;
-      right: 12px;
-      bottom: 12px;
-      height: 64px;
-      padding: 6px;
-      background: var(--deep-green);
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      z-index: 1000;
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      align-items: center;
-      border-radius: 26px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
-      z-index: 1000;
+      gap: 3px;
+      padding: 7px;
+      background: rgba(255, 255, 255, 0.97);
+      border: 1px solid rgba(23, 59, 50, 0.08);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(23, 59, 50, 0.12);
     }
 
     .nav-item {
-      height: 52px;
-      width: 100%;
-      border: none;
-      background: transparent;
-      color: rgba(255, 255, 255, 0.65);
-      font-family: Arial, sans-serif;
-      font-size: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
-      padding: 0;
-      border-radius: 22px;
+      gap: 2px;
+      min-height: 48px;
+      border-radius: 14px;
       text-decoration: none;
-    }
-
-    .nav-item svg {
-      width: 22px;
-      height: 22px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      display: block;
+      color: #7b827d;
+      font-size: 10px;
     }
 
     .nav-item.active {
-      background: rgba(255, 255, 255, 0.18);
-      color: white;
-      border-radius: 22px;
+      color: #173b32;
+      background: rgba(23, 59, 50, 0.08);
       font-weight: 600;
     }
 
@@ -1182,3 +1157,371 @@
 
             <p class="explore-product-description">
               Popular footwear styles on WERAE.
+            </p>
+
+          </div>
+
+        </a>
+
+      </article>
+
+
+      <article
+        class="explore-product"
+        data-search="trending jewelry"
+      >
+
+        <a href="#trending">
+
+          <div class="explore-product-image">
+
+            <img
+              src="category-jewelry.jpg"
+              alt="Trending Jewelry"
+            >
+
+          </div>
+
+          <div class="explore-product-info">
+
+            <h3 class="explore-product-name">
+              Jewelry
+            </h3>
+
+            <p class="explore-product-description">
+              Explore popular jewelry styles.
+            </p>
+
+          </div>
+
+        </a>
+
+      </article>
+
+
+      <article
+        class="explore-product"
+        data-search="trending accessories"
+      >
+
+        <a href="#trending">
+
+          <div class="explore-product-image">
+
+            <img
+              src="category-accessories.jpg"
+              alt="Trending Accessories"
+            >
+
+          </div>
+
+          <div class="explore-product-info">
+
+            <h3 class="explore-product-name">
+              Accessories
+            </h3>
+
+            <p class="explore-product-description">
+              Popular accessories on WERAE.
+            </p>
+
+          </div>
+
+        </a>
+
+      </article>
+
+
+      <article
+        class="explore-product"
+        data-search="trending polo shirts"
+      >
+
+        <a href="#trending">
+
+          <div class="explore-product-image">
+
+            <img
+              src="category-polo.jpg"
+              alt="Trending Polo Shirts"
+            >
+
+          </div>
+
+          <div class="explore-product-info">
+
+            <h3 class="explore-product-name">
+              Polo Shirts
+            </h3>
+
+            <p class="explore-product-description">
+              Explore popular polo shirt styles.
+            </p>
+
+          </div>
+
+        </a>
+
+      </article>
+
+
+      <article
+        class="explore-product"
+        data-search="trending underwear"
+      >
+
+        <a href="#trending">
+
+          <div class="explore-product-image">
+
+            <img
+              src="category-underwear.jpg"
+              alt="Trending Underwear"
+            >
+
+          </div>
+
+          <div class="explore-product-info">
+
+            <h3 class="explore-product-name">
+              Underwear
+            </h3>
+
+            <p class="explore-product-description">
+              Browse available pre-owned styles.
+            </p>
+
+          </div>
+
+        </a>
+
+      </article>
+
+
+      <article
+        class="explore-product"
+        data-search="trending sports outdoor"
+      >
+
+        <a href="#trending">
+
+          <div class="explore-product-image">
+
+            <img
+              src="category-sports.jpg"
+              alt="Trending Sports & Outdoor"
+            >
+
+          </div>
+
+          <div class="explore-product-info">
+
+            <h3 class="explore-product-name">
+              Sports & Outdoor
+            </h3>
+
+            <p class="explore-product-description">
+              Popular active and outdoor styles.
+            </p>
+
+          </div>
+
+        </a>
+
+      </article>
+
+
+    </div>
+
+    </section>
+
+  </div>
+
+  </div>
+
+</main>
+
+<!-- =========================
+     FIXED BOTTOM NAVIGATION
+========================== -->
+
+<nav class="bottom-nav">
+
+
+  <a
+    href="index.html"
+    class="nav-item"
+  >
+
+    <span class="nav-icon">⌂</span>
+
+    <span>
+      Home
+    </span>
+
+  </a>
+
+
+  <a
+    href="explore.html"
+    class="nav-item active"
+  >
+
+    <span class="nav-icon">⌕</span>
+
+    <span>
+      Explore
+    </span>
+
+  </a>
+
+
+  <a
+    href="orders.html"
+    class="nav-item"
+  >
+
+    <span class="nav-icon">▣</span>
+
+    <span>
+      Orders
+    </span>
+
+  </a>
+
+
+  <a
+    href="saved.html"
+    class="nav-item"
+  >
+
+    <span class="nav-icon">♡</span>
+
+    <span>
+      Saved
+    </span>
+
+  </a>
+
+
+  <a
+    href="profile.html"
+    class="nav-item"
+  >
+
+    <span class="nav-icon">♙</span>
+
+    <span>
+      Profile
+    </span>
+
+  </a>
+
+
+</nav>
+
+
+<script>
+
+
+  /* =========================
+     SEARCH
+  ========================== */
+
+  const searchInput =
+    document.getElementById(
+      "exploreSearch"
+    );
+
+
+  const searchableItems =
+    document.querySelectorAll(
+      ".explore-category, .explore-product"
+    );
+
+
+  searchInput.addEventListener(
+    "input",
+    function () {
+
+      const term =
+        this.value
+          .toLowerCase()
+          .trim();
+
+
+      searchableItems.forEach(
+        function (item) {
+
+          const text =
+            (
+              item.dataset.search ||
+              item.innerText
+            ).toLowerCase();
+
+
+          if (
+            term === "" ||
+            text.includes(term)
+          ) {
+
+            item.style.display = "";
+
+          } else {
+
+            item.style.display = "none";
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+
+  /* =========================
+     TABS
+  ========================== */
+
+  const tabs =
+    document.querySelectorAll(
+      ".explore-tab"
+    );
+
+
+  tabs.forEach(
+    function (tab) {
+
+      tab.addEventListener(
+        "click",
+        function () {
+
+          tabs.forEach(
+            function (other) {
+
+              other.classList.remove(
+                "active"
+              );
+
+            }
+          );
+
+
+          this.classList.add(
+            "active"
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+</script>
+
+
+</body>
+
+</html>
