@@ -29,6 +29,7 @@
 }
 
     
+
 .explore-header {
   position: sticky;
   top: 0;
@@ -37,8 +38,71 @@
   padding: 18px 14px 10px;
 }
 
+.explore-search {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 16px;
+  border: 1px solid rgba(23, 59, 50, 0.12);
+  border-radius: 14px;
+  background: #fff;
+  color: #173b32;
+  font-size: 14px;
+  outline: none;
+  box-shadow: 0 4px 12px rgba(23, 59, 50, 0.05);
+}
+
+.explore-search:focus {
+  border-color: rgba(23, 59, 50, 0.3);
+}
+
 .explore-intro {
   padding: 8px 14px 14px;
+}
+
+.explore-intro h1 {
+  margin: 0 0 5px;
+  font-size: 24px;
+  line-height: 1.15;
+  color: #173b32;
+}
+
+.explore-intro p {
+  margin: 0;
+  color: #6c756f;
+  font-size: 13px;
+}
+
+.explore-tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  padding: 8px 6px 12px 4px;
+  overflow: hidden;
+}
+
+.explore-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.explore-tab {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(23, 59, 50, 0.12);
+  background: #fff;
+  color: #173b32;
+  border-radius: 20px;
+  padding: 11px 5px;
+  font-size: 11px;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: normal;
+  text-align: center;
+}
+
+.explore-tab.active {
+  background: #173b32;
+  color: #fff;
 }
 
 .explore-body {
@@ -1412,7 +1476,7 @@
   );
 
 
-  /* =========================
+  
   
 /* =========================
    TABS
