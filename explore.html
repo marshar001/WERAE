@@ -1490,11 +1490,10 @@
   
   
 /* =========================
-   TABS
+   TABS — CLICK AND SCROLL
 ========================== */
 
 const tabs = document.querySelectorAll(".explore-tab");
-const exploreContent = document.querySelector(".explore-content");
 
 const tabTargets = {
   "#men": document.querySelector("#men"),
@@ -1503,19 +1502,24 @@ const tabTargets = {
   "#trending": document.querySelector("#trending")
 };
 
+function setActiveTab(id) {
+  tabs.forEach(function (tab) {
+    tab.classList.toggle(
+      "active",
+      tab.getAttribute("href") === "#" + id
+    );
+  });
+}
+
 tabs.forEach(function (tab) {
   tab.addEventListener("click", function (event) {
     event.preventDefault();
 
-    tabs.forEach(function (other) {
-      other.classList.remove("active");
-    });
-
-    this.classList.add("active");
-
     const target = tabTargets[this.getAttribute("href")];
 
     if (target) {
+      setActiveTab(target.id);
+
       target.scrollIntoView({
         behavior: "smooth",
         block: "start"
@@ -1523,6 +1527,29 @@ tabs.forEach(function (tab) {
     }
   });
 });
+
+function updateActiveTabOnScroll() {
+  const sectionIds = ["men", "women", "kids", "trending"];
+  const activationLine = 220;
+  let currentSection = sectionIds[0];
+
+  sectionIds.forEach(function (id) {
+    const section = document.getElementById(id);
+
+    if (section && section.getBoundingClientRect().top <= activationLine) {
+      currentSection = id;
+    }
+  });
+
+  setActiveTab(currentSection);
+}
+
+window.addEventListener("scroll", updateActiveTabOnScroll, {
+  passive: true
+});
+
+window.addEventListener("load", updateActiveTabOnScroll);
+
 
 
 
