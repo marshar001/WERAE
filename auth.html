@@ -187,200 +187,215 @@
         </section>
   </main>
 
-  <script>
+    <script>
 
-    const signInTab =
-      document.getElementById("signInTab");
+    const signInTab = document.getElementById("signInTab");
+    const createAccountTab = document.getElementById("createAccountTab");
+    const signInForm = document.getElementById("signInForm");
+    const createAccountForm = document.getElementById("createAccountForm");
+    const authTitle = document.getElementById("authTitle");
+    const authSubtitle = document.getElementById("authSubtitle");
+    const signInMessage = document.getElementById("signInMessage");
+    const createAccountMessage = document.getElementById("createAccountMessage");
 
-    const createAccountTab =
-      document.getElementById("createAccountTab");
+    const signInEmail = document.getElementById("signInEmail");
+    const signInPassword = document.getElementById("signInPassword");
+    const createEmail = document.getElementById("createEmail");
+    const createPassword = document.getElementById("createPassword");
+    const rememberMe = document.getElementById("rememberMe");
 
-    const signInForm =
-      document.getElementById("signInForm");
+    /* Switch between flows (keeps what the user typed) */
 
-    const createAccountForm =
-      document.getElementById("createAccountForm");
+    function setMode(mode) {
 
-    const authTitle =
-      document.getElementById("authTitle");
+      const isLogin = mode === "login";
 
-    const authSubtitle =
-      document.getElementById("authSubtitle");
+      signInTab.classList.toggle("active", isLogin);
+      createAccountTab.classList.toggle("active", !isLogin);
+      signInTab.setAttribute("aria-selected", String(isLogin));
+      createAccountTab.setAttribute("aria-selected", String(!isLogin));
 
-    const signInMessage =
-      document.getElementById("signInMessage");
-
-    const createAccountMessage =
-      document.getElementById("createAccountMessage");
-
-    function showSignIn() {
-
-      signInTab.classList.add("active");
-      createAccountTab.classList.remove("active");
-
-      signInForm.hidden = false;
-      createAccountForm.hidden = true;
+      signInForm.hidden = !isLogin;
+      createAccountForm.hidden = isLogin;
 
       authTitle.textContent =
-        "Welcome to BODEGS";
+        isLogin ? "Welcome back" : "Create an account";
 
       authSubtitle.textContent =
-        "Sign in to continue with your account.";
+        isLogin
+          ? "Please enter your details to login."
+          : "Please enter your details to register.";
 
       signInMessage.textContent = "";
       createAccountMessage.textContent = "";
     }
 
-    function showCreateAccount() {
+    signInTab.addEventListener("click", () => setMode("login"));
+    createAccountTab.addEventListener("click", () => setMode("register"));
 
-      signInTab.classList.remove("active");
-      createAccountTab.classList.add("active");
+    document.querySelectorAll("[data-switch]").forEach(button => {
+      button.addEventListener("click", () => {
+        setMode(button.dataset.switch === "register" ? "register" : "login");
+      });
+    });
 
-      signInForm.hidden = true;
-      createAccountForm.hidden = false;
+    /* Mirror email and password between the two forms */
 
-      authTitle.textContent =
-        "Create your BODEGS account";
-
-      authSubtitle.textContent =
-        "Create an account to continue.";
-
-      signInMessage.textContent = "";
-      createAccountMessage.textContent = "";
+    function mirror(from, to) {
+      from.addEventListener("input", () => { to.value = from.value; });
     }
 
-    signInTab.addEventListener(
-      "click",
-      showSignIn
-    );
+    mirror(signInEmail, createEmail);
+    mirror(createEmail, signInEmail);
+    mirror(signInPassword, createPassword);
+    mirror(createPassword, signInPassword);
 
-    createAccountTab.addEventListener(
-      "click",
-      showCreateAccount
-    );
+    /* Show / hide password */
 
-    const urlParams =
-      new URLSearchParams(
-        window.location.search
+    document.querySelectorAll(".toggle-password").forEach(button => {
+      button.addEventListener("click", () => {
+
+        const input = button.parentElement.querySelector("input");
+        const showing = input.type === "text";
+
+        input.type = showing ? "password" : "text";
+
+        button.classList.toggle("is-visible", !showing);
+        button.setAttribute("aria-pressed", String(!showing));
+        button.setAttribute(
+          "aria-label",
+          showing ? "Show password" : "Hide password"
+        );
+      });
+    });
+
+    /* Forgot password / social login placeholders */
+
+    document.getElementById("forgotPassword").addEventListener("click", () => {
+      // TODO: replace with a real reset page
+      signInMessage.className = "auth-message info";
+      signInMessage.textContent =
+        "Password reset isn’t available yet. Please contact BODEGS support.";
+    });
+
+    document.querySelectorAll(".social-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        // TODO: connect to real Apple / Google sign-in
+        signInMessage.className = "auth-message info";
+        signInMessage.textContent =
+          button.dataset.provider + " login is coming soon.";
+      });
+    });
+
+    /* Remember me (email only) */
+
+    const rememberedEmail = localStorage.getItem("weraeRememberedEmail");
+
+    if (rememberedEmail) {
+      signInEmail.value = rememberedEmail;
+      createEmail.value = rememberedEmail;
+      rememberMe.checked = true;
+    }
+
+    /* Where to go after login */
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const returnPage = urlParams.get("return") || "profile";
+
+    function goAfterAuth() {
+      window.location.href =
+        returnPage === "checkout" ? "checkout.html" : "profile.html";
+    }
+
+    function showError(element, text) {
+      element.className = "auth-message";
+      element.textContent = text;
+    }
+
+    /* Login */
+
+    signInForm.addEventListener("submit", event => {
+
+      event.preventDefault();
+
+      const email = signInEmail.value.trim();
+      const password = signInPassword.value;
+
+      if (!email || !password) {
+        showError(signInMessage, "Please enter your email and password.");
+        return;
+      }
+
+      const savedUser = JSON.parse(
+        localStorage.getItem("weraeUser") || "null"
       );
 
-    const returnPage =
-      urlParams.get("return") || "profile";
-
-    signInForm.addEventListener(
-      "submit",
-      event => {
-
-        event.preventDefault();
-
-        const email =
-          document.getElementById(
-            "signInEmail"
-          ).value.trim();
-
-        const password =
-          document.getElementById(
-            "signInPassword"
-          ).value;
-
-        const savedUser =
-          JSON.parse(
-            localStorage.getItem(
-              "weraeUser"
-            ) || "null"
-          );
-
-        if (!savedUser) {
-
-          signInMessage.textContent =
-            "No BODEGS account was found. Please create an account first.";
-
-          return;
-        }
-
-        if (
-          savedUser.email !== email ||
-          savedUser.password !== password
-        ) {
-
-          signInMessage.textContent =
-            "The email or password is incorrect.";
-
-          return;
-        }
-
-        savedUser.loggedIn = true;
-
-        localStorage.setItem(
-          "weraeUser",
-          JSON.stringify(savedUser)
+      if (!savedUser) {
+        showError(
+          signInMessage,
+          "No BODEGS account was found. Please create an account first."
         );
-
-        window.location.href =
-          returnPage === "checkout"
-            ? "checkout.html"
-            : "profile.html";
-
+        return;
       }
-    );
 
-    createAccountForm.addEventListener(
-      "submit",
-      event => {
+      if (savedUser.email !== email || savedUser.password !== password) {
+        showError(signInMessage, "The email or password is incorrect.");
+        return;
+      }
 
-        event.preventDefault();
+      if (rememberMe.checked) {
+        localStorage.setItem("weraeRememberedEmail", email);
+      } else {
+        localStorage.removeItem("weraeRememberedEmail");
+      }
 
-        const name =
-          document.getElementById(
-            "createName"
-          ).value.trim();
+      savedUser.loggedIn = true;
+      localStorage.setItem("weraeUser", JSON.stringify(savedUser));
 
-        const email =
-          document.getElementById(
-            "createEmail"
-          ).value.trim();
+      goAfterAuth();
+    });
 
-        const password =
-          document.getElementById(
-            "createPassword"
-          ).value;
+    /* Register */
 
-        const confirmPassword =
-          document.getElementById(
-            "confirmPassword"
-          ).value;
+    createAccountForm.addEventListener("submit", event => {
 
-        if (
-          password !== confirmPassword
-        ) {
+      event.preventDefault();
 
-          createAccountMessage.textContent =
-            "Passwords do not match.";
+      const name = document.getElementById("createName").value.trim();
+      const email = createEmail.value.trim();
+      const password = createPassword.value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
 
-          return;
-        }
+      if (!name || !email || !password) {
+        showError(createAccountMessage, "Please fill in all fields.");
+        return;
+      }
 
-        const user = {
-          name: name,
-          email: email,
-          password: password,
-          loggedIn: true
-        };
+      if (password !== confirmPassword) {
+        showError(createAccountMessage, "Passwords do not match.");
+        return;
+      }
 
-        localStorage.setItem(
-          "weraeUser",
-          JSON.stringify(user)
+      if (!document.getElementById("acceptTerms").checked) {
+        showError(
+          createAccountMessage,
+          "Please accept the Terms and Conditions to continue."
         );
-
-        window.location.href =
-          returnPage === "checkout"
-            ? "checkout.html"
-            : "profile.html";
-
+        return;
       }
-    );
 
-  </script>
+      const user = {
+        name: name,
+        email: email,
+        password: password,
+        loggedIn: true
+      };
 
+      localStorage.setItem("weraeUser", JSON.stringify(user));
+
+      goAfterAuth();
+    });
+
+        </script>
 </body>
 </html>
