@@ -480,6 +480,9 @@ button:active {
   position: relative;
 }
 
+
+/* BACK AND CART ICON BUTTONS */
+
 .back-button,
 .product-cart-button {
   position: fixed;
@@ -490,10 +493,49 @@ button:active {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--deep-green);
+  padding: 0;
+  border: none;
+  border-radius: 12px;
+  background: var(--deep-green);
+  color: var(--white);
   text-decoration: none;
-  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
+
+.back-button {
+  left: max(18px, calc(50% - 300px));
+}
+
+.product-cart-button {
+  right: max(18px, calc(50% - 300px));
+}
+
+.back-button svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.product-cart-button svg {
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.back-button:active,
+.product-cart-button:active {
+  transform: scale(0.96);
+}
+
 
 .back-button {
   left: max(18px, calc(50% - 300px));
