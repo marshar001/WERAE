@@ -1974,3 +1974,108 @@ height: 100px;
   margin: 0;
   font-size: 13px;
   }
+
+/* BODEGS AUTH PAGE — FIT PHONE SCREEN */
+
+html:has(.auth-page),
+body:has(.auth-page) {
+  height: 100%;
+  margin: 0;
+  overflow: hidden !important;
+}
+
+.auth-page {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 440px;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0 auto;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.auth-header {
+  flex: 0 0 auto;
+  margin: 0 0 10px;
+}
+
+.auth-card {
+  box-sizing: border-box;
+  flex: 0 1 auto;
+  min-height: 0;
+  width: 100%;
+  padding: 14px;
+  overflow: hidden;
+}
+
+.auth-card .field {
+  margin-bottom: 7px;
+}
+
+.auth-card form input[type="text"],
+.auth-card form input[type="email"],
+.auth-card form input[type="password"] {
+  min-height: 40px;
+}
+
+.auth-card .check {
+  min-height: 30px;
+  margin-bottom: 2px;
+}
+
+.auth-card .auth-message {
+  min-height: 0;
+  margin: 0 0 5px;
+}
+
+.auth-card .auth-submit,
+.auth-card .social-btn {
+  min-height: 38px;
+}
+
+.auth-card .auth-divider {
+  margin: 8px 0;
+}
+
+.auth-card .social-btn {
+  margin-bottom: 6px;
+}
+
+.auth-card .auth-switch {
+  margin: 8px 0 0;
+}
+
+@media (max-height: 700px) {
+  .auth-page {
+    padding: 6px 12px;
+  }
+
+  .auth-header {
+    margin-bottom: 6px;
+  }
+
+  .auth-header h1 {
+    font-size: 22px;
+  }
+
+  .auth-card {
+    padding: 10px;
+  }
+
+  .auth-card .field {
+    margin-bottom: 5px;
+  }
+
+  .auth-card .social-btn {
+    min-height: 32px;
+    margin-bottom: 4px;
+  }
+
+  .auth-card .auth-switch {
+    margin-top: 5px;
+  }
+}
