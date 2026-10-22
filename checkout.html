@@ -101,9 +101,15 @@
       </div>
     </section>
 
-    <button type="button" class="checkout-place-order">
-      Continue to Payment
+        <button
+      type="button"
+      class="checkout-place-order"
+      id="placeDemoOrder"
+    >
+      Place Demo Order
     </button>
+
+    <p id="checkoutMessage" role="status" aria-live="polite"></p>
 
   </main>
 
@@ -225,3 +231,95 @@
 
 </body>
 </html>
+    // BODEGS DEMO ORDER FLOW
+    const placeDemoOrderButton =
+      document.getElementById("placeDemoOrder");
+
+    const checkoutMessage =
+      document.getElementById("checkoutMessage");
+
+    placeDemoOrderButton.addEventListener("click", () => {
+      const name =
+        document.getElementById("checkoutName").value.trim();
+
+      const phone =
+        document.getElementById("checkoutPhone").value.trim();
+
+      const address =
+        document.getElementById("checkoutAddress").value.trim();
+
+      const city =
+        document.getElementById("checkoutCity").value.trim();
+
+      if (!name || !phone || !address || !city) {
+        checkoutMessage.textContent =
+          "Please complete all delivery information.";
+        return;
+      }
+
+      if (!Array.isArray(cartProducts) || cartProducts.length === 0) {
+        checkoutMessage.textContent =
+          "Your cart is empty. Add products before placing an order.";
+        return;
+      }
+
+      const products = cartProducts.map(product => ({
+        id: product.id || product.productId || "",
+        name: String(product.name || "Fashion item"),
+        image: String(product.image || ""),
+        price: Number(
+          String(product.price ?? 0).replace(/[^\d.]/g, "")
+        ) || 0,
+        quantity: Math.max(1, Number(product.quantity) || 1)
+      }));
+
+      const total = products.reduce((sum, product) => {
+        return sum + product.price * product.quantity;
+      }, 0);
+
+      if (total <= 0) {
+        checkoutMessage.textContent =
+          "The order total is invalid. Please check your cart.";
+        return;
+      }
+
+      const order = {
+        id: "BOD-" + Date.now(),
+        createdAt: new Date().toISOString(),
+        status: "pending",
+        customer: {
+          name,
+          phone,
+          address,
+          city
+        },
+        products,
+        total,
+        paymentStatus: "demo-unpaid"
+      };
+
+      try {
+        const existingOrders = JSON.parse(
+          localStorage.getItem("weraeOrders") || "[]"
+        );
+
+        if (!Array.isArray(existingOrders)) {
+          throw new Error("Invalid orders data");
+        }
+
+        existingOrders.unshift(order);
+
+        localStorage.setItem(
+          "weraeOrders",
+          JSON.stringify(existingOrders)
+        );
+
+        // Clear the cart only after the order has been saved.
+        localStorage.removeItem("weraeCart");
+
+        window.location.href = "orders.html";
+      } catch (error) {
+        checkoutMessage.textContent =
+          "We couldn't save your demo order. Please try again.";
+      }
+    });
