@@ -17,6 +17,14 @@
 
 <body>
 
+  <!-- BODEGS SPLASH SCREEN -->
+  <div id="bodegsSplash" class="bodegs-splash" aria-label="BODEGS — Style it your way">
+    <div class="splash-brand">
+      <h1>BODEGS</h1>
+      <p>Style it your way</p>
+    </div>
+  </div>
+  
   <!-- WELCOME CAROUSEL -->
   <section class="welcome-carousel">
 
@@ -539,6 +547,40 @@
       });
     })();
   </script>
+  
+<script>
+  (function () {
+    const splash = document.getElementById("bodegsSplash");
+
+    if (!splash) return;
+
+    let alreadyShown = false;
+
+    try {
+      alreadyShown =
+        sessionStorage.getItem("bodegsSplashShown") === "yes";
+
+      if (!alreadyShown) {
+        sessionStorage.setItem("bodegsSplashShown", "yes");
+      }
+    } catch (error) {
+      // Continue normally if session storage is unavailable.
+    }
+
+    if (alreadyShown) {
+      splash.remove();
+      return;
+    }
+
+    window.setTimeout(function () {
+      splash.classList.add("is-closing");
+
+      window.setTimeout(function () {
+        splash.remove();
+      }, 700);
+    }, 3200);
+  })();
+</script>
   
 </body>
 </html>
