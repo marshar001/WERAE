@@ -2079,3 +2079,87 @@ body:has(.auth-page) {
     margin-top: 5px;
   }
 }
+
+/* ==================================
+   BODEGS OPENING SPLASH ANIMATION
+   ================================== */
+
+.bodegs-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #173b32;
+  color: #f5f0e7;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.65s ease,
+    visibility 0.65s ease;
+}
+
+.splash-brand {
+  text-align: center;
+  padding: 24px;
+}
+
+.splash-brand h1 {
+  margin: 0;
+  color: #f5f0e7;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3rem, 12vw, 5rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale(0.94);
+  animation: bodegsLogoReveal 1.15s ease forwards;
+}
+
+.splash-brand p {
+  margin: 12px 0 0;
+  color: #f5f0e7;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1rem, 4vw, 1.35rem);
+  letter-spacing: 0.025em;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: bodegsTaglineReveal 0.8s ease 0.85s forwards;
+}
+
+.bodegs-splash.is-closing {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes bodegsLogoReveal {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+@keyframes bodegsTaglineReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-brand h1,
+  .splash-brand p {
+    animation: none;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .bodegs-splash {
+    transition: none;
+  }
+  }
