@@ -2165,16 +2165,24 @@ body:has(.auth-page) {
   }
 
 
-/* BODEGS SKELETON — MATCH HOME PAGE */
+/* BODEGS SKELETON — MATCH HOME PAGE
+   Sizes mirror the real home page. Colours follow the grey
+   skeleton style: light grey page, slightly darker grey blocks.
+   There is no bottom navigation in the skeleton. */
 
 .bodegs-skeleton {
+  --sk-bg: #f5f5f5;
+  --sk-block: #dcdcdc;
+  --sk-block-dark: #cfcfcf;
+  --sk-shine: #ebebeb;
+
   position: fixed;
   inset: 0;
   z-index: 99998;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 8px 0 100px;
-  background: var(--cream);
+  padding: 8px 0 24px;
+  background: var(--sk-bg);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -2188,11 +2196,8 @@ body:has(.auth-page) {
 .sk-line,
 .sk-store-card,
 .sk-category-image,
-.sk-product-image,
-.sk-button,
-.sk-nav-icon,
-.sk-nav-label {
-  background-color: #dfe4dc;
+.sk-product-image {
+  background-color: var(--sk-block);
 }
 
 .sk-line {
@@ -2200,44 +2205,44 @@ body:has(.auth-page) {
   border-radius: 8px;
 }
 
-/* Welcome carousel */
+/* Welcome carousel: same box as .welcome-carousel */
 .sk-welcome {
   position: relative;
   height: 180px;
   margin: 0 16px 14px;
   overflow: hidden;
   border-radius: 28px;
-  background: linear-gradient(135deg, #173b32, #455b4e);
+  background: var(--sk-block);
 }
 
 .sk-welcome-content {
-  padding: 28px 34px;
+  padding: 34px 34px 0;
 }
 
 .sk-eyebrow {
   width: 90px;
   height: 7px;
   margin-bottom: 12px;
-  background: #60786b;
+  background: var(--sk-block-dark);
 }
 
 .sk-title {
-  width: 72%;
-  height: 18px;
-  margin-bottom: 7px;
-  background: #60786b;
+  width: 62%;
+  height: 20px;
+  margin-bottom: 8px;
+  background: var(--sk-block-dark);
 }
 
 .sk-title-short {
-  width: 48%;
+  width: 44%;
 }
 
 .sk-button {
   width: 92px;
-  height: 26px;
-  margin-top: 8px;
+  height: 28px;
+  margin-top: 14px;
   border-radius: 13px;
-  background: var(--cream);
+  background: var(--sk-bg);
 }
 
 .sk-dots {
@@ -2253,146 +2258,126 @@ body:has(.auth-page) {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #60786b;
+  background: var(--sk-block-dark);
 }
 
 .sk-dots span:first-child {
   width: 19px;
   border-radius: 8px;
-  background: var(--cream);
+  background: var(--sk-bg);
 }
 
-/* Section headings and horizontal store row */
-.sk-section {
-  margin: 0 16px 22px;
+/* Trending Store: cards are 105 x 145, radius 22, like .trending-card */
+.sk-trending {
+  padding: 0 4px;
+  margin-bottom: 8px;
 }
 
 .sk-section-title {
-  width: 115px;
-  height: 17px;
-  margin-bottom: 14px;
+  width: 92px;
+  height: 13px;
+  margin: 0 4px 7px;
 }
 
 .sk-store-row {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   overflow: hidden;
+  padding: 0 2px 2px;
 }
 
 .sk-store-card {
   flex: 0 0 105px;
-  height: 105px;
-  border-radius: 16px;
+  width: 105px;
+  height: 145px;
+  border-radius: 22px;
 }
 
-.sk-shimmer {
-  background: linear-gradient(
-    100deg,
-    #dfe4dc 25%,
-    #edf0e9 40%,
-    #dfe4dc 60%
-  );
-  background-size: 200% 100%;
-  animation: bodegsSkeletonShimmer 1.4s ease-in-out infinite;
-}
-
-.sk-store-card.sk-shimmer {
-  border-radius: 16px;
-}
-
-/* Category rows */
-.sk-category-section {
-  margin-bottom: 24px;
+/* Categories: 58px tiles, radius 18, like .category-item */
+.sk-categories {
+  padding: 0 4px;
+  margin-bottom: 16px;
 }
 
 .sk-category-row {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px 10px;
-  margin-bottom: 14px;
+  display: flex;
+  gap: 10px;
+  overflow: hidden;
+  padding: 0 2px 6px;
+  margin-bottom: 4px;
+}
+
+.sk-category-row + .sk-category-row {
+  margin-top: -12px;
 }
 
 .sk-category {
-  min-width: 0;
+  flex: 0 0 58px;
+  width: 58px;
   text-align: center;
 }
 
 .sk-category-image {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 14px;
-  margin-bottom: 7px;
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
 }
 
 .sk-category-label {
-  width: 75%;
+  width: 36px;
   height: 7px;
-  margin: 0 auto;
+  margin: 10px auto 5px;
 }
 
-/* Product cards */
-.sk-product-section {
-  margin-bottom: 30px;
+/* Products: two columns, card padding 3, radius 17, like .product-card */
+.sk-products {
+  padding: 0 4px;
+  column-count: 2;
+  column-gap: 1px;
 }
 
-.sk-product-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+.sk-product {
+  break-inside: avoid;
+  margin-bottom: 1px;
+  padding: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 17px;
+  background: #fafafa;
 }
 
 .sk-product-image {
   width: 100%;
-  aspect-ratio: 3 / 4;
-  border-radius: 16px;
-  margin-bottom: 10px;
+  border-radius: 15px;
 }
 
 .sk-product-name {
-  width: 85%;
-  margin-bottom: 8px;
+  width: 80%;
+  height: 9px;
+  margin: 8px 3px 6px;
 }
 
 .sk-product-price {
-  width: 45%;
+  width: 40%;
+  height: 9px;
+  margin: 0 3px 6px;
 }
 
-/* Fixed bottom navigation placeholder */
-.sk-bottom-nav {
-  position: fixed;
-  left: 12px;
-  right: 12px;
-  bottom: 12px;
-  height: 64px;
-  padding: 6px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 4px;
-  border-radius: 26px;
-  background: var(--deep-green);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+.sk-product-meta {
+  width: 60%;
+  height: 7px;
+  margin: 0 3px 5px;
 }
 
-.sk-nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-}
-
-.sk-nav-icon {
-  width: 17px;
-  height: 17px;
-  border-radius: 5px;
-  background: #60786b;
-}
-
-.sk-nav-label {
-  width: 28px;
-  height: 5px;
-  border-radius: 5px;
-  background: #60786b;
+/* Shimmer on the big blocks */
+.sk-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    var(--sk-block) 25%,
+    var(--sk-shine) 40%,
+    var(--sk-block) 60%
+  );
+  background-size: 200% 100%;
+  animation: bodegsSkeletonShimmer 1.4s ease-in-out infinite;
 }
 
 @keyframes bodegsSkeletonShimmer {
@@ -2408,4 +2393,4 @@ body:has(.auth-page) {
   .sk-shimmer {
     animation: none;
   }
-}
+  }
