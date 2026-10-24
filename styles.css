@@ -2183,14 +2183,22 @@ body:has(.auth-page) {
   overflow-y: auto;
   padding: 8px 0 24px;
   background: var(--sk-bg);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
 
-.bodegs-skeleton.is-visible {
+  /* Visible from the very first paint, sitting under the splash,
+     so the home page never shows between splash and loading screen. */
   opacity: 1;
   visibility: visible;
+  pointer-events: none;
+
+  /* Failsafe: if the script never removes it, hide it after 12s. */
+  animation: bodegsSkeletonFailsafe 0.01s linear 12s forwards;
+}
+
+@keyframes bodegsSkeletonFailsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 .sk-line,
