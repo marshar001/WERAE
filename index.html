@@ -582,11 +582,14 @@
     })();
   </script>
   
+
 <script>
   (function () {
     const splash = document.getElementById("bodegsSplash");
+    const skeleton = document.getElementById("bodegsSkeleton");
+    const products = document.getElementById("homeProducts");
 
-    if (!splash) return;
+    if (!splash || !skeleton) return;
 
     let alreadyShown = false;
 
@@ -598,23 +601,81 @@
         sessionStorage.setItem("bodegsSplashShown", "yes");
       }
     } catch (error) {
-      // Continue normally if session storage is unavailable.
+      // Continue if session storage is unavailable.
     }
 
-    if (alreadyShown) {
-      splash.remove();
-      return;
+    function showSkeleton() {
+      skeleton.classList.add("is-visible");
     }
 
-    window.setTimeout(function () {
+    function revealHomepage() {
+      skeleton.classList.remove("is-visible");
+      skeleton.remove();
+    }
+
+    function finishSplash() {
       splash.classList.add("is-closing");
 
       window.setTimeout(function () {
         splash.remove();
-      }, 700);
-    }, 3200);
+        showSkeleton();
+
+        const startTime = Date.now();
+        const minimumLoadingTime = 700;
+        const timeout = 5000;
+
+        function checkReady() {
+          const hasProducts =
+            products && products.children.length > 0;
+
+          const elapsed = Date.now() - startTime;
+
+          if (hasProducts && elapsed >= minimumLoadingTime) {
+            revealHomepage();
+            return;
+          }
+
+          if (elapsed >= timeout) {
+            revealHomepage();
+            return;
+          }
+
+          window.setTimeout(checkReady, 100);
+        }
+
+        checkReady();
+      }, 650);
+    }
+
+    if (alreadyShown) {
+      splash.remove();
+      showSkeleton();
+
+      const startTime = Date.now();
+
+      function checkReady() {
+        const hasProducts =
+          products && products.children.length > 0;
+
+        if (
+          (hasProducts && Date.now() - startTime >= 700) ||
+          Date.now() - startTime >= 5000
+        ) {
+          revealHomepage();
+          return;
+        }
+
+        window.setTimeout(checkReady, 100);
+      }
+
+      checkReady();
+      return;
+    }
+
+    window.setTimeout(finishSplash, 3200);
   })();
 </script>
+
   
 </body>
 </html>
