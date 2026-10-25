@@ -651,6 +651,9 @@
 
     if (!splash || !skeleton) return;
 
+    const MIN_LOADING_TIME = 700;   // never flash by too fast
+    const MAX_LOADING_TIME = 5000;  // never hang forever
+
     let alreadyShown = false;
 
     try {
@@ -664,63 +667,49 @@
       // Continue if session storage is unavailable.
     }
 
-    function showSkeleton() {
-      skeleton.classList.add("is-visible");
+    // True when every image visible on the first screen has finished
+    // loading. A broken image also counts as finished, so it can't hang.
+    function visibleImagesReady() {
+      const images = document.querySelectorAll(
+        ".trending-row img, .categories-row img, #homeProducts img"
+      );
+
+      for (const image of images) {
+        const box = image.getBoundingClientRect();
+
+        const onScreen =
+          box.top < window.innerHeight &&
+          box.bottom > 0 &&
+          box.left < window.innerWidth &&
+          box.right > 0;
+
+        if (onScreen && !image.complete) {
+          return false;
+        }
+      }
+
+      return true;
     }
 
     function revealHomepage() {
-      skeleton.classList.remove("is-visible");
       skeleton.remove();
     }
 
-    function finishSplash() {
-      splash.classList.add("is-closing");
-
-      window.setTimeout(function () {
-        splash.remove();
-        showSkeleton();
-
-        const startTime = Date.now();
-        const minimumLoadingTime = 700;
-        const timeout = 5000;
-
-        function checkReady() {
-          const hasProducts =
-            products && products.children.length > 0;
-
-          const elapsed = Date.now() - startTime;
-
-          if (hasProducts && elapsed >= minimumLoadingTime) {
-            revealHomepage();
-            return;
-          }
-
-          if (elapsed >= timeout) {
-            revealHomepage();
-            return;
-          }
-
-          window.setTimeout(checkReady, 100);
-        }
-
-        checkReady();
-      }, 650);
-    }
-
-    if (alreadyShown) {
-      splash.remove();
-      showSkeleton();
-
+    function waitForHomepage() {
       const startTime = Date.now();
 
       function checkReady() {
+        const elapsed = Date.now() - startTime;
+
         const hasProducts =
           products && products.children.length > 0;
 
-        if (
-          (hasProducts && Date.now() - startTime >= 700) ||
-          Date.now() - startTime >= 5000
-        ) {
+        const ready =
+          hasProducts &&
+          elapsed >= MIN_LOADING_TIME &&
+          visibleImagesReady();
+
+        if (ready || elapsed >= MAX_LOADING_TIME) {
           revealHomepage();
           return;
         }
@@ -729,12 +718,26 @@
       }
 
       checkReady();
+    }
+
+    function finishSplash() {
+      splash.classList.add("is-closing");
+
+      window.setTimeout(function () {
+        splash.remove();
+        waitForHomepage();
+      }, 650);
+    }
+
+    if (alreadyShown) {
+      splash.remove();
+      waitForHomepage();
       return;
     }
 
     window.setTimeout(finishSplash, 3200);
   })();
-</script>
+    </script>
 
   
 </body>
