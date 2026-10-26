@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Profile — BODEGS</title>
+  <meta
+    name="description"
+    content="Manage your BODEGS account, orders and delivery addresses."
+  >
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body {
+      background: var(--cream);
+    }
+
+    .profile-page {
+      max-width: 720px;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding-bottom: 110px;
+    }
+
+    /* Header band */
+    .profile-header {
+      padding: 22px 20px 54px;
+      background: var(--deep-green);
+      border-radius: 0 0 28px 28px;
+      color: var(--cream);
+    }
+
+    .profile-header h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    .profile-body {
+      margin: -34px 16px 0;
+    }
+
+    /* Profile card */
+    .profile-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      background: var(--cream-light);
+      border: 1px solid rgba(23, 59, 50, 0.06);
+      border-radius: 24px;
+      box-shadow: 0 8px 22px rgba(23, 59, 50, 0.1);
+    }
+
+    .avatar-wrap {
+      position: relative;
+      flex: 0 0 76px;
+      width: 76px;
+      height: 76px;
+    }
+
+    .avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--deep-green);
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 28px;
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .avatar-edit {
+      position: absolute;
+      right: -2px;
+      bottom: -2px;
+      width: 26px;
+      height: 26px;
+      padding: 0;
+      border: 2px solid var(--cream-light);
+      border-radius: 50%;
+      background: var(--sage);
+      color: var(--deep-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-edit svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    .profile-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .profile-info h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 19px;
+      line-height: 1.15;
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .profile-info .email {
+      margin-top: 3px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: var(--muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .profile-pill {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: var(--deep-green);
+      color: var(--cream);
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 0.4px;
+    }
+        /* Quick buttons */
+    .quick-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .quick-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px;
+      border: 1px solid rgba(23, 59, 50, 0.06);
+      border-radius: 20px;
+      background: var(--cream-light);
+      box-shadow: 0 5px 14px rgba(23, 59, 50, 0.06);
+      color: var(--text);
+      text-align: left;
+      text-decoration: none;
+      font-family: Arial, sans-serif;
+    }
+
+    .quick-icon {
+      flex: 0 0 38px;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(23, 59, 50, 0.09);
+      color: var(--deep-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quick-btn strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .quick-btn small {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Menu list */
+    .menu-card {
+      padding: 4px 16px;
+      background: var(--cream-light);
+      border: 1px solid rgba(23, 59, 50, 0.06);
+      border-radius: 24px;
+      box-shadow: 0 5px 14px rgba(23, 59, 50, 0.06);
+    }
+
+    .menu-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border: none;
+      border-bottom: 1px solid rgba(23, 59, 50, 0.08);
+      background: transparent;
+      color: var(--text);
+      text-align: left;
+      font-family: Arial, sans-serif;
+    }
+
+    .menu-row:last-child {
+      border-bottom: none;
+    }
+
+    .menu-row:active {
+      transform: none;
+      opacity: 0.7;
+    }
+
+    .menu-icon {
+      flex: 0 0 22px;
+      width: 22px;
+      height: 22px;
+      color: var(--deep-green);
+    }
+
+    .menu-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .menu-text strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .menu-text small {
+      display: block;
+      margin-top: 3px;
+      font-size: 11px;
+      line-height: 1.3;
+      color: var(--muted);
+    }
+
+    .menu-chevron {
+      flex: 0 0 16px;
+      width: 16px;
+      height: 16px;
+      color: var(--muted);
+    }
+
+    .menu-icon,
+    .menu-chevron,
+    .quick-icon svg,
+    .avatar-edit svg,
+    .support-btn svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .quick-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .menu-row.danger .menu-icon,
+    .menu-row.danger strong {
+      color: #a3392f;
+    }
+        /* Support card */
+    .support-card {
+      margin-top: 14px;
+      padding: 20px 16px;
+      background: var(--cream-light);
+      border: 1px solid rgba(23, 59, 50, 0.06);
+      border-radius: 24px;
+      box-shadow: 0 5px 14px rgba(23, 59, 50, 0.06);
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .support-card h3 {
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .support-card p {
+      margin: 5px 0 14px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .support-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin-top: 10px;
+      padding: 13px;
+      border: 1px solid var(--sage);
+      border-radius: 14px;
+      background: #fff;
+      color: var(--deep-green);
+      font-size: 13px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .support-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .social-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .social-row a {
+      padding: 8px 14px;
+      border-radius: 14px;
+      background: rgba(23, 59, 50, 0.08);
+      color: var(--deep-green);
+      font-size: 12px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    /* Bottom sheet */
+    .sheet-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(18, 30, 26, 0.45);
+    }
+
+    .sheet-backdrop[hidden] {
+      display: none;
+    }
+
+    .sheet {
+      width: 100%;
+      max-width: 720px;
+      max-height: 86vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--cream-light);
+      border-radius: 28px 28px 0 0;
+      font-family: Arial, sans-serif;
+      animation: sheetUp 0.22s ease-out;
+    }
+
+    @keyframes sheetUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: none; opacity: 1; }
+    }
+
+    .sheet-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 20px 10px;
+    }
+
+    .sheet-head h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    .sheet-close {
+      width: 34px;
+      height: 34px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(23, 59, 50, 0.08);
+      color: var(--deep-green);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .sheet-body {
+      overflow-y: auto;
+      padding: 6px 20px 28px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .field {
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .field span {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--deep-green);
+    }
+
+    .field input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid var(--sage);
+      border-radius: 14px;
+      background: #fff;
+      color: var(--text);
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+    }
+
+    .field input[readonly] {
+      background: rgba(23, 59, 50, 0.05);
+      color: var(--muted);
+    }
+
+    .primary-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 16px;
+      background: var(--deep-green);
+      color: var(--cream);
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(23, 59, 50, 0.08);
+    }
+
+    .list-item .grow {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .list-item strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .list-item small {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .link-btn {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(163, 57, 47, 0.1);
+      color: #a3392f;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .tick {
+      flex: 0 0 24px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: bold;
+      background: rgba(23, 59, 50, 0.1);
+      color: var(--muted);
+    }
+
+    .tick.done {
+      background: var(--deep-green);
+      color: var(--cream);
+    }
+
+    .sheet-subtitle {
+      margin: 18px 0 10px;
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--deep-green);
+    }
+
+    .empty-note {
+      padding: 6px 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    details {
+      border-bottom: 1px solid rgba(23, 59, 50, 0.08);
+      padding: 12px 0;
+    }
+
+    details summary {
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    details p {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    ol.steps {
+      padding-left: 20px;
+    }
+
+    ol.steps li {
+      margin-bottom: 10px;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 100px;
+      z-index: 3000;
+      transform: translateX(-50%);
+      padding: 11px 18px;
+      border-radius: 16px;
+      background: var(--deep-green);
+      color: var(--cream);
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .toast[hidden] {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sheet {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="profile-page">
+
+    <header class="profile-header">
+      <h1>My Profile</h1>
+    </header>
+
+    <div class="profile-body">
+
+      <!-- PROFILE CARD -->
+      <section class="profile-card">
+        <div class="avatar-wrap">
+          <div class="avatar" id="avatar"></div>
+          <button class="avatar-edit" id="avatarEdit" type="button" aria-label="Change profile photo">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 20h4L19 9l-4-4L4 16v4Z"></path>
+              <path d="m13.5 6.5 4 4"></path>
+            </svg>
+          </button>
+          <input type="file" id="avatarInput" accept="image/*" hidden>
+        </div>
+
+        <div class="profile-info">
+          <h2 id="profileName"></h2>
+          <p class="email" id="profileEmail"></p>
+          <span class="profile-pill" id="profilePill"></span>
+        </div>
+      </section>
+
+      <!-- QUICK BUTTONS -->
+      <div class="quick-row">
+        <a href="orders.html" class="quick-btn">
+          <span class="quick-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 3.5h12A1.5 1.5 0 0 1 19.5 5v14A1.5 1.5 0 0 1 18 20.5H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5Z"></path>
+              <path d="M8 8h8M8 12h8M8 16h5"></path>
+            </svg>
+          </span>
+          <span>
+            <strong>My Orders</strong>
+            <small id="ordersCount"></small>
+          </span>
+        </a>
+
+        <a href="cart.html" class="quick-btn">
+          <span class="quick-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 8h14l-1 12H6L5 8Z"></path>
+              <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+            </svg>
+          </span>
+          <span>
+            <strong>My Cart</strong>
+            <small id="cartCount"></small>
+          </span>
+        </a>
+      </div>
+
+      <!-- MENU -->
+      <section class="menu-card" id="menu" aria-label="Account menu"></section>
+
+      <!-- SUPPORT -->
+      <section class="support-card" id="support" hidden>
+        <h3>Contact BODEGS Support</h3>
+        <p>Choose your preferred support channel below.</p>
+        <div id="supportButtons"></div>
+        <div class="social-row" id="socialRow"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- BOTTOM SHEET -->
+  <div class="sheet-backdrop" id="sheet" hidden>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <div class="sheet-head">
+        <h2 id="sheetTitle"></h2>
+        <button class="sheet-close" id="sheetClose" type="button" aria-label="Close">&times;</button>
+      </div>
+      <div class="sheet-body" id="sheetBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+
+    <a href="index.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 10.5 12 3l9 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 19.5v-9Z"></path>
+        <path d="M9 21v-6h6v6"></path>
+      </svg>
+      <span>Home</span>
+    </a>
+
+    <a href="explore.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5"></circle>
+        <path d="m16 16 5 5"></path>
+      </svg>
+      <span>Explore</span>
+    </a>
+
+    <a href="cart.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 8h14l-1 12H6L5 8Z"></path>
+        <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+      </svg>
+      <span>Cart</span>
+    </a>
+
+    <a href="orders.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 3.5h12A1.5 1.5 0 0 1 19.5 5v14A1.5 1.5 0 0 1 18 20.5H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5Z"></path>
+        <path d="M8 8h8M8 12h8M8 16h5"></path>
+      </svg>
+      <span>Orders</span>
+    </a>
+
+    <a href="profile.html" class="nav-item active" aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="8" r="3.5"></circle>
+        <path d="M5 20a7 7 0 0 1 14 0"></path>
+      </svg>
+      <span>Profile</span>
+    </a>
+
+  </nav>
+    <script>
+    (function () {
+
+      /* ==============================================
+         SUPPORT DETAILS — fill these in with your real
+         contact details. Anything left empty is hidden.
+         phone / whatsapp: digits with country code,
+         e.g. "2348012345678"
+         instagram / facebook: full page links
+         ============================================== */
+      const SUPPORT = {
+        phone: "",
+        whatsapp: "",
+        email: "",
+        instagram: "",
+        facebook: ""
+      };
+
+      const KEY_USER = "weraeUser";
+      const KEY_ADDRESSES = "weraeAddresses";
+      const KEY_AVATAR = "weraeAvatar";
+
+      function read(key, fallback) {
+        try {
+          const value = localStorage.getItem(key);
+          return value ? JSON.parse(value) : fallback;
+        } catch (error) {
+          return fallback;
+        }
+      }
+
+      function write(key, value) {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+          return true;
+        } catch (error) {
+          return false;
+        }
+      }
+
+      function remove(key) {
+        try {
+          localStorage.removeItem(key);
+        } catch (error) {
+          // ignore
+        }
+      }
+
+      /* Must be signed in, like checkout. */
+      let user = read(KEY_USER, null);
+
+      if (!user || user.loggedIn !== true) {
+        window.location.replace("auth.html");
+        return;
+      }
+
+      /* ---------- small helpers ---------- */
+
+      const ICONS = {
+        user: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/>',
+        pin: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/>',
+        shield: '<path d="M12 3 5 6v5.5c0 4.3 2.9 7.8 7 9.5 4.1-1.7 7-5.2 7-9.5V6l-7-3Z"/><path d="m9 12 2.2 2.2L15.5 10"/>',
+        orders: '<path d="M6 3.5h12A1.5 1.5 0 0 1 19.5 5v14A1.5 1.5 0 0 1 18 20.5H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5Z"/><path d="M8 8h8M8 12h8M8 16h5"/>',
+        help: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7"/><path d="M12 17h.01"/>',
+        play: '<circle cx="12" cy="12" r="9"/><path d="m10.5 8.5 5 3.5-5 3.5v-7Z"/>',
+        out: '<path d="M10 4H6.5A1.5 1.5 0 0 0 5 5.5v13A1.5 1.5 0 0 0 6.5 20H10"/><path d="m15 8 4 4-4 4M19 12H9"/>',
+        trash: '<path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/>',
+        phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A15 15 0 0 1 4 5a1 1 0 0 1 1-1Z"/>',
+        chat: '<path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-8l-4 3.5V16H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>',
+        mail: '<rect x="4" y="6" width="16" height="12" rx="2"/><path d="m5 8 7 5 7-5"/>',
+        chevron: '<path d="m9 6 6 6-6 6"/>'
+      };
+
+      function svg(name, className) {
+        return (
+          '<svg class="' + className + '" viewBox="0 0 24 24" aria-hidden="true">' +
+          ICONS[name] +
+          "</svg>"
+        );
+      }
+
+      function el(tag, props, children) {
+        const node = document.createElement(tag);
+
+        Object.keys(props || {}).forEach(function (key) {
+          if (key === "text") node.textContent = props[key];
+          else if (key === "class") node.className = props[key];
+          else node.setAttribute(key, props[key]);
+        });
+
+        (children || []).forEach(function (child) {
+          node.appendChild(child);
+        });
+
+        return node;
+      }
+
+      const toastBox = document.getElementById("toast");
+      let toastTimer = null;
+
+      function toast(message) {
+        toastBox.textContent = message;
+        toastBox.hidden = false;
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(function () {
+          toastBox.hidden = true;
+        }, 2200);
+      }
+
+      /* ---------- bottom sheet ---------- */
+
+      const sheet = document.getElementById("sheet");
+      const sheetTitle = document.getElementById("sheetTitle");
+      const sheetBody = document.getElementById("sheetBody");
+
+      function openSheet(title, build) {
+        sheetTitle.textContent = title;
+        sheetBody.innerHTML = "";
+        build(sheetBody);
+        sheet.hidden = false;
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeSheet() {
+        sheet.hidden = true;
+        document.body.style.overflow = "";
+      }
+
+      document.getElementById("sheetClose").addEventListener("click", closeSheet);
+
+      sheet.addEventListener("click", function (event) {
+        if (event.target === sheet) closeSheet();
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !sheet.hidden) closeSheet();
+      });
+
+      /* ---------- profile card ---------- */
+
+      function initials(name) {
+        const parts = String(name || "")
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean);
+
+        if (!parts.length) return "B";
+        if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+
+        return (
+          parts[0].charAt(0) + parts[parts.length - 1].charAt(0)
+        ).toUpperCase();
+      }
+
+      function renderProfile() {
+        const avatar = document.getElementById("avatar");
+        const photo = read(KEY_AVATAR, null);
+
+        avatar.innerHTML = "";
+
+        if (photo) {
+          const image = el("img", { src: photo, alt: "Your profile photo" });
+          avatar.appendChild(image);
+        } else {
+          avatar.textContent = initials(user.name);
+        }
+
+        document.getElementById("profileName").textContent =
+          user.name || "BODEGS member";
+
+        document.getElementById("profileEmail").textContent = user.email || "";
+
+        const orders = read("weraeOrders", []);
+        const cart = read("weraeCart", []);
+
+        document.getElementById("profilePill").textContent =
+          "BODEGS member";
+
+        document.getElementById("ordersCount").textContent =
+          orders.length === 1 ? "1 order" : orders.length + " orders";
+
+        document.getElementById("cartCount").textContent =
+          cart.length === 1 ? "1 item" : cart.length + " items";
+      }
+
+      /* Profile photo: resized to a small square before saving */
+
+      const avatarInput = document.getElementById("avatarInput");
+
+      document.getElementById("avatarEdit").addEventListener("click", function () {
+        avatarInput.click();
+      });
+
+      avatarInput.addEventListener("change", function () {
+        const file = avatarInput.files && avatarInput.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function () {
+          const image = new Image();
+
+          image.onload = function () {
+            const size = 240;
+            const canvas = document.createElement("canvas");
+            canvas.width = size;
+            canvas.height = size;
+
+            const side = Math.min(image.width, image.height);
+            const sx = (image.width - side) / 2;
+            const sy = (image.height - side) / 2;
+
+            canvas.getContext("2d").drawImage(image, sx, sy, side, side, 0, 0, size, size);
+
+            if (write(KEY_AVATAR, canvas.toDataURL("image/jpeg", 0.82))) {
+              renderProfile();
+              toast("Profile photo updated");
+            } else {
+              toast("Could not save the photo on this device");
+            }
+          };
+
+          image.src = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+        avatarInput.value = "";
+      });
+            /* ---------- sheets ---------- */
+
+      function field(label, type, value, readonly) {
+        const input = el("input", { type: type, value: value || "" });
+        if (readonly) input.setAttribute("readonly", "readonly");
+        return {
+          input: input,
+          node: el("label", { class: "field" }, [el("span", { text: label }), input])
+        };
+      }
+
+      function editProfileSheet() {
+        openSheet("Edit Profile", function (body) {
+          const name = field("Full name", "text", user.name, false);
+          const email = field("Email", "email", user.email, true);
+          const phone = field("Phone number", "tel", user.phone, false);
+          const save = el("button", { class: "primary-btn", type: "button", text: "Save changes" });
+
+          save.addEventListener("click", function () {
+            const newName = name.input.value.trim();
+
+            if (!newName) {
+              toast("Please enter your name");
+              return;
+            }
+
+            user.name = newName;
+            user.phone = phone.input.value.trim();
+            write(KEY_USER, user);
+            renderProfile();
+            closeSheet();
+            toast("Profile saved");
+          });
+
+          [name.node, email.node, phone.node, save].forEach(function (node) {
+            body.appendChild(node);
+          });
+        });
+      }
+
+      function addressesSheet() {
+        openSheet("Delivery Addresses", function (body) {
+
+          function draw() {
+            body.innerHTML = "";
+
+            const addresses = read(KEY_ADDRESSES, []);
+
+            if (!addresses.length) {
+              body.appendChild(el("p", { class: "empty-note", text: "You have not added a delivery address yet." }));
+            }
+
+            addresses.forEach(function (address) {
+              const removeBtn = el("button", { class: "link-btn", type: "button", text: "Remove" });
+
+              removeBtn.addEventListener("click", function () {
+                write(
+                  KEY_ADDRESSES,
+                  read(KEY_ADDRESSES, []).filter(function (item) {
+                    return item.id !== address.id;
+                  })
+                );
+                draw();
+              });
+
+              body.appendChild(
+                el("div", { class: "list-item" }, [
+                  el("div", { class: "grow" }, [
+                    el("strong", { text: address.label }),
+                    el("small", { text: address.line + ", " + address.city })
+                  ]),
+                  removeBtn
+                ])
+              );
+            });
+
+            body.appendChild(el("p", { class: "sheet-subtitle", text: "Add a new address" }));
+
+            const label = field("Label (for example Home or Work)", "text", "", false);
+            const line = field("Street address", "text", "", false);
+            const city = field("City", "text", "", false);
+            const add = el("button", { class: "primary-btn", type: "button", text: "Save address" });
+
+            add.addEventListener("click", function () {
+              if (!line.input.value.trim() || !city.input.value.trim()) {
+                toast("Please enter the street and city");
+                return;
+              }
+
+              const list = read(KEY_ADDRESSES, []);
+
+              list.push({
+                id: String(Date.now()),
+                label: label.input.value.trim() || "Address",
+                line: line.input.value.trim(),
+                city: city.input.value.trim()
+              });
+
+              write(KEY_ADDRESSES, list);
+              draw();
+              toast("Address saved");
+            });
+
+            [label.node, line.node, city.node, add].forEach(function (node) {
+              body.appendChild(node);
+            });
+          }
+
+          draw();
+        });
+      }
+
+      function verificationSheet() {
+        openSheet("Verification status", function (body) {
+          const hasAddress = read(KEY_ADDRESSES, []).length > 0;
+
+          const steps = [
+            { done: !!user.email, title: "Email address", note: user.email ? user.email : "Not added" },
+            { done: !!user.phone, title: "Phone number", note: user.phone ? user.phone : "Not added. Add it in Edit Profile." },
+            { done: hasAddress, title: "Delivery address", note: hasAddress ? "Added" : "Not added. Add one in Delivery Addresses." }
+          ];
+
+          const complete = steps.filter(function (step) { return step.done; }).length;
+
+          body.appendChild(
+            el("p", { class: "empty-note", text: complete + " of " + steps.length + " account details complete." })
+          );
+
+          steps.forEach(function (step) {
+            body.appendChild(
+              el("div", { class: "list-item" }, [
+                el("span", { class: "tick" + (step.done ? " done" : ""), text: step.done ? "✓" : "–" }),
+                el("div", { class: "grow" }, [
+                  el("strong", { text: step.title }),
+                  el("small", { text: step.note })
+                ])
+              ])
+            );
+          });
+        });
+      }
+
+      function faqSheet() {
+        openSheet("FAQs", function (body) {
+          const items = [
+            ["How does BODEGS protect my purchase?", "Items bought through BODEGS are paid for and delivered through BODEGS, and your purchase is protected by BODEGS."],
+            ["What does \"verified\" mean?", "Stores and products marked as BODEGS verified are from sellers that BODEGS has verified."],
+            ["Where can I see my orders?", "Open the Orders tab at the bottom of the screen to see and track your orders."],
+            ["How do I change my details?", "Open Edit Profile on this page to update your name and phone number."]
+          ];
+
+          items.forEach(function (item) {
+            body.appendChild(
+              el("details", {}, [
+                el("summary", { text: item[0] }),
+                el("p", { text: item[1] })
+              ])
+            );
+          });
+        });
+      }
+
+      function howItWorksSheet() {
+        openSheet("How BODEGS works", function (body) {
+          const list = el("ol", { class: "steps" });
+
+          [
+            "Browse stores and products from verified sellers on Home and Explore.",
+            "Add what you like to your cart and check out. Payment and delivery are handled through BODEGS.",
+            "Follow your order from the Orders tab."
+          ].forEach(function (step) {
+            list.appendChild(el("li", { text: step }));
+          });
+
+          body.appendChild(list);
+        });
+      }
+
+      function signOut() {
+        user.loggedIn = false;
+        write(KEY_USER, user);
+        window.location.href = "auth.html";
+      }
+
+      function deleteProfile() {
+        const sure = window.confirm(
+          "Delete your profile? This removes your account details, saved addresses and photo from this device."
+        );
+
+        if (!sure) return;
+
+        remove(KEY_USER);
+        remove(KEY_ADDRESSES);
+        remove(KEY_AVATAR);
+        remove("weraeRememberedEmail");
+        window.location.href = "index.html";
+                                   }
+            /* ---------- menu ---------- */
+
+      const MENU = [
+        { icon: "user", title: "Edit Profile", action: editProfileSheet },
+        { icon: "pin", title: "Delivery Address List", sub: "Manage delivery addresses", action: addressesSheet },
+        { icon: "shield", title: "Verification status", sub: "Check your account details", action: verificationSheet },
+        { icon: "orders", title: "Order History", sub: "See and track your orders", href: "orders.html" },
+        { icon: "help", title: "FAQs", sub: "Read answers to frequently asked questions", action: faqSheet },
+        { icon: "play", title: "How BODEGS works", sub: "A quick guide to buying on BODEGS", action: howItWorksSheet },
+        { icon: "trash", title: "Delete profile", danger: true, action: deleteProfile },
+        { icon: "out", title: "Sign Out", action: signOut }
+      ];
+
+      const menu = document.getElementById("menu");
+
+      MENU.forEach(function (item) {
+        const row = el(item.href ? "a" : "button", {
+          class: "menu-row" + (item.danger ? " danger" : "")
+        });
+
+        if (item.href) {
+          row.setAttribute("href", item.href);
+          row.style.textDecoration = "none";
+        } else {
+          row.setAttribute("type", "button");
+          row.addEventListener("click", item.action);
+        }
+
+        row.innerHTML =
+          svg(item.icon, "menu-icon") +
+          '<span class="menu-text"><strong></strong>' +
+          (item.sub ? "<small></small>" : "") +
+          "</span>" +
+          svg("chevron", "menu-chevron");
+
+        row.querySelector("strong").textContent = item.title;
+        if (item.sub) row.querySelector("small").textContent = item.sub;
+
+        menu.appendChild(row);
+      });
+
+      /* ---------- support card (only shows what you filled in) ---------- */
+
+      (function buildSupport() {
+        const buttons = document.getElementById("supportButtons");
+        const social = document.getElementById("socialRow");
+        let shown = 0;
+
+        function supportLink(icon, label, href) {
+          const link = el("a", { class: "support-btn", href: href });
+          link.innerHTML = svg(icon, "");
+          link.appendChild(document.createTextNode(label));
+          buttons.appendChild(link);
+          shown++;
+        }
+
+        if (SUPPORT.phone) supportLink("phone", "Call us", "tel:+" + SUPPORT.phone.replace(/\D/g, ""));
+        if (SUPPORT.whatsapp) supportLink("chat", "Chat on WhatsApp", "https://wa.me/" + SUPPORT.whatsapp.replace(/\D/g, ""));
+        if (SUPPORT.email) supportLink("mail", "Email us", "mailto:" + SUPPORT.email);
+
+        [["instagram", "Instagram"], ["facebook", "Facebook"]].forEach(function (pair) {
+          if (SUPPORT[pair[0]]) {
+            social.appendChild(
+              el("a", { href: SUPPORT[pair[0]], target: "_blank", rel: "noopener", text: pair[1] })
+            );
+            shown++;
+          }
+        });
+
+        if (shown) {
+          if (!social.children.length) {
+            social.remove();
+          }
+          document.getElementById("support").hidden = false;
+        }
+      })();
+
+      renderProfile();
+
+    })();
+  </script>
+
+</body>
+</html>
