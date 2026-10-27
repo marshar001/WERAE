@@ -147,7 +147,10 @@ if (lastProductPage) {
 
     cartProducts.forEach((product, index) => {
 
-    const numericPrice = Number(String(product.price).replace(/[^\d.]/g, ""));
+    const numericPrice = Number(
+  product.numericPrice ??
+  String(product.price ?? 0).replace(/[^\d.]/g, "")
+) || 0;
     const quantity = product.quantity || 1;
     const totalPrice = "₦" + (numericPrice * quantity).toLocaleString("en-NG");
 
