@@ -250,12 +250,13 @@ if (lastProductPage) {
     orderSummary.className = "cart-order-summary";
 
     const cartSubtotal = cartProducts.reduce((total, product) => {
-      const numericPrice = Number(
-        String(product.price).replace(/[^\d.]/g, "")
-      );
+  const numericPrice = Number(
+    product.numericPrice ??
+    String(product.price ?? 0).replace(/[^\d.]/g, "")
+  ) || 0;
 
-      return total + numericPrice * (product.quantity || 1);
-    }, 0);
+  return total + numericPrice * (product.quantity || 1);
+}, 0);
 
     const formattedSubtotal =
       "₦" + cartSubtotal.toLocaleString("en-NG");
