@@ -731,41 +731,36 @@
           marketplace identity.
         */
 
-        cart.push({
+        
+cart.push({
 
-          productId:
-            product.id,
+  productId: product.id,
 
-          sellerId:
-            product.sellerId,
+  sellerId: product.sellerId,
 
-          name:
-            product.name,
+  name: product.name,
 
-          price:
-            window.BODEGS.formatCurrency(
-              product.price,
-              product.currency
-            ),
+  // Keep price numeric for reliable calculations.
+  price: Number(product.price),
 
-          numericPrice:
-            product.price,
+  // Retain this field for compatibility.
+  numericPrice: Number(product.price),
 
-          image:
-            product.images &&
-            product.images.length
-              ? product.images[0]
-              : "",
+  currency: product.currency || "NGN",
 
-          url:
-            "product.html?id=" +
-            encodeURIComponent(
-              product.id
-            ),
+  image:
+    product.images && product.images.length
+      ? product.images[0]
+      : "",
 
-          quantity: 1
+  url:
+    "product.html?id=" +
+    encodeURIComponent(product.id),
 
-        });
+  quantity: 1
+
+});
+
 
       }
 
