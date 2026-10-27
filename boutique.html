@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apply to open a boutique and sell on BODEGS.">
+  <title>Open a Boutique — BODEGS</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: #f7f7f7; color: #111; padding-bottom: 60px; }
+    header { padding: 16px; display: flex; align-items: center; gap: 12px; background: #fff; border-bottom: 1px solid #eee; }
+    header a { text-decoration: none; color: #111; font-size: 22px; }
+    header h1 { font-size: 18px; margin: 0; }
+    main { max-width: 560px; margin: 0 auto; padding: 16px; }
+    .intro { background: #111; color: #fff; border-radius: 14px; padding: 18px; margin-bottom: 16px; }
+    .intro h2 { margin: 0 0 6px; font-size: 20px; }
+    .intro p { margin: 0; opacity: .85; font-size: 14px; line-height: 1.5; }
+    form { background: #fff; border-radius: 14px; padding: 18px; }
+    h3 { margin: 22px 0 0; font-size: 16px; }
+    .hint { font-size: 13px; color: #555; margin: 4px 0 0; line-height: 1.4; }
+    label { display: block; font-size: 14px; font-weight: 600; margin: 14px 0 6px; }
+    input, select, textarea { width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 10px; font-family: inherit; background: #fff; }
+    textarea { min-height: 90px; resize: vertical; }
+    .check { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; font-size: 13px; margin-top: 18px; }
+    .check input { width: auto; margin-top: 3px; }
+    button { width: 100%; margin-top: 18px; padding: 14px; font-size: 16px; font-weight: 600; border: 0; border-radius: 10px; background: #111; color: #fff; }
+    button:disabled { opacity: .6; }
+    #msg { margin-top: 14px; padding: 12px; border-radius: 10px; font-size: 14px; display: none; }
+    #msg.ok { display: block; background: #e8f7ec; color: #14532d; }
+    #msg.err { display: block; background: #fdecec; color: #7f1d1d; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="profile.html" aria-label="Back to profile">&#8249;</a>
+    <h1>Open a Boutique on BODEGS</h1>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h2>Sell on BODEGS</h2>
+      <p>To keep BODEGS safe from fake stores, every boutique is verified. Your documents are private and only our review team can see them.</p>
+    </section>
+
+    <form id="form" novalidate>
+      <h3>About you and your boutique</h3>
+
+      <label for="fullName">Full name (as on your ID)</label>
+      <input id="fullName" autocomplete="name" required>
+
+      <label for="boutiqueName">Boutique name</label>
+      <input id="boutiqueName" required>
+
+      <label for="phone">Phone / WhatsApp number</label>
+      <input id="phone" type="tel" autocomplete="tel" required>
+
+      <label for="email">Email</label>
+      <input id="email" type="email" autocomplete="email" required>
+
+      <label for="city">Shop or warehouse city / state</label>
+      <input id="city" required>
+
+      <label for="category">Main category</label>
+      <select id="category" required>
+        <option value="">Choose one</option>
+        <option>Tops</option><option>Shirts</option><option>Outerwear</option>
+        <option>Denim</option><option>Native</option><option>Shorts</option>
+        <option>Knitwear</option><option>Co-ords</option><option>Bags</option>
+        <option>Shoes</option><option>Watches</option><option>Jewelry</option>
+        <option>Accessories</option><option>Polo Shirts</option>
+        <option>Underwear</option><option>Sports &amp; Outdoor</option>
+        <option>Mixed / Other</option>
+      </select>
+
+      <label for="about">Tell us about your boutique</label>
+      <textarea id="about" required></textarea>
+
+      <label for="social">Instagram / website (optional)</label>
+      <input id="social">
+
+      <h3>Verification documents</h3>
+      <p class="hint">Photos (JPG or PNG) or PDF. Maximum 5 MB each.</p>
+
+      <label for="idDoc">1. Government-issued ID</label>
+      <p class="hint">National ID, driver's licence, international passport or voter's card.</p>
+      <input id="idDoc" type="file" accept="image/jpeg,image/png,application/pdf" required>
+
+      <label for="cacNumber">2. CAC registration number</label>
+      <input id="cacNumber" placeholder="e.g. RC1234567 or BN1234567" required>
+
+      <label for="cacDoc">CAC certificate</label>
+      <input id="cacDoc" type="file" accept="image/jpeg,image/png,application/pdf" required>
+
+      <label for="addressDoc">3. Proof of shop or warehouse address</label>
+      <p class="hint">A clear photo of the shop front, or a utility bill or lease for the address.</p>
+      <input id="addressDoc" type="file" accept="image/jpeg,image/png,application/pdf" required>
+
+      <label class="check">
+        <input type="checkbox" id="agree" required>
+        <span>I confirm that everything above is true and my documents are genuine.</span>
+      </label>
+
+      <button type="submit" id="btn">Submit application</button>
+      <div id="msg" role="status"></div>
+    </form>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script>
+    const msg = document.getElementById("msg");
+    const btn = document.getElementById("btn");
+    const show = (t, c) => { msg.textContent = t; msg.className = c; };
+    const MAX = 5 * 1024 * 1024;
+    const OK_TYPES = ["image/jpeg", "image/png", "application/pdf"];
+
+    // Must be signed in to apply.
+    (async () => {
+      const user = await requireLogin();
+      if (user) document.getElementById("email").value = user.email || "";
+    })();
+
+    function checkFile(id, label) {
+      const f = document.getElementById(id).files[0];
+      if (!f) return label + " is required.";
+      if (!OK_TYPES.includes(f.type)) return label + " must be a JPG, PNG or PDF.";
+      if (f.size > MAX) return label + " is larger than 5 MB.";
+      return null;
+    }
+
+    document.getElementById("form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      const problem = checkFile("idDoc", "Your ID") ||
+                      checkFile("cacDoc", "Your CAC certificate") ||
+                      checkFile("addressDoc", "Your address proof");
+      if (problem) { show(problem, "err"); return; }
+
+      btn.disabled = true;
+      show("Uploading your documents. Please wait...", "ok");
+      try {
+        const fields = {
+          fullName: document.getElementById("fullName").value.trim(),
+          boutiqueName: document.getElementById("boutiqueName").value.trim(),
+          phone: document.getElementById("phone").value.trim(),
+          email: document.getElementById("email").value.trim(),
+          city: document.getElementById("city").value.trim(),
+          category: document.getElementById("category").value,
+          about: document.getElementById("about").value.trim(),
+          social: document.getElementById("social").value.trim(),
+          cacNumber: document.getElementById("cacNumber").value.trim().toUpperCase()
+        };
+        const files = {
+          idDoc: document.getElementById("idDoc").files[0],
+          cacDoc: document.getElementById("cacDoc").files[0],
+          addressDoc: document.getElementById("addressDoc").files[0]
+        };
+        const { error } = await submitBoutiqueApplication(fields, files);
+        if (error) throw error;
+        form.reset();
+        show("Application received. We will review it and contact you by phone or email.", "ok");
+      } catch (err) {
+        let text = "Could not send your application. Please try again.";
+        if (err && err.code === "23505") {
+          text = "You already have an application under review, or this CAC number was already used.";
+        }
+        show(text, "err");
+        btn.disabled = false;
+        return;
+      }
+      btn.disabled = false;
+    });
+  </script>
+</body>
+                                                           </html>
