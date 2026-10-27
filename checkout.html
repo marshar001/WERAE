@@ -171,8 +171,9 @@
       cartProducts.forEach(product => {
 
         const numericPrice = Number(
-          String(product.price).replace(/[^\d.]/g, "")
-        );
+  product.numericPrice ??
+  String(product.price ?? 0).replace(/[^\d.]/g, "")
+) || 0;
 
         const quantity = product.quantity || 1;
 
@@ -260,14 +261,15 @@
       }
 
       const products = cartProducts.map(product => ({
-        id: product.id || product.productId || "",
-        name: String(product.name || "Fashion item"),
-        image: String(product.image || ""),
-        price: Number(
-          String(product.price ?? 0).replace(/[^\d.]/g, "")
-        ) || 0,
-        quantity: Math.max(1, Number(product.quantity) || 1)
-      }));
+  id: product.id || product.productId || "",
+  name: String(product.name || "Fashion item"),
+  image: String(product.image || ""),
+  price: Number(
+    product.numericPrice ??
+    String(product.price ?? 0).replace(/[^\d.]/g, "")
+  ) || 0,
+  quantity: Math.max(1, Number(product.quantity) || 1)
+}));
 
       const total = products.reduce((sum, product) => {
         return sum + product.price * product.quantity;
