@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BODEGS test</title>
+</head>
+<body style="font-family:sans-serif;padding:16px">
+  <h2>BODEGS connection test</h2>
+  <div id="out">Loading...</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script>
+    (async () => {
+      const out = document.getElementById("out");
+      const { data, error } = await sb
+        .from("products")
+        .select("name, price_ngn")
+        .eq("active", true);
+      if (error) { out.textContent = "Error: " + error.message; return; }
+      if (!data.length) { out.textContent = "Connected, but no products found."; return; }
+      out.textContent = "";
+      for (const p of data) {
+        const d = document.createElement("div");
+        d.textContent = p.name + " - " + naira(p.price_ngn);
+        out.appendChild(d);
+      }
+    })();
+  </script>
+</body>
+</html>
