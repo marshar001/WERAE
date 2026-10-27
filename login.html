@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in — BODEGS</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: #f7f7f7; color: #111; }
+    main { max-width: 420px; margin: 0 auto; padding: 24px 16px; }
+    h1 { font-size: 24px; margin: 8px 0 16px; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+    .tabs button { flex: 1; padding: 10px; border: 1px solid #ccc; background: #fff; border-radius: 10px; font-size: 15px; }
+    .tabs button.on { background: #111; color: #fff; border-color: #111; }
+    form { background: #fff; border-radius: 14px; padding: 18px; }
+    label { display: block; font-size: 14px; font-weight: 600; margin: 12px 0 6px; }
+    input { width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 10px; }
+    .go { width: 100%; margin-top: 18px; padding: 14px; font-size: 16px; font-weight: 600; border: 0; border-radius: 10px; background: #111; color: #fff; }
+    #msg { margin-top: 12px; font-size: 14px; }
+    .err { color: #b91c1c; } .ok { color: #166534; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Welcome to BODEGS</h1>
+  <div class="tabs">
+    <button type="button" id="tabIn" class="on">Sign in</button>
+    <button type="button" id="tabUp">Create account</button>
+  </div>
+
+  <form id="authForm">
+    <div id="nameRow" style="display:none">
+      <label for="fullName">Full name</label>
+      <input id="fullName" autocomplete="name">
+    </div>
+    <label for="email">Email</label>
+    <input id="email" type="email" autocomplete="email" required>
+    <label for="password">Password (at least 8 characters)</label>
+    <input id="password" type="password" minlength="8" autocomplete="current-password" required>
+    <button class="go" id="goBtn" type="submit">Sign in</button>
+    <div id="msg" role="status"></div>
+  </form>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script>
+  let mode = "in";
+  const msg = document.getElementById("msg");
+  const show = (t, c) => { msg.textContent = t; msg.className = c || ""; };
+
+  function safeNext() {
+    const n = new URLSearchParams(location.search).get("next") || "profile.html";
+    return /^[A-Za-z0-9_\-]+\.html(\?[A-Za-z0-9_\-=&%.]*)?$/.test(n) ? n : "profile.html";
+  }
+
+  function setMode(m) {
+    mode = m;
+    document.getElementById("tabIn").className = m === "in" ? "on" : "";
+    document.getElementById("tabUp").className = m === "up" ? "on" : "";
+    document.getElementById("nameRow").style.display = m === "up" ? "block" : "none";
+    document.getElementById("goBtn").textContent = m === "in" ? "Sign in" : "Create account";
+    show("");
+  }
+  document.getElementById("tabIn").onclick = () => setMode("in");
+  document.getElementById("tabUp").onclick = () => setMode("up");
+
+  document.getElementById("authForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const name = document.getElementById("fullName").value.trim();
+    const btn = document.getElementById("goBtn");
+    btn.disabled = true; show("Please wait...");
+
+    if (mode === "in") {
+      const { error } = await signIn(email, password);
+      if (error) { show(error.message, "err"); btn.disabled = false; return; }
+      location.href = safeNext();
+    } else {
+      const { data, error } = await signUp(email, password, name);
+      if (error) { show(error.message, "err"); btn.disabled = false; return; }
+      if (data.session) { location.href = safeNext(); return; }
+      show("Account created. Check your email to confirm it, then sign in.", "ok");
+      btn.disabled = false;
+    }
+  });
+
+  currentUser().then((u) => { if (u) location.href = safeNext(); });
+</script>
+</body>
+</html>
