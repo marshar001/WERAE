@@ -161,7 +161,7 @@ function loadProductsFromDatabase() {
       "images, colors, image_url, seller_id, sellers(boutique_name, verified)"
     )
     .eq("active", true)
-    .order("created_at", { ascending: true })
+    .order("created_at", { ascending: false })
     .then(result => {
       if (result.error) { throw result.error; }
       BODEGS_PRODUCTS.splice(
