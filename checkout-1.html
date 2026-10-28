@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Checkout — BODEGS</title>
+
+  <meta
+    name="description"
+    content="Complete your BODEGS order."
+  >
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <main class="checkout-page">
+
+    
+<a href="cart.html" class="back-button" aria-label="Return to cart">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M15 5L8 12L15 19"></path>
+  </svg>
+</a>
+
+    <header class="checkout-header">
+      <p class="verified-badge">BODEGS CHECKOUT</p>
+      <h1>Checkout</h1>
+      <p>Enter your delivery information to continue.</p>
+    </header>
+
+    <section class="checkout-section">
+      <h2>Delivery Information</h2>
+
+      <label>
+        Full Name
+        <input
+          type="text"
+          id="checkoutName"
+          placeholder="Enter your full name"
+        >
+      </label>
+
+      <label>
+        Phone Number
+        <input
+          type="tel"
+          id="checkoutPhone"
+          placeholder="Enter your phone number"
+        >
+      </label>
+
+      <label>
+        Delivery Address
+        <textarea
+          id="checkoutAddress"
+          rows="3"
+          placeholder="Enter your delivery address"
+        ></textarea>
+      </label>
+
+      <label>
+        City
+        <input
+          type="text"
+          id="checkoutCity"
+          placeholder="Enter your city"
+        >
+      </label>
+    </section>
+
+    <section class="checkout-section">
+      <div class="checkout-summary-header">
+        <div>
+          <h2>Order Summary</h2>
+          <p id="checkoutItemCount"></p>
+        </div>
+      </div>
+
+      <div id="checkoutItems"></div>
+
+      <div class="checkout-summary-lines">
+
+        <div class="checkout-summary-row">
+          <span>Subtotal</span>
+          <strong id="checkoutSubtotal">₦0</strong>
+        </div>
+
+        <div class="checkout-summary-row">
+          <span>Delivery</span>
+          <strong>Calculated at payment</strong>
+        </div>
+
+      </div>
+
+      <div class="checkout-total">
+        <span>Total</span>
+        <strong id="checkoutTotal">₦0</strong>
+      </div>
+    </section>
+
+        <button
+      type="button"
+      class="checkout-place-order"
+      id="placeDemoOrder"
+    >
+      Place Demo Order
+    </button>
+
+    <p id="checkoutMessage" role="status" aria-live="polite"></p>
+
+  </main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script>
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    // Must be signed in (real BODEGS login). Pre-fill the name if we know it.
+    requireLogin().then(function (user) {
+      if (!user) return;
+      const meta = user.user_metadata || {};
+      const nameBox = document.getElementById("checkoutName");
+      if (nameBox && !nameBox.value && meta.full_name) {
+        nameBox.value = meta.full_name;
+      }
+    });
+
+    const checkoutItems =
+      document.getElementById("checkoutItems");
+    const checkoutItemCount =
+      document.getElementById("checkoutItemCount");
+    const checkoutSubtotal =
+      document.getElementById("checkoutSubtotal");
+
+    const checkoutTotal =
+      document.getElementById("checkoutTotal");
+
+    const cartProducts = JSON.parse(
+      localStorage.getItem("weraeCart") || "[]"
+    );
+
+    if (cartProducts.length === 0) {
+
+      checkoutItemCount.textContent = "0 items";
+
+      checkoutItems.innerHTML = `
+        <div class="checkout-empty">
+          <p>Your cart is empty.</p>
+
+          <a href="index.html" class="continue-shopping">
+            Start Shopping
+          </a>
+        </div>
+      `;
+
+      checkoutSubtotal.textContent = "₦0";
+      checkoutTotal.textContent = "₦0";
+
+    } else {
+
+      const totalQuantity = cartProducts.reduce(
+        (total, product) => {
+          return total + (product.quantity || 1);
+        },
+        0
+      );
+
+      checkoutItemCount.textContent =
+        `${totalQuantity} ${totalQuantity === 1 ? "item" : "items"}`;
+
+      let cartTotal = 0;
+
+      cartProducts.forEach(product => {
+
+        const numericPrice = Number(
+  product.numericPrice ??
+  String(product.price ?? 0).replace(/[^\d.]/g, "")
+) || 0;
+
+        const quantity = product.quantity || 1;
+
+        const itemTotal =
+          numericPrice * quantity;
+
+        cartTotal += itemTotal;
+
+        const item = document.createElement("article");
+
+        item.className = "checkout-item";
+
+        item.innerHTML = `
+          <div class="checkout-item-image">
+            <img
+              src="${escapeHTML(product.image)}"
+              alt="${escapeHTML(product.name)}"
+            >
+          </div>
+
+          <div class="checkout-item-details">
+
+            <h3>${escapeHTML(product.name)}</h3>
+
+            <p class="checkout-item-seller">
+              Verified Fashion Store
+            </p>
+
+            <p class="checkout-item-quantity">
+              Quantity: ${quantity}
+            </p>
+
+          </div>
+
+          <div class="checkout-item-price">
+            <strong>
+              ₦${itemTotal.toLocaleString("en-NG")}
+            </strong>
+          </div>
+        `;
+
+        checkoutItems.appendChild(item);
+
+      });
+
+      const formattedTotal =
+        "₦" + cartTotal.toLocaleString("en-NG");
+
+      checkoutSubtotal.textContent =
+        formattedTotal;
+
+      checkoutTotal.textContent =
+        formattedTotal;
+    }
+  // BODEGS DEMO ORDER FLOW
+    const placeDemoOrderButton =
+      document.getElementById("placeDemoOrder");
+
+    const checkoutMessage =
+      document.getElementById("checkoutMessage");
+
+    placeDemoOrderButton.addEventListener("click", async () => {
+      const name =
+        document.getElementById("checkoutName").value.trim();
+
+      const phone =
+        document.getElementById("checkoutPhone").value.trim();
+
+      const address =
+        document.getElementById("checkoutAddress").value.trim();
+
+      const city =
+        document.getElementById("checkoutCity").value.trim();
+
+      if (!name || !phone || !address || !city) {
+        checkoutMessage.textContent =
+          "Please complete all delivery information.";
+        return;
+      }
+
+      if (!Array.isArray(cartProducts) || cartProducts.length === 0) {
+        checkoutMessage.textContent =
+          "Your cart is empty. Add products before placing an order.";
+        return;
+      }
+
+      // Only the product and the quantity are sent. The price is always
+      // taken from the BODEGS database, never from this phone.
+      const items = cartProducts.map(product => ({
+        productId: String(product.productId || product.id || ""),
+        quantity: Math.max(1, Math.min(99, Number(product.quantity) || 1))
+      }));
+
+      if (items.some(item => !item.productId)) {
+        checkoutMessage.textContent =
+          "Something is wrong with your cart. Please remove the item and add it again.";
+        return;
+      }
+
+      placeDemoOrderButton.disabled = true;
+      checkoutMessage.textContent = "Placing your order...";
+
+      const { error } = await sb.rpc("place_order", {
+        p_items: items,
+        p_name: name,
+        p_phone: phone,
+        p_address: address,
+        p_city: city
+      });
+
+      if (error) {
+        const reason = String(error.message || "");
+        let text = "We couldn't place your order. Please try again.";
+
+        if (reason.includes("not signed in")) {
+          window.location.href = "login.html?next=checkout.html";
+          return;
+        }
+        if (reason.includes("product not available")) {
+          text = "One of the items in your cart is no longer available. Please remove it and try again.";
+        } else if (reason.includes("not enough stock")) {
+          text = "Sorry, one of the items in your cart is out of stock.";
+        }
+
+        checkoutMessage.textContent = text;
+        placeDemoOrderButton.disabled = false;
+        return;
+      }
+
+      // Clear the cart only after the order has been saved.
+      localStorage.removeItem("weraeCart");
+      window.location.href = "orders.html";
+    });
+  
+  </script>
+
+</body>
+</html>
+    
