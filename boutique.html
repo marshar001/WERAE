@@ -6,172 +6,337 @@
   <meta name="description" content="Apply to open a boutique and sell on BODEGS.">
   <title>Open a Boutique — BODEGS</title>
   <style>
+    :root { --ink:#111; --muted:#6b7280; --line:#e5e7eb; --bg:#f5f5f7; --blue:#1d9bf0; --red:#b91c1c; --green:#166534; }
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: system-ui, sans-serif; background: #f7f7f7; color: #111; padding-bottom: 60px; }
-    header { padding: 16px; display: flex; align-items: center; gap: 12px; background: #fff; border-bottom: 1px solid #eee; }
-    header a { text-decoration: none; color: #111; font-size: 22px; }
-    header h1 { font-size: 18px; margin: 0; }
-    main { max-width: 560px; margin: 0 auto; padding: 16px; }
-    .intro { background: #111; color: #fff; border-radius: 14px; padding: 18px; margin-bottom: 16px; }
-    .intro h2 { margin: 0 0 6px; font-size: 20px; }
-    .intro p { margin: 0; opacity: .85; font-size: 14px; line-height: 1.5; }
-    form { background: #fff; border-radius: 14px; padding: 18px; }
-    h3 { margin: 22px 0 0; font-size: 16px; }
-    .hint { font-size: 13px; color: #555; margin: 4px 0 0; line-height: 1.4; }
-    label { display: block; font-size: 14px; font-weight: 600; margin: 14px 0 6px; }
-    input, select, textarea { width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 10px; font-family: inherit; background: #fff; }
-    textarea { min-height: 90px; resize: vertical; }
-    .check { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; font-size: 13px; margin-top: 18px; }
-    .check input { width: auto; margin-top: 3px; }
-    button { width: 100%; margin-top: 18px; padding: 14px; font-size: 16px; font-weight: 600; border: 0; border-radius: 10px; background: #111; color: #fff; }
-    button:disabled { opacity: .6; }
-    #msg { margin-top: 14px; padding: 12px; border-radius: 10px; font-size: 14px; display: none; }
-    #msg.ok { display: block; background: #e8f7ec; color: #14532d; }
-    #msg.err { display: block; background: #fdecec; color: #7f1d1d; }
+    [hidden] { display: none !important; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: var(--ink); }
+
+    header { position: sticky; top: 0; z-index: 5; background: #fff; border-bottom: 1px solid var(--line); padding: 12px 16px 14px; }
+    .top { display: flex; align-items: center; gap: 10px; }
+    .top a { text-decoration: none; color: var(--ink); font-size: 26px; line-height: 1; padding: 0 6px 4px 0; }
+    .top h1 { font-size: 17px; margin: 0; }
+    .progress { margin-top: 12px; }
+    .progress-text { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .progress-text strong { color: var(--ink); }
+    .bar { height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; }
+    .bar span { display: block; height: 100%; width: 25%; background: var(--ink); border-radius: 99px; transition: width .25s ease; }
+
+    main { max-width: 560px; margin: 0 auto; padding: 18px 16px 120px; }
+    .card { background: #fff; border-radius: 16px; padding: 20px 18px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+    .card h2 { margin: 0 0 4px; font-size: 20px; }
+    .lead { margin: 0 0 18px; color: var(--muted); font-size: 14px; line-height: 1.45; }
+
+    .field { margin-bottom: 16px; }
+    .field:last-child { margin-bottom: 0; }
+    label.lbl { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .opt { font-weight: 400; color: var(--muted); }
+    .help { font-size: 12.5px; color: var(--muted); margin: 5px 0 0; line-height: 1.4; }
+    input[type=text], input[type=tel], input[type=email], select, textarea {
+      width: 100%; padding: 13px 14px; font-size: 16px; font-family: inherit; color: var(--ink);
+      background: #fff; border: 1.5px solid var(--line); border-radius: 12px; outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--ink); }
+    textarea { min-height: 96px; resize: vertical; }
+
+    .file { position: relative; display: flex; align-items: center; gap: 12px; padding: 14px; border: 1.5px dashed #c7cbd1; border-radius: 12px; background: #fafafa; cursor: pointer; }
+    .file input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .file .ico { flex: none; width: 40px; height: 40px; border-radius: 10px; background: #eef0f3; display: grid; place-items: center; font-size: 20px; }
+    .file .txt { min-width: 0; }
+    .file .t { display: block; font-size: 14px; font-weight: 600; }
+    .file .n { display: block; font-size: 13px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .file.done { border-style: solid; border-color: var(--blue); background: #f0f8ff; }
+    .file.done .ico { background: var(--blue); color: #fff; }
+
+    .check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.45; cursor: pointer; }
+    .check input { width: 20px; height: 20px; margin: 1px 0 0; flex: none; }
+
+    #msg { margin-top: 14px; padding: 12px 14px; border-radius: 12px; font-size: 14px; line-height: 1.4; }
+    #msg.err { background: #fdecec; color: var(--red); }
+    #msg.ok { background: #eef6ff; color: #1e4e8c; }
+
+    .bottom { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; background: #fff; border-top: 1px solid var(--line); padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); }
+    .bottom-in { max-width: 560px; margin: 0 auto; display: flex; gap: 10px; }
+    .btn { flex: 1; padding: 15px; font-size: 16px; font-weight: 600; border-radius: 12px; border: 0; cursor: pointer; text-align: center; text-decoration: none; display: block; font-family: inherit; }
+    .btn.primary { background: var(--ink); color: #fff; }
+    .btn.ghost { background: #fff; color: var(--ink); border: 1.5px solid var(--line); flex: .6; }
+    .btn:disabled { opacity: .55; }
+
+    #done { max-width: 560px; margin: 0 auto; padding: 56px 20px 40px; text-align: center; }
+    .tick { width: 120px; height: 120px; margin: 0 auto 24px; border-radius: 50%; background: var(--blue); display: grid; place-items: center; animation: pop .45s cubic-bezier(.2,1.4,.4,1) both; box-shadow: 0 10px 30px rgba(29,155,240,.35); }
+    .tick svg { width: 64px; height: 64px; }
+    .tick path { stroke-dasharray: 40; stroke-dashoffset: 40; animation: draw .4s .25s ease forwards; }
+    @keyframes pop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    #done h2 { font-size: 26px; margin: 0 0 10px; }
+    #done p { color: var(--muted); font-size: 15px; line-height: 1.55; margin: 0 auto 28px; max-width: 360px; }
+    #done .actions { display: grid; gap: 10px; max-width: 360px; margin: 0 auto; }
   </style>
 </head>
 <body>
-  <header>
+
+<header id="head">
+  <div class="top">
     <a href="profile.html" aria-label="Back to profile">&#8249;</a>
     <h1>Open a Boutique on BODEGS</h1>
-  </header>
+  </div>
+  <div class="progress">
+    <div class="progress-text"><span id="stepNum">Step 1 of 4</span><strong id="stepName">About you</strong></div>
+    <div class="bar"><span id="barFill"></span></div>
+  </div>
+</header>
 
-  <main>
-    <section class="intro">
-      <h2>Sell on BODEGS</h2>
-      <p>To keep BODEGS safe from fake stores, every boutique is verified. Your documents are private and only our review team can see them.</p>
+<main id="wizard">
+  <form id="form" novalidate>
+
+    <section class="card step" data-step="1">
+      <h2>About you</h2>
+      <p class="lead">We use these details to contact you about your application.</p>
+      <div class="field">
+        <label class="lbl" for="fullName">Full name (as on your ID)</label>
+        <input id="fullName" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label class="lbl" for="phone">Phone / WhatsApp number</label>
+        <input id="phone" type="tel" autocomplete="tel" inputmode="tel" minlength="10" required>
+      </div>
+      <div class="field">
+        <label class="lbl" for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" required>
+      </div>
     </section>
 
-    <form id="form" novalidate>
-      <h3>About you and your boutique</h3>
+    <section class="card step" data-step="2" hidden>
+      <h2>Your boutique</h2>
+      <p class="lead">Tell buyers what you sell.</p>
+      <div class="field">
+        <label class="lbl" for="boutiqueName">Boutique name</label>
+        <input id="boutiqueName" type="text" required>
+      </div>
+      <div class="field">
+        <label class="lbl" for="category">Main category</label>
+        <select id="category" required>
+          <option value="">Choose one</option>
+          <option>Tops</option><option>Shirts</option><option>Outerwear</option>
+          <option>Denim</option><option>Native</option><option>Shorts</option>
+          <option>Knitwear</option><option>Co-ords</option><option>Bags</option>
+          <option>Shoes</option><option>Watches</option><option>Jewelry</option>
+          <option>Accessories</option><option>Polo Shirts</option>
+          <option>Underwear</option><option>Sports &amp; Outdoor</option>
+          <option>Mixed / Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="lbl" for="city">Shop or warehouse city / state</label>
+        <input id="city" type="text" required>
+      </div>
+      <div class="field">
+        <label class="lbl" for="about">About your boutique</label>
+        <textarea id="about" required></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl" for="social">Instagram or website <span class="opt">(optional)</span></label>
+        <input id="social" type="text">
+      </div>
+    </section>
 
-      <label for="fullName">Full name (as on your ID)</label>
-      <input id="fullName" autocomplete="name" required>
+    <section class="card step" data-step="3" hidden>
+      <h2>Verification</h2>
+      <p class="lead">Every boutique is verified to keep BODEGS safe from fake stores. Your documents are private and only our review team can see them.</p>
+      <div class="field">
+        <span class="lbl">Government-issued ID</span>
+        <label class="file" id="idBox">
+          <span class="ico">&#128196;</span>
+          <span class="txt"><span class="t">Upload your ID</span><span class="n">Tap to choose a photo or PDF</span></span>
+          <input id="idDoc" type="file" accept="image/jpeg,image/png,application/pdf">
+        </label>
+        <p class="help">National ID, driver's licence, international passport or voter's card.</p>
+      </div>
+      <div class="field">
+        <label class="lbl" for="cacNumber">CAC registration number</label>
+        <input id="cacNumber" type="text" placeholder="e.g. RC1234567 or BN1234567" autocapitalize="characters" required>
+      </div>
+      <div class="field">
+        <span class="lbl">CAC certificate</span>
+        <label class="file" id="cacBox">
+          <span class="ico">&#128196;</span>
+          <span class="txt"><span class="t">Upload your CAC certificate</span><span class="n">Tap to choose a photo or PDF</span></span>
+          <input id="cacDoc" type="file" accept="image/jpeg,image/png,application/pdf">
+        </label>
+      </div>
+    </section>
 
-      <label for="boutiqueName">Boutique name</label>
-      <input id="boutiqueName" required>
+    <section class="card step" data-step="4" hidden>
+      <h2>Address &amp; confirm</h2>
+      <p class="lead">This helps us confirm your shop or warehouse is real.</p>
+      <div class="field">
+        <span class="lbl">Proof of shop or warehouse address</span>
+        <label class="file" id="addrBox">
+          <span class="ico">&#128205;</span>
+          <span class="txt"><span class="t">Upload address proof</span><span class="n">Tap to choose a photo or PDF</span></span>
+          <input id="addressDoc" type="file" accept="image/jpeg,image/png,application/pdf">
+        </label>
+        <p class="help">A clear photo of the shop front, or a utility bill or lease for the address. JPG, PNG or PDF, up to 5 MB.</p>
+      </div>
+      <div class="field">
+        <label class="check">
+          <input type="checkbox" id="agree">
+          <span>I confirm that everything I entered is true and my documents are genuine.</span>
+        </label>
+      </div>
+    </section>
 
-      <label for="phone">Phone / WhatsApp number</label>
-      <input id="phone" type="tel" autocomplete="tel" required>
+    <div id="msg" role="status" aria-live="polite" hidden></div>
+  </form>
+</main>
 
-      <label for="email">Email</label>
-      <input id="email" type="email" autocomplete="email" required>
+<div class="bottom" id="bar">
+  <div class="bottom-in">
+    <button type="button" class="btn ghost" id="backBtn" hidden>Back</button>
+    <button type="button" class="btn primary" id="nextBtn">Next</button>
+  </div>
+</div>
 
-      <label for="city">Shop or warehouse city / state</label>
-      <input id="city" required>
+<section id="done" hidden>
+  <div class="tick" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+  </div>
+  <h2>Application received</h2>
+  <p id="doneText">Thank you. We have received your application and will review your documents. We will contact you by phone or email.</p>
+  <div class="actions">
+    <a class="btn primary" href="profile.html">Return to profile</a>
+    <a class="btn ghost" style="flex:1" href="index.html">Return to BODEGS</a>
+  </div>
+</section>
 
-      <label for="category">Main category</label>
-      <select id="category" required>
-        <option value="">Choose one</option>
-        <option>Tops</option><option>Shirts</option><option>Outerwear</option>
-        <option>Denim</option><option>Native</option><option>Shorts</option>
-        <option>Knitwear</option><option>Co-ords</option><option>Bags</option>
-        <option>Shoes</option><option>Watches</option><option>Jewelry</option>
-        <option>Accessories</option><option>Polo Shirts</option>
-        <option>Underwear</option><option>Sports &amp; Outdoor</option>
-        <option>Mixed / Other</option>
-      </select>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script>
+  const TOTAL = 4;
+  const NAMES = ["About you", "Your boutique", "Verification", "Address & confirm"];
+  const MAX = 5 * 1024 * 1024;
+  const OK_TYPES = ["image/jpeg", "image/png", "application/pdf"];
+  const $ = (id) => document.getElementById(id);
+  const steps = Array.from(document.querySelectorAll(".step"));
+  let step = 1;
 
-      <label for="about">Tell us about your boutique</label>
-      <textarea id="about" required></textarea>
+  function showMsg(text, kind) {
+    const m = $("msg");
+    if (!text) { m.hidden = true; return; }
+    m.textContent = text; m.className = kind; m.hidden = false;
+  }
 
-      <label for="social">Instagram / website (optional)</label>
-      <input id="social">
+  function render() {
+    steps.forEach((s) => { s.hidden = Number(s.dataset.step) !== step; });
+    $("stepNum").textContent = "Step " + step + " of " + TOTAL;
+    $("stepName").textContent = NAMES[step - 1];
+    $("barFill").style.width = (step / TOTAL * 100) + "%";
+    $("backBtn").hidden = step === 1;
+    $("nextBtn").textContent = step === TOTAL ? "Submit application" : "Next";
+    showMsg("");
+    window.scrollTo(0, 0);
+  }
 
-      <h3>Verification documents</h3>
-      <p class="hint">Photos (JPG or PNG) or PDF. Maximum 5 MB each.</p>
+  function fileProblem(id, label) {
+    const f = $(id).files[0];
+    if (!f) return "Please upload " + label + ".";
+    if (!OK_TYPES.includes(f.type)) return label + " must be a JPG, PNG or PDF.";
+    if (f.size > MAX) return label + " is larger than 5 MB.";
+    return null;
+  }
 
-      <label for="idDoc">1. Government-issued ID</label>
-      <p class="hint">National ID, driver's licence, international passport or voter's card.</p>
-      <input id="idDoc" type="file" accept="image/jpeg,image/png,application/pdf" required>
+  // Returns true if the current step is complete.
+  function validate(n) {
+    const section = steps[n - 1];
+    const fields = section.querySelectorAll("input:not([type=file]):not([type=checkbox]), select, textarea");
+    for (const el of fields) {
+      if (!el.checkValidity()) { el.reportValidity(); return false; }
+    }
+    let problem = null;
+    if (n === 3) problem = fileProblem("idDoc", "your ID") || fileProblem("cacDoc", "your CAC certificate");
+    if (n === 4) {
+      problem = fileProblem("addressDoc", "your address proof");
+      if (!problem && !$("agree").checked) problem = "Please tick the confirmation box.";
+    }
+    if (problem) { showMsg(problem, "err"); return false; }
+    return true;
+  }
 
-      <label for="cacNumber">2. CAC registration number</label>
-      <input id="cacNumber" placeholder="e.g. RC1234567 or BN1234567" required>
+  // Show the chosen file name inside each upload box.
+  [["idDoc", "idBox"], ["cacDoc", "cacBox"], ["addressDoc", "addrBox"]].forEach(([inputId, boxId]) => {
+    $(inputId).addEventListener("change", () => {
+      const f = $(inputId).files[0];
+      const box = $(boxId);
+      const nameEl = box.querySelector(".n");
+      const ico = box.querySelector(".ico");
+      if (f) { nameEl.textContent = f.name; box.classList.add("done"); ico.textContent = "✓"; }
+      else { nameEl.textContent = "Tap to choose a photo or PDF"; box.classList.remove("done"); }
+      showMsg("");
+    });
+  });
 
-      <label for="cacDoc">CAC certificate</label>
-      <input id="cacDoc" type="file" accept="image/jpeg,image/png,application/pdf" required>
+  $("backBtn").addEventListener("click", () => { if (step > 1) { step--; render(); } });
 
-      <label for="addressDoc">3. Proof of shop or warehouse address</label>
-      <p class="hint">A clear photo of the shop front, or a utility bill or lease for the address.</p>
-      <input id="addressDoc" type="file" accept="image/jpeg,image/png,application/pdf" required>
+  $("nextBtn").addEventListener("click", async () => {
+    if (!validate(step)) return;
+    if (step < TOTAL) { step++; render(); return; }
 
-      <label class="check">
-        <input type="checkbox" id="agree" required>
-        <span>I confirm that everything above is true and my documents are genuine.</span>
-      </label>
-
-      <button type="submit" id="btn">Submit application</button>
-      <div id="msg" role="status"></div>
-    </form>
-  </main>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase.js"></script>
-  <script>
-    const msg = document.getElementById("msg");
-    const btn = document.getElementById("btn");
-    const show = (t, c) => { msg.textContent = t; msg.className = c; };
-    const MAX = 5 * 1024 * 1024;
-    const OK_TYPES = ["image/jpeg", "image/png", "application/pdf"];
-
-    // Must be signed in to apply.
-    (async () => {
-      const user = await requireLogin();
-      if (user) document.getElementById("email").value = user.email || "";
-    })();
-
-    function checkFile(id, label) {
-      const f = document.getElementById(id).files[0];
-      if (!f) return label + " is required.";
-      if (!OK_TYPES.includes(f.type)) return label + " must be a JPG, PNG or PDF.";
-      if (f.size > MAX) return label + " is larger than 5 MB.";
-      return null;
+    // Final step: check every step again, then submit.
+    for (let i = 1; i <= TOTAL; i++) {
+      if (!validate(i)) { step = i; render(); validate(i); return; }
     }
 
-    document.getElementById("form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      if (!form.checkValidity()) { form.reportValidity(); return; }
+    const btn = $("nextBtn");
+    btn.disabled = true;
+    $("backBtn").disabled = true;
+    showMsg("Uploading your documents. Please keep this page open...", "ok");
 
-      const problem = checkFile("idDoc", "Your ID") ||
-                      checkFile("cacDoc", "Your CAC certificate") ||
-                      checkFile("addressDoc", "Your address proof");
-      if (problem) { show(problem, "err"); return; }
+    try {
+      const fields = {
+        fullName: $("fullName").value.trim(),
+        boutiqueName: $("boutiqueName").value.trim(),
+        phone: $("phone").value.trim(),
+        email: $("email").value.trim(),
+        city: $("city").value.trim(),
+        category: $("category").value,
+        about: $("about").value.trim(),
+        social: $("social").value.trim(),
+        cacNumber: $("cacNumber").value.trim().toUpperCase()
+      };
+      const files = {
+        idDoc: $("idDoc").files[0],
+        cacDoc: $("cacDoc").files[0],
+        addressDoc: $("addressDoc").files[0]
+      };
+      const { error } = await submitBoutiqueApplication(fields, files);
+      if (error) throw error;
 
-      btn.disabled = true;
-      show("Uploading your documents. Please wait...", "ok");
-      try {
-        const fields = {
-          fullName: document.getElementById("fullName").value.trim(),
-          boutiqueName: document.getElementById("boutiqueName").value.trim(),
-          phone: document.getElementById("phone").value.trim(),
-          email: document.getElementById("email").value.trim(),
-          city: document.getElementById("city").value.trim(),
-          category: document.getElementById("category").value,
-          about: document.getElementById("about").value.trim(),
-          social: document.getElementById("social").value.trim(),
-          cacNumber: document.getElementById("cacNumber").value.trim().toUpperCase()
-        };
-        const files = {
-          idDoc: document.getElementById("idDoc").files[0],
-          cacDoc: document.getElementById("cacDoc").files[0],
-          addressDoc: document.getElementById("addressDoc").files[0]
-        };
-        const { error } = await submitBoutiqueApplication(fields, files);
-        if (error) throw error;
-        form.reset();
-        show("Application received. We will review it and contact you by phone or email.", "ok");
-      } catch (err) {
-        let text = "Could not send your application. Please try again.";
-        if (err && err.code === "23505") {
-          text = "You already have an application under review, or this CAC number was already used.";
-        }
-        show(text, "err");
-        btn.disabled = false;
-        return;
+      // Success screen
+      $("doneText").textContent = "Thank you, " + fields.fullName.split(" ")[0] +
+        ". We have received your application for " + fields.boutiqueName +
+        " and will review your documents. We will contact you by phone or email.";
+      $("head").hidden = true;
+      $("wizard").hidden = true;
+      $("bar").hidden = true;
+      $("done").hidden = false;
+      window.scrollTo(0, 0);
+    } catch (err) {
+      let text = "Could not send your application. Please check your connection and try again.";
+      if (err && err.code === "23505") {
+        text = "You already have an application under review, or this CAC number has already been used.";
       }
+      showMsg(text, "err");
       btn.disabled = false;
-    });
-  </script>
+      $("backBtn").disabled = false;
+    }
+  });
+
+  // Must be signed in to apply. Pre-fill the email.
+  (async () => {
+    const user = await requireLogin();
+    if (user && !$("email").value) $("email").value = user.email || "";
+  })();
+
+  render();
+</script>
 </body>
-                                                           </html>
+</html>
