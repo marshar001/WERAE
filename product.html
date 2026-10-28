@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="styles.css">
 
   <!-- CENTRAL PRODUCT DATA -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
   <script src="products.js"></script>
 </head>
 
@@ -231,6 +233,7 @@
 
 
   <script>
+window.BODEGS.ready.then(function () {
 
     /* =================================
        GET PRODUCT FROM CENTRAL DATA
@@ -1199,8 +1202,8 @@ cart.push({
        ================================= */
 
     updateProductCartCount();
-
-  </script>
+    });
+</script>
 
 </body>
   </html>
