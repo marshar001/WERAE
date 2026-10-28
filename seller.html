@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Seller Dashboard — BODEGS</title>
+  <style>
+    :root { --green:#173b32; --cream:#f3efe7; --card:#fbf9f4; --line:rgba(23,59,50,.14); --muted:#6c756f; --red:#873b32; --amber:#795516; }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body { margin: 0; background: var(--cream); color: #1b2b26; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding-bottom: 40px; }
+
+    header { background: var(--green); color: #fff; padding: 16px; }
+    header .row { max-width: 640px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    header .eyebrow { margin: 0 0 3px; font-size: 11px; letter-spacing: .12em; opacity: .75; }
+    header h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 22px; overflow-wrap: anywhere; }
+    header a { color: #fff; opacity: .85; font-size: 14px; text-decoration: none; flex: none; }
+
+    main { max-width: 640px; margin: 0 auto; padding: 16px 14px; }
+    .notice { padding: 36px 16px; text-align: center; color: var(--muted); font-size: 15px; line-height: 1.55; }
+    .notice a { color: var(--green); font-weight: 600; }
+
+    .btn { display: block; width: 100%; border: 0; border-radius: 14px; padding: 15px; font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer; text-align: center; text-decoration: none; }
+    .btn.primary { background: var(--green); color: #fff; }
+    .btn.ghost { background: #fff; color: var(--green); border: 1.5px solid var(--line); }
+    .btn:disabled { opacity: .55; }
+
+    .summary { display: flex; justify-content: space-between; align-items: baseline; margin: 4px 2px 12px; color: var(--muted); font-size: 14px; }
+    .summary strong { color: #1b2b26; font-size: 16px; }
+
+    .item { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 12px; margin-top: 12px; }
+    .item-main { display: flex; gap: 12px; }
+    .thumb { flex: none; width: 84px; height: 104px; border-radius: 12px; background: #e8e3d8; overflow: hidden; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .info { min-width: 0; flex: 1; }
+    .info h3 { margin: 0 0 4px; font-family: Georgia, "Times New Roman", serif; font-size: 17px; overflow-wrap: anywhere; }
+    .price { font-weight: 700; margin: 0 0 4px; }
+    .meta { color: var(--muted); font-size: 13px; margin: 0 0 8px; }
+    .badge { display: inline-block; border-radius: 20px; padding: 4px 10px; font-size: 11px; font-weight: 700; background: #d9ecd9; color: #1f5a2c; }
+    .badge.off { background: #ece7da; color: var(--amber); }
+    .badge.out { background: #f3d8d5; color: var(--red); margin-left: 6px; }
+    .item-actions { display: flex; gap: 8px; margin-top: 12px; }
+    .item-actions .btn { padding: 11px 6px; font-size: 14px; border-radius: 12px; }
+    .btn.danger { background: #fff; color: var(--red); border: 1.5px solid rgba(135,59,50,.35); }
+
+    .linkback { background: none; border: 0; padding: 6px 2px 12px; font: inherit; font-size: 15px; color: var(--green); font-weight: 600; cursor: pointer; }
+    form { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px 16px; }
+    form h2 { margin: 0 0 16px; font-family: Georgia, "Times New Roman", serif; font-size: 22px; }
+    .field { margin-bottom: 16px; }
+    .lbl { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .opt { font-weight: 400; color: var(--muted); }
+    .help { margin: 6px 0 0; font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+    input[type=text], input[type=number], select, textarea { width: 100%; padding: 13px 14px; font-size: 16px; font-family: inherit; color: #1b2b26; background: #fff; border: 1.5px solid var(--line); border-radius: 12px; outline: none; }
+    input:focus, select:focus, textarea:focus { border-color: var(--green); }
+    textarea { min-height: 110px; resize: vertical; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .photo, .addtile { position: relative; aspect-ratio: 3 / 4; border-radius: 12px; overflow: hidden; background: #e8e3d8; }
+    .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo .x { position: absolute; top: 5px; right: 5px; width: 28px; height: 28px; border-radius: 50%; border: 0; background: rgba(0,0,0,.65); color: #fff; font-size: 16px; line-height: 1; cursor: pointer; }
+    .photo .tag { position: absolute; left: 0; right: 0; bottom: 0; padding: 5px 4px; font-size: 11px; font-weight: 700; text-align: center; background: rgba(23,59,50,.88); color: #fff; }
+    .photo button.tag { border: 0; font-family: inherit; cursor: pointer; background: rgba(255,255,255,.9); color: var(--green); }
+    .addtile { display: grid; place-items: center; border: 1.5px dashed #b9b3a3; background: #faf8f2; color: var(--green); font-size: 13px; font-weight: 600; text-align: center; cursor: pointer; padding: 6px; }
+    .addtile .plus { display: block; font-size: 26px; line-height: 1; margin-bottom: 4px; }
+    .addtile.busy { opacity: .6; pointer-events: none; }
+    .vh { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+
+    .msg { margin: 0 0 14px; padding: 12px 14px; border-radius: 12px; font-size: 14px; line-height: 1.4; }
+    .msg.err { background: #f8e3e0; color: var(--red); }
+    .msg.ok { background: #e4f1e6; color: #1f5a2c; }
+
+    #toast { position: fixed; left: 14px; right: 14px; bottom: 16px; max-width: 440px; margin: 0 auto; padding: 13px 15px; border-radius: 12px; font-size: 14px; background: #1b2b26; color: #fff; z-index: 9; }
+    #toast.err { background: var(--red); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="row">
+    <div>
+      <p class="eyebrow">BODEGS SELLER</p>
+      <h1 id="shopName">My products</h1>
+    </div>
+    <a href="profile.html">Profile</a>
+  </div>
+</header>
+
+<main>
+  <div id="notice" class="notice">Loading...</div>
+
+  <section id="listView" hidden>
+    <button type="button" class="btn primary" id="addBtn">+ Add a product</button>
+    <div class="summary" id="summary"></div>
+    <div id="list"></div>
+  </section>
+
+  <section id="editView" hidden>
+    <button type="button" class="linkback" id="backBtn">&#8249; Back to my products</button>
+    <form id="productForm" novalidate>
+      <h2 id="editTitle">Add a product</h2>
+
+      <div class="field">
+        <span class="lbl">Photos</span>
+        <div class="photos" id="photoGrid"></div>
+        <input id="photoInput" class="vh" type="file" accept="image/*" multiple>
+        <p class="help">Up to 5 photos. The first one is the cover. Clear, bright photos sell faster.</p>
+      </div>
+
+      <div class="field">
+        <label class="lbl" for="pName">Product name</label>
+        <input id="pName" type="text" maxlength="80" autocomplete="off">
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label class="lbl" for="pPrice">Price (&#8358;)</label>
+          <input id="pPrice" type="number" inputmode="numeric" min="1" max="100000000" step="1">
+        </div>
+        <div class="field">
+          <label class="lbl" for="pQty">Quantity</label>
+          <input id="pQty" type="number" inputmode="numeric" min="0" max="99" step="1" value="1">
+        </div>
+      </div>
+      <p class="help" style="margin:-8px 0 16px">Set quantity to 0 when an item is sold out.</p>
+
+      <div class="field">
+        <label class="lbl" for="pCategory">Category</label>
+        <select id="pCategory">
+          <option value="">Choose one</option>
+          <option>Tops</option><option>Shirts</option><option>Outerwear</option>
+          <option>Denim</option><option>Native</option><option>Shorts</option>
+          <option>Knitwear</option><option>Co-ords</option><option>Bags</option>
+          <option>Shoes</option><option>Watches</option><option>Jewelry</option>
+          <option>Accessories</option><option>Polo Shirts</option>
+          <option>Underwear</option><option>Sports &amp; Outdoor</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="lbl" for="pCondition">Condition</label>
+        <select id="pCondition">
+          <option value="">Choose one</option>
+          <option>Like new</option><option>Excellent</option><option>Good</option><option>Fair</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="lbl" for="pDesc">Description <span class="opt">(optional)</span></label>
+        <textarea id="pDesc" maxlength="1000" placeholder="Size, colour, material, any flaws buyers should know about."></textarea>
+      </div>
+
+      <div id="formMsg" class="msg" role="status" aria-live="polite" hidden></div>
+      <button type="submit" class="btn primary" id="saveBtn">Publish product</button>
+    </form>
+  </section>
+</main>
+
+<div id="toast" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const BUCKET = "product-images";
+  const MAX_PHOTOS = 5;
+  const MAX_SIDE = 1200;
+
+  let user = null;
+  let seller = null;
+  let products = [];
+  let editingId = null;      // null = adding a new product
+  let photos = [];           // { kind: "existing", url } or { kind: "new", blob, preview }
+  let busy = false;
+
+  function el(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function toast(text, isError) {
+    const t = $("toast");
+    t.textContent = text;
+    t.className = isError ? "err" : "";
+    t.hidden = false;
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => { t.hidden = true; }, 3500);
+  }
+
+  function setNotice(content) {
+    const box = $("notice");
+    box.textContent = "";
+    if (typeof content === "string") box.textContent = content;
+    else box.appendChild(content);
+    box.hidden = false;
+    $("listView").hidden = true;
+    $("editView").hidden = true;
+  }
+
+  function formMessage(text, kind) {
+    const m = $("formMsg");
+    if (!text) { m.hidden = true; return; }
+    m.textContent = text;
+    m.className = "msg " + kind;
+    m.hidden = false;
+  }
+
+  /* ---------------- product list ---------------- */
+
+  function firstImage(p) {
+    if (Array.isArray(p.images) && p.images.length) return p.images[0];
+    return p.image_url || "";
+  }
+
+  function renderList() {
+    $("notice").hidden = true;
+    $("editView").hidden = true;
+    $("listView").hidden = false;
+    window.scrollTo(0, 0);
+
+    const live = products.filter((p) => p.active).length;
+    const hidden = products.length - live;
+    const summary = $("summary");
+    summary.textContent = "";
+    summary.appendChild(el("strong", "", products.length + (products.length === 1 ? " product" : " products")));
+    summary.appendChild(el("span", "", live + " live · " + hidden + " hidden"));
+
+    const list = $("list");
+    list.textContent = "";
+
+    if (!products.length) {
+      list.appendChild(el("div", "notice",
+        "You have not added any products yet. Tap “Add a product” to list your first item."));
+      return;
+    }
+
+    products.forEach((p) => {
+      const card = el("article", "item");
+      const main = el("div", "item-main");
+
+      const thumb = el("div", "thumb");
+      const src = firstImage(p);
+      if (src) {
+        const img = document.createElement("img");
+        img.src = src; img.alt = p.name; img.loading = "lazy";
+        thumb.appendChild(img);
+      }
+      main.appendChild(thumb);
+
+      const info = el("div", "info");
+      info.appendChild(el("h3", "", p.name));
+      info.appendChild(el("p", "price", naira(p.price_ngn)));
+      info.appendChild(el("p", "meta", p.category + " · Qty " + p.inventory));
+      const badges = el("div");
+      badges.appendChild(el("span", "badge" + (p.active ? "" : " off"), p.active ? "Live" : "Hidden"));
+      if (p.inventory <= 0) badges.appendChild(el("span", "badge out", "Sold out"));
+      info.appendChild(badges);
+      main.appendChild(info);
+      card.appendChild(main);
+
+      const actions = el("div", "item-actions");
+      const edit = el("button", "btn ghost", "Edit");
+      edit.type = "button";
+      edit.addEventListener("click", () => openEditor(p));
+      const toggle = el("button", "btn ghost", p.active ? "Hide" : "Show");
+      toggle.type = "button";
+      toggle.addEventListener("click", () => setActive(p, !p.active, toggle));
+      const del = el("button", "btn danger", "Delete");
+      del.type = "button";
+      del.addEventListener("click", () => removeProduct(p, del));
+      actions.append(edit, toggle, del);
+      card.appendChild(actions);
+
+      list.appendChild(card);
+    });
+  }
+
+  async function loadProducts() {
+    const { data, error } = await sb
+      .from("products")
+      .select("id, name, description, price_ngn, category, condition, inventory, images, image_url, active, created_at")
+      .eq("seller_id", seller.id)
+      .order("created_at", { ascending: false });
+    if (error) { setNotice("Could not load your products. Please check your connection and refresh."); return false; }
+    products = data;
+    return true;
+  }
+
+  async function setActive(p, active, button) {
+    button.disabled = true;
+    const { error } = await sb.from("products").update({ active: active }).eq("id", p.id).eq("seller_id", seller.id);
+    if (error) { toast("Could not update the product. Please try again.", true); button.disabled = false; return; }
+    p.active = active;
+    toast(active ? "Product is live again." : "Product hidden from buyers.");
+    renderList();
+  }
+
+  async function removeProduct(p, button) {
+    if (!confirm("Delete “" + p.name + "”? This cannot be undone.")) return;
+    button.disabled = true;
+    const { error } = await sb.from("products").delete().eq("id", p.id).eq("seller_id", seller.id);
+    if (error) {
+      if (error.code === "23503") {
+        toast("This product has orders, so it cannot be deleted. Hide it instead.", true);
+      } else {
+        toast("Could not delete the product. Please try again.", true);
+      }
+      button.disabled = false;
+      return;
+    }
+    products = products.filter((x) => x.id !== p.id);
+    toast("Product deleted.");
+    renderList();
+  }
+
+  /* ---------------- editor ---------------- */
+
+  function openEditor(p) {
+    editingId = p ? p.id : null;
+    photos = (p && Array.isArray(p.images) && p.images.length ? p.images : (p && p.image_url ? [p.image_url] : []))
+      .map((url) => ({ kind: "existing", url: url }));
+    $("editTitle").textContent = p ? "Edit product" : "Add a product";
+    $("saveBtn").textContent = p ? "Save changes" : "Publish product";
+    $("pName").value = p ? p.name : "";
+    $("pPrice").value = p ? Math.round(Number(p.price_ngn)) : "";
+    $("pQty").value = p ? p.inventory : 1;
+    $("pCategory").value = p ? p.category : "";
+    $("pCondition").value = p && p.condition ? p.condition : "";
+    $("pDesc").value = p ? (p.description || "") : "";
+    formMessage("");
+    $("saveBtn").disabled = false;
+    renderPhotos();
+    $("notice").hidden = true;
+    $("listView").hidden = true;
+    $("editView").hidden = false;
+    window.scrollTo(0, 0);
+  }
+
+  function renderPhotos() {
+    const grid = $("photoGrid");
+    grid.textContent = "";
+
+    photos.forEach((ph, index) => {
+      const tile = el("div", "photo");
+      const img = document.createElement("img");
+      img.src = ph.kind === "new" ? ph.preview : ph.url;
+      img.alt = "Product photo " + (index + 1);
+      tile.appendChild(img);
+
+      const x = el("button", "x", "×");
+      x.type = "button";
+      x.setAttribute("aria-label", "Remove photo " + (index + 1));
+      x.addEventListener("click", () => {
+        if (ph.kind === "new") URL.revokeObjectURL(ph.preview);
+        photos.splice(index, 1);
+        renderPhotos();
+      });
+      tile.appendChild(x);
+
+      if (index === 0) {
+        tile.appendChild(el("span", "tag", "Cover"));
+      } else {
+        const cover = el("button", "tag", "Make cover");
+        cover.type = "button";
+        cover.addEventListener("click", () => {
+          photos.unshift(photos.splice(index, 1)[0]);
+          renderPhotos();
+        });
+        tile.appendChild(cover);
+      }
+      grid.appendChild(tile);
+    });
+
+    if (photos.length < MAX_PHOTOS) {
+      const add = el("label", "addtile" + (busy ? " busy" : ""));
+      add.setAttribute("for", "photoInput");
+      const plus = el("span", "plus", "+");
+      add.appendChild(plus);
+      add.appendChild(document.createTextNode(busy ? "Preparing..." : "Add photos"));
+      grid.appendChild(add);
+    }
+  }
+
+  // Shrink a phone photo to at most 1200 px and re-save it as a JPEG.
+  // Phone photos can be 5 MB or more; this keeps pages fast and uploads reliable.
+  async function toJpegBlob(file) {
+    if (!file.type || file.type.indexOf("image/") !== 0) throw new Error("not an image");
+    const url = URL.createObjectURL(file);
+    try {
+      const img = await new Promise((resolve, reject) => {
+        const i = new Image();
+        i.onload = () => resolve(i);
+        i.onerror = () => reject(new Error("could not read"));
+        i.src = url;
+      });
+      let w = img.naturalWidth, h = img.naturalHeight;
+      if (!w || !h) throw new Error("could not read");
+      const scale = Math.min(1, MAX_SIDE / Math.max(w, h));
+      w = Math.round(w * scale); h = Math.round(h * scale);
+      const canvas = document.createElement("canvas");
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(0, 0, w, h);
+      ctx.drawImage(img, 0, 0, w, h);
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.85));
+      if (!blob) throw new Error("could not convert");
+      return blob;
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  }
+
+  $("photoInput").addEventListener("change", async (e) => {
+    const files = Array.from(e.target.files || []);
+    e.target.value = "";
+    if (!files.length) return;
+
+    const room = MAX_PHOTOS - photos.length;
+    const picked = files.slice(0, Math.max(0, room));
+    if (files.length > room) formMessage("You can add up to " + MAX_PHOTOS + " photos. Extra photos were skipped.", "err");
+    else formMessage("");
+
+    busy = true; renderPhotos();
+    let failed = 0;
+    for (const file of picked) {
+      try {
+        const blob = await toJpegBlob(file);
+        photos.push({ kind: "new", blob: blob, preview: URL.createObjectURL(blob) });
+      } catch (err) {
+        failed++;
+      }
+    }
+    busy = false; renderPhotos();
+    if (failed) formMessage(failed + (failed === 1 ? " photo" : " photos") + " could not be read. Please use JPG or PNG photos.", "err");
+  });
+
+  function newFileName() {
+    const id = (window.crypto && crypto.randomUUID)
+      ? crypto.randomUUID()
+      : Date.now() + "-" + Math.random().toString(36).slice(2, 10);
+    return user.id + "/" + id + ".jpg";
+  }
+
+  async function uploadPhoto(blob) {
+    const path = newFileName();
+    const { error } = await sb.storage.from(BUCKET).upload(path, blob, {
+      contentType: "image/jpeg",
+      cacheControl: "31536000"
+    });
+    if (error) throw error;
+    return sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
+  }
+
+  function validate() {
+    const name = $("pName").value.trim();
+    const price = Number($("pPrice").value);
+    const qtyText = $("pQty").value.trim();
+    const qty = Number(qtyText);
+    if (!photos.length) return "Please add at least one photo.";
+    if (name.length < 3) return "Please enter a product name (at least 3 characters).";
+    if (!$("pPrice").value || !Number.isFinite(price) || price < 1) return "Please enter a price of ₦1 or more.";
+    if (price > 100000000) return "That price is too high. Please check it.";
+    if (qtyText === "" || !Number.isInteger(qty) || qty < 0 || qty > 99) return "Quantity must be a whole number from 0 to 99.";
+    if (!$("pCategory").value) return "Please choose a category.";
+    if (!$("pCondition").value) return "Please choose the item's condition.";
+    return null;
+  }
+
+  $("productForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (busy) return;
+    const problem = validate();
+    if (problem) { formMessage(problem, "err"); return; }
+
+    const btn = $("saveBtn");
+    btn.disabled = true;
+    formMessage("Saving your product. Please keep this page open...", "ok");
+
+    try {
+      // Upload new photos first. Once uploaded they count as existing photos,
+      // so a retry after a failure does not upload them again.
+      for (let i = 0; i < photos.length; i++) {
+        if (photos[i].kind === "new") {
+          const url = await uploadPhoto(photos[i].blob);
+          URL.revokeObjectURL(photos[i].preview);
+          photos[i] = { kind: "existing", url: url };
+        }
+      }
+      const images = photos.map((ph) => ph.url);
+
+      const row = {
+        name: $("pName").value.trim(),
+        description: $("pDesc").value.trim(),
+        price_ngn: Math.round(Number($("pPrice").value)),
+        category: $("pCategory").value,
+        condition: $("pCondition").value,
+        inventory: Number($("pQty").value),
+        images: images,
+        image_url: images[0]
+      };
+
+      let result;
+      if (editingId) {
+        result = await sb.from("products").update(row).eq("id", editingId).eq("seller_id", seller.id);
+      } else {
+        result = await sb.from("products").insert(Object.assign({ seller_id: seller.id, active: true }, row));
+      }
+      if (result.error) throw result.error;
+
+      await loadProducts();
+      toast(editingId ? "Changes saved." : "Product published. Buyers can see it now.");
+      renderList();
+    } catch (err) {
+      formMessage("Could not save your product. Please check your connection and try again.", "err");
+      btn.disabled = false;
+    }
+  });
+
+  $("addBtn").addEventListener("click", () => openEditor(null));
+  $("backBtn").addEventListener("click", () => {
+    photos.forEach((ph) => { if (ph.kind === "new") URL.revokeObjectURL(ph.preview); });
+    renderList();
+  });
+
+  /* ---------------- start ---------------- */
+
+  (async function start() {
+    user = await requireLogin();
+    if (!user) return;
+
+    const { data, error } = await sb
+      .from("sellers")
+      .select("id, boutique_name, verified")
+      .eq("owner_id", user.id)
+      .maybeSingle();
+
+    if (error) { setNotice("Could not check your seller account. Please check your connection and refresh."); return; }
+
+    if (!data) {
+      const wrap = el("div");
+      wrap.appendChild(el("p", "", "This page is for approved BODEGS sellers."));
+      const a = el("a", "", "Open a Boutique on BODEGS");
+      a.href = "boutique.html";
+      wrap.appendChild(a);
+      setNotice(wrap);
+      return;
+    }
+
+    seller = data;
+    $("shopName").textContent = seller.boutique_name;
+    document.title = seller.boutique_name + " — BODEGS Seller";
+    if (await loadProducts()) renderList();
+  })();
+</script>
+</body>
+</html>
