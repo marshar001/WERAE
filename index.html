@@ -12,6 +12,8 @@
   >
 
   <link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 <script src="products.js"></script>
 </head>
 
@@ -595,50 +597,58 @@
         return;
       }
 
-      const products = window.BODEGS.getAllProducts();
+      function showProducts() {
+        container.textContent = "";
 
-      products.forEach(function (product) {
-        const card = document.createElement("a");
-        card.className = "product-card";
-        card.href =
-          "product.html?id=" + encodeURIComponent(product.id);
+        window.BODEGS.getAllProducts().forEach(function (product) {
+          const card = document.createElement("a");
+          card.className = "product-card";
+          card.href =
+            "product.html?id=" + encodeURIComponent(product.id);
 
-        const imageWrap = document.createElement("div");
-        imageWrap.className = "product-image";
+          const imageWrap = document.createElement("div");
+          imageWrap.className = "product-image";
 
-        const image = document.createElement("img");
-        image.src = product.images[0];
-        image.alt = product.name;
-        image.loading = "lazy";
+          if (product.images && product.images.length) {
+            const image = document.createElement("img");
+            image.src = product.images[0];
+            image.alt = product.name;
+            image.loading = "lazy";
+            imageWrap.appendChild(image);
+          }
 
-        imageWrap.appendChild(image);
-        card.appendChild(imageWrap);
+          card.appendChild(imageWrap);
 
-        const name = document.createElement("h3");
-        name.textContent = product.name;
-        card.appendChild(name);
+          const name = document.createElement("h3");
+          name.textContent = product.name;
+          card.appendChild(name);
 
-        const price = document.createElement("p");
-        price.textContent = window.BODEGS.formatCurrency(
-          product.price,
-          product.currency || "NGN"
-        );
-        card.appendChild(price);
+          const price = document.createElement("p");
+          price.textContent = window.BODEGS.formatCurrency(
+            product.price,
+            product.currency || "NGN"
+          );
+          card.appendChild(price);
 
-        if (product.description) {
-          const description = document.createElement("small");
-          description.textContent = product.description;
-          card.appendChild(description);
-        }
+          if (product.description) {
+            const description = document.createElement("small");
+            description.textContent = product.description;
+            card.appendChild(description);
+          }
 
-        if (product.productVerified) {
-          const verified = document.createElement("small");
-          verified.textContent = "✓ BODEGS verified";
-          card.appendChild(verified);
-        }
+          if (product.productVerified) {
+            const verified = document.createElement("small");
+            verified.textContent = "✓ BODEGS verified";
+            card.appendChild(verified);
+          }
 
-        container.appendChild(card);
-      });
+          container.appendChild(card);
+        });
+      }
+
+      // Wait for the BODEGS database. If it cannot be reached, products.js
+      // falls back to the built-in products, so the page is never empty.
+      window.BODEGS.ready.then(showProducts);
     })();
   </script>
   
