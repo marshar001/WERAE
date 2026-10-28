@@ -1,6 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+  // BODEGS login guard: uses the real Supabase session instead of the old fake login.
+  (function () {
+    var REF = "cdwstvsesiyvfcadyqzs"; // your Supabase project id
+    var session = null;
+    try { session = JSON.parse(localStorage.getItem("sb-" + REF + "-auth-token") || "null"); } catch (e) {}
+    var u = session && session.user;
+
+    if (!u || !u.email) {
+      // Not signed in: remove any leftover old fake login, then go to the real login page.
+      try { localStorage.removeItem("weraeUser"); } catch (e) {}
+      location.replace("login.html?next=profile.html");
+      return;
+    }
+
+    // Signed in: give the rest of this page the details it expects (never a password).
+    var old = null;
+    try { old = JSON.parse(localStorage.getItem("weraeUser") || "null"); } catch (e) {}
+    var meta = u.user_metadata || {};
+    var user = (old && old.email === u.email) ? old : {
+      email: u.email,
+      name: meta.full_name || u.email.split("@")[0]
+    };
+    delete user.password;
+    user.loggedIn = true;
+    localStorage.setItem("weraeUser", JSON.stringify(user));
+  })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
