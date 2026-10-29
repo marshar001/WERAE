@@ -63,16 +63,19 @@
     .pp-bar .cart-button { background: var(--deep-green); color: #fff; border: 0; }
     .pp-bar button:disabled { opacity: .45; cursor: default; }
 
-    .pp-opt { padding: 12px 16px; }
-    .pp-opt + .pp-opt { padding-top: 0; }
-    .pp-opt-title { margin: 0 0 8px; font: 700 14px Arial, sans-serif; color: #1d2924; }
+    /* colour + size: flat on the page (no card), compact like a marketplace */
+    .pp-options { margin: 0 0 10px; font-family: Arial, sans-serif; }
+    .pp-opt { margin: 0 0 10px; }
+    .pp-opt-title { margin: 0 0 6px; font: 700 14px Arial, sans-serif; color: #1d2924; }
     .pp-opt-title .picked { font-weight: 400; color: var(--muted); margin-left: 4px; }
-    .pp-sizes, .pp-colors { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 2px 4px; }
+    .pp-sizes, .pp-colors { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 3px 3px 4px; margin: 0 -3px; }
     .pp-sizes::-webkit-scrollbar, .pp-colors::-webkit-scrollbar { display: none; }
-    .pp-sizes button { flex: none; min-width: 42px; height: 36px; padding: 0 12px; border: 0; border-radius: 10px; background: var(--cream, #f5f0e7); color: #1d2924; font: 600 14px Arial, sans-serif; cursor: pointer; }
-    .pp-sizes button.on { background: var(--deep-green); color: #fff; }
-    .pp-colors button { flex: none; width: 34px; height: 34px; padding: 0; border: 1px solid rgba(0,0,0,.2); border-radius: 10px; cursor: pointer; background-clip: padding-box; }
-    .pp-colors button.on { outline: 2px solid var(--deep-green); outline-offset: 2px; }
+    .pp-sizes button { flex: none; min-width: 46px; height: 34px; padding: 0 12px; border: 0; border-radius: 8px; background: #ebe5d8; color: #1d2924; font: 500 14px Arial, sans-serif; cursor: pointer; }
+    .pp-sizes button.on { background: #fff; color: var(--deep-green); font-weight: 700; box-shadow: inset 0 0 0 2px var(--deep-green); }
+    .pp-colors button { flex: none; width: 44px; height: 56px; padding: 0; border: 1px solid rgba(0,0,0,.12); border-radius: 8px; overflow: hidden; cursor: pointer; background: #ebe5d8; }
+    .pp-colors button img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pp-colors button.swatch { height: 44px; }
+    .pp-colors button.on { outline: 2px solid #1d2924; outline-offset: 1px; }
     .pp-block h2 .picked { font-weight: 400; color: var(--muted); }
     .pp-error { margin: 10px 0 0; color: #c2410c; font: 600 13px Arial, sans-serif; }
     .pp-desc.clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -150,13 +153,13 @@
       </div>
 
       <!-- 4. colour and size (compact) -->
-      <div class="pp-block" id="optionBlock" hidden>
+      <div class="pp-options" id="optionBlock" hidden>
         <div class="pp-opt" id="colorBlock" hidden>
-          <p class="pp-opt-title">Color<span class="picked" id="colorPicked"></span></p>
+          <p class="pp-opt-title">Color:<span class="picked" id="colorPicked"></span></p>
           <div class="pp-colors" id="colorOptions"></div>
         </div>
         <div class="pp-opt" id="sizeBlock" hidden>
-          <p class="pp-opt-title">Size<span class="picked" id="sizePicked"></span></p>
+          <p class="pp-opt-title">Size:<span class="picked" id="sizePicked"></span></p>
           <div class="pp-sizes" id="sizeOptions"></div>
           <p class="pp-error" id="sizeError" hidden>Please choose a size.</p>
         </div>
@@ -406,10 +409,23 @@
             button.type = "button";
             button.setAttribute("aria-label", color.name);
             button.title = color.name;
-            button.style.background = color.value || "#111111";
+            if (color.image) {
+              var thumb = document.createElement("img");
+              thumb.src = color.image;
+              thumb.alt = "";
+              thumb.loading = "lazy";
+              button.appendChild(thumb);
+            } else {
+              button.className = "swatch";
+              button.style.background = color.value || "#111111";
+            }
             button.addEventListener("click", function () {
               chosenColor = color.name;
               $("colorPicked").textContent = color.name;
+              if (color.image) {
+                var at = images.indexOf(color.image);
+                if (at !== -1) { showImage(at); }
+              }
               Array.prototype.forEach.call(colorBox.children, function (b) { b.classList.toggle("on", b === button); });
             });
             colorBox.appendChild(button);

@@ -69,6 +69,12 @@
     .chip { border: 1.5px solid var(--line); background: #fff; color: #1b2b26; border-radius: 999px; padding: 9px 15px; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; }
     .chip.on { background: var(--green); border-color: var(--green); color: #fff; }
     .chip .dot { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-right: 7px; vertical-align: -1px; border: 1px solid rgba(0,0,0,.25); }
+    .cphoto-row { margin-top: 12px; }
+    .cphoto-row .cname { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+    .cphoto-row .tiny { display: flex; gap: 8px; overflow-x: auto; padding: 2px; }
+    .cphoto-row .tiny button { flex: none; width: 46px; height: 58px; padding: 0; border: 2px solid transparent; border-radius: 9px; overflow: hidden; background: #e8e3d8; cursor: pointer; }
+    .cphoto-row .tiny button.on { border-color: var(--green); }
+    .cphoto-row .tiny img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .vh { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
 
     .msg { margin: 0 0 14px; padding: 12px 14px; border-radius: 12px; font-size: 14px; line-height: 1.4; }
@@ -160,7 +166,8 @@
       <div class="field">
         <span class="lbl">Colours <span class="opt">(optional)</span></span>
         <div class="chips" id="colorChips"></div>
-        <p class="help">Tap every colour this item comes in.</p>
+        <div id="colorPhotoBox"></div>
+        <p class="help">Tap every colour this item comes in. Then tap the photo that shows each colour, so buyers see a small picture for it.</p>
       </div>
 
       <div class="row2">
@@ -223,7 +230,8 @@
     ["Purple", "#7b4fa3"], ["Multicolour", "linear-gradient(135deg,#e74c3c,#f1c40f,#2ecc71,#3498db)"]
   ];
   let chosenColors = [];     // names ticked
-  let keptColors = {};       // colours already saved that are not in the list: name -> value
+  let keptColors = {};       // saved colours not in the list: name -> { value, image }
+  let colorPhoto = {};       // colour name -> the photo object chosen for it
 
   function renderColorChips() {
     const box = $("colorChips");
@@ -238,17 +246,55 @@
       chip.type = "button";
       chip.addEventListener("click", () => {
         const at = chosenColors.indexOf(c[0]);
-        if (at === -1) chosenColors.push(c[0]); else chosenColors.splice(at, 1);
+        if (at === -1) chosenColors.push(c[0]); else { chosenColors.splice(at, 1); delete colorPhoto[c[0]]; }
         renderColorChips();
+        renderColorPhotos();
       });
       box.appendChild(chip);
     });
   }
 
-  function collectColors() {
+  // For each ticked colour: a row of small photos to say which photo shows it.
+  function renderColorPhotos() {
+    const box = $("colorPhotoBox");
+    if (!box) return;
+    box.textContent = "";
+    const names = chosenColors.slice();
+    Object.keys(keptColors).forEach((n) => names.push(n));
+    if (!photos.length) return;
+    names.forEach((name) => {
+      const row = el("div", "cphoto-row");
+      row.appendChild(el("div", "cname", name));
+      const strip = el("div", "tiny");
+      photos.forEach((ph, i) => {
+        const b = el("button", colorPhoto[name] === ph ? "on" : "");
+        b.type = "button";
+        b.setAttribute("aria-label", name + " is shown in photo " + (i + 1));
+        const img = document.createElement("img");
+        img.src = ph.kind === "new" ? ph.preview : ph.url;
+        img.alt = "";
+        b.appendChild(img);
+        b.addEventListener("click", () => {
+          if (colorPhoto[name] === ph) delete colorPhoto[name]; else colorPhoto[name] = ph;
+          renderColorPhotos();
+        });
+        strip.appendChild(b);
+      });
+      row.appendChild(strip);
+      box.appendChild(row);
+    });
+  }
+
+  // imageIndex: colour name -> position of its photo; images: final photo URLs
+  function collectColors(imageIndex, images) {
     const out = [];
-    COLOR_PRESETS.forEach((c) => { if (chosenColors.indexOf(c[0]) !== -1) out.push({ name: c[0], value: c[1] }); });
-    Object.keys(keptColors).forEach((name) => out.push({ name: name, value: keptColors[name] }));
+    function withImage(item) {
+      const i = imageIndex ? imageIndex[item.name] : undefined;
+      if (typeof i === "number" && images[i]) item.image = images[i];
+      return item;
+    }
+    COLOR_PRESETS.forEach((c) => { if (chosenColors.indexOf(c[0]) !== -1) out.push(withImage({ name: c[0], value: c[1] })); });
+    Object.keys(keptColors).forEach((name) => out.push(withImage({ name: name, value: keptColors[name].value })));
     return out;
   }
 
@@ -443,12 +489,16 @@
     const savedColors = p && Array.isArray(p.colors) ? p.colors : [];
     chosenColors = [];
     keptColors = {};
+    colorPhoto = {};
     savedColors.forEach((c) => {
       if (!c || typeof c.name !== "string") return;
       if (COLOR_PRESETS.some((x) => x[0] === c.name)) chosenColors.push(c.name);
-      else keptColors[c.name] = typeof c.value === "string" ? c.value : "#111111";
+      else keptColors[c.name] = { value: typeof c.value === "string" ? c.value : "#111111" };
+      const match = typeof c.image === "string" ? photos.filter((ph) => ph.kind === "existing" && ph.url === c.image)[0] : null;
+      if (match) colorPhoto[c.name] = match;
     });
     renderColorChips();
+    renderColorPhotos();
     formMessage("");
     $("saveBtn").disabled = false;
     renderPhotos();
@@ -501,6 +551,7 @@
       add.appendChild(document.createTextNode(busy ? "Preparing..." : "Add photos"));
       grid.appendChild(add);
     }
+    renderColorPhotos();
   }
 
   // Shrink a phone photo to at most 1200 px and re-save it as a JPEG.
@@ -604,11 +655,15 @@
       // so a retry after a failure does not upload them again.
       for (let i = 0; i < photos.length; i++) {
         if (photos[i].kind === "new") {
-          const url = await uploadPhoto(photos[i].blob);
-          URL.revokeObjectURL(photos[i].preview);
+          const old = photos[i];
+          const url = await uploadPhoto(old.blob);
+          URL.revokeObjectURL(old.preview);
           photos[i] = { kind: "existing", url: url };
+          Object.keys(colorPhoto).forEach((n) => { if (colorPhoto[n] === old) colorPhoto[n] = photos[i]; });
         }
       }
+      const colorIndex = {};
+      Object.keys(colorPhoto).forEach((n) => { const at = photos.indexOf(colorPhoto[n]); if (at !== -1) colorIndex[n] = at; });
       const images = photos.map((ph) => ph.url);
 
       const row = {
@@ -619,7 +674,7 @@
         condition: $("pCondition").value,
         inventory: Number($("pQty").value),
         sizes: collectSizes(),
-        colors: collectColors(),
+        colors: collectColors(colorIndex, images),
         material: $("pMaterial").value.trim() || null,
         composition: $("pComposition").value.trim() || null,
         fit: $("pFit").value || null,
