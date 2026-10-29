@@ -11,6 +11,9 @@
     [hidden] { display: none !important; }
     body { padding-bottom: 96px; }
 
+    /* photo fills the whole frame (no empty bars at the sides) */
+    .main-product-image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
     /* ---------- price block ---------- */
     .pp-price-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; margin: 4px 0 6px; }
     .pp-price-row .product-price { margin: 0; }
