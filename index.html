@@ -14,8 +14,16 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     .trending-row .trending-card { position: relative; overflow: hidden; }
+    /* Smaller Trending Store cards so products appear sooner on the home page */
+    .trending-row .trending-card { flex: 0 0 84px; width: 84px; height: 116px; border-radius: 18px; }
+    .trending-card .store-name { font-size: 11px; padding: 14px 6px 6px; }
+    /* Smaller category tiles (still two rows, same look) */
+    .categories-row { gap: 8px; padding-bottom: 4px; margin-bottom: 2px; }
+    .category-item { flex: 0 0 46px; width: 46px; }
+    .category-item button { width: 46px; height: 46px; border-radius: 15px; }
+    .category-item span { margin-top: 4px; font-size: 8px; }
     /* styles.css pulls row 2 up by 12px, which covers row 1's labels */
-    .categories-row + .categories-row { margin-top: 8px; }
+    .categories-row + .categories-row { margin-top: 2px; }
     .trending-card .store-name {
       position: absolute; left: 0; right: 0; bottom: 0;
       padding: 18px 8px 8px; box-sizing: border-box;
