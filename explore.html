@@ -1145,6 +1145,29 @@
     });
 
     buildChips();
+
+    // Arriving from the home page category row, for example explore.html?cat=Denim
+    var wanted = new URLSearchParams(location.search).get("cat");
+    if (wanted) {
+      var match = CATEGORIES.filter(function (c) {
+        return c.toLowerCase() === wanted.toLowerCase();
+      })[0];
+      if (match) {
+        activeCategory = match;
+        buildChips();
+        var activeChip = chipBox.querySelector(".cat-chip.active");
+        if (activeChip && activeChip.scrollIntoView) {
+          activeChip.scrollIntoView({ inline: "center", block: "nearest" });
+        }
+        var productsSection = document.getElementById("trending");
+        if (productsSection) {
+          setTimeout(function () {
+            productsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 150);
+        }
+      }
+    }
+
     render();
     window.BODEGS.ready.then(function () { loaded = true; render(); });
   })();
