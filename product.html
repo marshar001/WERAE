@@ -7,1204 +7,526 @@
   <title>BODEGS | Product</title>
 
   <link rel="stylesheet" href="styles.css">
+  <style>
+    body { padding-bottom: 96px; }
 
-  <!-- CENTRAL PRODUCT DATA -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase.js"></script>
-  <script src="products.js"></script>
+    /* ---------- price block ---------- */
+    .pp-price-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; margin: 4px 0 6px; }
+    .pp-price-row .product-price { margin: 0; }
+    .pp-chip { display: inline-block; padding: 4px 10px; border-radius: 999px; font: 700 12px Arial, sans-serif; background: rgba(23,59,50,.1); color: var(--deep-green); }
+    .pp-chip.warn { background: #fdebe6; color: #c2410c; }
+    .pp-title { margin: 6px 0 10px; }
+
+    .pp-trust { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0 0 14px; font: 13px Arial, sans-serif; color: var(--muted); }
+
+    /* ---------- grouped sections (white blocks like a marketplace) ---------- */
+    .pp-block { background: #fff; border-radius: 18px; padding: 14px 16px; margin: 0 0 12px; font-family: Arial, sans-serif; box-shadow: 0 2px 10px rgba(0,0,0,.04); }
+    .pp-block h2 { margin: 0 0 10px; font: 700 15px Arial, sans-serif; color: #1d2924; }
+
+    .pp-qty { display: flex; align-items: center; justify-content: space-between; }
+    .pp-qty .label { font: 700 15px Arial, sans-serif; color: #1d2924; }
+    .pp-stepper { display: flex; align-items: center; background: var(--cream, #f5f0e7); border-radius: 12px; }
+    .pp-stepper button { width: 40px; height: 40px; border: 0; background: transparent; font: 600 22px Arial, sans-serif; color: var(--deep-green); cursor: pointer; }
+    .pp-stepper button:disabled { color: #b9b9b0; cursor: default; }
+    .pp-stepper span { min-width: 30px; text-align: center; font: 700 16px Arial, sans-serif; }
+
+    .pp-store { display: flex; align-items: center; gap: 12px; }
+    .pp-store .logo { flex: none; width: 48px; height: 48px; border-radius: 15px; background: var(--deep-green); color: #fff; display: flex; align-items: center; justify-content: center; font: 700 20px Georgia, serif; }
+    .pp-store .who { flex: 1; min-width: 0; }
+    .pp-store strong { display: block; font: 700 16px Georgia, serif; color: #1d2924; overflow-wrap: anywhere; }
+    .pp-store small { display: block; margin-top: 3px; color: var(--muted); font: 12px Arial, sans-serif; }
+    .pp-store a.visit { flex: none; padding: 9px 14px; border: 1px solid var(--deep-green); border-radius: 999px; font: 700 13px Arial, sans-serif; color: var(--deep-green); text-decoration: none; }
+
+    .pp-rows { list-style: none; margin: 0; padding: 0; }
+    .pp-rows li { display: flex; gap: 10px; padding: 10px 0; border-top: 1px solid rgba(23,59,50,.08); font-size: 14px; line-height: 1.4; color: #1d2924; }
+    .pp-rows li:first-child { border-top: 0; padding-top: 0; }
+    .pp-rows li b { display: block; }
+    .pp-rows li span { color: var(--muted); font-size: 13px; }
+    .pp-rows .tick { flex: none; color: var(--deep-green); font-weight: 700; }
+
+    .pp-details { display: grid; grid-template-columns: 110px 1fr; gap: 10px 8px; margin: 0; font-size: 14px; }
+    .pp-details dt { color: var(--muted); }
+    .pp-details dd { margin: 0; color: #1d2924; overflow-wrap: anywhere; }
+    .pp-desc { margin: 12px 0 0; font-size: 14px; line-height: 1.55; color: #1d2924; white-space: pre-line; overflow-wrap: anywhere; }
+
+    /* ---------- thumbnails ---------- */
+    .pp-thumbs { display: flex; gap: 8px; overflow-x: auto; padding: 10px 2px 2px; scrollbar-width: none; }
+    .pp-thumbs::-webkit-scrollbar { display: none; }
+    .pp-thumbs button { flex: none; width: 54px; height: 54px; padding: 0; border: 2px solid transparent; border-radius: 12px; overflow: hidden; background: #e6dfd0; cursor: pointer; }
+    .pp-thumbs button.active { border-color: var(--deep-green); }
+    .pp-thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ---------- sticky action bar ---------- */
+    .pp-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 900; display: flex; gap: 10px; padding: 10px max(14px, calc(50% - 306px)) calc(10px + env(safe-area-inset-bottom)); background: rgba(245,240,231,.96); border-top: 1px solid rgba(23,59,50,.1); backdrop-filter: blur(6px); }
+    .pp-bar a.store { flex: none; width: 50px; height: 50px; border-radius: 16px; background: #fff; border: 1px solid rgba(23,59,50,.15); display: flex; align-items: center; justify-content: center; }
+    .pp-bar a.store svg { width: 24px; height: 24px; fill: none; stroke: var(--deep-green); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .pp-bar button { flex: 1; height: 50px; border-radius: 16px; font: 700 15px Arial, sans-serif; cursor: pointer; margin: 0; }
+    .pp-bar .cart-button { background: #fff; color: var(--deep-green); border: 1.5px solid var(--deep-green); }
+    .pp-bar .buy-button { background: var(--deep-green); color: #fff; border: 0; }
+    .pp-bar button:disabled { opacity: .45; cursor: default; }
+
+    .pp-grid-title { margin: 22px 0 10px; }
+    .pp-center { padding: 60px 20px; text-align: center; font-family: Arial, sans-serif; color: var(--muted); }
+  </style>
 </head>
 
 <body>
 
-  <main class="product-page">
+  <main class="product-page" id="productPage">
 
-    <!-- =================================
-         PRODUCT GALLERY
-         ================================= -->
-
+    <!-- ===== GALLERY ===== -->
     <section class="product-gallery">
 
-      <!-- BACK BUTTON -->
-      <a href="index.html" class="back-button" aria-label="Back">
+      <a href="index.html" class="back-button" id="productBack" aria-label="Back">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M15 5L8 12L15 19"></path>
         </svg>
       </a>
 
-
-      <!-- CART BUTTON -->
-      <a
-        href="cart.html"
-        class="product-cart-button"
-        aria-label="Cart"
-      >
-
+      <a href="cart.html" class="product-cart-button" aria-label="Cart">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M5 8h14l-1 12H6L5 8Z"></path>
           <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
         </svg>
-
-        <span
-          id="productCartCount"
-          class="product-cart-count"
-          hidden
-        >
-          0
-        </span>
-
+        <span id="productCartCount" class="product-cart-count" hidden>0</span>
       </a>
 
-
-      <!-- MAIN PRODUCT IMAGE -->
       <div class="main-product-image">
-
-        <img
-          id="mainProductImage"
-          src=""
-          alt=""
-        >
-
-        <div
-          id="photoCounter"
-          class="photo-counter"
-        >
-          1 / 1
-        </div>
-
+        <img id="mainProductImage" src="" alt="">
+        <div id="photoCounter" class="photo-counter">1 / 1</div>
       </div>
 
+      <div id="photoThumbs" class="pp-thumbs" hidden></div>
 
-      <!-- COLOR OPTIONS -->
-      <div
-        id="colorOptions"
-        class="color-options"
-      >
-      </div>
+      <div id="colorOptions" class="color-options"></div>
 
     </section>
 
+    <!-- ===== INFORMATION ===== -->
+    <section class="product-information" id="productInfo" hidden>
 
+      <p id="verifiedBadge" class="verified-badge">✓ VERIFIED BODEGS SELLER</p>
 
-    <!-- =================================
-         PRODUCT INFORMATION
-         ================================= -->
-
-    <section class="product-information">
-
-      <p
-        id="verifiedBadge"
-        class="verified-badge"
-      >
-        ✓ VERIFIED BODEGS SELLER
-      </p>
-
-
-      <h1 id="productName">
-        Product
-      </h1>
-
-
-      <p
-        id="productPrice"
-        class="product-price"
-      >
-        ₦0
-      </p>
-
-
-      <div class="product-meta">
-
-        <span id="sellerVerification">
-          ✓ Verified Seller
-        </span>
-
-        <span>
-          ✓ Secure BODEGS Checkout
-        </span>
-
+      <div class="pp-price-row">
+        <p id="productPrice" class="product-price">₦0</p>
+        <span id="conditionChip" class="pp-chip" hidden></span>
+        <span id="stockChip" class="pp-chip warn" hidden></span>
       </div>
 
+      <h1 id="productName" class="pp-title">Product</h1>
 
-      <p
-        id="productDescription"
-        class="product-description"
-      >
-      </p>
+      <div class="pp-trust">
+        <span id="sellerVerification">✓ Verified Seller</span>
+        <span>✓ Secure BODEGS Checkout</span>
+      </div>
 
-
-
-      <!-- =================================
-           SELLER
-           ================================= -->
-
-      <div class="seller-card">
-
-        <div class="seller-top">
-
-          <div>
-
-            <strong id="sellerName">
-              BODEGS Seller
-            </strong>
-
-            <p id="sellerStatus">
-              ✓ BODEGS Verified Business
-            </p>
-
+      <!-- quantity -->
+      <div class="pp-block">
+        <div class="pp-qty">
+          <span class="label">Qty</span>
+          <div class="pp-stepper">
+            <button type="button" id="qtyMinus" aria-label="Decrease quantity">&minus;</button>
+            <span id="qtyValue">1</span>
+            <button type="button" id="qtyPlus" aria-label="Increase quantity">+</button>
           </div>
-
         </div>
-
-        <p>
-          Business seller verified by BODEGS.
-        </p>
-
       </div>
 
-
-
-      <!-- =================================
-           BUYER PROTECTION
-           ================================= -->
-
-      <div class="protection-card">
-
-        <h2>
-          Buyer Protection
-        </h2>
-
-        <p>
-          Your purchase is protected by BODEGS.
-          Delivery and order protection apply.
-        </p>
-
+      <!-- seller -->
+      <div class="pp-block">
+        <div class="pp-store">
+          <div class="logo" id="storeLogo">B</div>
+          <div class="who">
+            <strong id="sellerName">BODEGS Seller</strong>
+            <small id="sellerStatus">✓ BODEGS Verified Business</small>
+          </div>
+          <a class="visit" id="visitStore" href="explore.html">Visit store</a>
+        </div>
       </div>
 
+      <!-- delivery and protection -->
+      <div class="pp-block">
+        <h2>Shopping with BODEGS</h2>
+        <ul class="pp-rows">
+          <li><span class="tick">✓</span><div><b>Buyer Protection</b><span>Your purchase is protected by BODEGS. Delivery and order protection apply.</span></div></li>
+          <li><span class="tick">✓</span><div><b>Secure payment</b><span>This product is processed through BODEGS for secure payment and delivery.</span></div></li>
+          <li><span class="tick">✓</span><div><b>Verified sellers only</b><span>Every boutique is checked by BODEGS before selling.</span></div></li>
+        </ul>
+      </div>
 
-
-      <!-- =================================
-           ACTION BUTTONS
-           ================================= -->
-
-      <div class="product-actions">
-
-        <button
-          id="addToCartButton"
-          class="cart-button"
-          type="button"
-        >
-          Add to Cart
-        </button>
-
-        <button
-          id="buyButton"
-          class="buy-button"
-          type="button"
-        >
-          Checkout
-        </button>
-
+      <!-- details -->
+      <div class="pp-block">
+        <h2>Details</h2>
+        <dl class="pp-details" id="detailList"></dl>
+        <p id="productDescription" class="pp-desc"></p>
       </div>
 
     </section>
 
-
-
-    <!-- =================================
-         RECOMMENDED PRODUCTS
-         ================================= -->
-
-    <section class="recommended">
-
-      <h2>
-        YOU MAY ALSO LIKE
-      </h2>
-
-      <div
-        id="recommendedGrid"
-        class="recommended-grid"
-      >
-      </div>
-
+    <!-- ===== RECOMMENDED ===== -->
+    <section class="recommended" id="recommendedBox" hidden>
+      <h2 class="pp-grid-title">YOU MAY ALSO LIKE</h2>
+      <div class="products" id="recommendedGrid"></div>
     </section>
 
   </main>
 
+  <!-- ===== STICKY ACTION BAR ===== -->
+  <div class="pp-bar" id="actionBar" hidden>
+    <a class="store" id="barStore" href="explore.html" aria-label="Visit store">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 9.5 5.5 4h13L20 9.5"></path>
+        <path d="M4 9.5a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 6 0 2.5 2.5 0 0 0 5 0"></path>
+        <path d="M5.5 12.5V20h13v-7.5"></path>
+        <path d="M10 20v-4.5h4V20"></path>
+      </svg>
+    </a>
+    <button id="addToCartButton" class="cart-button" type="button">Add to Cart</button>
+    <button id="buyButton" class="buy-button" type="button">Checkout</button>
+  </div>
 
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="products.js"></script>
   <script>
-window.BODEGS.ready.then(function () {
-
-    /* =================================
-       GET PRODUCT FROM CENTRAL DATA
-       ================================= */
-
-    const params =
-      new URLSearchParams(window.location.search);
-
-    const productId =
-      params.get("id");
-
-
-    /*
-      Backward compatibility:
-
-      If somebody opens product.html
-      without an ID, show Premium Handbag.
-
-      This means the old product.html
-      URL will not immediately break.
-    */
-
-    const selectedProductId =
-      productId || "prod_premium_handbag";
-
-
-    const product =
-      window.BODEGS &&
-      window.BODEGS.getProductById
-        ? window.BODEGS.getProductById(
-            selectedProductId
-          )
-        : null;
-
-
-    /* =================================
-       PRODUCT NOT FOUND
-       ================================= */
-
-    if (!product) {
-
-      document.title =
-        "Product Not Found | BODEGS";
-
-      document.querySelector(
-        ".product-page"
-      ).innerHTML = `
-
-        <section
-          style="
-            padding:40px 20px;
-            text-align:center;
-          "
-        >
-
-          <h1>
-            Product not found
-          </h1>
-
-          <p>
-            This product is no longer available.
-          </p>
-
-          <a href="index.html" class="back-button" aria-label="Return to home">
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M15 5L8 12L15 19"></path>
-  </svg>
-</a>
-        </section>
-
-      `;
-
-      throw new Error(
-        "BODEGS product not found: " +
-        selectedProductId
-      );
-
-    }
-
-
-
-    /* =================================
-       PAGE TITLE
-       ================================= */
-
-    document.title =
-      product.name + " | BODEGS";
-
-
-
-    /* =================================
-       BASIC PRODUCT INFORMATION
-       ================================= */
-
-    document.getElementById(
-      "productName"
-    ).textContent =
-      product.name;
-
-
-    document.getElementById(
-      "productPrice"
-    ).textContent =
-      window.BODEGS.formatCurrency(
-        product.price,
-        product.currency
-      );
-
-
-    document.getElementById(
-      "productDescription"
-    ).textContent =
-      product.description;
-
-
-    document.getElementById(
-      "sellerName"
-    ).textContent =
-      product.sellerName || "BODEGS Seller";
-
-
-
-    /* =================================
-       SELLER VERIFICATION
-       ================================= */
-
-    const verifiedBadge =
-      document.getElementById(
-        "verifiedBadge"
-      );
-
-    const sellerVerification =
-      document.getElementById(
-        "sellerVerification"
-      );
-
-    const sellerStatus =
-      document.getElementById(
-        "sellerStatus"
-      );
-
-
-    if (product.sellerVerified) {
-
-      verifiedBadge.textContent =
-        "✓ VERIFIED BODEGS SELLER";
-
-      sellerVerification.textContent =
-        "✓ Verified Seller";
-
-      sellerStatus.textContent =
-        "✓ BODEGS Verified Business";
-
-    } else {
-
-      verifiedBadge.textContent =
-        "BODEGS SELLER";
-
-      sellerVerification.textContent =
-        "Seller";
-
-      sellerStatus.textContent =
-        "BODEGS Seller";
-
-    }
-
-
-
-    /* =================================
-       PRODUCT IMAGE GALLERY
-       ================================= */
-
-    const productImages =
-      Array.isArray(product.images) &&
-      product.images.length
-        ? product.images
-        : [];
-
-
-    let currentImage = 0;
-
-
-    const mainProductImage =
-      document.getElementById(
-        "mainProductImage"
-      );
-
-
-    const photoCounter =
-      document.getElementById(
-        "photoCounter"
-      );
-
-
-    function showProductImage(index) {
-
-      if (!productImages.length) {
-        return;
-      }
-
-
-      currentImage =
-        (
-          index +
-          productImages.length
-        ) %
-        productImages.length;
-
-
-      mainProductImage.src =
-        productImages[currentImage];
-
-
-      mainProductImage.alt =
-        product.name;
-
-
-      photoCounter.textContent =
-        (currentImage + 1) +
-        " / " +
-        productImages.length;
-
-    }
-
-
-    showProductImage(0);
-
-
-
-    /* =================================
-       COLOR OPTIONS
-       ================================= */
-
-    const colorOptions =
-      document.getElementById(
-        "colorOptions"
-      );
-
-
-    colorOptions.innerHTML = "";
-
-
-    if (
-      Array.isArray(product.colors) &&
-      product.colors.length
-    ) {
-
-      product.colors.forEach(
-        (color, index) => {
-
-          const button =
-            document.createElement(
-              "button"
-            );
-
-          button.type =
-            "button";
-
-          button.className =
-            "color-option" +
-            (
-              index === 0
-                ? " active"
-                : ""
-            );
-
-          button.setAttribute(
-            "aria-label",
-            color.name
-          );
-
-
-          const swatch =
-            document.createElement(
-              "span"
-            );
-
-          swatch.className =
-            "color-swatch";
-
-
-          swatch.style.background =
-            color.value ||
-            "#111111";
-
-
-          const label =
-            document.createElement(
-              "span"
-            );
-
-          label.textContent =
-            color.name;
-
-
-          button.appendChild(
-            swatch
-          );
-
-          button.appendChild(
-            label
-          );
-
-
-          colorOptions.appendChild(
-            button
-          );
-
+    (function () {
+      var $ = function (id) { return document.getElementById(id); };
+      var UUID = /^[0-9a-f-]{36}$/i;
+
+      var params = new URLSearchParams(window.location.search);
+      // Old links without an ID still open the demo handbag.
+      var selectedProductId = params.get("id") || "prod_premium_handbag";
+
+      // Back arrow: go back if the visitor came from our own site.
+      $("productBack").addEventListener("click", function (event) {
+        if (document.referrer && document.referrer.indexOf(location.origin) === 0 && history.length > 1) {
+          event.preventDefault();
+          history.back();
         }
-      );
+      });
 
-    }
-
-
-
-    /* =================================
-       SWIPE GALLERY
-       ================================= */
-
-    let startX = 0;
-
-
-    mainProductImage.addEventListener(
-      "touchstart",
-      function(event) {
-
-        startX =
-          event.touches[0].clientX;
-
+      function showNotFound() {
+        document.title = "Product Not Found | BODEGS";
+        var page = $("productPage");
+        page.textContent = "";
+        var box = document.createElement("section");
+        box.className = "pp-center";
+        var h = document.createElement("h1");
+        h.textContent = "Product not found";
+        var p = document.createElement("p");
+        p.textContent = "This product is no longer available.";
+        var a = document.createElement("a");
+        a.href = "index.html";
+        a.textContent = "Back to home";
+        a.style.color = "#173b32";
+        a.style.fontWeight = "700";
+        box.appendChild(h);
+        box.appendChild(p);
+        box.appendChild(a);
+        page.appendChild(box);
+        $("actionBar").hidden = true;
       }
-    );
 
+      function boot() {
+        var product = window.BODEGS && window.BODEGS.getProductById
+          ? window.BODEGS.getProductById(selectedProductId)
+          : null;
+        if (!product) { showNotFound(); return; }
+        render(product);
+      }
 
-    mainProductImage.addEventListener(
-      "touchend",
-      function(event) {
+      function render(product) {
+        var B = window.BODEGS;
+        document.title = product.name + " | BODEGS";
 
-        const endX =
-          event.changedTouches[0].clientX;
+        $("productInfo").hidden = false;
+        $("actionBar").hidden = false;
 
+        /* ----- basics ----- */
+        $("productName").textContent = product.name;
+        $("productPrice").textContent = B.formatCurrency(product.price, product.currency);
+        $("sellerName").textContent = product.sellerName || "BODEGS Seller";
+        $("storeLogo").textContent = (product.sellerName || "B").trim().charAt(0).toUpperCase() || "B";
 
-        const difference =
-          startX - endX;
+        if (product.condition) {
+          $("conditionChip").textContent = product.condition;
+          $("conditionChip").hidden = false;
+        }
+        var stock = Number(product.inventory);
+        var soldOut = isFinite(stock) && product.inventory !== undefined && product.inventory !== null && stock <= 0;
+        if (soldOut) {
+          $("stockChip").textContent = "Sold out";
+          $("stockChip").hidden = false;
+        } else if (isFinite(stock) && product.inventory !== undefined && product.inventory !== null && stock <= 5) {
+          $("stockChip").textContent = "Only " + stock + " left";
+          $("stockChip").hidden = false;
+        }
 
+        if (product.sellerVerified) {
+          $("verifiedBadge").textContent = "✓ VERIFIED BODEGS SELLER";
+          $("sellerVerification").textContent = "✓ Verified Seller";
+          $("sellerStatus").textContent = "✓ BODEGS Verified Business";
+        } else {
+          $("verifiedBadge").textContent = "BODEGS SELLER";
+          $("sellerVerification").textContent = "Seller";
+          $("sellerStatus").textContent = "BODEGS Seller";
+        }
 
-        if (
-          Math.abs(difference) > 50
-        ) {
+        /* ----- store link (only real sellers have a store page) ----- */
+        var storeHref = UUID.test(String(product.sellerId || ""))
+          ? "store.html?id=" + encodeURIComponent(product.sellerId)
+          : "";
+        if (storeHref) {
+          $("visitStore").href = storeHref;
+          $("barStore").href = storeHref;
+        } else {
+          $("visitStore").hidden = true;
+          $("barStore").hidden = true;
+        }
 
-          if (difference > 0) {
+        /* ----- details ----- */
+        var details = $("detailList");
+        function addDetail(label, value) {
+          if (!value) { return; }
+          var dt = document.createElement("dt");
+          dt.textContent = label;
+          var dd = document.createElement("dd");
+          dd.textContent = value;
+          details.appendChild(dt);
+          details.appendChild(dd);
+        }
+        addDetail("Category", product.category);
+        addDetail("Condition", product.condition);
+        addDetail("Seller", product.sellerName);
+        if (product.inventory !== undefined && product.inventory !== null && isFinite(stock)) {
+          addDetail("Available", stock > 0 ? String(stock) : "Sold out");
+        }
+        if (product.description) {
+          $("productDescription").textContent = product.description;
+        } else {
+          $("productDescription").hidden = true;
+        }
 
-            showProductImage(
-              currentImage + 1
-            );
+        // City of the boutique (optional; page works without it).
+        if (storeHref && typeof sb !== "undefined") {
+          sb.from("sellers").select("city").eq("id", product.sellerId).maybeSingle()
+            .then(function (res) {
+              if (res && res.data && res.data.city) {
+                var status = $("sellerStatus");
+                status.textContent = status.textContent + " · " + res.data.city;
+              }
+            }, function () {});
+        }
 
+        /* ----- image gallery ----- */
+        var images = Array.isArray(product.images) && product.images.length ? product.images : [];
+        var current = 0;
+        var mainImage = $("mainProductImage");
+        var counter = $("photoCounter");
+        var thumbBox = $("photoThumbs");
+
+        function showImage(index) {
+          if (!images.length) { return; }
+          current = (index + images.length) % images.length;
+          mainImage.src = images[current];
+          mainImage.alt = product.name;
+          counter.textContent = (current + 1) + " / " + images.length;
+          Array.prototype.forEach.call(thumbBox.children, function (b, i) {
+            b.classList.toggle("active", i === current);
+          });
+        }
+
+        if (images.length > 1) {
+          thumbBox.hidden = false;
+          images.forEach(function (src, i) {
+            var b = document.createElement("button");
+            b.type = "button";
+            b.setAttribute("aria-label", "Photo " + (i + 1));
+            var t = document.createElement("img");
+            t.src = src;
+            t.alt = "";
+            t.loading = "lazy";
+            b.appendChild(t);
+            b.addEventListener("click", function () { showImage(i); });
+            thumbBox.appendChild(b);
+          });
+        }
+        showImage(0);
+
+        var startX = 0;
+        mainImage.addEventListener("touchstart", function (e) { startX = e.touches[0].clientX; });
+        mainImage.addEventListener("touchend", function (e) {
+          var diff = startX - e.changedTouches[0].clientX;
+          if (Math.abs(diff) > 50) { showImage(diff > 0 ? current + 1 : current - 1); }
+        });
+
+        /* ----- colours ----- */
+        var colorBox = $("colorOptions");
+        colorBox.textContent = "";
+        if (Array.isArray(product.colors) && product.colors.length) {
+          product.colors.forEach(function (color, index) {
+            var button = document.createElement("button");
+            button.type = "button";
+            button.className = "color-option" + (index === 0 ? " active" : "");
+            button.setAttribute("aria-label", color.name);
+            var swatch = document.createElement("span");
+            swatch.className = "color-swatch";
+            swatch.style.background = color.value || "#111111";
+            var label = document.createElement("span");
+            label.textContent = color.name;
+            button.appendChild(swatch);
+            button.appendChild(label);
+            button.addEventListener("click", function () {
+              Array.prototype.forEach.call(colorBox.children, function (b) { b.classList.toggle("active", b === button); });
+            });
+            colorBox.appendChild(button);
+          });
+        }
+
+        /* ----- cart ----- */
+        var addButton = $("addToCartButton");
+        var buyButton = $("buyButton");
+        var cartButton = document.querySelector(".product-cart-button");
+        var cartCount = $("productCartCount");
+        var qty = 1;
+
+        function maxQty() {
+          return (product.inventory !== undefined && product.inventory !== null && isFinite(stock) && stock > 0) ? stock : 99;
+        }
+        function getCart() {
+          try { return JSON.parse(localStorage.getItem("weraeCart") || "[]"); } catch (e) { return []; }
+        }
+        function saveCart(cart) { localStorage.setItem("weraeCart", JSON.stringify(cart)); }
+        function updateCount() {
+          var total = getCart().reduce(function (t, item) { return t + Number(item.quantity || 1); }, 0);
+          cartCount.textContent = total;
+          cartCount.hidden = total === 0;
+        }
+        function syncQty() {
+          $("qtyValue").textContent = qty;
+          $("qtyMinus").disabled = qty <= 1;
+          $("qtyPlus").disabled = qty >= maxQty();
+        }
+        $("qtyMinus").addEventListener("click", function () { if (qty > 1) { qty--; syncQty(); } });
+        $("qtyPlus").addEventListener("click", function () { if (qty < maxQty()) { qty++; syncQty(); } });
+        syncQty();
+
+        if (soldOut) {
+          addButton.disabled = true;
+          buyButton.disabled = true;
+          addButton.textContent = "Sold out";
+          $("qtyMinus").disabled = true;
+          $("qtyPlus").disabled = true;
+        }
+
+        function addProductToCart() {
+          var cart = getCart();
+          var existing = cart.filter(function (item) { return item.productId === product.id; })[0];
+          if (existing) {
+            existing.quantity = Math.min(Number(existing.quantity || 1) + qty, maxQty());
           } else {
-
-            showProductImage(
-              currentImage - 1
-            );
-
+            cart.push({
+              productId: product.id,
+              sellerId: product.sellerId,
+              name: product.name,
+              price: Number(product.price),
+              numericPrice: Number(product.price),
+              currency: product.currency || "NGN",
+              image: images.length ? images[0] : "",
+              url: "product.html?id=" + encodeURIComponent(product.id),
+              quantity: qty
+            });
           }
-
+          saveCart(cart);
+          updateCount();
+          flyToCart();
         }
 
-      }
-    );
-
-
-
-    /* =================================
-       CART
-       ================================= */
-
-    const addToCartButton =
-      document.getElementById(
-        "addToCartButton"
-      );
-
-
-    const buyButton =
-      document.getElementById(
-        "buyButton"
-      );
-
-
-    const productCartButton =
-      document.querySelector(
-        ".product-cart-button"
-      );
-
-
-    const productCartCount =
-      document.getElementById(
-        "productCartCount"
-      );
-
-
-
-    function getCart() {
-
-      return JSON.parse(
-        localStorage.getItem(
-          "weraeCart"
-        ) || "[]"
-      );
-
-    }
-
-
-
-    function saveCart(cart) {
-
-      localStorage.setItem(
-        "weraeCart",
-        JSON.stringify(cart)
-      );
-
-    }
-
-
-
-    function updateProductCartCount() {
-
-      const cart =
-        getCart();
-
-
-      /*
-        Count total quantities rather
-        than just number of products.
-      */
-
-      const totalQuantity =
-        cart.reduce(
-          (total, item) =>
-            total +
-            Number(
-              item.quantity || 1
-            ),
-          0
-        );
-
-
-      productCartCount.textContent =
-        totalQuantity;
-
-
-      productCartCount.hidden =
-        totalQuantity === 0;
-
-    }
-
-
-
-    /* =================================
-       ADD PRODUCT TO CART
-       ================================= */
-
-    function addProductToCart() {
-
-      const cart =
-        getCart();
-
-
-      /*
-        New stable identity:
-
-        productId
-
-        We no longer use the page URL
-        as the product's identity.
-      */
-
-      const existingItem =
-        cart.find(
-          item =>
-            item.productId ===
-            product.id
-        );
-
-
-      if (existingItem) {
-
-        existingItem.quantity =
-          Number(
-            existingItem.quantity || 1
-          ) + 1;
-
-      } else {
-
-        /*
-          Keep the old fields as well
-          because the existing cart page
-          still uses them.
-
-          productId is now the real
-          marketplace identity.
-        */
-
-        
-cart.push({
-
-  productId: product.id,
-
-  sellerId: product.sellerId,
-  sellerName: product.sellerName || "BODEGS Seller",
-
-  name: product.name,
-
-  // Keep price numeric for reliable calculations.
-  price: Number(product.price),
-
-  // Retain this field for compatibility.
-  numericPrice: Number(product.price),
-
-  currency: product.currency || "NGN",
-
-  image:
-    product.images && product.images.length
-      ? product.images[0]
-      : "",
-
-  url:
-    "product.html?id=" +
-    encodeURIComponent(product.id),
-
-  quantity: 1
-
-});
-
-
-      }
-
-
-      saveCart(cart);
-
-      updateProductCartCount();
-
-      animateProductToCart();
-
-    }
-
-
-
-    /* =================================
-       ADD TO CART ANIMATION
-       ================================= */
-
-    function animateProductToCart() {
-
-      const sourceImage =
-        document.getElementById(
-          "mainProductImage"
-        );
-
-
-      const sourceRect =
-        sourceImage.getBoundingClientRect();
-
-
-      const targetRect =
-        productCartButton.getBoundingClientRect();
-
-
-      const flyingImage =
-        document.createElement(
-          "img"
-        );
-
-
-      flyingImage.src =
-        sourceImage.src;
-
-
-      flyingImage.alt =
-        "";
-
-
-      flyingImage.setAttribute(
-        "aria-hidden",
-        "true"
-      );
-
-
-      flyingImage.style.position =
-        "fixed";
-
-
-      flyingImage.style.left =
-        sourceRect.left + "px";
-
-
-      flyingImage.style.top =
-        sourceRect.top + "px";
-
-
-      flyingImage.style.width =
-        sourceRect.width + "px";
-
-
-      flyingImage.style.height =
-        sourceRect.height + "px";
-
-
-      flyingImage.style.objectFit =
-        "contain";
-
-
-      flyingImage.style.borderRadius =
-        "22px";
-
-
-      flyingImage.style.zIndex =
-        "2000";
-
-
-      flyingImage.style.pointerEvents =
-        "none";
-
-
-      flyingImage.style.transition =
-        "left 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), " +
-        "top 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), " +
-        "width 0.55s ease, " +
-        "height 0.55s ease, " +
-        "opacity 0.55s ease";
-
-
-      document.body.appendChild(
-        flyingImage
-      );
-
-
-      requestAnimationFrame(
-        () => {
-
-          flyingImage.style.left =
-            (
-              targetRect.left +
-              targetRect.width / 2 -
-              22
-            ) + "px";
-
-
-          flyingImage.style.top =
-            (
-              targetRect.top +
-              targetRect.height / 2 -
-              22
-            ) + "px";
-
-
-          flyingImage.style.width =
-            "44px";
-
-
-          flyingImage.style.height =
-            "44px";
-
-
-          flyingImage.style.borderRadius =
-            "10px";
-
-
-          flyingImage.style.opacity =
-            "0.25";
-
+        function flyToCart() {
+          var from = mainImage.getBoundingClientRect();
+          var to = cartButton.getBoundingClientRect();
+          var fly = document.createElement("img");
+          fly.src = mainImage.src;
+          fly.alt = "";
+          fly.setAttribute("aria-hidden", "true");
+          fly.style.cssText = "position:fixed;left:" + from.left + "px;top:" + from.top + "px;width:" + from.width + "px;height:" + from.height + "px;object-fit:contain;border-radius:22px;z-index:2000;pointer-events:none;transition:left .55s cubic-bezier(.2,.8,.2,1),top .55s cubic-bezier(.2,.8,.2,1),width .55s ease,height .55s ease,opacity .55s ease;";
+          document.body.appendChild(fly);
+          requestAnimationFrame(function () {
+            fly.style.left = (to.left + to.width / 2 - 22) + "px";
+            fly.style.top = (to.top + to.height / 2 - 22) + "px";
+            fly.style.width = "44px";
+            fly.style.height = "44px";
+            fly.style.borderRadius = "10px";
+            fly.style.opacity = "0.25";
+          });
+          fly.addEventListener("transitionend", function () { fly.remove(); }, { once: true });
+          cartButton.classList.add("cart-bounce");
+          setTimeout(function () { cartButton.classList.remove("cart-bounce"); }, 500);
         }
-      );
 
+        addButton.addEventListener("click", addProductToCart);
+        buyButton.addEventListener("click", function () {
+          addProductToCart();
+          setTimeout(function () { window.location.href = "cart.html"; }, 350);
+        });
+        cartButton.addEventListener("click", function () {
+          localStorage.setItem("weraeLastProductPage", window.location.href);
+        });
+        updateCount();
 
-      flyingImage.addEventListener(
-        "transitionend",
-        () =>
-          flyingImage.remove(),
-        {
-          once: true
-        }
-      );
+        /* ----- recently viewed ----- */
+        try {
+          var viewed = JSON.parse(localStorage.getItem("weraeRecentlyViewed") || "[]");
+          viewed = viewed.filter(function (item) { return item.productId !== product.id; });
+          viewed.unshift({
+            productId: product.id,
+            sellerId: product.sellerId,
+            name: product.name,
+            price: B.formatCurrency(product.price, product.currency),
+            numericPrice: product.price,
+            image: images.length ? images[0] : "",
+            url: "product.html?id=" + encodeURIComponent(product.id)
+          });
+          localStorage.setItem("weraeRecentlyViewed", JSON.stringify(viewed.slice(0, 6)));
+        } catch (e) {}
 
+        /* ----- more like this: same category first, then the rest ----- */
+        var others = B.getAllProducts().filter(function (p) { return p.id !== product.id; });
+        var same = others.filter(function (p) { return p.category && p.category === product.category; });
+        var rest = others.filter(function (p) { return same.indexOf(p) === -1; });
+        var picks = same.concat(rest).slice(0, 6);
 
-      productCartButton.classList.add(
-        "cart-bounce"
-      );
-
-
-      setTimeout(
-        () => {
-
-          productCartButton.classList.remove(
-            "cart-bounce"
-          );
-
-        },
-        500
-      );
-
-    }
-
-
-
-    /* =================================
-       ADD TO CART BUTTON
-       ================================= */
-
-    addToCartButton.addEventListener(
-      "click",
-      function() {
-
-        addProductToCart();
-
+        var grid = $("recommendedGrid");
+        grid.textContent = "";
+        picks.forEach(function (item) {
+          var card = document.createElement("a");
+          card.className = "product-card";
+          card.href = "product.html?id=" + encodeURIComponent(item.id);
+          var wrap = document.createElement("div");
+          wrap.className = "product-image";
+          if (item.images && item.images.length) {
+            var img = document.createElement("img");
+            img.src = item.images[0];
+            img.alt = item.name;
+            img.loading = "lazy";
+            wrap.appendChild(img);
+          }
+          var name = document.createElement("h3");
+          name.textContent = item.name;
+          var price = document.createElement("p");
+          price.textContent = B.formatCurrency(item.price, item.currency || "NGN");
+          card.appendChild(wrap);
+          card.appendChild(name);
+          card.appendChild(price);
+          grid.appendChild(card);
+        });
+        $("recommendedBox").hidden = !picks.length;
       }
-    );
 
-
-
-    /* =================================
-       CHECKOUT BUTTON
-       ================================= */
-
-    buyButton.addEventListener(
-      "click",
-      function() {
-
-        addProductToCart();
-
-        setTimeout(
-          () => {
-
-            window.location.href =
-              "cart.html";
-
-          },
-          350
-        );
-
-      }
-    );
-
-
-
-    /* =================================
-       CART BUTTON
-       ================================= */
-
-    productCartButton.addEventListener(
-      "click",
-      function() {
-
-        localStorage.setItem(
-          "weraeLastProductPage",
-          window.location.href
-        );
-
-      }
-    );
-
-
-
-    /* =================================
-       RECENTLY VIEWED
-       ================================= */
-
-    function updateRecentlyViewed() {
-
-      const recentlyViewed =
-        JSON.parse(
-          localStorage.getItem(
-            "weraeRecentlyViewed"
-          ) || "[]"
-        );
-
-
-      /*
-        The product ID is now the
-        identity of a recently viewed
-        product.
-      */
-
-      const recentlyViewedProduct = {
-
-        productId:
-          product.id,
-
-        sellerId:
-          product.sellerId,
-
-        name:
-          product.name,
-
-        price:
-          window.BODEGS.formatCurrency(
-            product.price,
-            product.currency
-          ),
-
-        numericPrice:
-          product.price,
-
-        image:
-          product.images &&
-          product.images.length
-            ? product.images[0]
-            : "",
-
-        url:
-          "product.html?id=" +
-          encodeURIComponent(
-            product.id
-          )
-
-      };
-
-
-      const filtered =
-        recentlyViewed.filter(
-          item =>
-            item.productId !==
-            product.id
-        );
-
-
-      filtered.unshift(
-        recentlyViewedProduct
-      );
-
-
-      localStorage.setItem(
-        "weraeRecentlyViewed",
-        JSON.stringify(
-          filtered.slice(0, 6)
-        )
-      );
-
-    }
-
-
-    updateRecentlyViewed();
-
-
-
-    /* =================================
-       RECOMMENDED PRODUCTS
-       ================================= */
-
-    const recommendedGrid =
-      document.getElementById(
-        "recommendedGrid"
-      );
-
-
-    const allProducts =
-      window.BODEGS.getAllProducts();
-
-
-    const recommendedProducts =
-      allProducts
-        .filter(
-          item =>
-            item.id !==
-            product.id
-        )
-        .slice(0, 2);
-
-
-    recommendedGrid.innerHTML = "";
-
-
-    recommendedProducts.forEach(
-      recommendedProduct => {
-
-        const card =
-          document.createElement(
-            "a"
-          );
-
-
-        card.className =
-          "recommended-card";
-
-
-        card.href =
-          "product.html?id=" +
-          encodeURIComponent(
-            recommendedProduct.id
-          );
-
-
-        const imageWrapper =
-          document.createElement(
-            "div"
-          );
-
-
-        const image =
-          document.createElement(
-            "img"
-          );
-
-
-        image.src =
-          recommendedProduct.images &&
-          recommendedProduct.images.length
-            ? recommendedProduct.images[0]
-            : "";
-
-
-        image.alt =
-          recommendedProduct.name;
-
-
-        imageWrapper.appendChild(
-          image
-        );
-
-
-        const title =
-          document.createElement(
-            "h3"
-          );
-
-
-        title.textContent =
-          recommendedProduct.name;
-
-
-        const price =
-          document.createElement(
-            "p"
-          );
-
-
-        price.textContent =
-          window.BODEGS.formatCurrency(
-            recommendedProduct.price,
-            recommendedProduct.currency
-          );
-
-
-        card.appendChild(
-          imageWrapper
-        );
-
-
-        card.appendChild(
-          title
-        );
-
-
-        card.appendChild(
-          price
-        );
-
-
-        recommendedGrid.appendChild(
-          card
-        );
-
-      }
-    );
-
-
-
-    /* =================================
-       INITIAL CART COUNT
-       ================================= */
-
-    updateProductCartCount();
-    });
-</script>
+      // Wait for the database (products.js falls back to demo products if it cannot be reached).
+      window.BODEGS.ready.then(boot);
+    })();
+  </script>
 
 </body>
-  </html>
+</html>
