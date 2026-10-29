@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories — BODEGS</title>
+  <meta name="description" content="Browse pre-owned fashion by category from many verified BODEGS sellers.">
+
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { padding-bottom: 105px; }
+    .cp-wrap { max-width: 640px; margin: 0 auto; }
+
+    /* top bar: back arrow is fixed by styles.css, so the search box sits beside it */
+    .cp-top { padding: 14px 18px 8px 70px; }
+    .cp-search {
+      display: flex; align-items: center; gap: 8px;
+      background: #fff; border: 2px solid var(--deep-green); border-radius: 999px;
+      padding: 0 14px; height: 44px; box-sizing: border-box;
+    }
+    .cp-search input {
+      flex: 1; min-width: 0; border: 0; outline: 0; background: transparent;
+      font: 600 15px Arial, sans-serif; color: var(--deep-green);
+    }
+    .cp-search svg { width: 20px; height: 20px; flex: none; stroke: var(--deep-green); fill: none; stroke-width: 2; stroke-linecap: round; }
+
+    /* tiles: same markup/classes as the home page category row (rounded squares) */
+    .cp-tiles { padding: 10px 18px 12px; }
+    .cp-tiles .category-item.active button { outline: 3px solid var(--deep-green); outline-offset: 2px; }
+    .cp-tiles .category-item.active span { font-weight: 700; color: var(--deep-green); }
+    .cp-tiles .category-item button.noimg { background: #e6dfd0; color: var(--deep-green); font: 700 22px Georgia, serif; }
+    .cp-tiles.cp-index { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 8px; justify-items: center; overflow: visible; }
+
+    /* sort bar */
+    .cp-sort { display: flex; gap: 8px; padding: 6px 18px 10px; border-top: 1px solid rgba(23,59,50,.12); overflow-x: auto; scrollbar-width: none; }
+    .cp-sort button {
+      flex: none; border: 1px solid rgba(23,59,50,.25); background: transparent; color: var(--deep-green);
+      border-radius: 999px; padding: 7px 14px; font: 600 13px Arial, sans-serif; cursor: pointer;
+    }
+    .cp-sort button.active { background: var(--deep-green); color: #fff; border-color: var(--deep-green); }
+    .cp-count { padding: 0 18px 10px; color: var(--muted); font: 13px Arial, sans-serif; }
+
+    /* product grid (two columns, items from many sellers mixed together) */
+    .cp-grid { padding: 0 14px; column-count: 2; column-gap: 12px; }
+    .cp-card {
+      display: block; break-inside: avoid; margin: 0 0 14px; text-decoration: none; color: inherit;
+      background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    }
+    .cp-card .img { background: #e6dfd0; aspect-ratio: 3 / 4; }
+    .cp-card .img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cp-card .info { padding: 9px 10px 11px; font-family: Arial, sans-serif; }
+    .cp-card .seller { display: block; font-size: 11px; color: var(--muted); margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .cp-card h3 { margin: 0 0 4px; font: 600 13px/1.3 Arial, sans-serif; color: #1d2924; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .cp-card .price { margin: 0; font: 700 15px Arial, sans-serif; color: var(--deep-green); }
+    .cp-card .cond { font: 11px Arial, sans-serif; color: var(--muted); }
+
+    .cp-note { padding: 40px 20px; text-align: center; color: var(--muted); font: 15px/1.55 Arial, sans-serif; }
+
+    .cp-title { margin: 6px 18px 0; font-size: 22px; color: var(--deep-green); }
+  </style>
+</head>
+
+<body>
+
+  <a href="index.html" class="back-button" id="cpBack" aria-label="Back">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M15 5L8 12L15 19"></path>
+    </svg>
+  </a>
+
+  <div class="cp-wrap">
+    <div class="cp-top">
+      <div class="cp-search">
+        <input id="cpSearch" type="search" placeholder="Search" autocomplete="off" aria-label="Search in this category">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg>
+      </div>
+    </div>
+
+    <div class="categories-row cp-tiles" id="cpCircles"></div>
+
+    <div id="cpIndexBox" hidden>
+      <h1 class="cp-title">All categories</h1>
+      <div class="cp-tiles cp-index" id="cpIndex"></div>
+    </div>
+
+    <div id="cpListBox" hidden>
+      <div class="cp-sort" id="cpSort">
+        <button type="button" data-sort="new" class="active">Newest</button>
+        <button type="button" data-sort="low">Price: low to high</button>
+        <button type="button" data-sort="high">Price: high to low</button>
+      </div>
+      <div class="cp-count" id="cpCount"></div>
+      <div class="cp-grid" id="cpGrid"></div>
+      <div class="cp-note" id="cpNote" hidden></div>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+
+    <a href="index.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 10.5 12 3l9 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 19.5v-9Z"></path>
+        <path d="M9 21v-6h6v6"></path>
+      </svg>
+      <span>Home</span>
+    </a>
+
+    <a href="explore.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5"></circle>
+        <path d="m16 16 5 5"></path>
+      </svg>
+      <span>Explore</span>
+    </a>
+
+    <a href="cart.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 8h14l-1 12H6L5 8Z"></path>
+        <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+      </svg>
+      <span>Cart</span>
+    </a>
+
+    <a href="orders.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 3.5h12A1.5 1.5 0 0 1 19.5 5v14A1.5 1.5 0 0 1 18 20.5H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5Z"></path>
+        <path d="M8 8h8M8 12h8M8 16h5"></path>
+      </svg>
+      <span>Orders</span>
+    </a>
+
+    <a href="profile.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="8" r="3.5"></circle>
+        <path d="M5 20a7 7 0 0 1 14 0"></path>
+      </svg>
+      <span>Profile</span>
+    </a>
+
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="products.js"></script>
+  <script>
+    (function () {
+      var CATEGORIES = [
+        ["Tops", "category-tops.jpg"], ["Shirts", "category-shirts-new.jpg"],
+        ["Outerwear", "category-outerwear.jpg"], ["Denim", "category-denim.jpg"],
+        ["Native", "category-native.jpg"], ["Shorts", "category-shorts-1.jpg"],
+        ["Knitwear", "category-knitwear.jpg"], ["Co-ords", "category-coords.jpg"],
+        ["Bags", "category-bags.jpg"], ["Shoes", "category-shoes.jpg"],
+        ["Watches", "category-watches.jpg"], ["Jewelry", "category-jewelry.jpg"],
+        ["Accessories", "category-accessories.jpg"], ["Polo Shirts", "category-polo.jpg"],
+        ["Underwear", "category-underwear.jpg"], ["Sports & Outdoor", ""]
+      ];
+
+      var $ = function (id) { return document.getElementById(id); };
+      var active = "";        // "" means the all-categories index
+      var sortMode = "new";
+      var term = "";
+      var loaded = false;
+
+      // Back arrow: go back if the visitor came from our own site.
+      $("cpBack").addEventListener("click", function (event) {
+        if (document.referrer && document.referrer.indexOf(location.origin) === 0 && history.length > 1) {
+          event.preventDefault();
+          history.back();
+        }
+      });
+
+      function readCategory() {
+        var wanted = (new URLSearchParams(location.search).get("cat") || "").toLowerCase();
+        var hit = CATEGORIES.filter(function (c) { return c[0].toLowerCase() === wanted; })[0];
+        active = hit ? hit[0] : "";
+      }
+
+      function circle(entry, isActive) {
+        var item = document.createElement("div");
+        item.className = "category-item" + (isActive ? " active" : "");
+        item.dataset.cat = entry[0];
+
+        var button = document.createElement("button");
+        button.type = "button";
+        button.setAttribute("aria-label", "Browse " + entry[0]);
+        if (entry[1]) {
+          var img = document.createElement("img");
+          img.src = entry[1];
+          img.alt = entry[0];
+          img.addEventListener("error", function () {
+            img.remove();
+            button.classList.add("noimg");
+            button.textContent = entry[0].charAt(0);
+          });
+          button.appendChild(img);
+        } else {
+          button.classList.add("noimg");
+          button.textContent = entry[0].charAt(0);
+        }
+        button.addEventListener("click", function () { choose(entry[0], true); });
+
+        var label = document.createElement("span");
+        label.textContent = entry[0];
+        item.appendChild(button);
+        item.appendChild(label);
+        return item;
+      }
+
+      function buildCircles() {
+        var box = $("cpCircles");
+        box.textContent = "";
+        CATEGORIES.forEach(function (entry) { box.appendChild(circle(entry, entry[0] === active)); });
+        var on = box.querySelector(".active");
+        if (on && on.scrollIntoView) { on.scrollIntoView({ inline: "center", block: "nearest" }); }
+      }
+
+      function choose(name, push) {
+        active = name;
+        if (push) { history.pushState({}, "", "category.html?cat=" + encodeURIComponent(name)); }
+        show();
+      }
+
+      function card(product) {
+        var link = document.createElement("a");
+        link.className = "cp-card";
+        link.href = "product.html?id=" + encodeURIComponent(product.id);
+
+        var imgBox = document.createElement("div");
+        imgBox.className = "img";
+        if (product.images && product.images.length) {
+          var img = document.createElement("img");
+          img.src = product.images[0];
+          img.alt = product.name;
+          img.loading = "lazy";
+          imgBox.appendChild(img);
+        }
+        link.appendChild(imgBox);
+
+        var info = document.createElement("div");
+        info.className = "info";
+
+        // Seller name is only a label here; the card opens the product, not the seller.
+        var seller = document.createElement("span");
+        seller.className = "seller";
+        seller.textContent = (product.sellerVerified ? "✓ " : "") + (product.sellerName || "");
+        info.appendChild(seller);
+
+        var name = document.createElement("h3");
+        name.textContent = product.name;
+        info.appendChild(name);
+
+        var price = document.createElement("p");
+        price.className = "price";
+        price.textContent = window.BODEGS.formatCurrency(product.price, product.currency || "NGN");
+        info.appendChild(price);
+
+        if (product.condition) {
+          var cond = document.createElement("span");
+          cond.className = "cond";
+          cond.textContent = product.condition;
+          info.appendChild(cond);
+        }
+        link.appendChild(info);
+        return link;
+      }
+
+      function renderList() {
+        var grid = $("cpGrid");
+        var note = $("cpNote");
+        var count = $("cpCount");
+        grid.textContent = "";
+
+        if (!loaded) {
+          count.textContent = "";
+          note.textContent = "Loading products...";
+          note.hidden = false;
+          return;
+        }
+
+        var items = window.BODEGS.getAllProducts().filter(function (p) {
+          if (String(p.category).toLowerCase() !== active.toLowerCase()) { return false; }
+          if (!term) { return true; }
+          return (p.name + " " + (p.sellerName || "")).toLowerCase().indexOf(term) !== -1;
+        });
+
+        if (sortMode === "low") { items.sort(function (a, b) { return a.price - b.price; }); }
+        if (sortMode === "high") { items.sort(function (a, b) { return b.price - a.price; }); }
+        // "new": products.js already returns newest first.
+
+        var sellers = {};
+        items.forEach(function (p) { sellers[p.sellerId || p.sellerName] = true; });
+        var sellerCount = Object.keys(sellers).length;
+
+        items.forEach(function (p) { grid.appendChild(card(p)); });
+
+        count.textContent = items.length
+          ? items.length + (items.length === 1 ? " item" : " items") + " from " + sellerCount + (sellerCount === 1 ? " seller" : " sellers")
+          : "";
+
+        if (items.length) {
+          note.hidden = true;
+        } else {
+          note.textContent = term
+            ? "No " + active + " items match your search."
+            : "No " + active + " items yet. Check back soon, or browse another category above.";
+          note.hidden = false;
+        }
+      }
+
+      function show() {
+        buildCircles();
+        if (!active) {
+          document.title = "Categories — BODEGS";
+          $("cpListBox").hidden = true;
+          $("cpIndexBox").hidden = false;
+          $("cpCircles").hidden = true;
+          $("cpSearch").placeholder = "Search";
+          var index = $("cpIndex");
+          index.textContent = "";
+          CATEGORIES.forEach(function (entry) { index.appendChild(circle(entry, false)); });
+          return;
+        }
+        document.title = active + " — BODEGS";
+        $("cpIndexBox").hidden = true;
+        $("cpCircles").hidden = false;
+        $("cpListBox").hidden = false;
+        $("cpSearch").placeholder = active;
+        renderList();
+      }
+
+      $("cpSort").addEventListener("click", function (event) {
+        var button = event.target.closest("button");
+        if (!button) { return; }
+        sortMode = button.dataset.sort;
+        Array.prototype.forEach.call($("cpSort").children, function (b) {
+          b.classList.toggle("active", b === button);
+        });
+        renderList();
+      });
+
+      $("cpSearch").addEventListener("input", function () {
+        term = this.value.toLowerCase().trim();
+        if (active) { renderList(); }
+      });
+
+      window.addEventListener("popstate", function () { readCategory(); show(); });
+
+      readCategory();
+      show();
+      window.BODEGS.ready.then(function () { loaded = true; if (active) { renderList(); } });
+    })();
+  </script>
+</body>
+</html>
