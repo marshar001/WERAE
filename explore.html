@@ -1053,7 +1053,11 @@
       b.className = "cat-chip" + (value === activeCategory ? " active" : "");
       b.textContent = label;
       b.dataset.value = value;
-      b.addEventListener("click", function () { setCategory(value); });
+      b.addEventListener("click", function () {
+        // A real category opens the Category page; "All" stays here.
+        if (value) { window.location.href = "category.html?cat=" + encodeURIComponent(value); }
+        else { setCategory(value); }
+      });
       return b;
     }
 
@@ -1138,9 +1142,8 @@
       tile.addEventListener("click", function (event) {
         event.preventDefault();
         var nameEl = tile.querySelector(".explore-category-name");
-        setCategory(nameEl ? nameEl.textContent.trim() : "");
-        var target = document.getElementById("trending");
-        if (target) { target.scrollIntoView({ behavior: "smooth", block: "start" }); }
+        var name = nameEl ? nameEl.textContent.trim() : "";
+        if (name) { window.location.href = "category.html?cat=" + encodeURIComponent(name); }
       });
     });
 
