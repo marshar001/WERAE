@@ -822,7 +822,7 @@
 
   
 <script>
-  // Category row: each tile opens Explore filtered to that category.
+  // Category row: each tile opens the Category page (items from many sellers).
   document.querySelectorAll(".category-item").forEach(function (item) {
     const button = item.querySelector("button");
     const label = item.querySelector("span");
@@ -832,7 +832,7 @@
     button.type = "button";
     button.setAttribute("aria-label", "Browse " + name);
     button.addEventListener("click", function () {
-      window.location.href = "explore.html?cat=" + encodeURIComponent(name);
+      window.location.href = "category.html?cat=" + encodeURIComponent(name);
     });
   });
 
