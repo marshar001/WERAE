@@ -65,6 +65,9 @@
     .addtile { display: grid; place-items: center; border: 1.5px dashed #b9b3a3; background: #faf8f2; color: var(--green); font-size: 13px; font-weight: 600; text-align: center; cursor: pointer; padding: 6px; }
     .addtile .plus { display: block; font-size: 26px; line-height: 1; margin-bottom: 4px; }
     .addtile.busy { opacity: .6; pointer-events: none; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { border: 1.5px solid var(--line); background: #fff; color: #1b2b26; border-radius: 999px; padding: 9px 15px; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; }
+    .chip.on { background: var(--green); border-color: var(--green); color: #fff; }
     .vh { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
 
     .msg { margin: 0 0 14px; padding: 12px 14px; border-radius: 12px; font-size: 14px; line-height: 1.4; }
@@ -147,8 +150,39 @@
       </div>
 
       <div class="field">
+        <span class="lbl">Sizes available <span class="opt">(optional)</span></span>
+        <div class="chips" id="sizeChips"></div>
+        <input id="pSizesOther" type="text" maxlength="60" autocomplete="off" placeholder="Other sizes, e.g. 42, 43, 44" style="margin-top:10px">
+        <p class="help">Tap every size you have. Buyers must pick a size before adding to cart.</p>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label class="lbl" for="pMaterial">Fabric <span class="opt">(optional)</span></label>
+          <input id="pMaterial" type="text" maxlength="40" autocomplete="off" placeholder="e.g. Cotton, Denim">
+        </div>
+        <div class="field">
+          <label class="lbl" for="pFit">Fit <span class="opt">(optional)</span></label>
+          <select id="pFit">
+            <option value="">Not stated</option>
+            <option>Slim</option><option>Regular</option><option>Loose</option><option>Oversized</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="lbl" for="pComposition">Composition <span class="opt">(optional)</span></label>
+        <input id="pComposition" type="text" maxlength="60" autocomplete="off" placeholder="e.g. 100% Cotton">
+      </div>
+
+      <div class="field">
+        <label class="lbl" for="pCare">Care instructions <span class="opt">(optional)</span></label>
+        <input id="pCare" type="text" maxlength="80" autocomplete="off" placeholder="e.g. Machine wash cold">
+      </div>
+
+      <div class="field">
         <label class="lbl" for="pDesc">Description <span class="opt">(optional)</span></label>
-        <textarea id="pDesc" maxlength="1000" placeholder="Size, colour, material, any flaws buyers should know about."></textarea>
+        <textarea id="pDesc" maxlength="1000" placeholder="Colour, any flaws buyers should know about, and anything else worth saying."></textarea>
       </div>
 
       <div id="formMsg" class="msg" role="status" aria-live="polite" hidden></div>
@@ -173,6 +207,33 @@
   let editingId = null;      // null = adding a new product
   let photos = [];           // { kind: "existing", url } or { kind: "new", blob, preview }
   let busy = false;
+  const SIZE_PRESETS = ["XS", "S", "M", "L", "XL", "XXL", "One size"];
+  let chosenSizes = [];      // preset sizes the seller ticked
+
+  function renderSizeChips() {
+    const box = $("sizeChips");
+    box.textContent = "";
+    SIZE_PRESETS.forEach((size) => {
+      const chip = el("button", "chip" + (chosenSizes.indexOf(size) !== -1 ? " on" : ""), size);
+      chip.type = "button";
+      chip.addEventListener("click", () => {
+        const at = chosenSizes.indexOf(size);
+        if (at === -1) chosenSizes.push(size); else chosenSizes.splice(at, 1);
+        renderSizeChips();
+      });
+      box.appendChild(chip);
+    });
+  }
+
+  function collectSizes() {
+    const out = [];
+    SIZE_PRESETS.forEach((s) => { if (chosenSizes.indexOf(s) !== -1) out.push(s); });
+    $("pSizesOther").value.split(",").forEach((raw) => {
+      const s = raw.trim().slice(0, 10);
+      if (s && out.indexOf(s) === -1 && out.length < 15) out.push(s);
+    });
+    return out;
+  }
 
   function el(tag, className, text) {
     const node = document.createElement(tag);
@@ -279,11 +340,10 @@
   }
 
   async function loadProducts() {
-    const { data, error } = await sb
-      .from("products")
-      .select("id, name, description, price_ngn, category, condition, inventory, images, image_url, active, created_at")
-      .eq("seller_id", seller.id)
-      .order("created_at", { ascending: false });
+    const BASE = "id, name, description, price_ngn, category, condition, inventory, images, image_url, active, created_at";
+    const ask = (cols) => sb.from("products").select(cols).eq("seller_id", seller.id).order("created_at", { ascending: false });
+    let { data, error } = await ask(BASE + ", sizes, material, composition, fit, care");
+    if (error) ({ data, error } = await ask(BASE));   // detail columns not added to the database yet
     if (error) { setNotice("Could not load your products. Please check your connection and refresh."); return false; }
     products = data;
     return true;
@@ -330,6 +390,14 @@
     $("pCategory").value = p ? p.category : "";
     $("pCondition").value = p && p.condition ? p.condition : "";
     $("pDesc").value = p ? (p.description || "") : "";
+    const savedSizes = p && Array.isArray(p.sizes) ? p.sizes : [];
+    chosenSizes = savedSizes.filter((s) => SIZE_PRESETS.indexOf(s) !== -1);
+    $("pSizesOther").value = savedSizes.filter((s) => SIZE_PRESETS.indexOf(s) === -1).join(", ");
+    $("pMaterial").value = p && p.material ? p.material : "";
+    $("pFit").value = p && p.fit ? p.fit : "";
+    $("pComposition").value = p && p.composition ? p.composition : "";
+    $("pCare").value = p && p.care ? p.care : "";
+    renderSizeChips();
     formMessage("");
     $("saveBtn").disabled = false;
     renderPhotos();
@@ -499,6 +567,11 @@
         category: $("pCategory").value,
         condition: $("pCondition").value,
         inventory: Number($("pQty").value),
+        sizes: collectSizes(),
+        material: $("pMaterial").value.trim() || null,
+        composition: $("pComposition").value.trim() || null,
+        fit: $("pFit").value || null,
+        care: $("pCare").value.trim() || null,
         images: images,
         image_url: images[0]
       };

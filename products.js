@@ -141,7 +141,12 @@ function fromDatabaseRow(row) {
     condition: row.condition || undefined,
     inventory: row.inventory,
     images: images,
-    colors: Array.isArray(row.colors) ? row.colors : []
+    colors: Array.isArray(row.colors) ? row.colors : [],
+    sizes: Array.isArray(row.sizes) ? row.sizes : [],
+    material: row.material || "",
+    composition: row.composition || "",
+    fit: row.fit || "",
+    care: row.care || ""
   };
 }
 
@@ -154,14 +159,22 @@ function loadProductsFromDatabase() {
     return Promise.resolve("fallback");
   }
 
-  const request = sb
-    .from("products")
-    .select(
-      "id, name, description, price_ngn, category, condition, inventory, " +
-      "images, colors, image_url, seller_id, sellers(boutique_name, verified)"
-    )
-    .eq("active", true)
-    .order("created_at", { ascending: false })
+  const BASE_COLUMNS =
+    "id, name, description, price_ngn, category, condition, inventory, " +
+    "images, colors, image_url, seller_id, sellers(boutique_name, verified)";
+
+  function query(columns) {
+    return sb
+      .from("products")
+      .select(columns)
+      .eq("active", true)
+      .order("created_at", { ascending: false });
+  }
+
+  // Ask for the newer detail columns (sizes, material...). If the database
+  // does not have them yet, quietly fall back to the basic columns.
+  const request = query(BASE_COLUMNS + ", sizes, material, composition, fit, care")
+    .then(result => result.error ? query(BASE_COLUMNS) : result)
     .then(result => {
       if (result.error) { throw result.error; }
       BODEGS_PRODUCTS.splice(
