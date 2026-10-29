@@ -213,6 +213,8 @@ if (lastProductPage) {
             ${escapeHTML(product.name)}
           </h2>
 
+          ${product.size ? `<p class="cart-product-seller">Size: ${escapeHTML(product.size)}</p>` : ""}
+
           <p class="cart-product-price">
             ${totalPrice}
           </p>
