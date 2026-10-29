@@ -3,336 +3,201 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store — BODEGS</title>
+  <meta name="description" content="Shop pre-owned fashion from a verified BODEGS boutique.">
 
-  <title>WERAE Store</title>
-
+  <link rel="stylesheet" href="styles.css">
   <style>
-    :root {
-      --green: #173b32;
-      --cream: #f6f1e8;
-      --cream-light: #fffdf8;
-      --muted: #6b746e;
-      --sage: #dfe7df;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      background: var(--cream);
-      color: var(--green);
-      font-family: Arial, sans-serif;
-    }
-
-    .store-page {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 18px 12px 40px;
-    }
-
-    /* HEADER */
-
-    .store-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    width: 30px;
-height: 30px;
-border: none;
-border-radius: 9px;
-background: rgba(23, 59, 50, 0.55);
-color: var(--white);
-
-    .store-title h1 {
-      margin: 0;
-      font-size: 25px;
-      line-height: 1.1;
-    }
-
-    .store-title p {
-      margin: 4px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    /* STORE PROFILE */
-
-    .store-profile {
-      background: var(--cream-light);
-      border-radius: 20px;
-      padding: 18px;
-      margin-bottom: 25px;
-      box-shadow: 0 5px 16px rgba(23, 59, 50, 0.07);
-    }
-
-    .store-profile h2 {
-      margin: 0 0 6px;
-      font-size: 20px;
-    }
-
-    .store-profile p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .verified {
-      display: inline-block;
-      margin-top: 12px;
-      font-size: 12px;
-      font-weight: bold;
-      color: var(--green);
-    }
-
-    /* PRODUCTS */
-
-    .section-title {
-      margin: 0 4px 12px;
-      font-size: 18px;
-    }
-
-    .store-products {
-      column-count: 2;
-      column-gap: 8px;
-    }
-
-    .store-product {
-      break-inside: avoid;
-      margin-bottom: 8px;
-      overflow: hidden;
-      background: var(--cream-light);
-      border: 1px solid rgba(23, 59, 50, 0.06);
-      border-radius: 17px;
-      padding: 4px;
-      box-shadow: 0 5px 14px rgba(23, 59, 50, 0.06);
-    }
-
-    .store-product a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .store-product img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
-      border-radius: 14px;
-      background: var(--sage);
-    }
-
-    .product-info {
-      padding: 9px 7px 8px;
-    }
-
-    .product-info h3 {
-      margin: 0 0 5px;
-      font-size: 14px;
-    }
-
-    .price {
-      margin: 0 0 5px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .verified-product {
-      margin: 0;
-      color: var(--muted);
-      font-size: 10px;
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 480px) {
-      .store-page {
-        padding: 15px 8px 35px;
-      }
-
-      .store-products {
-        column-gap: 5px;
-      }
-
-      .store-product {
-        margin-bottom: 5px;
-      }
-    }
+    .store-header { padding: 66px 18px 16px; max-width: 640px; margin: 0 auto; }
+    .store-eyebrow { margin: 0 0 6px; font: 700 11px/1 Arial, sans-serif; letter-spacing: .12em; color: var(--deep-green); }
+    .store-header h1 { margin: 0 0 6px; font-size: 30px; line-height: 1.15; color: var(--deep-green); overflow-wrap: anywhere; }
+    .store-meta { margin: 0; color: var(--muted); font: 14px/1.4 Arial, sans-serif; }
+    .store-note { padding: 40px 20px; text-align: center; color: var(--muted); font: 15px/1.55 Arial, sans-serif; }
+    .store-note a { color: var(--deep-green); font-weight: 700; }
   </style>
 </head>
 
 <body>
 
-  <div class="store-page">
-
-    <!-- STORE HEADER -->
-
-    <header class="store-header">
-
-      <button
-        class="back-button"
-        onclick="history.back()"
-        aria-label="Go back"
-      >
-        ‹
-      </button>
-
-      <div class="store-title">
-        <h1>WERAE</h1>
-        <p>Trending Store</p>
-      </div>
-
-    </header>
-
-
-    <!-- STORE PROFILE -->
-
-    <section class="store-profile">
-
-      <h2>Featured Store</h2>
-
-      <p>
-        Discover carefully selected pre-owned fashion pieces
-        available on WERAE.
-      </p>
-
-      <span class="verified">✓ WERAE verified</span>
-
-    </section>
-
-
-    <!-- PRODUCTS -->
-
-    <main>
-
-      <h2 class="section-title">Available Items</h2>
-
-      <div class="store-products">
-
-
-        <!-- PREMIUM HANDBAG -->
-
-        <article class="store-product">
-
-          <a href="product.html">
-
-            <img
-              src="product-premium-handbag.jpg"
-              alt="Premium Handbag"
-            >
-
-            <div class="product-info">
-
-              <h3>Premium Handbag</h3>
-
-              <p class="price">₦85,000</p>
-
-              <p class="verified-product">
-                ✓ WERAE verified
-              </p>
-
-            </div>
-
-          </a>
-
-        </article>
-
-
-        <!-- CLASSIC SNEAKERS -->
-
-        <article class="store-product">
-
-          <a href="product.html">
-
-            <img
-              src="product-classic-sneakers.jpg"
-              alt="Classic Sneakers"
-            >
-
-            <div class="product-info">
-
-              <h3>Classic Sneakers</h3>
-
-              <p class="price">₦65,000</p>
-
-              <p class="verified-product">
-                ✓ WERAE verified
-              </p>
-
-            </div>
-
-          </a>
-
-        </article>
-
-
-        <!-- DESIGNER JACKET -->
-
-        <article class="store-product">
-
-          <a href="product.html">
-
-            <img
-              src="product-designer-jacket-portrait-clean.jpg"
-              alt="Designer Jacket"
-            >
-
-            <div class="product-info">
-
-              <h3>Designer Jacket</h3>
-
-              <p class="price">₦120,000</p>
-
-              <p class="verified-product">
-                ✓ WERAE verified
-              </p>
-
-            </div>
-
-          </a>
-
-        </article>
-
-
-        <!-- LEATHER SHOES -->
-
-        <article class="store-product">
-
-          <a href="product.html">
-
-            <img
-              src="product-leather-shoes.jpg"
-              alt="Leather Shoes"
-            >
-
-            <div class="product-info">
-
-              <h3>Leather Shoes</h3>
-
-              <p class="price">₦55,000</p>
-
-              <p class="verified-product">
-                ✓ WERAE verified
-              </p>
-
-            </div>
-
-          </a>
-
-        </article>
-
-
-      </div>
-
-    </main>
-
-  </div>
-
+  <a href="index.html" class="back-button" id="storeBack" aria-label="Back">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M15 5L8 12L15 19"></path>
+    </svg>
+  </a>
+
+  <header class="store-header">
+    <p class="store-eyebrow" id="storeBadge" hidden>&#10003; VERIFIED BODEGS SELLER</p>
+    <h1 id="storeName">Loading...</h1>
+    <p class="store-meta" id="storeMeta"></p>
+  </header>
+
+  <section class="section">
+    <div class="products" id="storeProducts"></div>
+  </section>
+  <div class="store-note" id="storeNote" hidden></div>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+
+    <a href="index.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 10.5 12 3l9 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 19.5v-9Z"></path>
+        <path d="M9 21v-6h6v6"></path>
+      </svg>
+      <span>Home</span>
+    </a>
+
+    <a href="explore.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5"></circle>
+        <path d="m16 16 5 5"></path>
+      </svg>
+      <span>Explore</span>
+    </a>
+
+    <a href="cart.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 8h14l-1 12H6L5 8Z"></path>
+        <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+      </svg>
+      <span>Cart</span>
+    </a>
+
+    <a href="orders.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 3.5h12A1.5 1.5 0 0 1 19.5 5v14A1.5 1.5 0 0 1 18 20.5H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5Z"></path>
+        <path d="M8 8h8M8 12h8M8 16h5"></path>
+      </svg>
+      <span>Orders</span>
+    </a>
+
+    <a href="profile.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="8" r="3.5"></circle>
+        <path d="M5 20a7 7 0 0 1 14 0"></path>
+      </svg>
+      <span>Profile</span>
+    </a>
+
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="products.js"></script>
+  <script>
+    (function () {
+      const $ = function (id) { return document.getElementById(id); };
+      const storeId = new URLSearchParams(location.search).get("id") || "";
+
+      // Back arrow: go back if the visitor came from our own site.
+      $("storeBack").addEventListener("click", function (event) {
+        if (document.referrer && document.referrer.indexOf(location.origin) === 0 && history.length > 1) {
+          event.preventDefault();
+          history.back();
+        }
+      });
+
+      function showNote(html) {
+        const note = $("storeNote");
+        note.textContent = "";
+        if (typeof html === "string") {
+          note.textContent = html;
+        } else {
+          note.appendChild(html);
+        }
+        note.hidden = false;
+      }
+
+      function notFound() {
+        document.title = "Store not found — BODEGS";
+        $("storeName").textContent = "Store not found";
+        $("storeMeta").textContent = "";
+        const wrap = document.createElement("div");
+        wrap.appendChild(document.createTextNode("This store is not available. "));
+        const link = document.createElement("a");
+        link.href = "explore.html";
+        link.textContent = "Browse all products";
+        wrap.appendChild(link);
+        showNote(wrap);
+      }
+
+      function card(product) {
+        const link = document.createElement("a");
+        link.className = "product-card";
+        link.href = "product.html?id=" + encodeURIComponent(product.id);
+
+        const imageWrap = document.createElement("div");
+        imageWrap.className = "product-image";
+        if (product.images && product.images.length) {
+          const image = document.createElement("img");
+          image.src = product.images[0];
+          image.alt = product.name;
+          image.loading = "lazy";
+          imageWrap.appendChild(image);
+        }
+        link.appendChild(imageWrap);
+
+        const name = document.createElement("h3");
+        name.textContent = product.name;
+        link.appendChild(name);
+
+        const price = document.createElement("p");
+        price.textContent = window.BODEGS.formatCurrency(product.price, product.currency || "NGN");
+        link.appendChild(price);
+
+        if (product.description) {
+          const description = document.createElement("small");
+          description.textContent = product.description;
+          link.appendChild(description);
+        }
+        return link;
+      }
+
+      async function start() {
+        if (!/^[0-9a-f-]{36}$/i.test(storeId)) { notFound(); return; }
+
+        // The boutique's own details, and the live products (waits for the database).
+        const results = await Promise.all([
+          sb.from("sellers")
+            .select("id, boutique_name, city, category, verified")
+            .eq("id", storeId)
+            .maybeSingle(),
+          window.BODEGS.ready
+        ]);
+
+        const seller = results[0].data;
+        if (!seller) { notFound(); return; }
+
+        // products.js falls back to demo products when the database is unreachable.
+        if (results[1] !== "database") { throw new Error("products unavailable"); }
+
+        const products = window.BODEGS.getAllProducts().filter(function (p) {
+          return p.sellerId === seller.id;
+        });
+
+        document.title = seller.boutique_name + " — BODEGS";
+        $("storeName").textContent = seller.boutique_name;
+        $("storeBadge").hidden = !seller.verified;
+
+        const bits = [];
+        if (seller.city) bits.push(seller.city);
+        bits.push(products.length + (products.length === 1 ? " product" : " products"));
+        $("storeMeta").textContent = bits.join(" · ");
+
+        const grid = $("storeProducts");
+        grid.textContent = "";
+        products.forEach(function (product) { grid.appendChild(card(product)); });
+
+        if (!products.length) {
+          showNote("This boutique has no products on sale right now. Please check back soon.");
+        }
+      }
+
+      start().catch(function () {
+        $("storeName").textContent = "Something went wrong";
+        showNote("We could not load this store. Please check your connection and try again.");
+      });
+    })();
+  </script>
 </body>
-  </html>
+</html>
