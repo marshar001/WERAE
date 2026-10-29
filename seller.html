@@ -68,6 +68,7 @@
     .chips { display: flex; flex-wrap: wrap; gap: 8px; }
     .chip { border: 1.5px solid var(--line); background: #fff; color: #1b2b26; border-radius: 999px; padding: 9px 15px; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; }
     .chip.on { background: var(--green); border-color: var(--green); color: #fff; }
+    .chip .dot { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-right: 7px; vertical-align: -1px; border: 1px solid rgba(0,0,0,.25); }
     .vh { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
 
     .msg { margin: 0 0 14px; padding: 12px 14px; border-radius: 12px; font-size: 14px; line-height: 1.4; }
@@ -156,6 +157,12 @@
         <p class="help">Tap every size you have. Buyers must pick a size before adding to cart.</p>
       </div>
 
+      <div class="field">
+        <span class="lbl">Colours <span class="opt">(optional)</span></span>
+        <div class="chips" id="colorChips"></div>
+        <p class="help">Tap every colour this item comes in.</p>
+      </div>
+
       <div class="row2">
         <div class="field">
           <label class="lbl" for="pMaterial">Fabric <span class="opt">(optional)</span></label>
@@ -209,6 +216,41 @@
   let busy = false;
   const SIZE_PRESETS = ["XS", "S", "M", "L", "XL", "XXL", "One size"];
   let chosenSizes = [];      // preset sizes the seller ticked
+  const COLOR_PRESETS = [
+    ["Black", "#111111"], ["White", "#f5f5f5"], ["Grey", "#9a9a9a"], ["Brown", "#7a4a2b"],
+    ["Beige", "#d8c3a5"], ["Red", "#c0392b"], ["Pink", "#e8a0b4"], ["Orange", "#e67e22"],
+    ["Yellow", "#f1c40f"], ["Green", "#2e7d4f"], ["Blue", "#2f6fb5"], ["Navy", "#1f2f55"],
+    ["Purple", "#7b4fa3"], ["Multicolour", "linear-gradient(135deg,#e74c3c,#f1c40f,#2ecc71,#3498db)"]
+  ];
+  let chosenColors = [];     // names ticked
+  let keptColors = {};       // colours already saved that are not in the list: name -> value
+
+  function renderColorChips() {
+    const box = $("colorChips");
+    box.textContent = "";
+    COLOR_PRESETS.forEach((c) => {
+      const on = chosenColors.indexOf(c[0]) !== -1;
+      const chip = el("button", "chip" + (on ? " on" : ""));
+      const dot = el("span", "dot");
+      dot.style.background = c[1];
+      chip.appendChild(dot);
+      chip.appendChild(document.createTextNode(c[0]));
+      chip.type = "button";
+      chip.addEventListener("click", () => {
+        const at = chosenColors.indexOf(c[0]);
+        if (at === -1) chosenColors.push(c[0]); else chosenColors.splice(at, 1);
+        renderColorChips();
+      });
+      box.appendChild(chip);
+    });
+  }
+
+  function collectColors() {
+    const out = [];
+    COLOR_PRESETS.forEach((c) => { if (chosenColors.indexOf(c[0]) !== -1) out.push({ name: c[0], value: c[1] }); });
+    Object.keys(keptColors).forEach((name) => out.push({ name: name, value: keptColors[name] }));
+    return out;
+  }
 
   function renderSizeChips() {
     const box = $("sizeChips");
@@ -340,7 +382,7 @@
   }
 
   async function loadProducts() {
-    const BASE = "id, name, description, price_ngn, category, condition, inventory, images, image_url, active, created_at";
+    const BASE = "id, name, description, price_ngn, category, condition, inventory, images, colors, image_url, active, created_at";
     const ask = (cols) => sb.from("products").select(cols).eq("seller_id", seller.id).order("created_at", { ascending: false });
     let { data, error } = await ask(BASE + ", sizes, material, composition, fit, care");
     if (error) ({ data, error } = await ask(BASE));   // detail columns not added to the database yet
@@ -398,6 +440,15 @@
     $("pComposition").value = p && p.composition ? p.composition : "";
     $("pCare").value = p && p.care ? p.care : "";
     renderSizeChips();
+    const savedColors = p && Array.isArray(p.colors) ? p.colors : [];
+    chosenColors = [];
+    keptColors = {};
+    savedColors.forEach((c) => {
+      if (!c || typeof c.name !== "string") return;
+      if (COLOR_PRESETS.some((x) => x[0] === c.name)) chosenColors.push(c.name);
+      else keptColors[c.name] = typeof c.value === "string" ? c.value : "#111111";
+    });
+    renderColorChips();
     formMessage("");
     $("saveBtn").disabled = false;
     renderPhotos();
@@ -568,6 +619,7 @@
         condition: $("pCondition").value,
         inventory: Number($("pQty").value),
         sizes: collectSizes(),
+        colors: collectColors(),
         material: $("pMaterial").value.trim() || null,
         composition: $("pComposition").value.trim() || null,
         fit: $("pFit").value || null,

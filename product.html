@@ -60,13 +60,19 @@
     /* ---------- sticky action bar ---------- */
     .pp-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 900; display: flex; gap: 10px; padding: 10px max(14px, calc(50% - 306px)) calc(10px + env(safe-area-inset-bottom)); background: rgba(245,240,231,.96); border-top: 1px solid rgba(23,59,50,.1); backdrop-filter: blur(6px); }
     .pp-bar button { flex: 1; height: 50px; border-radius: 16px; font: 700 15px Arial, sans-serif; cursor: pointer; margin: 0; }
-    .pp-bar .cart-button { background: #fff; color: var(--deep-green); border: 1.5px solid var(--deep-green); }
-    .pp-bar .buy-button { background: var(--deep-green); color: #fff; border: 0; }
+    .pp-bar .cart-button { background: var(--deep-green); color: #fff; border: 0; }
     .pp-bar button:disabled { opacity: .45; cursor: default; }
 
-    .pp-sizes { display: flex; flex-wrap: wrap; gap: 8px; }
-    .pp-sizes button { min-width: 52px; height: 44px; padding: 0 14px; border: 0; border-radius: 12px; background: var(--cream, #f5f0e7); color: #1d2924; font: 600 15px Arial, sans-serif; cursor: pointer; }
+    .pp-opt { padding: 12px 16px; }
+    .pp-opt + .pp-opt { padding-top: 0; }
+    .pp-opt-title { margin: 0 0 8px; font: 700 14px Arial, sans-serif; color: #1d2924; }
+    .pp-opt-title .picked { font-weight: 400; color: var(--muted); margin-left: 4px; }
+    .pp-sizes, .pp-colors { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 2px 4px; }
+    .pp-sizes::-webkit-scrollbar, .pp-colors::-webkit-scrollbar { display: none; }
+    .pp-sizes button { flex: none; min-width: 42px; height: 36px; padding: 0 12px; border: 0; border-radius: 10px; background: var(--cream, #f5f0e7); color: #1d2924; font: 600 14px Arial, sans-serif; cursor: pointer; }
     .pp-sizes button.on { background: var(--deep-green); color: #fff; }
+    .pp-colors button { flex: none; width: 34px; height: 34px; padding: 0; border: 1px solid rgba(0,0,0,.2); border-radius: 10px; cursor: pointer; background-clip: padding-box; }
+    .pp-colors button.on { outline: 2px solid var(--deep-green); outline-offset: 2px; }
     .pp-block h2 .picked { font-weight: 400; color: var(--muted); }
     .pp-error { margin: 10px 0 0; color: #c2410c; font: 600 13px Arial, sans-serif; }
     .pp-desc.clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -87,6 +93,7 @@
     details.pp-more summary svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
     details.pp-more[open] summary svg { transform: rotate(180deg); }
     details.pp-more .pp-rows { padding: 0 16px 12px; }
+    details.pp-more .pp-details { padding: 0 16px 14px; }
     .pp-grid-title { margin: 22px 0 10px; }
     .pp-center { padding: 60px 20px; text-align: center; font-family: Arial, sans-serif; color: var(--muted); }
   </style>
@@ -120,8 +127,6 @@
 
       <div id="photoThumbs" class="pp-thumbs" hidden></div>
 
-      <div id="colorOptions" class="color-options"></div>
-
     </section>
 
     <!-- ===== INFORMATION ===== -->
@@ -144,30 +149,24 @@
         <button type="button" class="pp-toggle" id="descToggle" aria-expanded="false" hidden><span>Show more</span> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
       </div>
 
-      <!-- 4. sizes -->
-      <div class="pp-block" id="sizeBlock" hidden>
-        <h2>Size <span class="picked" id="sizePicked"></span></h2>
-        <div class="pp-sizes" id="sizeOptions"></div>
-        <p class="pp-error" id="sizeError" hidden>Please choose a size.</p>
-      </div>
-
-      <!-- 5. quantity -->
-      <div class="pp-block">
-        <div class="pp-qty">
-          <span class="label">Qty</span>
-          <div class="pp-stepper">
-            <button type="button" id="qtyMinus" aria-label="Decrease quantity">&minus;</button>
-            <span id="qtyValue">1</span>
-            <button type="button" id="qtyPlus" aria-label="Increase quantity">+</button>
-          </div>
+      <!-- 4. colour and size (compact) -->
+      <div class="pp-block" id="optionBlock" hidden>
+        <div class="pp-opt" id="colorBlock" hidden>
+          <p class="pp-opt-title">Color<span class="picked" id="colorPicked"></span></p>
+          <div class="pp-colors" id="colorOptions"></div>
+        </div>
+        <div class="pp-opt" id="sizeBlock" hidden>
+          <p class="pp-opt-title">Size<span class="picked" id="sizePicked"></span></p>
+          <div class="pp-sizes" id="sizeOptions"></div>
+          <p class="pp-error" id="sizeError" hidden>Please choose a size.</p>
         </div>
       </div>
 
       <!-- 6. details of the item -->
-      <div class="pp-block" id="detailBlock">
-        <h2>Details</h2>
+      <details class="pp-block pp-more" id="detailBlock">
+        <summary>Details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
         <dl class="pp-details" id="detailList"></dl>
-      </div>
+      </details>
 
       <!-- 7. visit store -->
       <a class="pp-visit" id="visitStore" href="explore.html">
@@ -202,7 +201,6 @@
   <!-- ===== STICKY ACTION BAR ===== -->
   <div class="pp-bar" id="actionBar" hidden>
     <button id="addToCartButton" class="cart-button" type="button">Add to Cart</button>
-    <button id="buyButton" class="buy-button" type="button">Checkout</button>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -394,33 +392,36 @@
           if (Math.abs(diff) > 50) { showImage(diff > 0 ? current + 1 : current - 1); }
         });
 
-        /* ----- colours ----- */
-        var colorBox = $("colorOptions");
-        colorBox.textContent = "";
-        if (Array.isArray(product.colors) && product.colors.length) {
-          product.colors.forEach(function (color, index) {
+        /* ----- colours (first one preselected) ----- */
+        var colors = Array.isArray(product.colors)
+          ? product.colors.filter(function (c) { return c && typeof c.name === "string"; })
+          : [];
+        var chosenColor = "";
+        if (colors.length) {
+          $("optionBlock").hidden = false;
+          $("colorBlock").hidden = false;
+          var colorBox = $("colorOptions");
+          colors.forEach(function (color) {
             var button = document.createElement("button");
             button.type = "button";
-            button.className = "color-option" + (index === 0 ? " active" : "");
             button.setAttribute("aria-label", color.name);
-            var swatch = document.createElement("span");
-            swatch.className = "color-swatch";
-            swatch.style.background = color.value || "#111111";
-            var label = document.createElement("span");
-            label.textContent = color.name;
-            button.appendChild(swatch);
-            button.appendChild(label);
+            button.title = color.name;
+            button.style.background = color.value || "#111111";
             button.addEventListener("click", function () {
-              Array.prototype.forEach.call(colorBox.children, function (b) { b.classList.toggle("active", b === button); });
+              chosenColor = color.name;
+              $("colorPicked").textContent = color.name;
+              Array.prototype.forEach.call(colorBox.children, function (b) { b.classList.toggle("on", b === button); });
             });
             colorBox.appendChild(button);
           });
+          colorBox.firstElementChild.click();
         }
 
         /* ----- sizes ----- */
         var sizes = Array.isArray(product.sizes) ? product.sizes : [];
         var chosenSize = "";
         if (sizes.length) {
+          $("optionBlock").hidden = false;
           $("sizeBlock").hidden = false;
           var sizeBox = $("sizeOptions");
           sizes.forEach(function (size) {
@@ -440,7 +441,6 @@
 
         /* ----- cart ----- */
         var addButton = $("addToCartButton");
-        var buyButton = $("buyButton");
         var cartButton = document.querySelector(".product-cart-button");
         var cartCount = $("productCartCount");
         var qty = 1;
@@ -457,21 +457,9 @@
           cartCount.textContent = total;
           cartCount.hidden = total === 0;
         }
-        function syncQty() {
-          $("qtyValue").textContent = qty;
-          $("qtyMinus").disabled = qty <= 1;
-          $("qtyPlus").disabled = qty >= maxQty();
-        }
-        $("qtyMinus").addEventListener("click", function () { if (qty > 1) { qty--; syncQty(); } });
-        $("qtyPlus").addEventListener("click", function () { if (qty < maxQty()) { qty++; syncQty(); } });
-        syncQty();
-
         if (soldOut) {
           addButton.disabled = true;
-          buyButton.disabled = true;
           addButton.textContent = "Sold out";
-          $("qtyMinus").disabled = true;
-          $("qtyPlus").disabled = true;
         }
 
         function addProductToCart() {
@@ -489,6 +477,7 @@
               existing.quantity = Math.min(Number(existing.quantity || 1) + qty, maxQty());
             }
             if (chosenSize) { existing.size = chosenSize; }
+            if (chosenColor) { existing.color = chosenColor; }
           } else {
             cart.push({
               productId: product.id,
@@ -500,6 +489,7 @@
               image: images.length ? images[0] : "",
               url: "product.html?id=" + encodeURIComponent(product.id),
               size: chosenSize || "",
+              color: chosenColor || "",
               quantity: qty
             });
           }
@@ -532,10 +522,6 @@
         }
 
         addButton.addEventListener("click", addProductToCart);
-        buyButton.addEventListener("click", function () {
-          if (!addProductToCart()) { return; }
-          setTimeout(function () { window.location.href = "cart.html"; }, 350);
-        });
         cartButton.addEventListener("click", function () {
           localStorage.setItem("weraeLastProductPage", window.location.href);
         });
