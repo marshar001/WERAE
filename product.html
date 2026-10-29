@@ -95,7 +95,6 @@
     details.pp-more summary::-webkit-details-marker { display: none; }
     details.pp-more summary svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
     details.pp-more[open] summary svg { transform: rotate(180deg); }
-    details.pp-more a.pp-visit { margin: 0 16px 6px; padding: 8px 0 12px; border-radius: 0; box-shadow: none; background: transparent; border-bottom: 1px solid rgba(23,59,50,.08); }
     details.pp-more .pp-rows { padding: 0 16px 12px; }
     details.pp-more .pp-details { padding: 0 16px 14px; }
     .pp-grid-title { margin: 22px 0 10px; }
@@ -172,9 +171,17 @@
         <dl class="pp-details" id="detailList"></dl>
       </details>
 
-      <!-- 7. shopping with BODEGS (collapsed): visit store + protection -->
+      <!-- 7. shopping with BODEGS (collapsed) -->
       <details class="pp-block pp-more">
         <summary>Shopping with BODEGS <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+        <ul class="pp-rows">
+          <li><span class="tick">✓</span><div><b>Buyer Protection</b><span>Your purchase is protected by BODEGS. Delivery and order protection apply.</span></div></li>
+          <li><span class="tick">✓</span><div><b>Secure payment</b><span>Payment and delivery are processed through BODEGS.</span></div></li>
+          <li><span class="tick">✓</span><div><b>Verified sellers</b><span>Every boutique is checked by BODEGS before selling.</span></div></li>
+        </ul>
+      </details>
+
+      <!-- 8. visit store (own card, below Shopping with BODEGS) -->
       <a class="pp-visit" id="visitStore" href="explore.html">
         <div class="logo" id="storeLogo">B</div>
         <div class="who">
@@ -183,12 +190,6 @@
         </div>
         <span class="go" id="visitGo">Visit store &rsaquo;</span>
       </a>
-        <ul class="pp-rows">
-          <li><span class="tick">✓</span><div><b>Buyer Protection</b><span>Your purchase is protected by BODEGS. Delivery and order protection apply.</span></div></li>
-          <li><span class="tick">✓</span><div><b>Secure payment</b><span>Payment and delivery are processed through BODEGS.</span></div></li>
-          <li><span class="tick">✓</span><div><b>Verified sellers</b><span>Every boutique is checked by BODEGS before selling.</span></div></li>
-        </ul>
-      </details>
 
     </section>
 
