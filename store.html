@@ -8,12 +8,52 @@
 
   <link rel="stylesheet" href="styles.css">
   <style>
-    .store-header { padding: 66px 18px 16px; max-width: 640px; margin: 0 auto; }
-    .store-eyebrow { margin: 0 0 6px; font: 700 11px/1 Arial, sans-serif; letter-spacing: .12em; color: var(--deep-green); }
-    .store-header h1 { margin: 0 0 6px; font-size: 30px; line-height: 1.15; color: var(--deep-green); overflow-wrap: anywhere; }
-    .store-meta { margin: 0; color: var(--muted); font: 14px/1.4 Arial, sans-serif; }
-    .store-note { padding: 40px 20px; text-align: center; color: var(--muted); font: 15px/1.55 Arial, sans-serif; }
-    .store-note a { color: var(--deep-green); font-weight: 700; }
+    body { padding-bottom: 24px; }
+    .sf-wrap { max-width: 640px; margin: 0 auto; }
+
+    /* header band: search + shop identity */
+    .sf-hero {
+      background: linear-gradient(160deg, #173b32 0%, #2c5a4b 100%);
+      padding: 14px 18px 34px 70px; color: #fff; position: relative;
+    }
+    .sf-search { display: flex; align-items: center; gap: 8px; background: #fff; border-radius: 14px; height: 44px; padding: 0 14px; box-sizing: border-box; }
+    .sf-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: 15px Arial, sans-serif; color: #1d2924; }
+    .sf-search svg { width: 20px; height: 20px; flex: none; stroke: #173b32; fill: none; stroke-width: 2; stroke-linecap: round; }
+
+    .sf-id { display: flex; align-items: center; gap: 14px; margin: 18px 0 0 -52px; }
+    .sf-logo {
+      flex: none; width: 64px; height: 64px; border-radius: 20px; background: #f5f0e7; color: #173b32;
+      display: flex; align-items: center; justify-content: center; font: 700 28px Georgia, serif;
+    }
+    .sf-id h1 { margin: 0; font: 700 22px/1.2 Georgia, serif; color: #fff; overflow-wrap: anywhere; }
+    .sf-badge { display: inline-block; margin-top: 6px; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.18); font: 700 11px Arial, sans-serif; letter-spacing: .06em; }
+    .sf-meta { margin: 6px 0 0; font: 13px/1.4 Arial, sans-serif; color: rgba(255,255,255,.8); }
+
+    /* cream sheet that overlaps the band */
+    .sf-sheet { background: var(--cream, #f5f0e7); border-radius: 26px 26px 0 0; margin-top: -22px; position: relative; padding-top: 4px; min-height: 60vh; }
+
+    .sf-tabs { display: flex; border-bottom: 1px solid rgba(23,59,50,.12); }
+    .sf-tabs button { flex: 1; border: 0; background: transparent; padding: 16px 0 12px; font: 600 15px Arial, sans-serif; color: var(--muted); cursor: pointer; position: relative; }
+    .sf-tabs button.active { color: var(--deep-green); }
+    .sf-tabs button.active::after { content: ""; position: absolute; left: 50%; bottom: -1px; width: 28px; height: 3px; margin-left: -14px; border-radius: 3px; background: var(--deep-green); }
+
+    .sf-sort { display: flex; gap: 8px; padding: 12px 18px 4px; overflow-x: auto; scrollbar-width: none; }
+    .sf-sort::-webkit-scrollbar, .sf-chips::-webkit-scrollbar { display: none; }
+    .sf-sort button { flex: none; border: 0; background: transparent; padding: 6px 8px; font: 600 14px Arial, sans-serif; color: var(--muted); cursor: pointer; }
+    .sf-sort button.active { color: var(--deep-green); }
+
+    .sf-chips { display: flex; gap: 8px; padding: 6px 18px 10px; overflow-x: auto; scrollbar-width: none; }
+    .sf-chips button { flex: none; border: 1px solid rgba(23,59,50,.14); background: #fff; color: var(--deep-green); border-radius: 10px; padding: 8px 14px; font: 600 13px Arial, sans-serif; cursor: pointer; }
+    .sf-chips button.active { background: var(--deep-green); color: #fff; border-color: var(--deep-green); }
+
+    .sf-count { padding: 0 18px 8px; color: var(--muted); font: 13px Arial, sans-serif; }
+    .sf-note { padding: 40px 20px; text-align: center; color: var(--muted); font: 15px/1.55 Arial, sans-serif; }
+    .sf-note a { color: var(--deep-green); font-weight: 700; }
+
+    .sf-about { padding: 18px; font-family: Arial, sans-serif; }
+    .sf-about dl { margin: 0; }
+    .sf-about dt { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-top: 16px; }
+    .sf-about dd { margin: 4px 0 0; font-size: 16px; color: #1d2924; overflow-wrap: anywhere; }
   </style>
 </head>
 
@@ -25,61 +65,51 @@
     </svg>
   </a>
 
-  <header class="store-header">
-    <p class="store-eyebrow" id="storeBadge" hidden>&#10003; VERIFIED BODEGS SELLER</p>
-    <h1 id="storeName">Loading...</h1>
-    <p class="store-meta" id="storeMeta"></p>
-  </header>
+  <div class="sf-wrap">
 
-  <section class="section">
-    <div class="products" id="storeProducts"></div>
-  </section>
-  <div class="store-note" id="storeNote" hidden></div>
+    <header class="sf-hero">
+      <div class="sf-search">
+        <input id="sfSearch" type="search" placeholder="Search in store" autocomplete="off" aria-label="Search in store">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg>
+      </div>
 
-  <!-- BOTTOM NAVIGATION -->
-  <nav class="bottom-nav">
+      <div class="sf-id">
+        <div class="sf-logo" id="storeLogo">B</div>
+        <div>
+          <h1 id="storeName">Loading...</h1>
+          <span class="sf-badge" id="storeBadge" hidden>&#10003; VERIFIED BODEGS SELLER</span>
+          <p class="sf-meta" id="storeMeta"></p>
+        </div>
+      </div>
+    </header>
 
-    <a href="index.html" class="nav-item">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 10.5 12 3l9 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 19.5v-9Z"></path>
-        <path d="M9 21v-6h6v6"></path>
-      </svg>
-      <span>Home</span>
-    </a>
+    <main class="sf-sheet">
+      <div class="sf-tabs" id="sfTabs">
+        <button type="button" data-tab="items" class="active">Items</button>
+        <button type="button" data-tab="about">About</button>
+      </div>
 
-    <a href="explore.html" class="nav-item">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="11" cy="11" r="6.5"></circle>
-        <path d="m16 16 5 5"></path>
-      </svg>
-      <span>Explore</span>
-    </a>
+      <div id="sfItems" hidden>
+        <div class="sf-sort" id="sfSort">
+          <button type="button" data-sort="new" class="active">Newest</button>
+          <button type="button" data-sort="low">Price: low to high</button>
+          <button type="button" data-sort="high">Price: high to low</button>
+        </div>
+        <div class="sf-chips" id="sfChips"></div>
+        <div class="sf-count" id="sfCount"></div>
+        <section class="section">
+          <div class="products" id="storeProducts"></div>
+        </section>
+      </div>
 
-    <a href="cart.html" class="nav-item">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M5 8h14l-1 12H6L5 8Z"></path>
-        <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
-      </svg>
-      <span>Cart</span>
-    </a>
+      <div id="sfAbout" class="sf-about" hidden>
+        <dl id="sfAboutList"></dl>
+      </div>
 
-    <a href="orders.html" class="nav-item">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M6 3.5h12A1.5 1.5 0 0 1 19.5 5v14A1.5 1.5 0 0 1 18 20.5H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5Z"></path>
-        <path d="M8 8h8M8 12h8M8 16h5"></path>
-      </svg>
-      <span>Orders</span>
-    </a>
+      <div class="sf-note" id="storeNote" hidden></div>
+    </main>
 
-    <a href="profile.html" class="nav-item">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="8" r="3.5"></circle>
-        <path d="M5 20a7 7 0 0 1 14 0"></path>
-      </svg>
-      <span>Profile</span>
-    </a>
-
-  </nav>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
@@ -89,6 +119,12 @@
       const $ = function (id) { return document.getElementById(id); };
       const storeId = new URLSearchParams(location.search).get("id") || "";
 
+      let seller = null;
+      let all = [];          // this store's products, newest first
+      let sortMode = "new";
+      let category = "";     // "" means all
+      let term = "";
+
       // Back arrow: go back if the visitor came from our own site.
       $("storeBack").addEventListener("click", function (event) {
         if (document.referrer && document.referrer.indexOf(location.origin) === 0 && history.length > 1) {
@@ -97,13 +133,13 @@
         }
       });
 
-      function showNote(html) {
+      function showNote(content) {
         const note = $("storeNote");
         note.textContent = "";
-        if (typeof html === "string") {
-          note.textContent = html;
+        if (typeof content === "string") {
+          note.textContent = content;
         } else {
-          note.appendChild(html);
+          note.appendChild(content);
         }
         note.hidden = false;
       }
@@ -111,7 +147,9 @@
       function notFound() {
         document.title = "Store not found — BODEGS";
         $("storeName").textContent = "Store not found";
+        $("storeLogo").textContent = "?";
         $("storeMeta").textContent = "";
+        $("sfTabs").hidden = true;
         const wrap = document.createElement("div");
         wrap.appendChild(document.createTextNode("This store is not available. "));
         const link = document.createElement("a");
@@ -121,6 +159,7 @@
         showNote(wrap);
       }
 
+      // Same card markup and classes as the home page product cards.
       function card(product) {
         const link = document.createElement("a");
         link.className = "product-card";
@@ -153,6 +192,108 @@
         return link;
       }
 
+      function buildChips() {
+        const box = $("sfChips");
+        box.textContent = "";
+        const names = [];
+        all.forEach(function (p) {
+          if (p.category && names.indexOf(p.category) === -1) { names.push(p.category); }
+        });
+        box.hidden = names.length < 2;
+        [""].concat(names).forEach(function (value) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.dataset.value = value;
+          button.textContent = value || "All";
+          button.className = value === category ? "active" : "";
+          button.addEventListener("click", function () {
+            category = value;
+            Array.prototype.forEach.call(box.children, function (b) {
+              b.classList.toggle("active", b.dataset.value === value);
+            });
+            renderItems();
+          });
+          box.appendChild(button);
+        });
+      }
+
+      function renderItems() {
+        const grid = $("storeProducts");
+        grid.textContent = "";
+
+        const items = all.filter(function (p) {
+          if (category && p.category !== category) { return false; }
+          if (!term) { return true; }
+          return (p.name + " " + (p.description || "") + " " + (p.category || "")).toLowerCase().indexOf(term) !== -1;
+        });
+        if (sortMode === "low") { items.sort(function (a, b) { return a.price - b.price; }); }
+        if (sortMode === "high") { items.sort(function (a, b) { return b.price - a.price; }); }
+
+        items.forEach(function (product) { grid.appendChild(card(product)); });
+
+        $("sfCount").textContent = items.length
+          ? items.length + (items.length === 1 ? " item" : " items")
+          : "";
+
+        if (items.length) {
+          $("storeNote").hidden = true;
+        } else if (!all.length) {
+          showNote("This boutique has no products on sale right now. Please check back soon.");
+        } else {
+          showNote("No items match. Try another search or category.");
+        }
+      }
+
+      function buildAbout() {
+        const list = $("sfAboutList");
+        list.textContent = "";
+        function row(label, value) {
+          if (!value) { return; }
+          const dt = document.createElement("dt");
+          dt.textContent = label;
+          const dd = document.createElement("dd");
+          dd.textContent = value;
+          list.appendChild(dt);
+          list.appendChild(dd);
+        }
+        row("Boutique", seller.boutique_name);
+        row("Location", seller.city);
+        row("Main category", seller.category);
+        row("Items for sale", String(all.length));
+        row("Verification", seller.verified
+          ? "Verified BODEGS seller. ID, business registration and address were checked by BODEGS."
+          : "Not yet verified");
+      }
+
+      function showTab(name) {
+        Array.prototype.forEach.call($("sfTabs").children, function (b) {
+          b.classList.toggle("active", b.dataset.tab === name);
+        });
+        $("sfItems").hidden = name !== "items";
+        $("sfAbout").hidden = name !== "about";
+        if (name === "items") { renderItems(); } else { $("storeNote").hidden = true; }
+      }
+
+      $("sfTabs").addEventListener("click", function (event) {
+        const button = event.target.closest("button");
+        if (button) { showTab(button.dataset.tab); }
+      });
+
+      $("sfSort").addEventListener("click", function (event) {
+        const button = event.target.closest("button");
+        if (!button) { return; }
+        sortMode = button.dataset.sort;
+        Array.prototype.forEach.call($("sfSort").children, function (b) {
+          b.classList.toggle("active", b === button);
+        });
+        renderItems();
+      });
+
+      $("sfSearch").addEventListener("input", function () {
+        term = this.value.toLowerCase().trim();
+        if (seller) { showTab("items"); }
+      });
+
       async function start() {
         if (!/^[0-9a-f-]{36}$/i.test(storeId)) { notFound(); return; }
 
@@ -165,36 +306,34 @@
           window.BODEGS.ready
         ]);
 
-        const seller = results[0].data;
+        seller = results[0].data;
         if (!seller) { notFound(); return; }
 
         // products.js falls back to demo products when the database is unreachable.
-        if (results[1] !== "database") { throw new Error("products unavailable"); }
+        if (results[1] !== "database") { seller = null; throw new Error("products unavailable"); }
 
-        const products = window.BODEGS.getAllProducts().filter(function (p) {
+        all = window.BODEGS.getAllProducts().filter(function (p) {
           return p.sellerId === seller.id;
         });
 
         document.title = seller.boutique_name + " — BODEGS";
         $("storeName").textContent = seller.boutique_name;
+        $("storeLogo").textContent = (seller.boutique_name || "B").trim().charAt(0).toUpperCase() || "B";
         $("storeBadge").hidden = !seller.verified;
 
         const bits = [];
-        if (seller.city) bits.push(seller.city);
-        bits.push(products.length + (products.length === 1 ? " product" : " products"));
+        if (seller.city) { bits.push(seller.city); }
+        bits.push(all.length + (all.length === 1 ? " product" : " products"));
         $("storeMeta").textContent = bits.join(" · ");
 
-        const grid = $("storeProducts");
-        grid.textContent = "";
-        products.forEach(function (product) { grid.appendChild(card(product)); });
-
-        if (!products.length) {
-          showNote("This boutique has no products on sale right now. Please check back soon.");
-        }
+        buildChips();
+        buildAbout();
+        showTab("items");
       }
 
       start().catch(function () {
         $("storeName").textContent = "Something went wrong";
+        $("sfTabs").hidden = true;
         showNote("We could not load this store. Please check your connection and try again.");
       });
     })();
