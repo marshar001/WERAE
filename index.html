@@ -12,6 +12,16 @@
   >
 
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .trending-row .trending-card { position: relative; overflow: hidden; }
+    .trending-card .store-name {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 18px 8px 8px; box-sizing: border-box;
+      font: 700 12px/1.2 Arial, sans-serif; color: #fff; text-align: left;
+      background: linear-gradient(to top, rgba(0,0,0,.7), rgba(0,0,0,0));
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+  </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 <script src="products.js"></script>
@@ -646,9 +656,70 @@
         });
       }
 
+      // Trending Store: real boutiques that have live products, busiest first.
+      // If none can be found (or the database is down), the built-in cards stay.
+      function showStores() {
+        const row = document.querySelector(".trending-row");
+        if (!row) return;
+
+        const bySeller = {};
+        const sellers = [];
+
+        window.BODEGS.getAllProducts().forEach(function (product) {
+          // Built-in demo products have a text seller id, so they are skipped.
+          if (!/^[0-9a-f-]{36}$/i.test(String(product.sellerId || ""))) return;
+
+          let seller = bySeller[product.sellerId];
+          if (!seller) {
+            seller = bySeller[product.sellerId] = {
+              id: product.sellerId,
+              name: product.sellerName || "BODEGS seller",
+              count: 0,
+              image: ""
+            };
+            sellers.push(seller);
+          }
+          seller.count++;
+          if (!seller.image && product.images && product.images.length) {
+            seller.image = product.images[0];
+          }
+        });
+
+        if (!sellers.length) return;
+
+        sellers.sort(function (a, b) { return b.count - a.count; });
+        row.textContent = "";
+
+        sellers.slice(0, 10).forEach(function (seller) {
+          const card = document.createElement("a");
+          card.className = "trending-card";
+          card.href = "store.html?id=" + encodeURIComponent(seller.id);
+
+          if (seller.image) {
+            const image = document.createElement("img");
+            image.src = seller.image;
+            image.alt = seller.name;
+            image.loading = "lazy";
+            card.appendChild(image);
+          } else {
+            card.style.background = "#173b32";
+          }
+
+          const label = document.createElement("span");
+          label.className = "store-name";
+          label.textContent = seller.name;
+          card.appendChild(label);
+
+          row.appendChild(card);
+        });
+      }
+
       // Wait for the BODEGS database. If it cannot be reached, products.js
       // falls back to the built-in products, so the page is never empty.
-      window.BODEGS.ready.then(showProducts);
+      window.BODEGS.ready.then(function () {
+        showProducts();
+        try { showStores(); } catch (error) { console.warn("BODEGS stores:", error); }
+      });
     })();
   </script>
   
@@ -750,5 +821,28 @@
 </script>
 
   
+<script>
+  // Category row: each tile opens Explore filtered to that category.
+  document.querySelectorAll(".category-item").forEach(function (item) {
+    const button = item.querySelector("button");
+    const label = item.querySelector("span");
+    if (!button || !label) return;
+
+    const name = label.textContent.trim();
+    button.type = "button";
+    button.setAttribute("aria-label", "Browse " + name);
+    button.addEventListener("click", function () {
+      window.location.href = "explore.html?cat=" + encodeURIComponent(name);
+    });
+  });
+
+  // Welcome banner buttons ("Explore now", "Shop now", "Explore picks").
+  document.querySelectorAll(".welcome-content button").forEach(function (button) {
+    button.addEventListener("click", function () {
+      window.location.href = "explore.html";
+    });
+  });
+</script>
+
 </body>
 </html>
