@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seller login — BODEGS Business</title>
+  <style>
+    :root { --brand: #263B50; --brand2: #3b5873; --bg: #eef1f5; --muted: #6b7a89; --line: rgba(38,59,80,.22); --red: #b3261e; }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html, body { margin: 0; }
+    body { min-height: 100vh; background: var(--bg); color: var(--brand); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-text-size-adjust: 100%; }
+    .top { background: linear-gradient(160deg, var(--brand) 0%, var(--brand2) 100%); color: #fff; padding: 28px 22px 70px; border-radius: 0 0 32px 32px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .top .in { max-width: 440px; margin: 0 auto; }
+    .mark { display: flex; align-items: center; gap: 12px; }
+    .mark i { width: 44px; height: 44px; border-radius: 15px; background: #fff; color: var(--brand); display: flex; align-items: center; justify-content: center; font: 700 22px Georgia, serif; font-style: normal; }
+    .mark b { font: 700 20px Georgia, serif; letter-spacing: .08em; }
+    .mark small { display: block; font-size: 11px; letter-spacing: .14em; opacity: .75; margin-top: 2px; }
+    h1 { margin: 26px 0 6px; font: 700 28px/1.15 Georgia, "Times New Roman", serif; }
+    .top p { margin: 0; opacity: .85; font-size: 14.5px; line-height: 1.45; }
+    main { max-width: 440px; margin: -42px auto 0; padding: 0 16px 40px; }
+    .card { background: #fff; border-radius: 24px; padding: 20px; box-shadow: 0 12px 34px rgba(0,0,0,.12); }
+    .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: var(--bg); border-radius: 15px; margin-bottom: 18px; }
+    .tabs button { border: 0; background: transparent; color: var(--muted); font-family: inherit; font-size: 15px; font-weight: 700; padding: 11px 0; border-radius: 12px; cursor: pointer; }
+    .tabs button.on { background: var(--brand); color: #fff; }
+    label { display: block; margin: 0 0 14px; font-size: 13px; font-weight: 700; }
+    label span.h { font-weight: 400; color: var(--muted); }
+    input { display: block; width: 100%; margin-top: 6px; padding: 14px; border: 1.5px solid var(--line); border-radius: 14px; font-size: 16px; font-family: inherit; color: var(--brand); background: #fff; outline: none; }
+    input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+    .pw { position: relative; }
+    .pw button { position: absolute; right: 8px; top: 12px; border: 0; background: none; color: var(--muted); font-family: inherit; font-size: 13px; font-weight: 700; padding: 8px; cursor: pointer; }
+    .go { width: 100%; border: 0; border-radius: 16px; padding: 15px; background: var(--brand); color: #fff; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,.18); }
+    .go:disabled { opacity: .6; }
+    .msg { margin: 0 0 14px; padding: 11px 13px; border-radius: 12px; font-size: 13.5px; line-height: 1.4; }
+    .msg.err { background: #fdecea; color: var(--red); }
+    .msg.ok { background: #e6f4ea; color: #1f6f43; }
+    .links { margin: 16px 0 0; text-align: center; font-size: 14px; color: var(--muted); line-height: 1.9; }
+    .links a, .links button { color: var(--brand); font-weight: 700; text-decoration: none; background: none; border: 0; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; padding: 0; }
+      input[readonly] { background: #f4f6f9; color: var(--muted); }
+    .back { display: inline-block; margin-top: 14px; font-size: 14px; }
+    .mark small { display: block; font-size: 11px; letter-spacing: .14em; opacity: .75; margin-top: 2px; }
+  </style>
+</head>
+<body>
+<div class="top"><div class="in">
+  <div class="mark"><i>B</i><div><b>BODEGS</b><small>BUSINESS</small></div></div>
+  <h1 id="title">Log in to your BODEGS seller account</h1>
+  <p id="sub">Use your seller password to manage your products, orders and payments.</p>
+</div></div>
+
+<main>
+  <div class="card">
+    <p class="msg" id="wait">Checking your account&hellip;</p>
+    <div class="msg err" id="err" hidden></div>
+    <div class="msg ok" id="ok" hidden></div>
+
+    <!-- no seller account -->
+    <div id="noSeller" hidden>
+      <p class="msg">There is no seller account on this email yet. Open a boutique to start selling on BODEGS.</p>
+      <a class="go" style="display:block;text-align:center;text-decoration:none" href="boutique.html">Open a boutique</a>
+    </div>
+
+    <!-- log in / create password -->
+    <form id="form" novalidate hidden>
+      <label>Email
+        <input id="email" type="email" readonly>
+      </label>
+      <label><span id="pwLabel">Seller password</span> <span class="h" id="pwHint" hidden>(at least 8 characters)</span>
+        <div class="pw">
+          <input id="password" type="password" autocomplete="current-password" placeholder="Your seller password">
+          <button type="button" id="showPw">Show</button>
+        </div>
+      </label>
+      <label id="confirmWrap" hidden>Repeat seller password
+        <input id="confirm" type="password" autocomplete="new-password" placeholder="Type it again">
+      </label>
+      <label id="acctWrap" hidden>Your BODEGS account password
+        <input id="acct" type="password" autocomplete="current-password" placeholder="The password you use to shop">
+      </label>
+      <button class="go" id="go" type="submit">Log in to Business</button>
+    </form>
+
+    <div class="links">
+      <button type="button" id="forgot" hidden>Forgot seller password?</button>
+      <a class="back" href="index.html">&lsaquo; Back to the marketplace</a>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const params = new URLSearchParams(location.search);
+  const rawNext = params.get("next") || "";
+  const next = /^[A-Za-z0-9_\-]+\.html(\?[^#]*)?(#.*)?$/.test(rawNext) ? rawNext : "seller.html";
+  let state = "set";        // "set" = log in, "none" = create password, "reset" = forgot password
+  let email = "";
+
+  function say(kind, text) {
+    $("err").hidden = $("ok").hidden = true;
+    if (!text) return;
+    const box = $(kind); box.textContent = text; box.hidden = false;
+  }
+  function friendly(e) {
+    const m = (e && e.message || "").toLowerCase();
+    if (m.indexOf("invalid login") >= 0) return "That account password is not right.";
+    if (m.indexOf("rate") >= 0) return "Too many tries. Please wait a minute and try again.";
+    if (m.indexOf("function") >= 0 && m.indexOf("exist") >= 0) return "The seller password update has not been installed in the database yet.";
+    if (m.indexOf("fetch") >= 0 || m.indexOf("network") >= 0) return "No connection. Check your internet and try again.";
+    return (e && e.message) || "Something went wrong. Please try again.";
+  }
+
+  function layout() {
+    const creating = state === "none", resetting = state === "reset";
+    $("title").textContent = creating ? "Create your seller password" : resetting ? "Reset your seller password" : "Log in to your BODEGS seller account";
+    $("sub").textContent = creating ? "This password is only for your seller account. It is different from the one you use to shop." : resetting ? "Confirm your BODEGS account password, then choose a new seller password." : "Use your seller password to manage your products, orders and payments.";
+    $("pwLabel").textContent = creating || resetting ? "New seller password" : "Seller password";
+    $("pwHint").hidden = !(creating || resetting);
+    $("confirmWrap").hidden = !(creating || resetting);
+    $("acctWrap").hidden = !resetting;
+    $("password").autocomplete = creating || resetting ? "new-password" : "current-password";
+    $("password").placeholder = creating || resetting ? "At least 8 characters" : "Your seller password";
+    $("go").textContent = creating ? "Create and log in" : resetting ? "Save and log in" : "Log in to Business";
+    $("forgot").hidden = state !== "set";
+    $("forgot").textContent = "Forgot seller password?";
+    say("err", "");
+  }
+
+  function enter() {
+    try { sessionStorage.setItem("bodegsSellerAuth", "1"); } catch (x) {}
+    location.replace(next);
+  }
+
+  $("showPw").addEventListener("click", () => {
+    const p = $("password"), show = p.type === "password";
+    p.type = show ? "text" : "password";
+    $("showPw").textContent = show ? "Hide" : "Show";
+  });
+  $("forgot").addEventListener("click", () => { state = "reset"; layout(); });
+
+  $("form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    say("err", "");
+    const pw = $("password").value;
+    if (!pw) { say("err", "Enter your seller password."); return; }
+    if (state !== "set") {
+      if (pw.length < 8) { say("err", "Your seller password needs at least 8 characters."); return; }
+      if (pw !== $("confirm").value) { say("err", "The two passwords do not match."); return; }
+    }
+    $("go").disabled = true;
+    try {
+      if (state === "reset") {
+        const acct = $("acct").value;
+        if (!acct) throw new Error("Enter your BODEGS account password.");
+        const r = await sb.auth.signInWithPassword({ email: email, password: acct });
+        if (r.error) throw r.error;
+      }
+      if (state === "none" || state === "reset") {
+        const r = await sb.rpc("set_seller_password", { p_password: pw });
+        if (r.error) throw r.error;
+        enter();
+        return;
+      }
+      const r = await sb.rpc("verify_seller_password", { p_password: pw });
+      if (r.error) throw r.error;
+      if (r.data === "ok") { enter(); return; }
+      if (r.data === "locked") throw new Error("Too many wrong tries. Please wait 5 minutes and try again.");
+      throw new Error("Wrong seller password. Please try again.");
+    } catch (err) {
+      say("err", friendly(err));
+      $("go").disabled = false;
+    }
+  });
+
+  (async function start() {
+    let user = null;
+    try { user = await currentUser(); } catch (e) {}
+    if (!user) { location.replace("login.html?next=" + encodeURIComponent("seller-login.html")); return; }
+    email = user.email || "";
+    $("email").value = email;
+    const r = await sb.rpc("seller_password_status");
+    $("wait").hidden = true;
+    if (r.error) { say("err", friendly(r.error)); return; }
+    if (r.data === "noseller") { $("noSeller").hidden = false; return; }
+    state = r.data === "none" ? "none" : "set";
+    $("form").hidden = false;
+    layout();
+  })();
+})();
+</script>
+</body>
+</html>

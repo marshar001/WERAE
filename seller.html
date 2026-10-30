@@ -206,8 +206,8 @@
       <div class="panel" id="storePanel"></div>
       <a class="btn primary" id="storeOpen" href="#">View my store</a>
       <button type="button" class="btn ghost" id="storeCopy" style="margin-top:10px">Copy store link</button>
-      <button type="button" class="btn ghost" id="logoutBtn" style="margin-top:10px">Log out and go to marketplace</button>
-      <p class="foot">To shop as a buyer, log out here, then log in again from the marketplace.</p>
+      <button type="button" class="btn ghost" id="logoutBtn" style="margin-top:10px">Log out of seller account</button>
+      <p class="foot">Logging out takes you back to the BODEGS marketplace. To open this page again you will log in with your seller password.</p>
     </div>
 
     <!-- Payments -->
@@ -769,8 +769,8 @@
 
   $("logoutBtn").addEventListener("click", async () => {
     $("logoutBtn").disabled = true;
-    try { await sb.auth.signOut(); } catch (e) {}
-    location.href = "login.html?next=" + encodeURIComponent("index.html");
+    try { sessionStorage.removeItem("bodegsSellerAuth"); } catch (e) {}
+    location.replace("index.html");
   });
 
   $("storeCopy").addEventListener("click", async () => {
@@ -1127,7 +1127,11 @@
   /* ---------------- start ---------------- */
 
   (async function start() {
-    user = await requireLogin();
+    let ok = false;
+    try { ok = sessionStorage.getItem("bodegsSellerAuth") === "1"; } catch (e) {}
+    const who = await currentUser();
+    if (!who || !ok) { location.replace("seller-login.html?next=seller.html"); return; }
+    user = who;
     if (!user) return;
 
     const { data, error } = await sb

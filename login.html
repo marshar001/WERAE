@@ -5,88 +5,174 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign in — BODEGS</title>
   <style>
+    :root { --brand: #173b32; --brand2: #2c5a4b; --bg: #f5f0e7; --muted: #78837d; --line: rgba(23,59,50,.2); --red: #b3261e; }
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: system-ui, sans-serif; background: #f7f7f7; color: #111; }
-    main { max-width: 420px; margin: 0 auto; padding: 24px 16px; }
-    h1 { font-size: 24px; margin: 8px 0 16px; }
-    .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
-    .tabs button { flex: 1; padding: 10px; border: 1px solid #ccc; background: #fff; border-radius: 10px; font-size: 15px; }
-    .tabs button.on { background: #111; color: #fff; border-color: #111; }
-    form { background: #fff; border-radius: 14px; padding: 18px; }
-    label { display: block; font-size: 14px; font-weight: 600; margin: 12px 0 6px; }
-    input { width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 10px; }
-    .go { width: 100%; margin-top: 18px; padding: 14px; font-size: 16px; font-weight: 600; border: 0; border-radius: 10px; background: #111; color: #fff; }
-    #msg { margin-top: 12px; font-size: 14px; }
-    .err { color: #b91c1c; } .ok { color: #166534; }
+    [hidden] { display: none !important; }
+    html, body { margin: 0; }
+    body { min-height: 100vh; background: var(--bg); color: var(--brand); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-text-size-adjust: 100%; }
+    .top { background: linear-gradient(160deg, var(--brand) 0%, var(--brand2) 100%); color: #fff; padding: 28px 22px 70px; border-radius: 0 0 32px 32px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+    .top .in { max-width: 440px; margin: 0 auto; }
+    .mark { display: flex; align-items: center; gap: 12px; }
+    .mark i { width: 44px; height: 44px; border-radius: 15px; background: #fff; color: var(--brand); display: flex; align-items: center; justify-content: center; font: 700 22px Georgia, serif; font-style: normal; }
+    .mark b { font: 700 20px Georgia, serif; letter-spacing: .08em; }
+    .mark small { display: block; font-size: 11px; letter-spacing: .14em; opacity: .75; margin-top: 2px; }
+    h1 { margin: 26px 0 6px; font: 700 28px/1.15 Georgia, "Times New Roman", serif; }
+    .top p { margin: 0; opacity: .85; font-size: 14.5px; line-height: 1.45; }
+    main { max-width: 440px; margin: -42px auto 0; padding: 0 16px 40px; }
+    .card { background: #fff; border-radius: 24px; padding: 20px; box-shadow: 0 12px 34px rgba(0,0,0,.12); }
+    .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: var(--bg); border-radius: 15px; margin-bottom: 18px; }
+    .tabs button { border: 0; background: transparent; color: var(--muted); font-family: inherit; font-size: 15px; font-weight: 700; padding: 11px 0; border-radius: 12px; cursor: pointer; }
+    .tabs button.on { background: var(--brand); color: #fff; }
+    label { display: block; margin: 0 0 14px; font-size: 13px; font-weight: 700; }
+    label span.h { font-weight: 400; color: var(--muted); }
+    input { display: block; width: 100%; margin-top: 6px; padding: 14px; border: 1.5px solid var(--line); border-radius: 14px; font-size: 16px; font-family: inherit; color: var(--brand); background: #fff; outline: none; }
+    input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+    .pw { position: relative; }
+    .pw button { position: absolute; right: 8px; top: 12px; border: 0; background: none; color: var(--muted); font-family: inherit; font-size: 13px; font-weight: 700; padding: 8px; cursor: pointer; }
+    .go { width: 100%; border: 0; border-radius: 16px; padding: 15px; background: var(--brand); color: #fff; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,.18); }
+    .go:disabled { opacity: .6; }
+    .msg { margin: 0 0 14px; padding: 11px 13px; border-radius: 12px; font-size: 13.5px; line-height: 1.4; }
+    .msg.err { background: #fdecea; color: var(--red); }
+    .msg.ok { background: #e6f4ea; color: #1f6f43; }
+    .links { margin: 16px 0 0; text-align: center; font-size: 14px; color: var(--muted); line-height: 1.9; }
+    .links a, .links button { color: var(--brand); font-weight: 700; text-decoration: none; background: none; border: 0; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; padding: 0; }
   </style>
 </head>
 <body>
-<main>
-  <h1>Welcome to BODEGS</h1>
-  <div class="tabs">
-    <button type="button" id="tabIn" class="on">Sign in</button>
-    <button type="button" id="tabUp">Create account</button>
-  </div>
+<div class="top"><div class="in">
+  <div class="mark"><i>B</i><div><b>BODEGS</b></div></div>
+  <h1 id="title">Welcome to BODEGS</h1>
+  <p id="sub">Sign in to shop, track orders and save your favourites.</p>
+</div></div>
 
-  <form id="authForm">
-    <div id="nameRow" style="display:none">
-      <label for="fullName">Full name</label>
-      <input id="fullName" autocomplete="name">
+<main>
+  <div class="card">
+    <div class="tabs" role="tablist">
+      <button type="button" id="tabSignin" class="on">Sign in</button>
+      <button type="button" id="tabSignup">Create account</button>
     </div>
-    <label for="email">Email</label>
-    <input id="email" type="email" autocomplete="email" required>
-    <label for="password">Password (at least 8 characters)</label>
-    <input id="password" type="password" minlength="8" autocomplete="current-password" required>
-    <button class="go" id="goBtn" type="submit">Sign in</button>
-    <div id="msg" role="status"></div>
-  </form>
+    <div class="msg err" id="err" hidden></div>
+    <div class="msg ok" id="ok" hidden></div>
+    <form id="form" novalidate>
+      <label id="nameWrap" hidden>Full name
+        <input id="name" type="text" autocomplete="name" placeholder="Your full name">
+      </label>
+      <label>Email
+        <input id="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com">
+      </label>
+      <label>Password <span class="h" id="pwHint" hidden>(at least 8 characters)</span>
+        <div class="pw">
+          <input id="password" type="password" autocomplete="current-password" placeholder="Your password">
+          <button type="button" id="showPw">Show</button>
+        </div>
+      </label>
+      <button class="go" id="go" type="submit">Sign in</button>
+    </form>
+    <div class="links"><button type="button" id="forgot">Forgot password?</button><br>Selling on BODEGS? <a href="seller-login.html">Log in to your seller account</a></div>
+  </div>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 <script>
-  let mode = "in";
-  const msg = document.getElementById("msg");
-  const show = (t, c) => { msg.textContent = t; msg.className = c || ""; };
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const MODE = "buyer";                       // "buyer" or "seller"
+  const params = new URLSearchParams(location.search);
+  const rawNext = params.get("next") || "";
+  // only allow plain page names on this site (no http:, no //)
+  const next = /^[A-Za-z0-9_\-]+\.html(\?[^#]*)?(#.*)?$/.test(rawNext) ? rawNext : (MODE === "seller" ? "seller.html" : "index.html");
+  let signup = params.get("mode") === "signup" && MODE === "buyer";
+  const forSeller = /^seller/.test(rawNext);
 
-  function safeNext() {
-    const n = new URLSearchParams(location.search).get("next") || "profile.html";
-    return /^[A-Za-z0-9_\-]+\.html(\?[A-Za-z0-9_\-=&%.]*)?$/.test(n) ? n : "profile.html";
+  function say(kind, text) {
+    $("err").hidden = $("ok").hidden = true;
+    if (!text) return;
+    const box = $(kind); box.textContent = text; box.hidden = false;
+  }
+  function friendly(e) {
+    const m = (e && e.message || "").toLowerCase();
+    if (m.indexOf("invalid login") >= 0) return "Wrong email or password. Please try again.";
+    if (m.indexOf("already registered") >= 0 || m.indexOf("already been registered") >= 0) return "That email already has an account. Tap Sign in instead.";
+    if (m.indexOf("password") >= 0 && m.indexOf("6") >= 0) return "Choose a longer password (at least 8 characters).";
+    if (m.indexOf("rate") >= 0) return "Too many tries. Please wait a minute and try again.";
+    if (m.indexOf("confirm") >= 0) return "Please confirm your email first, then sign in.";
+    if (m.indexOf("fetch") >= 0 || m.indexOf("network") >= 0) return "No connection. Check your internet and try again.";
+    return (e && e.message) || "Something went wrong. Please try again.";
   }
 
-  function setMode(m) {
-    mode = m;
-    document.getElementById("tabIn").className = m === "in" ? "on" : "";
-    document.getElementById("tabUp").className = m === "up" ? "on" : "";
-    document.getElementById("nameRow").style.display = m === "up" ? "block" : "none";
-    document.getElementById("goBtn").textContent = m === "in" ? "Sign in" : "Create account";
-    show("");
+  function setMode(isSignup) {
+    signup = isSignup && MODE === "buyer";
+    if (MODE !== "buyer") return;
+    $("tabSignin").classList.toggle("on", !signup);
+    $("tabSignup").classList.toggle("on", signup);
+    $("nameWrap").hidden = !signup;
+    $("pwHint").hidden = !signup;
+    $("password").autocomplete = signup ? "new-password" : "current-password";
+    $("go").textContent = signup ? "Create account" : "Sign in";
+    $("title").textContent = signup ? "Create your account" : "Welcome to BODEGS";
+    $("sub").textContent = signup ? "Join to shop pre-owned fashion from trusted sellers." : (forSeller ? "Sign in with your BODEGS account first. Next you will log in to your seller account." : "Sign in to shop, track orders and save your favourites.");
+    $("forgot").hidden = signup;
+    say("err", "");
   }
-  document.getElementById("tabIn").onclick = () => setMode("in");
-  document.getElementById("tabUp").onclick = () => setMode("up");
+  if (MODE === "buyer") {
+    $("tabSignin").addEventListener("click", () => setMode(false));
+    $("tabSignup").addEventListener("click", () => setMode(true));
+    $("forgot").addEventListener("click", async () => {
+      const email = $("email").value.trim();
+      if (!email) { say("err", "Type your email above first, then tap Forgot password."); return; }
+      const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: new URL("login.html", location.href).href });
+      if (error) say("err", friendly(error)); else say("ok", "Password reset link sent. Check your email.");
+    });
+    setMode(signup);
+  }
 
-  document.getElementById("authForm").addEventListener("submit", async (e) => {
+  $("showPw").addEventListener("click", () => {
+    const p = $("password"), show = p.type === "password";
+    p.type = show ? "text" : "password";
+    $("showPw").textContent = show ? "Hide" : "Show";
+  });
+
+  $("form").addEventListener("submit", async (e) => {
     e.preventDefault();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-    const name = document.getElementById("fullName").value.trim();
-    const btn = document.getElementById("goBtn");
-    btn.disabled = true; show("Please wait...");
-
-    if (mode === "in") {
-      const { error } = await signIn(email, password);
-      if (error) { show(error.message, "err"); btn.disabled = false; return; }
-      location.href = safeNext();
-    } else {
-      const { data, error } = await signUp(email, password, name);
-      if (error) { show(error.message, "err"); btn.disabled = false; return; }
-      if (data.session) { location.href = safeNext(); return; }
-      show("Account created. Check your email to confirm it, then sign in.", "ok");
-      btn.disabled = false;
+    say("err", "");
+    const email = $("email").value.trim();
+    const password = $("password").value;
+    const name = $("name").value.trim();
+    if (!email || email.indexOf("@") < 1) { say("err", "Enter a valid email address."); return; }
+    if (!password) { say("err", "Enter your password."); return; }
+    if (signup) {
+      if (!name) { say("err", "Enter your full name."); return; }
+      if (password.length < 8) { say("err", "Your password needs at least 8 characters."); return; }
+    }
+    $("go").disabled = true;
+    try {
+      if (signup) {
+        const { data, error } = await signUp(email, password, name);
+        if (error) throw error;
+        if (!data.session) {
+          say("ok", "Account created. Check your email to confirm it, then sign in.");
+          setMode(false);
+          $("go").disabled = false;
+          return;
+        }
+      } else {
+        const { error } = await signIn(email, password);
+        if (error) throw error;
+      }
+      if (MODE === "seller") { try { sessionStorage.setItem("bodegsSellerAuth", "1"); } catch (x) {} }
+      location.replace(next);
+    } catch (err) {
+      say("err", friendly(err));
+      $("go").disabled = false;
     }
   });
 
-  currentUser().then((u) => { if (u) location.href = safeNext(); });
+  // already signed in on the buyer page: go straight on
+  if (MODE === "buyer") {
+    currentUser().then((u) => { if (u && !params.get("stay")) location.replace(next); }).catch(() => {});
+  }
+})();
 </script>
 </body>
 </html>
