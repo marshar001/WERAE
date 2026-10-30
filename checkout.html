@@ -213,8 +213,10 @@
             <h3>${escapeHTML(product.name)}</h3>
 
             <p class="checkout-item-seller">
-              Verified Fashion Store
+              ${escapeHTML(product.sellerName || "BODEGS seller")}
             </p>
+
+            ${(product.size || product.color) ? `<p class="checkout-item-quantity">${[product.color ? "Color: " + escapeHTML(product.color) : "", product.size ? "Size: " + escapeHTML(product.size) : ""].filter(Boolean).join(" · ")}</p>` : ""}
 
             <p class="checkout-item-quantity">
               Quantity: ${quantity}
@@ -316,6 +318,18 @@
         placeDemoOrderButton.disabled = false;
         return;
       }
+
+      // Record the chosen size and colour on the saved order (best effort:
+      // the order itself is already saved even if this step fails).
+      try {
+        await sb.rpc("tag_latest_order_items", {
+          p_items: cartProducts.map(product => ({
+            productId: String(product.productId || product.id || ""),
+            size: String(product.size || ""),
+            color: String(product.color || "")
+          }))
+        });
+      } catch (e) { /* ignore */ }
 
       // Clear the cart only after the order has been saved.
       localStorage.removeItem("weraeCart");

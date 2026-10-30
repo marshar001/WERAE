@@ -6,16 +6,47 @@
   <meta name="robots" content="noindex">
   <title>Seller Dashboard — BODEGS</title>
   <style>
-    :root { --green:#173b32; --cream:#f3efe7; --card:#fbf9f4; --line:rgba(23,59,50,.14); --muted:#6c756f; --red:#873b32; --amber:#795516; }
+    :root { --green:#173b32; --cream:#f5f0e7; --card:#ffffff; --line:rgba(23,59,50,.14); --muted:#6c756f; --red:#873b32; --amber:#795516; }
     * { box-sizing: border-box; }
     [hidden] { display: none !important; }
     body { margin: 0; background: var(--cream); color: #1b2b26; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding-bottom: 40px; }
 
-    header { background: var(--green); color: #fff; padding: 16px; }
+    header.hero { background: linear-gradient(160deg, #173b32 0%, #2c5a4b 100%); color: #fff; padding: 14px 16px 34px; border-radius: 0 0 28px 28px; }
     header .row { max-width: 640px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    header .row a { color: #fff; opacity: .9; font-size: 14px; text-decoration: none; flex: none; font-weight: 600; }
+    header .id { max-width: 640px; margin: 18px auto 0; display: flex; align-items: center; gap: 14px; }
+    header .logo { flex: none; width: 58px; height: 58px; border-radius: 18px; background: var(--cream); color: var(--green); display: flex; align-items: center; justify-content: center; font: 700 26px Georgia, serif; }
     header .eyebrow { margin: 0 0 3px; font-size: 11px; letter-spacing: .12em; opacity: .75; }
-    header h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 22px; overflow-wrap: anywhere; }
-    header a { color: #fff; opacity: .85; font-size: 14px; text-decoration: none; flex: none; }
+    header h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 23px; line-height: 1.15; overflow-wrap: anywhere; }
+
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: -22px 0 14px; }
+    .stat { background: #fff; border-radius: 16px; padding: 12px 8px; text-align: center; box-shadow: 0 3px 12px rgba(23,59,50,.08); }
+    .stat b { display: block; font: 700 22px Georgia, serif; color: var(--green); }
+    .stat span { font-size: 12px; color: var(--muted); }
+
+    .tabs { display: flex; background: #ebe5d8; border-radius: 14px; padding: 4px; margin-bottom: 14px; }
+    .tabs button { flex: 1; border: 0; background: transparent; padding: 11px 6px; border-radius: 11px; font-size: 14px; font-weight: 700; font-family: inherit; color: var(--muted); cursor: pointer; }
+    .tabs button.active { background: #fff; color: var(--green); box-shadow: 0 2px 8px rgba(23,59,50,.1); }
+    .tabs .count { display: inline-block; min-width: 20px; padding: 1px 6px; margin-left: 4px; border-radius: 999px; background: #c2410c; color: #fff; font-size: 12px; }
+
+    .order { background: #fff; border-radius: 18px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 10px rgba(23,59,50,.06); }
+    .order .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+    .chip2 { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 700; }
+    .chip2.todo { background: #fdebe6; color: #c2410c; }
+    .chip2.done { background: #d9ecd9; color: #1f5a2c; }
+    .chip2.cancel { background: #ece7da; color: var(--amber); }
+    .order .line { display: flex; gap: 12px; }
+    .order .pic { flex: none; width: 64px; height: 80px; border-radius: 12px; overflow: hidden; background: #e8e3d8; }
+    .order .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .order h3 { margin: 0 0 4px; font: 700 16px Georgia, serif; overflow-wrap: anywhere; }
+    .order .opts { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 6px; }
+    .order .opts span { padding: 3px 9px; border-radius: 8px; background: #ebe5d8; font-size: 12.5px; font-weight: 600; }
+    .order .sum { margin: 0; font-size: 14px; }
+    .order .buyer { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.45; }
+    .order .buyer b { display: block; margin-bottom: 2px; }
+    .order .buyer a { color: var(--green); font-weight: 700; }
+    .order .buyer p { margin: 2px 0 0; white-space: pre-line; overflow-wrap: anywhere; color: #3d4a44; }
+    .order .btn { margin-top: 12px; padding: 12px; font-size: 14px; border-radius: 12px; }
 
     main { max-width: 640px; margin: 0 auto; padding: 16px 14px; }
     .notice { padding: 36px 16px; text-align: center; color: var(--muted); font-size: 15px; line-height: 1.55; }
@@ -87,13 +118,17 @@
 </head>
 <body>
 
-<header>
+<header class="hero">
   <div class="row">
+    <a href="profile.html">&lsaquo; Profile</a>
+    <a href="#" id="storeLink" hidden>View my store &rsaquo;</a>
+  </div>
+  <div class="id">
+    <div class="logo" id="shopLogo">B</div>
     <div>
       <p class="eyebrow">BODEGS SELLER</p>
       <h1 id="shopName">My products</h1>
     </div>
-    <a href="profile.html">Profile</a>
   </div>
 </header>
 
@@ -101,9 +136,22 @@
   <div id="notice" class="notice">Loading...</div>
 
   <section id="listView" hidden>
-    <button type="button" class="btn primary" id="addBtn">+ Add a product</button>
-    <div class="summary" id="summary"></div>
-    <div id="list"></div>
+    <div class="stats" id="stats"></div>
+
+    <div class="tabs" id="tabs">
+      <button type="button" data-tab="products" class="active">Products</button>
+      <button type="button" data-tab="orders">Orders <span class="count" id="ordersCount" hidden>0</span></button>
+    </div>
+
+    <div id="paneProducts">
+      <button type="button" class="btn primary" id="addBtn">+ Add a product</button>
+      <div class="summary" id="summary"></div>
+      <div id="list"></div>
+    </div>
+
+    <div id="paneOrders" hidden>
+      <div id="orderList"></div>
+    </div>
   </section>
 
   <section id="editView" hidden>
@@ -364,6 +412,134 @@
     return p.image_url || "";
   }
 
+  /* ---------------- orders ---------------- */
+
+  let orders = [];          // null when the orders database update has not been installed yet
+
+  async function loadOrders() {
+    const { data, error } = await sb.rpc("seller_orders");
+    if (error) { orders = null; return false; }
+    orders = data || [];
+    return true;
+  }
+
+  function toShipCount() {
+    return Array.isArray(orders)
+      ? orders.filter((o) => !o.shipped_at && o.order_status !== "cancelled").length
+      : 0;
+  }
+
+  function renderStats() {
+    const live = products.filter((p) => p.active).length;
+    const soldOut = products.filter((p) => p.inventory <= 0).length;
+    const box = $("stats");
+    box.textContent = "";
+    [[live, "Live"], [soldOut, "Sold out"], [Array.isArray(orders) ? toShipCount() : "–", "To ship"]].forEach((s) => {
+      const tile = el("div", "stat");
+      tile.appendChild(el("b", "", String(s[0])));
+      tile.appendChild(el("span", "", s[1]));
+      box.appendChild(tile);
+    });
+    const badge = $("ordersCount");
+    const n = toShipCount();
+    badge.textContent = String(n);
+    badge.hidden = !n;
+  }
+
+  function shortDate(value) {
+    try { return new Date(value).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" }); }
+    catch (e) { return ""; }
+  }
+
+  async function markShipped(o, button) {
+    button.disabled = true;
+    const want = !o.shipped_at;
+    const { error } = await sb.rpc("seller_mark_shipped", { p_item_id: o.item_id, p_shipped: want });
+    if (error) { toast("Could not update this order. Please try again.", true); button.disabled = false; return; }
+    o.shipped_at = want ? new Date().toISOString() : null;
+    toast(want ? "Marked as shipped." : "Moved back to To ship.");
+    renderOrders();
+    renderStats();
+  }
+
+  function renderOrders() {
+    const list = $("orderList");
+    list.textContent = "";
+
+    if (orders === null) {
+      list.appendChild(el("div", "notice", "Orders are not available yet. Ask the BODEGS admin to finish the orders update, then refresh this page."));
+      return;
+    }
+    if (!orders.length) {
+      list.appendChild(el("div", "notice", "No orders yet. When a buyer orders one of your products it will show up here."));
+      return;
+    }
+
+    orders.forEach((o) => {
+      const card = el("article", "order");
+
+      const top = el("div", "top");
+      top.appendChild(el("span", "", "Order #" + String(o.order_id).slice(0, 8).toUpperCase() + " · " + shortDate(o.ordered_at)));
+      let label = "To ship", cls = "todo";
+      if (o.order_status === "cancelled") { label = "Cancelled"; cls = "cancel"; }
+      else if (o.shipped_at) { label = "Shipped " + shortDate(o.shipped_at); cls = "done"; }
+      top.appendChild(el("span", "chip2 " + cls, label));
+      card.appendChild(top);
+
+      const line = el("div", "line");
+      const pic = el("div", "pic");
+      if (o.image) {
+        const img = document.createElement("img");
+        img.src = o.image; img.alt = ""; img.loading = "lazy";
+        pic.appendChild(img);
+      }
+      line.appendChild(pic);
+
+      const info = el("div");
+      info.appendChild(el("h3", "", o.product_name));
+      if (o.size || o.color) {
+        const opts = el("div", "opts");
+        if (o.size) opts.appendChild(el("span", "", "Size " + o.size));
+        if (o.color) opts.appendChild(el("span", "", o.color));
+        info.appendChild(opts);
+      }
+      const total = Number(o.qty) * Number(o.price);
+      info.appendChild(el("p", "sum", o.qty + " × " + naira(o.price) + " = " + naira(total)));
+      line.appendChild(info);
+      card.appendChild(line);
+
+      const buyer = el("div", "buyer");
+      buyer.appendChild(el("b", "", o.buyer_name || "Buyer"));
+      if (o.buyer_phone) {
+        const a = el("a", "", o.buyer_phone);
+        a.href = "tel:" + String(o.buyer_phone).replace(/[^\d+]/g, "");
+        const phoneLine = el("p");
+        phoneLine.appendChild(a);
+        buyer.appendChild(phoneLine);
+      }
+      if (o.delivery_address) buyer.appendChild(el("p", "", o.delivery_address));
+      card.appendChild(buyer);
+
+      if (o.order_status !== "cancelled") {
+        const btn = el("button", "btn " + (o.shipped_at ? "ghost" : "primary"), o.shipped_at ? "Undo shipped" : "Mark as shipped");
+        btn.type = "button";
+        btn.addEventListener("click", () => markShipped(o, btn));
+        card.appendChild(btn);
+      }
+      list.appendChild(card);
+    });
+  }
+
+  function showTab(name) {
+    Array.prototype.forEach.call($("tabs").children, (b) => b.classList.toggle("active", b.dataset.tab === name));
+    $("paneProducts").hidden = name !== "products";
+    $("paneOrders").hidden = name !== "orders";
+  }
+  $("tabs").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (b) showTab(b.dataset.tab);
+  });
+
   function renderList() {
     $("notice").hidden = true;
     $("editView").hidden = true;
@@ -372,6 +548,8 @@
 
     const live = products.filter((p) => p.active).length;
     const hidden = products.length - live;
+    renderStats();
+    renderOrders();
     const summary = $("summary");
     summary.textContent = "";
     summary.appendChild(el("strong", "", products.length + (products.length === 1 ? " product" : " products")));
@@ -732,8 +910,11 @@
 
     seller = data;
     $("shopName").textContent = seller.boutique_name;
+    $("shopLogo").textContent = (seller.boutique_name || "B").trim().charAt(0).toUpperCase() || "B";
+    $("storeLink").href = "store.html?id=" + encodeURIComponent(seller.id);
+    $("storeLink").hidden = false;
     document.title = seller.boutique_name + " — BODEGS Seller";
-    if (await loadProducts()) renderList();
+    if (await loadProducts()) { await loadOrders(); renderList(); }
   })();
 </script>
 </body>
