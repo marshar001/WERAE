@@ -354,6 +354,9 @@
   }
 
   // Must be signed in to apply. Pre-fill the email.
+  // The form stays hidden until we know this account does not already have a boutique.
+  ["head", "wizard", "bar"].forEach((id) => { $(id).hidden = true; });
+  const showForm = () => { ["head", "wizard", "bar"].forEach((id) => { $(id).hidden = false; }); };
   (async () => {
     const user = await requireLogin();
     if (!user) return;
@@ -369,11 +372,9 @@
       ]);
 
       if (sellerResult.data) {
-        showBlocked(
-          "You already have a boutique",
-          "“" + sellerResult.data.boutique_name + "” is already on BODEGS. Each account can have one boutique.",
-          true
-        );
+        // already a seller: go straight to the seller login
+        location.replace("seller-login.html?next=seller.html");
+        return;
       } else if (pendingResult.data) {
         showBlocked(
           "Application under review",
@@ -384,6 +385,7 @@
     } catch (err) {
       // If the check fails, show the form. The database still blocks duplicates.
     }
+    if ($("blocked").hidden) showForm();
   })();
 
   render();
