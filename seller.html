@@ -487,9 +487,14 @@
   /* ---------------- orders, money, views ---------------- */
 
   let orders = [];          // null when the orders database update has not been installed yet
-  let currentView = "dashboard";
-  let orderFilter = "toship";
-  let payFilter = "earnings";
+  const VIEWS = ["dashboard", "products", "orders", "payments", "profile"];
+  const saved = (k, d) => { try { return sessionStorage.getItem("sel_" + k) || d; } catch (e) { return d; } };
+  const keep = (k, v) => { try { sessionStorage.setItem("sel_" + k, v); } catch (e) {} };
+  const fromHash = () => { const h = location.hash.replace("#", ""); return VIEWS.indexOf(h) >= 0 ? h : null; };
+  let currentView = fromHash() || saved("view", "dashboard");
+  if (VIEWS.indexOf(currentView) < 0) currentView = "dashboard";
+  let orderFilter = saved("orders", "toship");
+  let payFilter = saved("pay", "earnings");
 
   async function loadOrders() {
     const { data, error } = await sb.rpc("seller_orders");
@@ -574,7 +579,7 @@
     [["earnings", "Earnings"], ["pending", "Pending"], ["withdrawals", "Withdrawals"], ["failed", "Failed"]].forEach((x) => {
       const b = el("button", payFilter === x[0] ? "active" : "", x[1]);
       b.type = "button";
-      b.addEventListener("click", () => { payFilter = x[0]; renderPayments(); });
+      b.addEventListener("click", () => { payFilter = x[0]; keep("pay", payFilter); renderPayments(); });
       seg.appendChild(b);
     });
 
@@ -684,7 +689,7 @@
     tabs.forEach((x) => {
       const b = el("button", orderFilter === x[0] ? "active" : "", x[1] + " (" + groups[x[0]].length + ")");
       b.type = "button";
-      b.addEventListener("click", () => { orderFilter = x[0]; renderOrders(); });
+      b.addEventListener("click", () => { orderFilter = x[0]; keep("orders", orderFilter); renderOrders(); });
       seg.appendChild(b);
     });
 
@@ -740,9 +745,11 @@
     if (seller) renderStore();
   }
 
-  function showView(name) {
+  function showView(name, fromNav) {
     currentView = name;
-    ["dashboard", "products", "orders", "payments", "profile"].forEach((v) => {
+    keep("view", name);
+    if (fromNav && fromHash() !== name) history.pushState(null, "", "#" + name);
+    VIEWS.forEach((v) => {
       const id = "view" + v.charAt(0).toUpperCase() + v.slice(1);
       $(id).hidden = v !== name;
     });
@@ -751,9 +758,12 @@
   }
   $("snav").addEventListener("click", (e) => {
     const b = e.target.closest("button");
-    if (b) showView(b.dataset.view);
+    if (b) showView(b.dataset.view, true);
   });
-  $("seeOrders").addEventListener("click", () => showView("orders"));
+  window.addEventListener("hashchange", () => {
+    if (!$("listView").hidden) showView(fromHash() || "dashboard");
+  });
+  $("seeOrders").addEventListener("click", () => showView("orders", true));
   $("dashAdd").addEventListener("click", () => { currentView = "products"; openEditor(null); });
 
   $("logoutBtn").addEventListener("click", () => { signOut(); });
