@@ -206,7 +206,8 @@
       <div class="panel" id="storePanel"></div>
       <a class="btn primary" id="storeOpen" href="#">View my store</a>
       <button type="button" class="btn ghost" id="storeCopy" style="margin-top:10px">Copy store link</button>
-      <button type="button" class="btn ghost" id="logoutBtn" style="margin-top:10px">Log out</button>
+      <button type="button" class="btn ghost" id="logoutBtn" style="margin-top:10px">Log out and go to marketplace</button>
+      <p class="foot">To shop as a buyer, log out here, then log in again from the marketplace.</p>
     </div>
 
     <!-- Payments -->
@@ -766,7 +767,11 @@
   $("seeOrders").addEventListener("click", () => showView("orders", true));
   $("dashAdd").addEventListener("click", () => { currentView = "products"; openEditor(null); });
 
-  $("logoutBtn").addEventListener("click", () => { signOut(); });
+  $("logoutBtn").addEventListener("click", async () => {
+    $("logoutBtn").disabled = true;
+    try { await sb.auth.signOut(); } catch (e) {}
+    location.href = "login.html?next=" + encodeURIComponent("index.html");
+  });
 
   $("storeCopy").addEventListener("click", async () => {
     const link = new URL("store.html?id=" + encodeURIComponent(seller.id), location.href).href;
