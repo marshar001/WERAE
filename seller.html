@@ -11,10 +11,10 @@
     [hidden] { display: none !important; }
     body { margin: 0; background: var(--cream); color: #1b2b26; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding-bottom: 120px; }
 
-    header.hero { background: linear-gradient(160deg, #263B50 0%, #3b5873 100%); color: #fff; padding: 14px 16px 34px; border-radius: 0 0 28px 28px; }
+    header.hero { background: linear-gradient(160deg, #263B50 0%, #3b5873 100%); color: #fff; padding: 22px 16px 34px; border-radius: 0 0 28px 28px; box-shadow: 0 10px 30px rgba(38,59,80,.28); }
     header .row { max-width: 640px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
     header .row a { color: #fff; opacity: .9; font-size: 14px; text-decoration: none; flex: none; font-weight: 600; }
-    header .id { max-width: 640px; margin: 18px auto 0; display: flex; align-items: center; gap: 14px; }
+    header .id { max-width: 640px; margin: 6px auto 0; display: flex; align-items: center; gap: 14px; }
     header .logo { flex: none; width: 58px; height: 58px; border-radius: 18px; background: var(--cream); color: var(--green); display: flex; align-items: center; justify-content: center; font: 700 26px Georgia, serif; }
     header .eyebrow { margin: 0 0 3px; font-size: 11px; letter-spacing: .12em; opacity: .75; }
     header h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 23px; line-height: 1.15; overflow-wrap: anywhere; }
@@ -113,9 +113,10 @@
     .msg.ok { background: #e4f1e6; color: #1f5a2c; }
 
     /* ---------- bottom navigation (seller) ---------- */
-    .snav { position: fixed; left: 12px; right: 12px; bottom: 12px; max-width: 616px; margin: 0 auto; z-index: 50; display: flex; justify-content: space-between; padding: 8px 8px calc(8px + env(safe-area-inset-bottom)); background: #263B50; border-radius: 28px; box-shadow: 0 8px 24px rgba(38,59,80,.35); }
-    .snav button { position: relative; flex: 1; border: 0; background: transparent; color: rgba(255,255,255,.65); padding: 8px 2px 6px; border-radius: 20px; font: 600 11px/1.2 inherit; font-family: inherit; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-    .snav button svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .snav { position: fixed; left: 12px; right: 12px; bottom: 12px; max-width: 616px; margin: 0 auto; z-index: 50; display: flex; justify-content: space-between; padding: 7px 6px calc(7px + env(safe-area-inset-bottom)); background: rgba(38,59,80,.94); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 26px; box-shadow: 0 10px 30px rgba(38,59,80,.40), 0 2px 8px rgba(38,59,80,.25); }
+    .snav button { position: relative; flex: 1; border: 0; background: transparent; color: rgba(255,255,255,.65); padding: 6px 0 5px; border-radius: 18px; font-family: inherit; font-size: 10px; font-weight: 600; line-height: 1.2; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .snav button span { font-size: 10px; }
+    .snav button svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
     .snav button.active { background: rgba(255,255,255,.16); color: #fff; }
     .snav .dot { position: absolute; top: 2px; right: 50%; margin-right: -22px; min-width: 18px; padding: 1px 5px; border-radius: 999px; background: #e8590c; color: #fff; font-size: 11px; font-weight: 700; }
 
@@ -125,14 +126,14 @@
     .seg button.active { background: var(--green); border-color: var(--green); color: #fff; }
 
     .hello { margin: 4px 2px 12px; font: 700 18px Georgia, serif; }
-    .panel { background: #fff; border-radius: 18px; padding: 16px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(38,59,80,.07); }
+    .panel { background: #fff; border-radius: 18px; padding: 16px; margin-bottom: 14px; box-shadow: 0 6px 22px rgba(38,59,80,.13); }
     .panel h2 { margin: 0 0 10px; font: 700 17px Georgia, serif; }
     .panel .row2x { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 14px; }
     .panel .row2x:first-of-type { border-top: 0; }
     .panel .row2x span { color: var(--muted); }
     .panel .row2x b { text-align: right; overflow-wrap: anywhere; }
     .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-    .grid2 .stat { box-shadow: 0 2px 10px rgba(38,59,80,.07); }
+    .grid2 .stat { box-shadow: 0 6px 22px rgba(38,59,80,.13); }
     .sectitle { display: flex; justify-content: space-between; align-items: center; margin: 16px 2px 10px; font: 700 17px Georgia, serif; }
     .sectitle button { border: 0; background: none; color: var(--green); font: 700 14px inherit; font-family: inherit; cursor: pointer; }
 
@@ -144,7 +145,7 @@
     .money .trio b { display: block; font-size: 15px; margin-top: 3px; overflow-wrap: anywhere; }
     .money .trio span { font-size: 11.5px; opacity: .8; }
     .money .btn { margin-top: 14px; background: rgba(255,255,255,.18); color: #fff; }
-    .tx { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 16px; padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(38,59,80,.06); }
+    .tx { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 16px; padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 5px 18px rgba(38,59,80,.12); }
     .tx .t { flex: 1; min-width: 0; }
     .tx .t b { display: block; font-size: 14.5px; overflow-wrap: anywhere; }
     .tx .t span { font-size: 12.5px; color: var(--muted); }
@@ -163,10 +164,6 @@
 <body>
 
 <header class="hero">
-  <div class="row">
-    <a href="profile.html">&lsaquo; Profile</a>
-    <a href="#" id="storeLink" hidden>View my store &rsaquo;</a>
-  </div>
   <div class="id">
     <div class="logo" id="shopLogo">B</div>
     <div>
@@ -205,10 +202,11 @@
     </div>
 
     <!-- Store -->
-    <div id="viewStore" hidden>
+    <div id="viewProfile" hidden>
       <div class="panel" id="storePanel"></div>
-      <a class="btn primary" id="storeOpen" href="#">View my public store</a>
+      <a class="btn primary" id="storeOpen" href="#">View my store</a>
       <button type="button" class="btn ghost" id="storeCopy" style="margin-top:10px">Copy store link</button>
+      <button type="button" class="btn ghost" id="logoutBtn" style="margin-top:10px">Log out</button>
     </div>
 
     <!-- Payments -->
@@ -223,8 +221,8 @@
       <button type="button" data-view="dashboard" class="active"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"></rect><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"></rect></svg><span>Dashboard</span></button>
       <button type="button" data-view="products"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 12.5 12 21l-8.5-8.5V4h8.5l8.5 8.5Z"></path><circle cx="8" cy="8" r="1.4"></circle></svg><span>Products</span></button>
       <button type="button" data-view="orders"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h12A1.5 1.5 0 0 1 19.5 5v14A1.5 1.5 0 0 1 18 20.5H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5Z"></path><path d="M8 8h8M8 12h8M8 16h5"></path></svg><span>Orders</span><i class="dot" id="ordersCount" hidden>0</i></button>
-      <button type="button" data-view="store"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5 5.5 4h13L20 9.5"></path><path d="M4 9.5a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 6 0 2.5 2.5 0 0 0 5 0"></path><path d="M5.5 12.5V20h13v-7.5"></path><path d="M10 20v-4.5h4V20"></path></svg><span>Store</span></button>
       <button type="button" data-view="payments"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2.5"></rect><path d="M3 10h18"></path><path d="M16.5 15h1.5"></path></svg><span>Payments</span></button>
+      <button type="button" data-view="profile"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4.5 20.5c.8-4 3.7-6 7.5-6s6.7 2 7.5 6"></path></svg><span>Profile</span></button>
     </nav>
   </section>
 
@@ -744,7 +742,7 @@
 
   function showView(name) {
     currentView = name;
-    ["dashboard", "products", "orders", "store", "payments"].forEach((v) => {
+    ["dashboard", "products", "orders", "payments", "profile"].forEach((v) => {
       const id = "view" + v.charAt(0).toUpperCase() + v.slice(1);
       $(id).hidden = v !== name;
     });
@@ -757,6 +755,8 @@
   });
   $("seeOrders").addEventListener("click", () => showView("orders"));
   $("dashAdd").addEventListener("click", () => { currentView = "products"; openEditor(null); });
+
+  $("logoutBtn").addEventListener("click", () => { signOut(); });
 
   $("storeCopy").addEventListener("click", async () => {
     const link = new URL("store.html?id=" + encodeURIComponent(seller.id), location.href).href;
@@ -1136,8 +1136,6 @@
     seller = data;
     $("shopName").textContent = seller.boutique_name;
     $("shopLogo").textContent = (seller.boutique_name || "B").trim().charAt(0).toUpperCase() || "B";
-    $("storeLink").href = "store.html?id=" + encodeURIComponent(seller.id);
-    $("storeLink").hidden = false;
     document.title = seller.boutique_name + " — BODEGS Seller";
     if (await loadProducts()) { await loadOrders(); renderList(); }
   })();
