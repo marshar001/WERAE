@@ -6,12 +6,12 @@
   <meta name="robots" content="noindex">
   <title>Seller Dashboard — BODEGS</title>
   <style>
-    :root { --green:#173b32; --cream:#f5f0e7; --card:#ffffff; --line:rgba(23,59,50,.14); --muted:#6c756f; --red:#873b32; --amber:#795516; }
+    :root { --green:#263B50; --cream:#eef1f5; --card:#ffffff; --line:rgba(38,59,80,.16); --muted:#6c756f; --red:#873b32; --amber:#795516; }
     * { box-sizing: border-box; }
     [hidden] { display: none !important; }
-    body { margin: 0; background: var(--cream); color: #1b2b26; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding-bottom: 40px; }
+    body { margin: 0; background: var(--cream); color: #1b2b26; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding-bottom: 120px; }
 
-    header.hero { background: linear-gradient(160deg, #173b32 0%, #2c5a4b 100%); color: #fff; padding: 14px 16px 34px; border-radius: 0 0 28px 28px; }
+    header.hero { background: linear-gradient(160deg, #263B50 0%, #3b5873 100%); color: #fff; padding: 14px 16px 34px; border-radius: 0 0 28px 28px; }
     header .row { max-width: 640px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
     header .row a { color: #fff; opacity: .9; font-size: 14px; text-decoration: none; flex: none; font-weight: 600; }
     header .id { max-width: 640px; margin: 18px auto 0; display: flex; align-items: center; gap: 14px; }
@@ -20,16 +20,16 @@
     header h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 23px; line-height: 1.15; overflow-wrap: anywhere; }
 
     .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: -22px 0 14px; }
-    .stat { background: #fff; border-radius: 16px; padding: 12px 8px; text-align: center; box-shadow: 0 3px 12px rgba(23,59,50,.08); }
+    .stat { background: #fff; border-radius: 16px; padding: 12px 8px; text-align: center; box-shadow: 0 3px 12px rgba(38,59,80,.08); }
     .stat b { display: block; font: 700 22px Georgia, serif; color: var(--green); }
     .stat span { font-size: 12px; color: var(--muted); }
 
-    .tabs { display: flex; background: #ebe5d8; border-radius: 14px; padding: 4px; margin-bottom: 14px; }
+    .tabs { display: flex; background: #e1e7ee; border-radius: 14px; padding: 4px; margin-bottom: 14px; }
     .tabs button { flex: 1; border: 0; background: transparent; padding: 11px 6px; border-radius: 11px; font-size: 14px; font-weight: 700; font-family: inherit; color: var(--muted); cursor: pointer; }
-    .tabs button.active { background: #fff; color: var(--green); box-shadow: 0 2px 8px rgba(23,59,50,.1); }
+    .tabs button.active { background: #fff; color: var(--green); box-shadow: 0 2px 8px rgba(38,59,80,.1); }
     .tabs .count { display: inline-block; min-width: 20px; padding: 1px 6px; margin-left: 4px; border-radius: 999px; background: #c2410c; color: #fff; font-size: 12px; }
 
-    .order { background: #fff; border-radius: 18px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 10px rgba(23,59,50,.06); }
+    .order { background: #fff; border-radius: 18px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 10px rgba(38,59,80,.06); }
     .order .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
     .chip2 { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 700; }
     .chip2.todo { background: #fdebe6; color: #c2410c; }
@@ -40,7 +40,7 @@
     .order .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .order h3 { margin: 0 0 4px; font: 700 16px Georgia, serif; overflow-wrap: anywhere; }
     .order .opts { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 6px; }
-    .order .opts span { padding: 3px 9px; border-radius: 8px; background: #ebe5d8; font-size: 12.5px; font-weight: 600; }
+    .order .opts span { padding: 3px 9px; border-radius: 8px; background: #e1e7ee; font-size: 12.5px; font-weight: 600; }
     .order .sum { margin: 0; font-size: 14px; }
     .order .buyer { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.45; }
     .order .buyer b { display: block; margin-bottom: 2px; }
@@ -91,7 +91,7 @@
     .photo, .addtile { position: relative; aspect-ratio: 3 / 4; border-radius: 12px; overflow: hidden; background: #e8e3d8; }
     .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .photo .x { position: absolute; top: 5px; right: 5px; width: 28px; height: 28px; border-radius: 50%; border: 0; background: rgba(0,0,0,.65); color: #fff; font-size: 16px; line-height: 1; cursor: pointer; }
-    .photo .tag { position: absolute; left: 0; right: 0; bottom: 0; padding: 5px 4px; font-size: 11px; font-weight: 700; text-align: center; background: rgba(23,59,50,.88); color: #fff; }
+    .photo .tag { position: absolute; left: 0; right: 0; bottom: 0; padding: 5px 4px; font-size: 11px; font-weight: 700; text-align: center; background: rgba(38,59,80,.88); color: #fff; }
     .photo button.tag { border: 0; font-family: inherit; cursor: pointer; background: rgba(255,255,255,.9); color: var(--green); }
     .addtile { display: grid; place-items: center; border: 1.5px dashed #b9b3a3; background: #faf8f2; color: var(--green); font-size: 13px; font-weight: 600; text-align: center; cursor: pointer; padding: 6px; }
     .addtile .plus { display: block; font-size: 26px; line-height: 1; margin-bottom: 4px; }
@@ -112,7 +112,51 @@
     .msg.err { background: #f8e3e0; color: var(--red); }
     .msg.ok { background: #e4f1e6; color: #1f5a2c; }
 
-    #toast { position: fixed; left: 14px; right: 14px; bottom: 16px; max-width: 440px; margin: 0 auto; padding: 13px 15px; border-radius: 12px; font-size: 14px; background: #1b2b26; color: #fff; z-index: 9; }
+    /* ---------- bottom navigation (seller) ---------- */
+    .snav { position: fixed; left: 12px; right: 12px; bottom: 12px; max-width: 616px; margin: 0 auto; z-index: 50; display: flex; justify-content: space-between; padding: 8px 8px calc(8px + env(safe-area-inset-bottom)); background: #263B50; border-radius: 28px; box-shadow: 0 8px 24px rgba(38,59,80,.35); }
+    .snav button { position: relative; flex: 1; border: 0; background: transparent; color: rgba(255,255,255,.65); padding: 8px 2px 6px; border-radius: 20px; font: 600 11px/1.2 inherit; font-family: inherit; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .snav button svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .snav button.active { background: rgba(255,255,255,.16); color: #fff; }
+    .snav .dot { position: absolute; top: 2px; right: 50%; margin-right: -22px; min-width: 18px; padding: 1px 5px; border-radius: 999px; background: #e8590c; color: #fff; font-size: 11px; font-weight: 700; }
+
+    .seg { display: flex; gap: 8px; margin: 0 0 14px; overflow-x: auto; scrollbar-width: none; }
+    .seg::-webkit-scrollbar { display: none; }
+    .seg button { flex: none; border: 1.5px solid var(--line); background: #fff; color: var(--green); border-radius: 999px; padding: 9px 16px; font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer; }
+    .seg button.active { background: var(--green); border-color: var(--green); color: #fff; }
+
+    .hello { margin: 4px 2px 12px; font: 700 18px Georgia, serif; }
+    .panel { background: #fff; border-radius: 18px; padding: 16px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(38,59,80,.07); }
+    .panel h2 { margin: 0 0 10px; font: 700 17px Georgia, serif; }
+    .panel .row2x { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 14px; }
+    .panel .row2x:first-of-type { border-top: 0; }
+    .panel .row2x span { color: var(--muted); }
+    .panel .row2x b { text-align: right; overflow-wrap: anywhere; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .grid2 .stat { box-shadow: 0 2px 10px rgba(38,59,80,.07); }
+    .sectitle { display: flex; justify-content: space-between; align-items: center; margin: 16px 2px 10px; font: 700 17px Georgia, serif; }
+    .sectitle button { border: 0; background: none; color: var(--green); font: 700 14px inherit; font-family: inherit; cursor: pointer; }
+
+    .money { background: linear-gradient(160deg, #263B50 0%, #3b5873 100%); color: #fff; border-radius: 22px; padding: 18px; margin-bottom: 14px; }
+    .money small { opacity: .75; font-size: 13px; }
+    .money .big { display: block; margin: 4px 0 14px; font: 700 32px Georgia, serif; }
+    .money .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .money .trio div { background: rgba(255,255,255,.12); border-radius: 14px; padding: 10px 8px; }
+    .money .trio b { display: block; font-size: 15px; margin-top: 3px; overflow-wrap: anywhere; }
+    .money .trio span { font-size: 11.5px; opacity: .8; }
+    .money .btn { margin-top: 14px; background: rgba(255,255,255,.18); color: #fff; }
+    .tx { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 16px; padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(38,59,80,.06); }
+    .tx .t { flex: 1; min-width: 0; }
+    .tx .t b { display: block; font-size: 14.5px; overflow-wrap: anywhere; }
+    .tx .t span { font-size: 12.5px; color: var(--muted); }
+    .tx .amt { font-weight: 700; font-size: 15px; white-space: nowrap; }
+    .tx .amt.in { color: #1f6f43; }
+    .tx .amt.wait { color: #b45309; }
+    .tx .amt.bad { color: var(--red); }
+    .foot { margin: 14px 4px 0; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+    .store-id { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+    .store-id .logo { flex: none; width: 56px; height: 56px; border-radius: 18px; background: var(--green); color: #fff; display: flex; align-items: center; justify-content: center; font: 700 24px Georgia, serif; }
+    .store-id h2 { margin: 0; }
+    #toast { position: fixed; left: 14px; right: 14px; bottom: 110px; max-width: 440px; margin: 0 auto; padding: 13px 15px; border-radius: 12px; font-size: 14px; background: #14212e; color: #fff; z-index: 60; }
     #toast.err { background: var(--red); }
   </style>
 </head>
@@ -136,22 +180,52 @@
   <div id="notice" class="notice">Loading...</div>
 
   <section id="listView" hidden>
-    <div class="stats" id="stats"></div>
 
-    <div class="tabs" id="tabs">
-      <button type="button" data-tab="products" class="active">Products</button>
-      <button type="button" data-tab="orders">Orders <span class="count" id="ordersCount" hidden>0</span></button>
+    <!-- Dashboard -->
+    <div id="viewDashboard">
+      <p class="hello" id="hello">Welcome back</p>
+      <div class="grid2" id="stats"></div>
+      <div class="money" id="miniMoney"></div>
+      <button type="button" class="btn primary" id="dashAdd">+ Add a product</button>
+      <div class="sectitle"><span>Latest orders</span><button type="button" id="seeOrders">See all &rsaquo;</button></div>
+      <div id="dashOrders"></div>
     </div>
 
-    <div id="paneProducts">
+    <!-- Products -->
+    <div id="viewProducts" hidden>
       <button type="button" class="btn primary" id="addBtn">+ Add a product</button>
       <div class="summary" id="summary"></div>
       <div id="list"></div>
     </div>
 
-    <div id="paneOrders" hidden>
+    <!-- Orders (To ship / Shipped / Cancelled) -->
+    <div id="viewOrders" hidden>
+      <div class="seg" id="orderSeg"></div>
       <div id="orderList"></div>
     </div>
+
+    <!-- Store -->
+    <div id="viewStore" hidden>
+      <div class="panel" id="storePanel"></div>
+      <a class="btn primary" id="storeOpen" href="#">View my public store</a>
+      <button type="button" class="btn ghost" id="storeCopy" style="margin-top:10px">Copy store link</button>
+    </div>
+
+    <!-- Payments -->
+    <div id="viewPayments" hidden>
+      <div class="money" id="payMoney"></div>
+      <div class="seg" id="paySeg"></div>
+      <div id="payList"></div>
+      <p class="foot">Amounts are sale prices before any BODEGS fees. Withdrawals, payouts and failed payments will show here once payments are connected.</p>
+    </div>
+
+    <nav class="snav" id="snav" aria-label="Seller navigation">
+      <button type="button" data-view="dashboard" class="active"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"></rect><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"></rect></svg><span>Dashboard</span></button>
+      <button type="button" data-view="products"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 12.5 12 21l-8.5-8.5V4h8.5l8.5 8.5Z"></path><circle cx="8" cy="8" r="1.4"></circle></svg><span>Products</span></button>
+      <button type="button" data-view="orders"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h12A1.5 1.5 0 0 1 19.5 5v14A1.5 1.5 0 0 1 18 20.5H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5Z"></path><path d="M8 8h8M8 12h8M8 16h5"></path></svg><span>Orders</span><i class="dot" id="ordersCount" hidden>0</i></button>
+      <button type="button" data-view="store"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5 5.5 4h13L20 9.5"></path><path d="M4 9.5a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 6 0 2.5 2.5 0 0 0 5 0"></path><path d="M5.5 12.5V20h13v-7.5"></path><path d="M10 20v-4.5h4V20"></path></svg><span>Store</span></button>
+      <button type="button" data-view="payments"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2.5"></rect><path d="M3 10h18"></path><path d="M16.5 15h1.5"></path></svg><span>Payments</span></button>
+    </nav>
   </section>
 
   <section id="editView" hidden>
@@ -412,9 +486,12 @@
     return p.image_url || "";
   }
 
-  /* ---------------- orders ---------------- */
+  /* ---------------- orders, money, views ---------------- */
 
   let orders = [];          // null when the orders database update has not been installed yet
+  let currentView = "dashboard";
+  let orderFilter = "toship";
+  let payFilter = "earnings";
 
   async function loadOrders() {
     const { data, error } = await sb.rpc("seller_orders");
@@ -423,10 +500,16 @@
     return true;
   }
 
-  function toShipCount() {
-    return Array.isArray(orders)
-      ? orders.filter((o) => !o.shipped_at && o.order_status !== "cancelled").length
-      : 0;
+  const isOpen = (o) => !o.shipped_at && o.order_status !== "cancelled";
+  const isShipped = (o) => !!o.shipped_at && o.order_status !== "cancelled";
+  const lineTotal = (o) => Number(o.qty) * Number(o.price);
+  const sumOf = (list) => list.reduce((t, o) => t + lineTotal(o), 0);
+  const ok = () => Array.isArray(orders);
+  const toShipCount = () => ok() ? orders.filter(isOpen).length : 0;
+
+  function shortDate(value) {
+    try { return new Date(value).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" }); }
+    catch (e) { return ""; }
   }
 
   function renderStats() {
@@ -434,10 +517,12 @@
     const soldOut = products.filter((p) => p.inventory <= 0).length;
     const box = $("stats");
     box.textContent = "";
-    [[live, "Live"], [soldOut, "Sold out"], [Array.isArray(orders) ? toShipCount() : "–", "To ship"]].forEach((s) => {
+    [[live, "Live products"], [soldOut, "Sold out"],
+     [ok() ? toShipCount() : "–", "To ship"],
+     [ok() ? orders.filter(isShipped).length : "–", "Shipped"]].forEach((x) => {
       const tile = el("div", "stat");
-      tile.appendChild(el("b", "", String(s[0])));
-      tile.appendChild(el("span", "", s[1]));
+      tile.appendChild(el("b", "", String(x[0])));
+      tile.appendChild(el("span", "", x[1]));
       box.appendChild(tile);
     });
     const badge = $("ordersCount");
@@ -446,9 +531,75 @@
     badge.hidden = !n;
   }
 
-  function shortDate(value) {
-    try { return new Date(value).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" }); }
-    catch (e) { return ""; }
+  /* money numbers: earnings = shipped lines, pending = lines still to ship */
+  function moneyFigures() {
+    const earned = ok() ? sumOf(orders.filter(isShipped)) : 0;
+    const pending = ok() ? sumOf(orders.filter(isOpen)) : 0;
+    return { earned: earned, pending: pending, withdrawn: 0 };
+  }
+
+  function fillMoney(box, withButton) {
+    const m = moneyFigures();
+    box.textContent = "";
+    box.appendChild(el("small", "", "Estimated earnings"));
+    box.appendChild(el("span", "big", naira(m.earned)));
+    const trio = el("div", "trio");
+    [[naira(m.pending), "Pending"], [naira(m.withdrawn), "Withdrawn"], [naira(m.earned - m.withdrawn), "Available"]].forEach((x) => {
+      const d = el("div");
+      d.appendChild(el("span", "", x[1]));
+      d.appendChild(el("b", "", x[0]));
+      trio.appendChild(d);
+    });
+    box.appendChild(trio);
+    if (withButton) {
+      const b = el("button", "btn", "Withdraw — available after payment setup");
+      b.type = "button";
+      b.disabled = true;
+      box.appendChild(b);
+    }
+  }
+
+  function txRow(title, sub, amount, cls) {
+    const row = el("div", "tx");
+    const t = el("div", "t");
+    t.appendChild(el("b", "", title));
+    t.appendChild(el("span", "", sub));
+    row.appendChild(t);
+    row.appendChild(el("div", "amt " + cls, amount));
+    return row;
+  }
+
+  function renderPayments() {
+    fillMoney($("payMoney"), true);
+    const seg = $("paySeg");
+    seg.textContent = "";
+    [["earnings", "Earnings"], ["pending", "Pending"], ["withdrawals", "Withdrawals"], ["failed", "Failed"]].forEach((x) => {
+      const b = el("button", payFilter === x[0] ? "active" : "", x[1]);
+      b.type = "button";
+      b.addEventListener("click", () => { payFilter = x[0]; renderPayments(); });
+      seg.appendChild(b);
+    });
+
+    const list = $("payList");
+    list.textContent = "";
+    if (!ok()) {
+      list.appendChild(el("div", "notice", "Payment details are not available yet. Finish the orders update, then refresh this page."));
+      return;
+    }
+    let rows = [];
+    if (payFilter === "earnings") {
+      rows = orders.filter(isShipped).map((o) => txRow(o.product_name, "Shipped " + shortDate(o.shipped_at) + " · Order #" + String(o.order_id).slice(0, 8).toUpperCase(), "+" + naira(lineTotal(o)), "in"));
+    } else if (payFilter === "pending") {
+      rows = orders.filter(isOpen).map((o) => txRow(o.product_name, "Waiting to ship · Ordered " + shortDate(o.ordered_at), naira(lineTotal(o)), "wait"));
+    }
+    if (rows.length) { rows.forEach((r) => list.appendChild(r)); return; }
+    const empty = {
+      earnings: "No earnings yet. Money shows here once you mark an order as shipped.",
+      pending: "Nothing pending. Orders waiting to be shipped will show here.",
+      withdrawals: "No withdrawals yet. Your withdrawals will appear here once payments are connected.",
+      failed: "No failed transactions. If a payment or withdrawal fails, it will appear here."
+    }[payFilter];
+    list.appendChild(el("div", "notice", empty));
   }
 
   async function markShipped(o, button) {
@@ -458,86 +609,159 @@
     if (error) { toast("Could not update this order. Please try again.", true); button.disabled = false; return; }
     o.shipped_at = want ? new Date().toISOString() : null;
     toast(want ? "Marked as shipped." : "Moved back to To ship.");
-    renderOrders();
-    renderStats();
+    renderAll();
+  }
+
+  function orderCard(o) {
+    const card = el("article", "order");
+
+    const top = el("div", "top");
+    top.appendChild(el("span", "", "Order #" + String(o.order_id).slice(0, 8).toUpperCase() + " · " + shortDate(o.ordered_at)));
+    let label = "To ship", cls = "todo";
+    if (o.order_status === "cancelled") { label = "Cancelled"; cls = "cancel"; }
+    else if (o.shipped_at) { label = "Shipped " + shortDate(o.shipped_at); cls = "done"; }
+    top.appendChild(el("span", "chip2 " + cls, label));
+    card.appendChild(top);
+
+    const line = el("div", "line");
+    const pic = el("div", "pic");
+    if (o.image) {
+      const img = document.createElement("img");
+      img.src = o.image; img.alt = ""; img.loading = "lazy";
+      pic.appendChild(img);
+    }
+    line.appendChild(pic);
+
+    const info = el("div");
+    info.appendChild(el("h3", "", o.product_name));
+    if (o.size || o.color) {
+      const opts = el("div", "opts");
+      if (o.size) opts.appendChild(el("span", "", "Size " + o.size));
+      if (o.color) opts.appendChild(el("span", "", o.color));
+      info.appendChild(opts);
+    }
+    info.appendChild(el("p", "sum", o.qty + " × " + naira(o.price) + " = " + naira(lineTotal(o))));
+    line.appendChild(info);
+    card.appendChild(line);
+
+    const buyer = el("div", "buyer");
+    buyer.appendChild(el("b", "", o.buyer_name || "Buyer"));
+    if (o.buyer_phone) {
+      const a = el("a", "", o.buyer_phone);
+      a.href = "tel:" + String(o.buyer_phone).replace(/[^\d+]/g, "");
+      const phoneLine = el("p");
+      phoneLine.appendChild(a);
+      buyer.appendChild(phoneLine);
+    }
+    if (o.delivery_address) buyer.appendChild(el("p", "", o.delivery_address));
+    card.appendChild(buyer);
+
+    if (o.order_status !== "cancelled") {
+      const btn = el("button", "btn " + (o.shipped_at ? "ghost" : "primary"), o.shipped_at ? "Undo shipped" : "Mark as shipped");
+      btn.type = "button";
+      btn.addEventListener("click", () => markShipped(o, btn));
+      card.appendChild(btn);
+    }
+    return card;
   }
 
   function renderOrders() {
+    const seg = $("orderSeg");
     const list = $("orderList");
+    seg.textContent = "";
     list.textContent = "";
 
-    if (orders === null) {
-      list.appendChild(el("div", "notice", "Orders are not available yet. Ask the BODEGS admin to finish the orders update, then refresh this page."));
+    if (!ok()) {
+      list.appendChild(el("div", "notice", "Orders are not available yet. Finish the orders update in the database, then refresh this page."));
       return;
     }
-    if (!orders.length) {
-      list.appendChild(el("div", "notice", "No orders yet. When a buyer orders one of your products it will show up here."));
-      return;
-    }
-
-    orders.forEach((o) => {
-      const card = el("article", "order");
-
-      const top = el("div", "top");
-      top.appendChild(el("span", "", "Order #" + String(o.order_id).slice(0, 8).toUpperCase() + " · " + shortDate(o.ordered_at)));
-      let label = "To ship", cls = "todo";
-      if (o.order_status === "cancelled") { label = "Cancelled"; cls = "cancel"; }
-      else if (o.shipped_at) { label = "Shipped " + shortDate(o.shipped_at); cls = "done"; }
-      top.appendChild(el("span", "chip2 " + cls, label));
-      card.appendChild(top);
-
-      const line = el("div", "line");
-      const pic = el("div", "pic");
-      if (o.image) {
-        const img = document.createElement("img");
-        img.src = o.image; img.alt = ""; img.loading = "lazy";
-        pic.appendChild(img);
-      }
-      line.appendChild(pic);
-
-      const info = el("div");
-      info.appendChild(el("h3", "", o.product_name));
-      if (o.size || o.color) {
-        const opts = el("div", "opts");
-        if (o.size) opts.appendChild(el("span", "", "Size " + o.size));
-        if (o.color) opts.appendChild(el("span", "", o.color));
-        info.appendChild(opts);
-      }
-      const total = Number(o.qty) * Number(o.price);
-      info.appendChild(el("p", "sum", o.qty + " × " + naira(o.price) + " = " + naira(total)));
-      line.appendChild(info);
-      card.appendChild(line);
-
-      const buyer = el("div", "buyer");
-      buyer.appendChild(el("b", "", o.buyer_name || "Buyer"));
-      if (o.buyer_phone) {
-        const a = el("a", "", o.buyer_phone);
-        a.href = "tel:" + String(o.buyer_phone).replace(/[^\d+]/g, "");
-        const phoneLine = el("p");
-        phoneLine.appendChild(a);
-        buyer.appendChild(phoneLine);
-      }
-      if (o.delivery_address) buyer.appendChild(el("p", "", o.delivery_address));
-      card.appendChild(buyer);
-
-      if (o.order_status !== "cancelled") {
-        const btn = el("button", "btn " + (o.shipped_at ? "ghost" : "primary"), o.shipped_at ? "Undo shipped" : "Mark as shipped");
-        btn.type = "button";
-        btn.addEventListener("click", () => markShipped(o, btn));
-        card.appendChild(btn);
-      }
-      list.appendChild(card);
+    const groups = {
+      toship: orders.filter(isOpen),
+      shipped: orders.filter(isShipped),
+      cancelled: orders.filter((o) => o.order_status === "cancelled")
+    };
+    const tabs = [["toship", "To ship"], ["shipped", "Shipped"]];
+    if (groups.cancelled.length) tabs.push(["cancelled", "Cancelled"]);
+    if (!groups[orderFilter]) orderFilter = "toship";
+    tabs.forEach((x) => {
+      const b = el("button", orderFilter === x[0] ? "active" : "", x[1] + " (" + groups[x[0]].length + ")");
+      b.type = "button";
+      b.addEventListener("click", () => { orderFilter = x[0]; renderOrders(); });
+      seg.appendChild(b);
     });
+
+    const shown = groups[orderFilter];
+    if (!shown.length) {
+      list.appendChild(el("div", "notice", {
+        toship: "Nothing to ship right now. New orders for your products will show up here.",
+        shipped: "No shipped orders yet.",
+        cancelled: "No cancelled orders."
+      }[orderFilter]));
+      return;
+    }
+    shown.forEach((o) => list.appendChild(orderCard(o)));
   }
 
-  function showTab(name) {
-    Array.prototype.forEach.call($("tabs").children, (b) => b.classList.toggle("active", b.dataset.tab === name));
-    $("paneProducts").hidden = name !== "products";
-    $("paneOrders").hidden = name !== "orders";
+  function renderDashboard() {
+    $("hello").textContent = "Hi, " + (seller ? seller.boutique_name : "seller");
+    fillMoney($("miniMoney"), false);
+    const box = $("dashOrders");
+    box.textContent = "";
+    if (!ok()) { box.appendChild(el("div", "notice", "Orders are not available yet.")); return; }
+    if (!orders.length) { box.appendChild(el("div", "notice", "No orders yet. They will show up here.")); return; }
+    orders.slice(0, 3).forEach((o) => box.appendChild(orderCard(o)));
   }
-  $("tabs").addEventListener("click", (e) => {
+
+  function renderStore() {
+    const panel = $("storePanel");
+    panel.textContent = "";
+    const id = el("div", "store-id");
+    id.appendChild(el("div", "logo", (seller.boutique_name || "B").trim().charAt(0).toUpperCase() || "B"));
+    const who = el("div");
+    who.appendChild(el("h2", "", seller.boutique_name));
+    who.appendChild(el("span", "chip2 " + (seller.verified ? "done" : "cancel"), seller.verified ? "✓ Verified BODEGS seller" : "Not verified yet"));
+    id.appendChild(who);
+    panel.appendChild(id);
+    [["City", seller.city], ["Main category", seller.category],
+     ["Live products", String(products.filter((p) => p.active).length)],
+     ["Total orders", ok() ? String(orders.length) : "–"]].forEach((x) => {
+      if (!x[1]) return;
+      const r = el("div", "row2x");
+      r.appendChild(el("span", "", x[0]));
+      r.appendChild(el("b", "", x[1]));
+      panel.appendChild(r);
+    });
+    $("storeOpen").href = "store.html?id=" + encodeURIComponent(seller.id);
+  }
+
+  function renderAll() {
+    renderStats();
+    renderDashboard();
+    renderOrders();
+    renderPayments();
+    if (seller) renderStore();
+  }
+
+  function showView(name) {
+    currentView = name;
+    ["dashboard", "products", "orders", "store", "payments"].forEach((v) => {
+      const id = "view" + v.charAt(0).toUpperCase() + v.slice(1);
+      $(id).hidden = v !== name;
+    });
+    Array.prototype.forEach.call($("snav").children, (b) => b.classList.toggle("active", b.dataset.view === name));
+    window.scrollTo(0, 0);
+  }
+  $("snav").addEventListener("click", (e) => {
     const b = e.target.closest("button");
-    if (b) showTab(b.dataset.tab);
+    if (b) showView(b.dataset.view);
+  });
+  $("seeOrders").addEventListener("click", () => showView("orders"));
+  $("dashAdd").addEventListener("click", () => { currentView = "products"; openEditor(null); });
+
+  $("storeCopy").addEventListener("click", async () => {
+    const link = new URL("store.html?id=" + encodeURIComponent(seller.id), location.href).href;
+    try { await navigator.clipboard.writeText(link); toast("Store link copied."); }
+    catch (e) { toast("Copy this link: " + link); }
   });
 
   function renderList() {
@@ -548,8 +772,8 @@
 
     const live = products.filter((p) => p.active).length;
     const hidden = products.length - live;
-    renderStats();
-    renderOrders();
+    renderAll();
+    showView(currentView);
     const summary = $("summary");
     summary.textContent = "";
     summary.appendChild(el("strong", "", products.length + (products.length === 1 ? " product" : " products")));
@@ -646,6 +870,7 @@
 
   function openEditor(p) {
     editingId = p ? p.id : null;
+    currentView = "products";
     photos = (p && Array.isArray(p.images) && p.images.length ? p.images : (p && p.image_url ? [p.image_url] : []))
       .map((url) => ({ kind: "existing", url: url }));
     $("editTitle").textContent = p ? "Edit product" : "Add a product";
@@ -892,7 +1117,7 @@
 
     const { data, error } = await sb
       .from("sellers")
-      .select("id, boutique_name, verified")
+      .select("id, boutique_name, verified, city, category")
       .eq("owner_id", user.id)
       .maybeSingle();
 
