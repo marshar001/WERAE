@@ -116,3 +116,11 @@ async function submitBoutiqueApplication(fields, files) {
     id_doc_path, address_doc_path, cac_doc_path
   });
 }
+
+// ---------- shopper look: load theme.js on every page that loads this file (it skips seller/login pages) ----------
+(function () {
+  if (document.querySelector('script[src^="theme.js"]')) return;
+  const s = document.createElement("script");
+  s.src = "theme.js?v=20261031";
+  document.head.appendChild(s);
+})();

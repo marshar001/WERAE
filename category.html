@@ -7,6 +7,8 @@
   <meta name="description" content="Browse pre-owned fashion by category from many verified BODEGS sellers.">
 
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="theme.css?v=20261031">
+  <script src="theme.js?v=20261031" defer></script>
   <style>
     [hidden] { display: none !important; }
     body { padding-bottom: 24px; }
@@ -21,21 +23,21 @@
     }
     .cp-search input {
       flex: 1; min-width: 0; border: 0; outline: 0; background: transparent;
-      font: 600 15px Arial, sans-serif; color: var(--deep-green);
+      font: 600 15px Arial, sans-serif; color: #111;
     }
     .cp-search svg { width: 20px; height: 20px; flex: none; stroke: var(--deep-green); fill: none; stroke-width: 2; stroke-linecap: round; }
 
     /* tiles: same markup/classes as the home page category row (rounded squares) */
     .cp-tiles { padding: 10px 18px 12px; }
     .cp-tiles .category-item.active button { outline: 3px solid var(--deep-green); outline-offset: 2px; }
-    .cp-tiles .category-item.active span { font-weight: 700; color: var(--deep-green); }
-    .cp-tiles .category-item button.noimg { background: #e6dfd0; color: var(--deep-green); font: 700 22px Georgia, serif; }
+    .cp-tiles .category-item.active span { font-weight: 700; color: #111; }
+    .cp-tiles .category-item button.noimg { background: #e6dfd0; color: #111; font: 700 22px Roboto, "Segoe UI", Arial, sans-serif; }
     .cp-tiles.cp-index { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 8px; justify-items: center; overflow: visible; }
 
     /* sort bar */
     .cp-sort { display: flex; gap: 8px; padding: 6px 18px 10px; border-top: 1px solid rgba(23,59,50,.12); overflow-x: auto; scrollbar-width: none; }
     .cp-sort button {
-      flex: none; border: 1px solid rgba(23,59,50,.25); background: transparent; color: var(--deep-green);
+      flex: none; border: 1px solid rgba(23,59,50,.25); background: transparent; color: #111;
       border-radius: 999px; padding: 7px 14px; font: 600 13px Arial, sans-serif; cursor: pointer;
     }
     .cp-sort button.active { background: var(--deep-green); color: #fff; border-color: var(--deep-green); }
@@ -52,7 +54,7 @@
     .product-card h3 { margin: 5px 3px 2px; font-family: Roboto, "Segoe UI", Arial, sans-serif; font-size: 12.5px; font-weight: 500; line-height: 1.25; color: #111; }
     .product-card p { margin: 0 3px 3px; font-family: Roboto, "Segoe UI", Arial, sans-serif; font-size: 16px; font-weight: 700; line-height: 1.2; color: #111; }
     .product-card small, .product-card small:first-of-type { margin: 0 3px 2px; font-family: Roboto, "Segoe UI", Arial, sans-serif; color: #6b6b6b; }
-    .cp-title { margin: 6px 18px 0; font-size: 22px; color: var(--deep-green); }
+    .cp-title { margin: 6px 18px 0; font-size: 22px; color: #111; }
   </style>
 </head>
 

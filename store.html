@@ -7,6 +7,8 @@
   <meta name="description" content="Shop pre-owned fashion from a verified BODEGS boutique.">
 
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="theme.css?v=20261031">
+  <script src="theme.js?v=20261031" defer></script>
   <style>
     [hidden] { display: none !important; }
     body { padding-bottom: 24px; }
@@ -18,15 +20,15 @@
       padding: 14px 18px 34px 70px; color: #fff; position: relative;
     }
     .sf-search { display: flex; align-items: center; gap: 8px; background: #fff; border-radius: 14px; height: 44px; padding: 0 14px; box-sizing: border-box; }
-    .sf-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: 15px Arial, sans-serif; color: #1d2924; }
+    .sf-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: 15px Arial, sans-serif; color: #111; }
     .sf-search svg { width: 20px; height: 20px; flex: none; stroke: #173b32; fill: none; stroke-width: 2; stroke-linecap: round; }
 
     .sf-id { display: flex; align-items: center; gap: 14px; margin: 18px 0 0 -52px; }
     .sf-logo {
-      flex: none; width: 64px; height: 64px; border-radius: 20px; background: #f5f0e7; color: #173b32;
-      display: flex; align-items: center; justify-content: center; font: 700 28px Georgia, serif;
+      flex: none; width: 64px; height: 64px; border-radius: 20px; background: #f5f0e7; color: #111;
+      display: flex; align-items: center; justify-content: center; font: 700 28px Roboto, "Segoe UI", Arial, sans-serif;
     }
-    .sf-id h1 { margin: 0; font: 700 22px/1.2 Georgia, serif; color: #fff; overflow-wrap: anywhere; }
+    .sf-id h1 { margin: 0; font: 700 22px/1.2 Roboto, "Segoe UI", Arial, sans-serif; color: #fff; overflow-wrap: anywhere; }
     .sf-badge { display: inline-block; margin-top: 6px; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.18); font: 700 11px Arial, sans-serif; letter-spacing: .06em; }
     .sf-meta { margin: 6px 0 0; font: 13px/1.4 Arial, sans-serif; color: rgba(255,255,255,.8); }
 
@@ -35,26 +37,26 @@
 
     .sf-tabs { display: flex; border-bottom: 1px solid rgba(23,59,50,.12); }
     .sf-tabs button { flex: 1; border: 0; background: transparent; padding: 16px 0 12px; font: 600 15px Arial, sans-serif; color: var(--muted); cursor: pointer; position: relative; }
-    .sf-tabs button.active { color: var(--deep-green); }
+    .sf-tabs button.active { color: #111; }
     .sf-tabs button.active::after { content: ""; position: absolute; left: 50%; bottom: -1px; width: 28px; height: 3px; margin-left: -14px; border-radius: 3px; background: var(--deep-green); }
 
     .sf-sort { display: flex; gap: 8px; padding: 12px 18px 4px; overflow-x: auto; scrollbar-width: none; }
     .sf-sort::-webkit-scrollbar, .sf-chips::-webkit-scrollbar { display: none; }
     .sf-sort button { flex: none; border: 0; background: transparent; padding: 6px 8px; font: 600 14px Arial, sans-serif; color: var(--muted); cursor: pointer; }
-    .sf-sort button.active { color: var(--deep-green); }
+    .sf-sort button.active { color: #111; }
 
     .sf-chips { display: flex; gap: 8px; padding: 6px 18px 10px; overflow-x: auto; scrollbar-width: none; }
-    .sf-chips button { flex: none; border: 1px solid rgba(23,59,50,.14); background: #fff; color: var(--deep-green); border-radius: 10px; padding: 8px 14px; font: 600 13px Arial, sans-serif; cursor: pointer; }
+    .sf-chips button { flex: none; border: 1px solid rgba(23,59,50,.14); background: #fff; color: #111; border-radius: 10px; padding: 8px 14px; font: 600 13px Arial, sans-serif; cursor: pointer; }
     .sf-chips button.active { background: var(--deep-green); color: #fff; border-color: var(--deep-green); }
 
     .sf-count { padding: 0 18px 8px; color: var(--muted); font: 13px Arial, sans-serif; }
     .sf-note { padding: 40px 20px; text-align: center; color: var(--muted); font: 15px/1.55 Arial, sans-serif; }
-    .sf-note a { color: var(--deep-green); font-weight: 700; }
+    .sf-note a { color: #111; font-weight: 700; }
 
     .sf-about { padding: 18px; font-family: Arial, sans-serif; }
     .sf-about dl { margin: 0; }
     .sf-about dt { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-top: 16px; }
-    .sf-about dd { margin: 4px 0 0; font-size: 16px; color: #1d2924; overflow-wrap: anywhere; }
+    .sf-about dd { margin: 4px 0 0; font-size: 16px; color: #111; overflow-wrap: anywhere; }
   
     /* ---- product cards: original masonry placement, squircle card, curved photo top / flat photo bottom, black text ---- */
     .cur { font-size: .62em; font-weight: 700; margin-right: 1px; vertical-align: .12em; }
