@@ -219,8 +219,13 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
-  <script src="products.js"></script>
+  <script src="products.js?v=20261031"></script>
   <script>
+function bodegsShowPrice(el, amount, cur) {
+  var B = window.BODEGS;
+  if (B && typeof B.setPrice === "function") { B.setPrice(el, amount, cur); }
+  else { el.textContent = B.formatCurrency(amount, cur); }
+}
     (function () {
       var $ = function (id) { return document.getElementById(id); };
       var UUID = /^[0-9a-f-]{36}$/i;
@@ -276,7 +281,7 @@
 
         /* ----- basics ----- */
         $("productName").textContent = product.name;
-        B.setPrice($("productPrice"), product.price, product.currency);
+        bodegsShowPrice($("productPrice"), product.price, product.currency);
         $("sellerName").textContent = product.sellerName || "BODEGS Seller";
         $("storeLogo").textContent = (product.sellerName || "B").trim().charAt(0).toUpperCase() || "B";
 
@@ -595,7 +600,7 @@
           var name = document.createElement("h3");
           name.textContent = item.name;
           var price = document.createElement("p");
-          B.setPrice(price, item.price, item.currency || "NGN");
+          bodegsShowPrice(price, item.price, item.currency || "NGN");
           card.appendChild(wrap);
           card.appendChild(name);
           card.appendChild(price);

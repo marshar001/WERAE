@@ -1038,8 +1038,13 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
-<script src="products.js"></script>
+<script src="products.js?v=20261031"></script>
 <script>
+function bodegsShowPrice(el, amount, cur) {
+  var B = window.BODEGS;
+  if (B && typeof B.setPrice === "function") { B.setPrice(el, amount, cur); }
+  else { el.textContent = B.formatCurrency(amount, cur); }
+}
   var currentSearch = "";
 
   (function () {
@@ -1106,7 +1111,7 @@
 
       var price = document.createElement("p");
       price.className = "explore-product-price";
-      window.BODEGS.setPrice(price, product.price, product.currency);
+      bodegsShowPrice(price, product.price, product.currency);
 
       var seller = document.createElement("p");
       seller.className = "explore-product-description";
