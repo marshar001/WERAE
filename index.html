@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="theme.css?v=20261031">
   <script src="theme.js?v=20261031" defer></script>
   <style>
+    #trendingSection[hidden] { display: none; }
     .trending-row .trending-card { position: relative; overflow: hidden; }
     /* Smaller Trending Store cards so products appear sooner on the home page */
     .trending-row .trending-card { flex: 0 0 84px; width: 84px; height: 116px; border-radius: 18px; }
@@ -213,48 +214,11 @@
 
 
   <!-- TRENDING STORE -->
-  <section class="trending-section">
+  <section class="trending-section" id="trendingSection" hidden>
 
     <h2>Trending Store</h2>
 
-    <div class="trending-row">
-
-      <a href="store-1.html" class="trending-card">
-        <img
-          src="trending-1.jpg"
-          alt="Luxe Closet"
-        >
-      </a>
-
-      <a href="store-2.html" class="trending-card">
-        <img
-          src="trending-2.jpg"
-          alt="Urban Finds"
-        >
-      </a>
-
-      <a href="store-3.html" class="trending-card">
-        <img
-          src="trending-3.jpg"
-          alt="The Shoe Room"
-        >
-      </a>
-
-      <a href="store-4.html" class="trending-card">
-        <img
-          src="trending-4.jpg"
-          alt="Vintage Hub"
-        >
-      </a>
-
-      <a href="store-5.html" class="trending-card">
-        <img
-          src="trending-5.jpg"
-          alt="Style Archive"
-        >
-      </a>
-
-    </div>
+    <div class="trending-row"></div>
 
   </section>
 
@@ -635,8 +599,18 @@ function bodegsShowPrice(el, amount, cur) {
         return;
       }
 
-      function showProducts() {
+      function showProducts(status) {
         container.textContent = "";
+
+        if (!window.BODEGS.getAllProducts().length) {
+          const note = document.createElement("p");
+          note.style.cssText = "column-span:all;padding:40px 20px;text-align:center;color:#6b6b6b;font-size:14px;line-height:1.5";
+          note.textContent = status === "database"
+            ? "No products yet. New items from our sellers will show up here."
+            : "Could not load products. Check your internet connection and refresh.";
+          container.appendChild(note);
+          return;
+        }
 
         window.BODEGS.getAllProducts().forEach(function (product) {
           const card = document.createElement("a");
@@ -737,12 +711,14 @@ function bodegsShowPrice(el, amount, cur) {
 
           row.appendChild(card);
         });
+
+        const section = document.getElementById("trendingSection");
+        if (section) section.hidden = false;
       }
 
-      // Wait for the BODEGS database. If it cannot be reached, products.js
-      // falls back to the built-in products, so the page is never empty.
-      window.BODEGS.ready.then(function () {
-        showProducts();
+      // Wait for the BODEGS database. If it cannot be reached the page says so.
+      window.BODEGS.ready.then(function (status) {
+        showProducts(status);
         try { showStores(); } catch (error) { console.warn("BODEGS stores:", error); }
       });
     })();

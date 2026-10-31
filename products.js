@@ -1,7 +1,6 @@
 /* BODEGS — CENTRAL PRODUCT DATA
    Products now come from the BODEGS database (Supabase).
-   If the database cannot be reached, the built-in demo products below are used,
-   so the site never shows a blank page.
+   If the database cannot be reached, the list stays empty and the pages say so.
 
    Pages that use this file must load these two scripts BEFORE it:
      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -9,80 +8,10 @@
    and must wait for  window.BODEGS.ready  before reading products.
 */
 
-/* Built-in demo products (used only if the database is unreachable). */
-const BODEGS_FALLBACK_PRODUCTS = [
-  {
-    id: "prod_premium_handbag",
-    name: "Premium Handbag",
-    slug: "premium-handbag",
-    price: 85000,
-    currency: "NGN",
-    description:
-      "A premium handbag from a verified BODEGS seller. This product is processed through BODEGS for secure payment and delivery.",
-    category: "Bags",
-    sellerId: "seller_demo_001",
-    sellerName: "Verified Fashion Store",
-    sellerVerified: true,
-    productVerified: true,
-    condition: "Excellent",
-    inventory: 1,
-    images: [
-      "IMG_20260922_142902.jpg",
-      "IMG_20260922_142927.jpg",
-      "IMG_20260922_142956.jpg",
-      "Screenshot_20260922-142655~2.jpg"
-    ],
-    colors: [{ name: "Black", value: "#111111" }]
-  },
-  {
-    id: "prod_classic_sneakers",
-    name: "Classic Sneakers",
-    slug: "classic-sneakers",
-    price: 65000,
-    currency: "NGN",
-    description:
-      "Classic sneakers from a verified BODEGS seller. This product is processed through BODEGS for secure payment and delivery.",
-    category: "Shoes",
-    sellerId: "seller_demo_001",
-    sellerName: "Verified Fashion Store",
-    sellerVerified: true,
-    productVerified: true,
-    images: ["product-classic-sneakers.jpg"],
-    colors: [{ name: "Classic", value: "#111111" }]
-  },
-  {
-    id: "prod_designer_jacket",
-    name: "Designer Jacket",
-    slug: "designer-jacket",
-    price: 120000,
-    currency: "NGN",
-    description:
-      "Designer jacket from a verified BODEGS seller. This product is processed through BODEGS for secure payment and delivery.",
-    category: "Outerwear",
-    sellerId: "seller_demo_001",
-    sellerName: "Verified Fashion Store",
-    sellerVerified: true,
-    productVerified: true,
-    images: ["product-designer-jacket-portrait-clean.jpg"]
-  },
-  {
-    id: "prod_leather_shoes",
-    name: "Leather Shoes",
-    slug: "leather-shoes",
-    price: 55000,
-    currency: "NGN",
-    description:
-      "Leather shoes from a verified BODEGS seller. This product is processed through BODEGS for secure payment and delivery.",
-    category: "Shoes",
-    sellerId: "seller_demo_001",
-    sellerName: "Verified Fashion Store",
-    sellerVerified: true,
-    productVerified: true,
-    images: ["product-leather-shoes.jpg"]
-  }
-];
+/* No built-in demo products any more: the shop shows only what real sellers have added. */
+const BODEGS_FALLBACK_PRODUCTS = [];
 
-/* The live list. It starts with the demo products and is replaced by the
+/* The live list. It starts empty and is filled with the
    database products as soon as they arrive. The same array object is kept so
    anything holding a reference to it sees the update. */
 const BODEGS_PRODUCTS = BODEGS_FALLBACK_PRODUCTS.slice();
@@ -163,8 +92,8 @@ function fromDatabaseRow(row) {
   };
 }
 
-/* Load products from the database. Never rejects: on any problem the demo
-   products stay in place. */
+/* Load products from the database. Never rejects: resolves "database" when the
+   products loaded, or "fallback" when they could not be reached. */
 function loadProductsFromDatabase() {
   const TIMEOUT_MS = 6000;
 
@@ -203,7 +132,7 @@ function loadProductsFromDatabase() {
   );
 
   return Promise.race([request, timeout]).catch(error => {
-    console.warn("BODEGS: using built-in products.", error);
+    console.warn("BODEGS: could not load products.", error);
     return "fallback";
   });
 }
