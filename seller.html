@@ -9,19 +9,19 @@
     :root { --green:#263B50; --cream:#eef1f5; --card:#ffffff; --line:rgba(38,59,80,.16); --muted:#6c756f; --red:#873b32; --amber:#795516; }
     * { box-sizing: border-box; }
     [hidden] { display: none !important; }
-    body { margin: 0; background: var(--cream); color: #1b2b26; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding-bottom: 120px; }
+    body { margin: 0; background: var(--cream); color: #1b2b26; font-family: Roboto, "Segoe UI", Arial, sans-serif; padding-bottom: 120px; }
 
     header.hero { background: linear-gradient(160deg, #263B50 0%, #3b5873 100%); color: #fff; padding: 22px 16px 34px; border-radius: 0 0 28px 28px; box-shadow: 0 10px 30px rgba(38,59,80,.28); }
     header .row { max-width: 640px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
     header .row a { color: #fff; opacity: .9; font-size: 14px; text-decoration: none; flex: none; font-weight: 600; }
     header .id { max-width: 640px; margin: 6px auto 0; display: flex; align-items: center; gap: 14px; }
-    header .logo { flex: none; width: 58px; height: 58px; border-radius: 18px; background: var(--cream); color: var(--green); display: flex; align-items: center; justify-content: center; font: 700 26px Georgia, serif; }
+    header .logo { flex: none; width: 58px; height: 58px; border-radius: 18px; background: var(--cream); color: var(--green); display: flex; align-items: center; justify-content: center; font: 700 26px Roboto, "Segoe UI", Arial, sans-serif; }
     header .eyebrow { margin: 0 0 3px; font-size: 11px; letter-spacing: .12em; opacity: .75; }
-    header h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 23px; line-height: 1.15; overflow-wrap: anywhere; }
+    header h1 { margin: 0; font-family: Roboto, "Segoe UI", Arial, sans-serif; font-size: 23px; line-height: 1.15; overflow-wrap: anywhere; }
 
     .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: -22px 0 14px; }
     .stat { background: #fff; border-radius: 16px; padding: 12px 8px; text-align: center; box-shadow: 0 3px 12px rgba(38,59,80,.08); }
-    .stat b { display: block; font: 700 22px Georgia, serif; color: var(--green); }
+    .stat b { display: block; font: 700 22px Roboto, "Segoe UI", Arial, sans-serif; color: var(--green); }
     .stat span { font-size: 12px; color: var(--muted); }
 
     .tabs { display: flex; background: #e1e7ee; border-radius: 14px; padding: 4px; margin-bottom: 14px; }
@@ -38,7 +38,7 @@
     .order .line { display: flex; gap: 12px; }
     .order .pic { flex: none; width: 64px; height: 80px; border-radius: 12px; overflow: hidden; background: #e8e3d8; }
     .order .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .order h3 { margin: 0 0 4px; font: 700 16px Georgia, serif; overflow-wrap: anywhere; }
+    .order h3 { margin: 0 0 4px; font: 700 16px Roboto, "Segoe UI", Arial, sans-serif; overflow-wrap: anywhere; }
     .order .opts { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 6px; }
     .order .opts span { padding: 3px 9px; border-radius: 8px; background: #e1e7ee; font-size: 12.5px; font-weight: 600; }
     .order .sum { margin: 0; font-size: 14px; }
@@ -65,7 +65,7 @@
     .thumb { flex: none; width: 84px; height: 104px; border-radius: 12px; background: #e8e3d8; overflow: hidden; }
     .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .info { min-width: 0; flex: 1; }
-    .info h3 { margin: 0 0 4px; font-family: Georgia, "Times New Roman", serif; font-size: 17px; overflow-wrap: anywhere; }
+    .info h3 { margin: 0 0 4px; font-family: Roboto, "Segoe UI", Arial, sans-serif; font-size: 17px; overflow-wrap: anywhere; }
     .price { font-weight: 700; margin: 0 0 4px; }
     .meta { color: var(--muted); font-size: 13px; margin: 0 0 8px; }
     .badge { display: inline-block; border-radius: 20px; padding: 4px 10px; font-size: 11px; font-weight: 700; background: #d9ecd9; color: #1f5a2c; }
@@ -77,7 +77,7 @@
 
     .linkback { background: none; border: 0; padding: 6px 2px 12px; font: inherit; font-size: 15px; color: var(--green); font-weight: 600; cursor: pointer; }
     form { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px 16px; }
-    form h2 { margin: 0 0 16px; font-family: Georgia, "Times New Roman", serif; font-size: 22px; }
+    form h2 { margin: 0 0 16px; font-family: Roboto, "Segoe UI", Arial, sans-serif; font-size: 22px; }
     .field { margin-bottom: 16px; }
     .lbl { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
     .opt { font-weight: 400; color: var(--muted); }
@@ -112,6 +112,8 @@
     .msg.err { background: #f8e3e0; color: var(--red); }
     .msg.ok { background: #e4f1e6; color: #1f5a2c; }
 
+    .cur { font-size: .62em; font-weight: 700; margin-right: 1px; vertical-align: .12em; }
+
     /* ---------- bottom navigation (seller) ---------- */
     .snav { position: fixed; left: 12px; right: 12px; bottom: 12px; max-width: 616px; margin: 0 auto; z-index: 50; display: flex; justify-content: space-between; padding: 7px 6px calc(7px + env(safe-area-inset-bottom)); background: rgba(38,59,80,.94); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 26px; box-shadow: 0 10px 30px rgba(38,59,80,.40), 0 2px 8px rgba(38,59,80,.25); }
     .snav button { position: relative; flex: 1; border: 0; background: transparent; color: rgba(255,255,255,.65); padding: 6px 0 5px; border-radius: 18px; font-family: inherit; font-size: 10px; font-weight: 600; line-height: 1.2; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; }
@@ -125,21 +127,21 @@
     .seg button { flex: none; border: 1.5px solid var(--line); background: #fff; color: var(--green); border-radius: 999px; padding: 9px 16px; font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer; }
     .seg button.active { background: var(--green); border-color: var(--green); color: #fff; }
 
-    .hello { margin: 4px 2px 12px; font: 700 18px Georgia, serif; }
+    .hello { margin: 4px 2px 12px; font: 700 18px Roboto, "Segoe UI", Arial, sans-serif; }
     .panel { background: #fff; border-radius: 18px; padding: 16px; margin-bottom: 14px; box-shadow: 0 6px 22px rgba(38,59,80,.13); }
-    .panel h2 { margin: 0 0 10px; font: 700 17px Georgia, serif; }
+    .panel h2 { margin: 0 0 10px; font: 700 17px Roboto, "Segoe UI", Arial, sans-serif; }
     .panel .row2x { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 14px; }
     .panel .row2x:first-of-type { border-top: 0; }
     .panel .row2x span { color: var(--muted); }
     .panel .row2x b { text-align: right; overflow-wrap: anywhere; }
     .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     .grid2 .stat { box-shadow: 0 6px 22px rgba(38,59,80,.13); }
-    .sectitle { display: flex; justify-content: space-between; align-items: center; margin: 16px 2px 10px; font: 700 17px Georgia, serif; }
+    .sectitle { display: flex; justify-content: space-between; align-items: center; margin: 16px 2px 10px; font: 700 17px Roboto, "Segoe UI", Arial, sans-serif; }
     .sectitle button { border: 0; background: none; color: var(--green); font: 700 14px inherit; font-family: inherit; cursor: pointer; }
 
     .money { background: linear-gradient(160deg, #263B50 0%, #3b5873 100%); color: #fff; border-radius: 22px; padding: 18px; margin-bottom: 14px; }
     .money small { opacity: .75; font-size: 13px; }
-    .money .big { display: block; margin: 4px 0 14px; font: 700 32px Georgia, serif; }
+    .money .big { display: block; margin: 4px 0 14px; font: 700 32px Roboto, "Segoe UI", Arial, sans-serif; }
     .money .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .money .trio div { background: rgba(255,255,255,.12); border-radius: 14px; padding: 10px 8px; }
     .money .trio b { display: block; font-size: 15px; margin-top: 3px; overflow-wrap: anywhere; }
@@ -155,7 +157,7 @@
     .tx .amt.bad { color: var(--red); }
     .foot { margin: 14px 4px 0; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
     .store-id { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
-    .store-id .logo { flex: none; width: 56px; height: 56px; border-radius: 18px; background: var(--green); color: #fff; display: flex; align-items: center; justify-content: center; font: 700 24px Georgia, serif; }
+    .store-id .logo { flex: none; width: 56px; height: 56px; border-radius: 18px; background: var(--green); color: #fff; display: flex; align-items: center; justify-content: center; font: 700 24px Roboto, "Segoe UI", Arial, sans-serif; }
     .store-id h2 { margin: 0; }
     #toast { position: fixed; left: 14px; right: 14px; bottom: 110px; max-width: 440px; margin: 0 auto; padding: 13px 15px; border-radius: 12px; font-size: 14px; background: #14212e; color: #fff; z-index: 60; }
     #toast.err { background: var(--red); }

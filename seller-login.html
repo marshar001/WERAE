@@ -9,13 +9,13 @@
     * { box-sizing: border-box; }
     [hidden] { display: none !important; }
     html, body { margin: 0; }
-    body { min-height: 100vh; background: var(--bg); color: var(--brand); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-text-size-adjust: 100%; }
+    body { min-height: 100vh; background: var(--bg); color: var(--brand); font-family: Roboto, "Segoe UI", Arial, sans-serif; -webkit-text-size-adjust: 100%; }
     .wrap { max-width: 440px; margin: 0 auto; padding: 28px 18px 36px; }
     .brand { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 26px; }
     .brand i { width: 46px; height: 46px; border-radius: 15px; background: var(--brand); color: #fff; display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 23px; font-style: normal; box-shadow: 0 8px 18px rgba(0,0,0,.18); }
     .brand b { display: block; font-family: Georgia, serif; font-size: 22px; letter-spacing: .1em; line-height: 1; }
     .brand small { display: block; margin-top: 4px; font-size: 11px; font-weight: 700; letter-spacing: .24em; color: var(--muted); }
-    h1 { margin: 0 0 8px; text-align: center; font-family: Georgia, "Times New Roman", serif; font-size: 34px; line-height: 1.12; }
+    h1 { margin: 0 0 8px; text-align: center; font-family: Roboto, "Segoe UI", Arial, sans-serif; font-weight: 700; font-size: 34px; line-height: 1.12; }
     .sub { margin: 0 auto 24px; max-width: 320px; text-align: center; color: var(--muted); font-size: 15.5px; line-height: 1.45; }
     .card { background: var(--card); border-radius: 26px; padding: 22px 20px; box-shadow: 0 14px 40px rgba(0,0,0,.09); }
     .msg { margin: 0 0 14px; padding: 11px 13px; border-radius: 14px; font-size: 13.5px; line-height: 1.4; background: var(--bg); }
@@ -80,7 +80,8 @@
       <button class="go" id="go" type="submit"><span id="goText">Login</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></button>
     </form>
     <div class="or">OR</div>
-    <a class="alt" href="index.html">Back to the marketplace</a>
+    <a class="alt" id="toMarket" href="index.html">Back to the marketplace</a>
+    <button class="alt" type="button" id="backToLogin" hidden>Return to login</button>
     <p class="switch">Want to sell?<a href="boutique.html">Open a boutique</a></p>
   </div>
   <p class="fine">Your seller password is separate from the password you use to shop on BODEGS.</p>
@@ -123,6 +124,8 @@
     $("password").placeholder = creating || resetting ? "At least 8 characters" : "Your seller password";
     $("goText").textContent = creating ? "Create and login" : resetting ? "Save and login" : "Login";
     $("forgot").hidden = state !== "set";
+    $("backToLogin").hidden = state !== "reset";
+    $("toMarket").hidden = state === "reset";
     say("err", "");
   }
 
@@ -136,6 +139,11 @@
     p.type = p.type === "password" ? "text" : "password";
   });
   $("forgot").addEventListener("click", () => { state = "reset"; layout(); });
+  $("backToLogin").addEventListener("click", () => {
+    state = "set";
+    ["password", "confirm", "acct"].forEach((id) => { $(id).value = ""; });
+    layout();
+  });
 
   $("form").addEventListener("submit", async (e) => {
     e.preventDefault();

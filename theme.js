@@ -3,9 +3,10 @@
 // Seller, admin and login pages keep their own look.
 (function () {
   const page = location.pathname.split("/").pop() || "index.html";
-  if (/^(seller|seller-login|admin|login|auth)/i.test(page)) return;
+  if (/^(admin|login|auth)/i.test(page)) return;
+  const sellerSide = /^seller/i.test(page);   // seller pages keep their own colours, but get the small naira sign
 
-  if (!document.querySelector('link[href^="theme.css"]')) {
+  if (!sellerSide && !document.querySelector('link[href^="theme.css"]')) {
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.href = "theme.css?v=20261031";
