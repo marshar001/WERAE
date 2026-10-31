@@ -107,6 +107,19 @@ function formatCurrency(amount, currency = "NGN") {
   }).format(amount);
 }
 
+/* Writes a price into an element with a smaller currency sign (the naira sign looks too big at full size). */
+function setPrice(element, amount, currency = "NGN") {
+  const text = formatCurrency(amount, currency);
+  element.textContent = "";
+  const match = text.match(/^([^0-9\s]+)\s*(.*)$/);
+  if (!match) { element.textContent = text; return; }
+  const sign = document.createElement("span");
+  sign.className = "cur";
+  sign.textContent = match[1];
+  element.appendChild(sign);
+  element.appendChild(document.createTextNode(match[2]));
+}
+
 /* Temporary migration helper (kept from the old file). */
 function getProductLegacyUrl(productId) {
   const legacyUrls = {
@@ -202,5 +215,6 @@ window.BODEGS = {
   getProductById,
   getProductBySlug,
   formatCurrency,
+  setPrice,
   getProductLegacyUrl
 };

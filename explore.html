@@ -189,14 +189,16 @@
 
     /* Trending Styles uses the same box style as the products */
 
+    .cur { font-size: .72em; font-weight: 700; margin-right: 1px; vertical-align: .06em; }
+
     .trending-products {
-      column-count: 2;
-      column-gap: 5px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
     }
 
     .trending-products .explore-product {
-      break-inside: avoid;
-      margin-bottom: 5px;
+      margin-bottom: 0;
       overflow: hidden;
       background: var(--cream-light, #f8f5ee);
       border: 1px solid rgba(23, 59, 50, 0.06);
@@ -213,7 +215,8 @@
 
     .trending-products .explore-product-image {
       overflow: hidden;
-      border-radius: 15px;
+      aspect-ratio: 3 / 4;
+      border-radius: 0;
       background: linear-gradient(
         145deg,
         #e4dfd5,
@@ -223,9 +226,11 @@
 
     .trending-products .explore-product-image img {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
-      object-fit: contain;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 0;
     }
 
     .trending-products .explore-product-info {
@@ -1101,7 +1106,7 @@
 
       var price = document.createElement("p");
       price.className = "explore-product-price";
-      price.textContent = window.BODEGS.formatCurrency(product.price, product.currency);
+      window.BODEGS.setPrice(price, product.price, product.currency);
 
       var seller = document.createElement("p");
       seller.className = "explore-product-description";
@@ -1262,6 +1267,26 @@ function setActiveTab(id) {
   });
 }
 
+// Scroll so the section heading sits just under the sticky search + title.
+// (scrollIntoView put the heading behind them, so the page looked like it overshot.)
+function stickyBottom() {
+  const intro = document.querySelector(".explore-intro");
+  return intro ? intro.getBoundingClientRect().bottom : 0;
+}
+
+function scrollToSection(target) {
+  function goto(smooth) {
+    const top = target.getBoundingClientRect().top + window.pageYOffset - stickyBottom() - 6;
+    window.scrollTo({ top: Math.max(0, top), behavior: smooth ? "smooth" : "auto" });
+  }
+  goto(true);
+  // photos finish loading while we scroll and shift the page, so check once more afterwards
+  setTimeout(function () {
+    const gap = target.getBoundingClientRect().top - stickyBottom() - 6;
+    if (Math.abs(gap) > 4) goto(false);
+  }, 700);
+}
+
 tabs.forEach(function (tab) {
   tab.addEventListener("click", function (event) {
     event.preventDefault();
@@ -1271,10 +1296,7 @@ tabs.forEach(function (tab) {
     if (target) {
       setActiveTab(target.id);
 
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+      scrollToSection(target);
     }
   });
 });
